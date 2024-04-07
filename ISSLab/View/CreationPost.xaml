@@ -30,6 +30,9 @@
                 <RowDefinition />
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
+            <Border Margin="0,0,10,0" BorderBrush="Black" BorderThickness="4" CornerRadius="30,30,30,30" Grid.Row="2" Grid.RowSpan="7" VerticalAlignment="Center" HorizontalAlignment="Right" Width="300" Height="200"> 
+                <Button  Padding="10,10,13,35" Margin="0" Content="+" FontSize="100" FontWeight="Bold" Background="Transparent" BorderThickness="0"/>
+            </Border>
             <Grid Grid.Row="0" Grid.RowSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.8*"/>
