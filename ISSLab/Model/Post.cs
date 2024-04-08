@@ -24,8 +24,9 @@ namespace ISSLab.Model
         private string title;
         private List<InterestStatus> interestStatuses;
         private string contacts;
+        private string type;
 
-        public Post(string media, Guid authorId, Guid groupId, string location, string description, string title, string contacts)
+        public Post(string media, Guid authorId, Guid groupId, string location, string description, string title, string contacts, string type)
         {
             
             this.id = Guid.NewGuid();
@@ -44,9 +45,10 @@ namespace ISSLab.Model
             this.interestStatuses = new List<InterestStatus>();
             this.contacts = contacts;
             this.reports = new List<Report>();
+            this.type = type;
         }
 
-        public Post(Guid id, List<Guid> usersThatShared, List<Guid> usersThatLiked, List<Comment> comments, string media, DateTime creationDate, Guid authorId, Guid groupId, bool promoted, List<Guid> usersThatFavorited, string location, string description, string title, List<InterestStatus> interestStatuses, string contacts, List<Report> reports )
+        public Post(Guid id, List<Guid> usersThatShared, List<Guid> usersThatLiked, List<Comment> comments, string media, DateTime creationDate, Guid authorId, Guid groupId, bool promoted, List<Guid> usersThatFavorited, string location, string description, string title, List<InterestStatus> interestStatuses, string contacts, List<Report> reports, string type )
         {
             this.id = id;
             this.usersThatShared = usersThatShared;
@@ -64,6 +66,7 @@ namespace ISSLab.Model
             this.interestStatuses = interestStatuses;
             this.contacts = contacts;
             this.reports = reports;
+            this.type = type;
         }
 
         public Post()
@@ -84,7 +87,10 @@ namespace ISSLab.Model
             this.title = "";
             this.interestStatuses = new List<InterestStatus>();
             this.contacts = "";
+            this.type = "post";
         }
+
+        public string Type { get => type; set => type = value; }
 
         public Guid Id { get => id; }
         public List<Guid> UsersThatShared { get => usersThatShared; }

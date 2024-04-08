@@ -16,7 +16,7 @@ namespace ISSLab.Model
         private double currentDonationAmount;
         private string donationPageLink;
 
-        public DonationPost(string media, Guid authorId, Guid groupId, string location, string description, string title, string contacts, string donationPageLink) : base(media, authorId, groupId, location, description, title, contacts)
+        public DonationPost(string media, Guid authorId, Guid groupId, string location, string description, string title, string contacts, string donationPageLink, string type) : base(media, authorId, groupId, location, description, title, contacts, type)
         {
             this.currentDonationAmount = 0;
             this.donationPageLink = donationPageLink;
@@ -32,7 +32,7 @@ namespace ISSLab.Model
             this.reviews = new List<Review>();
         }
 
-        public DonationPost(Guid id, List<Guid> usersThatShared, List<Guid> usersThatLiked, List<Comment> comments, string media, DateTime creationDate, Guid authorId, Guid groupId, bool promoted, List<Guid> usersThatFavorited, string location, string description, string title, List<InterestStatus> interestStatuses, string contacts, List<Report> reports, float reviewScore, List<Review> reviews, double currentDonationAmount, string donationPageLink) : base(id, usersThatShared, usersThatLiked, comments, media, creationDate,  authorId,  groupId,  promoted,  usersThatFavorited,  location,  description,  title, interestStatuses,  contacts, reports)
+        public DonationPost(Guid id, List<Guid> usersThatShared, List<Guid> usersThatLiked, List<Comment> comments, string media, DateTime creationDate, Guid authorId, Guid groupId, bool promoted, List<Guid> usersThatFavorited, string location, string description, string title, List<InterestStatus> interestStatuses, string contacts, List<Report> reports, float reviewScore, List<Review> reviews, double currentDonationAmount, string donationPageLink, string type) : base(id, usersThatShared, usersThatLiked, comments, media, creationDate,  authorId,  groupId,  promoted,  usersThatFavorited,  location,  description,  title, interestStatuses,  contacts, reports, type)
         {
             this.reviewScore = reviewScore;
             this.reviews = reviews;
