@@ -26,6 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\Images\arrow-button.png" />
     <Resource Include="Resources\Images\buy-button.png" />
     <Resource Include="Resources\Images\catei.png" />
