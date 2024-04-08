@@ -25,17 +25,17 @@
             </Grid.ColumnDefinitions>
             <Ellipse Width="80" Height="80" ClipToBounds="True">
                 <Ellipse.Fill>
-                    <ImageBrush ImageSource="Images/Vini.png"/>
+                    <ImageBrush ImageSource="../Resources/Images/Vini.png"/>
                 </Ellipse.Fill>
             </Ellipse>
             <StackPanel Grid.Column="1" VerticalAlignment="Center">
                 <TextBlock Text="Ratan Luca" FontSize="24" VerticalAlignment="Center" FontWeight="Bold"></TextBlock>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Image Source="Images/Star.png" Width="20" Height="10" Margin="0"/>
-                    <Image Source="Images/Star.png" Width="20" Height="10" Margin="0"/>
-                    <Image Source="Images/Star.png" Width="20" Height="10" Margin="0"/>
-                    <Image Source="Images/Star.png" Width="20" Height="10" Margin="0"/>
-                    <Image Source="Images/Star.png" Width="20" Height="10" Margin="0"/>
+                    <Image Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
+                    <Image Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
+                    <Image Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
+                    <Image Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
+                    <Image Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
                 </StackPanel>
                 <TextBlock Text="2 min ago • Oradea" FontSize="14" VerticalAlignment="Center"></TextBlock>
             </StackPanel>
@@ -43,20 +43,20 @@
         <TextBlock Grid.Row="0" Grid.Column="1" Text="Available for: 3 months" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" />
         <StackPanel Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Margin="5,0,0,0">
             <Button Width="24" Height="20" Margin="0,0,0,5" Background="Transparent" BorderThickness="0">
-                <Image Source="Images/more-button.png" Width="20" Height="20"></Image>
+                <Image Source="../Resources/Images/more-button.png" Width="20" Height="20"></Image>
             </Button>
             <Button Width="24" Height="20" Margin="0,0,0,0" Background="Transparent" BorderThickness="0">
-                <Image Source="Images/arrow-button.png" Width="18" Height="18"></Image>
+                <Image Source="../Resources/Images/arrow-button.png" Width="18" Height="18"></Image>
             </Button>
         </StackPanel>
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="10,10,10,10">
-            <Image Source="Images/catei.png" Stretch="Fill"></Image>
+            <Image Source="../Resources/Images/catei.png" Stretch="Fill"></Image>
         </Grid>
         <Grid Grid.Row="2" Grid.Column="0" Margin="0,10,0,10" HorizontalAlignment="Left">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="$300" Margin="20,0,0,0" VerticalAlignment="Center" FontSize="24"></TextBlock>
                 <Button Width="64" Height="40" Margin="2,0,0,0" Background="Transparent" BorderThickness="0" VerticalAlignment="Center">
-                    <Image Source="Images/buy-button.png" Width="80" Height="60" VerticalAlignment="Center"></Image>
+                    <Image Source="../Resources/Images/buy-button.png" Width="80" Height="60" VerticalAlignment="Center"></Image>
                 </Button>
             </StackPanel>
         </Grid>
@@ -81,19 +81,19 @@
         <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <Button Width="20" Height="20" Margin="10,0,0,0" Background="Transparent" BorderThickness="0">
-                    <Image Source="Images/like.png"></Image>
+                    <Image Source="../Resources/Images/like.png"></Image>
                 </Button>
                 <TextBlock Text="0 intrested" VerticalAlignment="Center" Margin="5,0,0,0"></TextBlock>
                 <Button Width="20" Height="20" Margin="10,0,0,0" Background="Transparent" BorderThickness="0">
-                    <Image Source="Images/dislike.png"></Image>
+                    <Image Source="../Resources/Images/dislike.png"></Image>
                 </Button>
                 <TextBlock Text="0 uniterested" VerticalAlignment="Center" Margin="5,0,0,0"></TextBlock>
                 <Button Width="25" Height="20" Margin="10,0,0,0" Background="Transparent" BorderThickness="0">
-                    <Image Source="Images/comments.png"></Image>
+                    <Image Source="../Resources/Images/comments.png"></Image>
                 </Button>
                 <TextBlock Text="0 comments" VerticalAlignment="Center" Margin="5,0,0,0"></TextBlock>
                 <Button Width="25" Height="20" Margin="10,0,0,0" Background="Transparent" BorderThickness="0">
-                    <Image Source="Images/share.png"></Image>
+                    <Image Source="../Resources/Images/share.png"></Image>
                 </Button>
                 <TextBlock Text="share" VerticalAlignment="Center" Margin="5,0,0,0"></TextBlock>
             </StackPanel>
