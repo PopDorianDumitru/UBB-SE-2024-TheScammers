@@ -9,8 +9,33 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Images\" />
+    <None Remove="Resources\Images\arrow-button.png" />
+    <None Remove="Resources\Images\buy-button.png" />
+    <None Remove="Resources\Images\catei.png" />
+    <None Remove="Resources\Images\comments.png" />
+    <None Remove="Resources\Images\dislike.png" />
+    <None Remove="Resources\Images\like.png" />
+    <None Remove="Resources\Images\more-button.png" />
+    <None Remove="Resources\Images\share.png" />
+    <None Remove="Resources\Images\Star.png" />
+    <None Remove="Resources\Images\Vini.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="ViewModel\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\arrow-button.png" />
+    <Resource Include="Resources\Images\buy-button.png" />
+    <Resource Include="Resources\Images\catei.png" />
+    <Resource Include="Resources\Images\comments.png" />
+    <Resource Include="Resources\Images\dislike.png" />
+    <Resource Include="Resources\Images\like.png" />
+    <Resource Include="Resources\Images\more-button.png" />
+    <Resource Include="Resources\Images\share.png" />
+    <Resource Include="Resources\Images\Star.png" />
+    <Resource Include="Resources\Images\Vini.png" />
   </ItemGroup>
 
 </Project>
