@@ -13,6 +13,16 @@ namespace ISSLab.Services
         {
             users = new List<User>();
         }
+        public UserService(List<User> users)
+        {
+            this.users = users;
+        }
+        
+        public void loadUsersFromDatabase()
+        {
+            //to do
+        }
+
         public void AddUser(User user)
         {
             users.Add(user);
@@ -28,6 +38,11 @@ namespace ISSLab.Services
         public List<User> GetUsers()
         {
             return users;
+        }
+
+        public User CreateUser(string username, string realName, DateOnly dateOfBirth, string profilePicture, string password)
+        {
+            return new User(username, realName, dateOfBirth, profilePicture, password);
         }
     
 

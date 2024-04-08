@@ -15,8 +15,8 @@ namespace ISSLab.Model
         private string profilePicture;
         private string password;
         private DateTime creationDate;
-        private Guid[] groupsWithSellingPrivelage;
-        private Guid[] groupsWithActiveRequestToSell;
+        private List<Guid> groupsWithSellingPrivelage;
+        private List<Guid> groupsWithActiveRequestToSell;
 
 
         public User(string username, string realName, DateOnly dateOfBirth, string profilePicture, string password)
@@ -28,10 +28,10 @@ namespace ISSLab.Model
             this.profilePicture = profilePicture;
             this.password = password;
             this.creationDate = DateTime.Now;
-            this.groupsWithSellingPrivelage = new Guid[0];
-            this.groupsWithActiveRequestToSell = new Guid[0];
+            this.groupsWithSellingPrivelage = new List<Guid>();
+            this.groupsWithActiveRequestToSell = new List<Guid>();
         }
-        public User(Guid id, string username, string realName, DateOnly dateOfBirth, string profilePicture, string password, DateTime creationDate, Guid[] groupsWithSellingPrivelage, Guid[] groupsWithActiveRequestToSell)
+        public User(Guid id, string username, string realName, DateOnly dateOfBirth, string profilePicture, string password, DateTime creationDate, List<Guid> groupsWithSellingPrivelage, List<Guid> groupsWithActiveRequestToSell)
         {
             this.id = id;
             this.username = username;
@@ -53,8 +53,8 @@ namespace ISSLab.Model
             this.profilePicture = "";
             this.password = "";
             this.creationDate = DateTime.Now;
-            this.groupsWithSellingPrivelage = new Guid[0];
-            this.groupsWithActiveRequestToSell = new Guid[0];
+            this.groupsWithSellingPrivelage = new List<Guid>();
+            this.groupsWithActiveRequestToSell = new List<Guid>();
 
         }
 
@@ -80,7 +80,7 @@ namespace ISSLab.Model
                 throw new Exception("No active request to sell in this group");
             if(groupsWithSellingPrivelage.Contains(groupId))
                 throw new Exception("Already have access to sell in this group");
-            groupsWithActiveRequestToSell = groupsWithActiveRequestToSell.Where(val => val != groupId).ToArray();
+            groupsWithActiveRequestToSell = groupsWithActiveRequestToSell.FindAll(val => val != groupId);
         }
         public void accessToSellWasTaken(Guid groupId)
         {
@@ -88,7 +88,7 @@ namespace ISSLab.Model
                 throw new Exception("No access to sell in this group");
             if(groupsWithActiveRequestToSell.Contains(groupId))
                 throw new Exception("No access to sell in this group yet, but request is active");
-            groupsWithSellingPrivelage = groupsWithSellingPrivelage.Where(val => val != groupId).ToArray();
+            groupsWithSellingPrivelage = groupsWithSellingPrivelage.FindAll(val => val != groupId);
         }
     }
 }
