@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
         <Border CornerRadius="8,0,8,0" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
             <Border.Background>
-                <ImageBrush Stretch="Fill" ImageSource="C:\Users\doria\source\repos\SeminarApplication\SeminarApplication\download.jpg" />
+                <ImageBrush Stretch="Fill" ImageSource="./Resources/Images/download.jpg" />
             </Border.Background>
         </Border>
         <StackPanel Grid.Row="1" Grid.RowSpan="2" Width="110" HorizontalAlignment="Center">
@@ -56,7 +56,7 @@
             </Grid.RowDefinitions>
             <Border CornerRadius="100" Grid.Row="0" Grid.Column="0">
                 <Border.Background>
-                    <ImageBrush Stretch="Fill" ImageSource="C:\Users\doria\source\repos\SeminarApplication\SeminarApplication\Dorian.jpeg" />
+                    <ImageBrush Stretch="Fill" ImageSource="./Resources/Images/Dorian.jpeg" />
                 </Border.Background>
             </Border>
             <Label Content="Dorian Popa" Grid.Row="0" Grid.Column="1" FontSize="10" HorizontalAlignment="Center" VerticalContentAlignment="Center"/>
