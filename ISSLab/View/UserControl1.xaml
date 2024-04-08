@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
         <Border CornerRadius="100" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0">
             <Border.Background>
-                <ImageBrush Stretch="Fill" ImageSource="C:\Users\doria\source\repos\SeminarApplication\SeminarApplication\Dorian.jpeg" />
+                <ImageBrush Stretch="Fill" ImageSource="../Resources/Images/Dorian.jpeg" />
             </Border.Background>
         </Border>
         <Label Content="{}" Grid.Row="0" Grid.Column="1" FontSize="20" HorizontalAlignment="Left" VerticalContentAlignment="Center"/>

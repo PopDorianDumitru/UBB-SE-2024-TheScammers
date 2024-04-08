@@ -44,7 +44,7 @@
                 </Grid.ColumnDefinitions>
                 <Border Margin="5,5,5,5"  CornerRadius="100" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0">
                     <Border.Background>
-                        <ImageBrush Stretch="Fill" ImageSource="C:\Users\doria\Source\Repos\UBB-SE-2024-TheScammers\ISSLab\Resources\Images\Dorian.jpeg" />
+                        <ImageBrush Stretch="Fill" ImageSource="../Resources/Images/Dorian.jpeg" />
                     </Border.Background>
                 </Border>
                 <Label Padding="5,0,0,0" Content="Pop Dorian" Grid.Column="1" VerticalAlignment="Center" FontSize="20"/>
