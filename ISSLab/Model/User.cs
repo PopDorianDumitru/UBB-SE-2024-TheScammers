@@ -20,6 +20,13 @@ namespace ISSLab.Model
         private List<Guid> groupsWithSellingPrivelage;
         private List<SellingUserScore> userScores;
         private List<Guid> groupsWithActiveRequestToSell;
+        private List<Cart> carts;
+        private List<Favorites> favorites;
+        private List<Group> groups;
+        private List<Review> reviews;
+
+
+
 
 
         public User(string username, string realName, DateOnly dateOfBirth, string profilePicture, string password)

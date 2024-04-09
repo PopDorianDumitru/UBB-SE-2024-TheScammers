@@ -9,7 +9,6 @@ using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
 using wpf_lab4_details_extension;
-
 namespace ISSLab.Model.Repositories
 {
     class PostRepository
@@ -19,6 +18,13 @@ namespace ISSLab.Model.Repositories
         List<Post> posts;
         Guid groupID;
 
+        public PostRepository()
+        {
+            dataSet = new DataSet();
+            connectionString = "Data Source=DESKTOP-1VJ4V0K;Initial Catalog=ISSLab;Integrated Security=True";
+            posts = new List<Post>();
+            groupID = Guid.NewGuid();
+        }
         public PostRepository(DataSet dataSet, string connectionString, Guid _groupID)
         {
             this.dataSet = dataSet;

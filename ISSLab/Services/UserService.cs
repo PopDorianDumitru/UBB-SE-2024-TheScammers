@@ -4,30 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ISSLab.Model;
+using ISSLab.Model.Repositories;
 namespace ISSLab.Services
 {
     class UserService
     {
-        private List<User> users;
+        private UserRepository users;
         public UserService()
         {
-            users = new List<User>();
+            users = new UserRepository();
         }
-        public UserService(List<User> users)
+        public UserService(UserRepository users)
         {
             this.users = users;
         }
         public void AddUser(User user)
         {
-            users.Add(user);
+            users.AddUser(user);
         }
         public void RemoveUser(User user)
         {
-            users.Remove(user);
+            users.DeleteUser(user.Id);
         }
         public User GetUserById(Guid id)
         {
-            User? user =  users.Find(user => user.Id == id);
+            User? user =  users.findById(id);
             if(user == null)
             {
                 throw new Exception("User not found");
@@ -36,7 +37,7 @@ namespace ISSLab.Services
         }
         public List<User> GetUsers()
         {
-            return users;
+            return users.findAllUsers();
         }
 
         public User CreateUser(string username, string realName, DateOnly dateOfBirth, string profilePicture, string password)
@@ -44,6 +45,8 @@ namespace ISSLab.Services
             User user = new User(username, realName, dateOfBirth, profilePicture, password);
             return user;
         }
+
+        
     
 
     }

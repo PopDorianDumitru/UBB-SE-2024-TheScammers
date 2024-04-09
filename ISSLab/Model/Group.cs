@@ -14,7 +14,6 @@ namespace ISSLab.Model
         private List<User> members;
         private List<Post> posts;
         private List<Guid> bigSellers;
-        private List<Guid> bigBuyers;
         private List<Guid> admins;
         private List<Guid> sellingUsers;
         private string description;
