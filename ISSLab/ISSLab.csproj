@@ -14,6 +14,8 @@
     <None Remove="Resources\Images\catei.png" />
     <None Remove="Resources\Images\comments.png" />
     <None Remove="Resources\Images\dislike.png" />
+    <None Remove="Resources\Images\Dorian.jpeg" />
+    <None Remove="Resources\Images\download.jpg" />
     <None Remove="Resources\Images\like.png" />
     <None Remove="Resources\Images\more-button.png" />
     <None Remove="Resources\Images\share.png" />
@@ -26,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
 
@@ -40,6 +43,44 @@
     <Resource Include="Resources\Images\share.png" />
     <Resource Include="Resources\Images\Star.png" />
     <Resource Include="Resources\Images\Vini.png" />
+
+    <Resource Include="Resources\Images\arrow-button.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\buy-button.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\catei.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\comments.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\dislike.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\Dorian.jpeg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\download.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\like.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\more-button.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\share.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\Star.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\Vini.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+
   </ItemGroup>
 
 </Project>

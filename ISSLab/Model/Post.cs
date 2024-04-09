@@ -9,6 +9,7 @@ namespace ISSLab.Model
     class Post
     {
         private Guid id;
+        private int views;
         private List<Guid> usersThatShared;
         private List<Guid> usersThatLiked;
         private List<Comment> comments;
@@ -20,15 +21,17 @@ namespace ISSLab.Model
         private List<Guid> usersThatFavorited;
         private List<Report> reports;
         private string location;
+        private bool confirmed;
         private string description;
         private string title;
         private List<InterestStatus> interestStatuses;
         private string contacts;
         private string type;
 
-        public Post(string media, Guid authorId, Guid groupId, string location, string description, string title, string contacts, string type)
+
+        public Post(string media, Guid authorId, Guid groupId, string location, string description, string title, string contacts, string type, bool confirmed)
         {
-            
+            this.confirmed = confirmed;
             this.id = Guid.NewGuid();
             this.usersThatShared = new List<Guid>();
             this.usersThatLiked = new List<Guid>();
@@ -42,13 +45,14 @@ namespace ISSLab.Model
             this.location = location;
             this.description = description;
             this.title = title;
+            this.views = 0;
             this.interestStatuses = new List<InterestStatus>();
             this.contacts = contacts;
             this.reports = new List<Report>();
             this.type = type;
         }
 
-        public Post(Guid id, List<Guid> usersThatShared, List<Guid> usersThatLiked, List<Comment> comments, string media, DateTime creationDate, Guid authorId, Guid groupId, bool promoted, List<Guid> usersThatFavorited, string location, string description, string title, List<InterestStatus> interestStatuses, string contacts, List<Report> reports, string type )
+        public Post(Guid id, List<Guid> usersThatShared, List<Guid> usersThatLiked, List<Comment> comments, string media, DateTime creationDate, Guid authorId, Guid groupId, bool promoted, List<Guid> usersThatFavorited, string location, string description, string title, List<InterestStatus> interestStatuses, string contacts, List<Report> reports, string type, bool confirmed, int views)
         {
             this.id = id;
             this.usersThatShared = usersThatShared;
@@ -67,6 +71,8 @@ namespace ISSLab.Model
             this.contacts = contacts;
             this.reports = reports;
             this.type = type;
+            this.views = views;
+            this.confirmed = confirmed; 
         }
 
         public Post()
@@ -88,8 +94,11 @@ namespace ISSLab.Model
             this.interestStatuses = new List<InterestStatus>();
             this.contacts = "";
             this.type = "post";
+            this.confirmed = false;
         }
 
+
+        public int Views { get => views; set => views = value; }
         public string Type { get => type; set => type = value; }
 
         public Guid Id { get => id; }
@@ -109,6 +118,7 @@ namespace ISSLab.Model
         public List<InterestStatus> InterestStatuses { get => interestStatuses; }
         public string Contacts { get => contacts; set => contacts = value; }
 
+        public bool Confirmed { get => confirmed; set => confirmed = value; }
         public void addReport(Report report)
         {
             reports.Add(report);
@@ -162,6 +172,12 @@ namespace ISSLab.Model
         public void removeComment(Comment commentId)
         {
             comments.Remove(commentId);
+        }
+
+        public int interestLevel()
+        {
+
+            return interestStatuses.FindAll(i => i.Interested).Count - interestStatuses.FindAll(i => !i.Interested).Count;
         }
 
         public void addInterestStatus(InterestStatus interestStatus)

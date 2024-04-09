@@ -17,6 +17,7 @@ namespace ISSLab.Model
         private string password;
         private DateTime creationDate;
         private List<Guid> groupsWithSellingPrivelage;
+        private List<SellingUserScore> userScores;
         private List<Guid> groupsWithActiveRequestToSell;
 
 
@@ -31,8 +32,9 @@ namespace ISSLab.Model
             this.creationDate = DateTime.Now;
             this.groupsWithSellingPrivelage = new List<Guid>();
             this.groupsWithActiveRequestToSell = new List<Guid>();
+            this.userScores = new List<SellingUserScore>();
         }
-        public User(Guid id, string username, string realName, DateOnly dateOfBirth, string profilePicture, string password, DateTime creationDate, List<Guid> groupsWithSellingPrivelage, List<Guid> groupsWithActiveRequestToSell)
+        public User(Guid id, string username, string realName, DateOnly dateOfBirth, string profilePicture, string password, DateTime creationDate, List<Guid> groupsWithSellingPrivelage, List<Guid> groupsWithActiveRequestToSell,List<SellingUserScore> userScores)
         {
             this.id = id;
             this.username = username;
@@ -43,6 +45,7 @@ namespace ISSLab.Model
             this.creationDate = creationDate;
             this.groupsWithSellingPrivelage = groupsWithSellingPrivelage;
             this.groupsWithActiveRequestToSell = groupsWithActiveRequestToSell;
+            this.userScores = userScores;
         }
 
         public User()
@@ -56,9 +59,11 @@ namespace ISSLab.Model
             this.creationDate = DateTime.Now;
             this.groupsWithSellingPrivelage = new List<Guid>();
             this.groupsWithActiveRequestToSell = new List<Guid>();
+            this.userScores = new List<SellingUserScore>();
 
         }
 
+        public List<SellingUserScore> sellingUserScores { get => userScores; set => userScores = value; }
         public Guid Id { get => id; }
         public string Username { get => username; set => username = value; }
         public string RealName { get => realName; set => realName = value; }
@@ -67,9 +72,22 @@ namespace ISSLab.Model
         public string Password { get => password; set => password = value; }
         public DateTime CreationDate { get => creationDate; }
 
+
         public List<Guid> GroupsWithSellingPrivelage { get => groupsWithSellingPrivelage; }
 
         public List<Guid> GroupsWithActiveRequestToSell { get => groupsWithSellingPrivelage;}
+
+
+
+        public void addNewUserScore( SellingUserScore userScor)
+        {
+            this.userScores.Add(userScor);
+        }
+
+        public void removeUserScore(SellingUserScore userScore)
+        {
+            this.userScores = this.userScores.FindAll(val => val.GroupId != userScore.GroupId);
+        }  
 
         public void requestSellingAccess(Guid groupId)
         {
@@ -96,6 +114,7 @@ namespace ISSLab.Model
             groupsWithSellingPrivelage = groupsWithSellingPrivelage.FindAll(val => val != groupId);
         }
 
+
         public void receivedPrivelageToSell(Guid groupId)
         {
             if (groupsWithSellingPrivelage.Contains(groupId))
@@ -103,5 +122,13 @@ namespace ISSLab.Model
             groupsWithActiveRequestToSell = groupsWithActiveRequestToSell.FindAll(val => val != groupId);
             groupsWithSellingPrivelage.Add(groupId);
         }
+
+        public bool hasAccessToSell(Guid groupId)
+        {
+            if(!groupsWithSellingPrivelage.Contains(groupId))
+                return false;
+            return true;
+        }
+
     }
 }
