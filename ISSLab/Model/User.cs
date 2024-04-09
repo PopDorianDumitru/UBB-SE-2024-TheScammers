@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ISSLab.Model
 {
-    public class User
+    class User
     {
         private Guid id;
         private string username;

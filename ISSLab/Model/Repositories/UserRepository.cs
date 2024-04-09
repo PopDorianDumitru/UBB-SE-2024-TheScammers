@@ -10,7 +10,7 @@ using System.Windows.Controls;
 
 namespace ISSLab.Model.Repositories
 {
-    public class UserRepository
+    class UserRepository
     {
         private readonly DataSet dataSet;
         private readonly string connectionString;
