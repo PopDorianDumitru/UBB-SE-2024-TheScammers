@@ -29,6 +29,7 @@ namespace ISSLab.Model
 
 
 
+
         public User(string username, string realName, DateOnly dateOfBirth, string profilePicture, string password)
         {
             this.id = Guid.NewGuid();
