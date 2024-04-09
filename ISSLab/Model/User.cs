@@ -129,31 +129,9 @@ namespace ISSLab.Model
         {
             groups.Add(newGroup);
         }
-        {
-            carts.Add(newCart);
-        }
+     
 
-        public void AddFavorites(Favorites newFavorite)
-        {
-            favorites.Add(newFavorite);
-        }
-        public void AddGroup(Group newGroup)
-        {
-            groups.Add(newGroup);
-        }
-        {
-            carts.Add(newCart);
-        }
-
-        public void AddFavorites(Favorites newFavorite)
-        {
-            favorites.Add(newFavorite);
-        }
-        public void AddGroup(Group newGroup)
-        {
-            groups.Add(newGroup);
-        }
-
+        
         public void AddReview(Review newReview)
         {
             receivedReviews.Add(newReview);

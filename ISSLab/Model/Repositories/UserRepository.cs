@@ -149,7 +149,7 @@ namespace ISSLab.Model.Repositories
                                 posts.Add((Guid)row2["post_id"]);
                             }
                         }
-                        Favorites newFavorites = new Favorites(currGroup, id, posts);
+                        //Favorites newFavorites = new Favorites(currGroup, id, posts);
                     }
                     List<Review> reviews = new List<Review>();
                     foreach(DataRow row2 in reviewsTable.Rows)
