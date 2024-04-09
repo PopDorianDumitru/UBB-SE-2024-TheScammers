@@ -14,6 +14,7 @@ namespace ISSLab.Model
         private DateOnly dateOfBirth;
         private string profilePicture;
         private string password;
+        private int nrOfSells;
         private DateTime creationDate;
         private List<Guid> groupsWithSellingPrivelage;
         private List<SellingUserScore> userScores;
@@ -32,8 +33,9 @@ namespace ISSLab.Model
             this.groupsWithSellingPrivelage = new List<Guid>();
             this.groupsWithActiveRequestToSell = new List<Guid>();
             this.userScores = new List<SellingUserScore>();
+            this.nrOfSells = 0;
         }
-        public User(Guid id, string username, string realName, DateOnly dateOfBirth, string profilePicture, string password, DateTime creationDate, List<Guid> groupsWithSellingPrivelage, List<Guid> groupsWithActiveRequestToSell,List<SellingUserScore> userScores)
+        public User(Guid id, string username, string realName, DateOnly dateOfBirth, string profilePicture, string password, DateTime creationDate, List<Guid> groupsWithSellingPrivelage, List<Guid> groupsWithActiveRequestToSell,List<SellingUserScore> userScores, int nrOfSells)
         {
             this.id = id;
             this.username = username;
@@ -45,6 +47,7 @@ namespace ISSLab.Model
             this.groupsWithSellingPrivelage = groupsWithSellingPrivelage;
             this.groupsWithActiveRequestToSell = groupsWithActiveRequestToSell;
             this.userScores = userScores;
+            this.nrOfSells = nrOfSells;
         }
 
         public User()
@@ -59,7 +62,7 @@ namespace ISSLab.Model
             this.groupsWithSellingPrivelage = new List<Guid>();
             this.groupsWithActiveRequestToSell = new List<Guid>();
             this.userScores = new List<SellingUserScore>();
-
+            this.nrOfSells = 0;
         }
 
         public List<SellingUserScore> sellingUserScores { get => userScores; set => userScores = value; }
