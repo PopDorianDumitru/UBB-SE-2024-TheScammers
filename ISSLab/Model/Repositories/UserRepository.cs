@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ISSLab.Services;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -79,6 +80,18 @@ namespace ISSLab.Model.Repositories
         public List<User> findAllUsers()
         {
             return users;
+        }
+
+        public User findById(Guid id)
+        {
+            for(int i = 0;  i < users.Count; i++)
+            {
+                if (users[i].Id == id)
+                {
+                    return users[i];
+                }
+            }
+            throw new Exception("User does not exist");
         }
         public void AddUser(User newUser)
         {

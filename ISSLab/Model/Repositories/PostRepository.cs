@@ -1,4 +1,5 @@
-﻿using Lab3_1;
+﻿using ISSLab.Services;
+using Lab3_1;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -544,6 +545,22 @@ namespace ISSLab.Model.Repositories
         }
 
 
+        public List<Post> getAll()
+        {
+            return posts;
+        }
+
+
+        public Post getById(Guid id)
+        {
+            for(int i = 0; i < posts.Count; i++)
+            {
+                if (posts[i].Id == id) {
+                    return posts[i];
+                }
+            }
+            throw new Exception("Post does not exist!");
+        }
 
 
     }
