@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using ISSLab.View;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -8,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 
 namespace ISSLab
 {
@@ -19,6 +21,20 @@ namespace ISSLab
         public MainWindow()
         {
             InitializeComponent();
+            LoadPosts();
+        }
+
+        private void LoadPosts()
+        {
+            int numberOfPostsToAdd = 5;
+
+            for (int i = 0; i < numberOfPostsToAdd; i++)
+            {
+                PostContent postContent = new PostContent();
+                PostsGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+                Grid.SetRow(postContent, i);
+                PostsGrid.Children.Add(postContent);
+            }
         }
     }
 }
