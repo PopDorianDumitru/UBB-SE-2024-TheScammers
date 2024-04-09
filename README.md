@@ -58,7 +58,6 @@ All selling Posts:
 - any user without a selling rating or a selling rating below 75% will need to make a request to an administrator to sell a product
 - any users who makes a selling post can choose a minimum buying rating for the users that can buy the product
 - when a transaction ends the buyer and the seller choose a rating for each other, this is done through an automated message, at about 3 days after a transaction
-- any user can add tags to their selling post, maximum of 10 tags
 
 Fixed price:
 - selling with a fixed price decided the by the seller
