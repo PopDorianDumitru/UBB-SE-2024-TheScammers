@@ -10,13 +10,19 @@ namespace ISSLab.Services
     class UserService
     {
         private UserRepository users;
+        private PostRepository posts;
+        private List<Group> groups;
         public UserService()
         {
             users = new UserRepository();
+            posts = new PostRepository();
+            groups = new List<Group>();
         }
-        public UserService(UserRepository users)
+        public UserService(UserRepository users, PostRepository posts, List<Group> groups)
         {
             this.users = users;
+            this.posts = posts;
+            this.groups = groups;
         }
         public void AddUser(User user)
         {
@@ -45,6 +51,8 @@ namespace ISSLab.Services
             User user = new User(username, realName, dateOfBirth, profilePicture, password);
             return user;
         }
+
+
 
         
     
