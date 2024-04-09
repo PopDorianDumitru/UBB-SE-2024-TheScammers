@@ -162,7 +162,7 @@ namespace ISSLab.Model.Repositories
                         }
                         string contacts = (string)row1["contacts"];
                         string type = (string)row1["type"];
-                        Post newPost = new Post(id, usersThatShared, usersThatLiked, comments, media, creationDate, authorId, groupId, promoted, usersThatFavorited, location, description, title, interstStatuses, contacts, reports, type);
+                        Post newPost = new Post(id, usersThatShared, usersThatLiked, comments, media, creationDate, authorId, groupId, promoted, usersThatFavorited, location, description, title, interstStatuses, contacts, reports, type, false, 0);
                         posts.Add(newPost);
                     }
                 }

@@ -69,7 +69,7 @@ namespace ISSLab.Model.Repositories
                         }
                     }
 
-                    users.Add(new User(id, username, realName, dateOfBirth, profilePicture, password, creationDate, sellPrivelageGroups, requestToSellGroups));
+                    users.Add(new User(id, username, realName, dateOfBirth, profilePicture, password, creationDate, sellPrivelageGroups, requestToSellGroups, new List<SellingUserScore>(), 0));
                 }
             }
         }
