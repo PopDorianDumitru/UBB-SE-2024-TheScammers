@@ -11,12 +11,14 @@ namespace ISSLab.Model
         private Guid currentPriceLeader;
         private double currentBidPrice;
         private double minimumBidPrice;
+        private bool onGoing;
 
-        public AuctionPost(string media, Guid authorId, Guid groupId, string location, string description, string title, string contacts, double price, DateTime expirationDate, float review, string delivery, List<Review> reviews, float reviewScore, Guid buyerId, Guid currentPriceLeader, double currentBidPrice, double minimumBidPrice, string type) : base(media, authorId, groupId, location, description, title, contacts, price, expirationDate, review, delivery, reviews, reviewScore, buyerId, type)
+        public AuctionPost(string media, Guid authorId, Guid groupId, string location, string description, string title, string contacts, double price, DateTime expirationDate, string delivery, List<Review> reviews, float reviewScore, Guid buyerId, Guid currentPriceLeader, double currentBidPrice, double minimumBidPrice, string type, bool confirmed) : base(media, authorId, groupId, location, description, title, contacts, price, expirationDate, delivery, reviews, reviewScore, buyerId, type, confirmed)
         {
-            this.currentPriceLeader = currentPriceLeader;
+            this.currentPriceLeader =Guid.Empty;
             this.currentBidPrice = currentBidPrice;
             this.minimumBidPrice = minimumBidPrice;
+            this.onGoing = true;
         }
 
         public AuctionPost() : base()
@@ -27,12 +29,15 @@ namespace ISSLab.Model
 
         }
 
-        public AuctionPost(Guid id, List<Guid> usersThatShared, List<Guid> usersThatLiked, List<Comment> comments, string media, DateTime creationDate, Guid authorId, Guid groupId, bool promoted, List<Guid> usersThatFavorited, string location, string description, string title, List<InterestStatus> interestStatuses, string contacts, List<Report> reports, double price, DateTime expirationDate, float review, string delivery, List<Review> reviews, float reviewScore, Guid buyerId, Guid currentPriceLeader, double currentBidPrice, double minimumBidPrice, string type) : base(id, usersThatShared, usersThatLiked, comments, media, creationDate, authorId, groupId, promoted, usersThatFavorited, location, description, title, interestStatuses, contacts, reports, price, expirationDate, review, delivery, reviews, reviewScore, buyerId, type)
+        public AuctionPost(Guid id, List<Guid> usersThatShared, List<Guid> usersThatLiked, List<Comment> comments, string media, DateTime creationDate, Guid authorId, Guid groupId, bool promoted, List<Guid> usersThatFavorited, string location, string description, string title, List<InterestStatus> interestStatuses, string contacts, List<Report> reports, double price, DateTime expirationDate, string delivery, List<Review> reviews, float reviewScore, Guid buyerId, Guid currentPriceLeader, double currentBidPrice, double minimumBidPrice, string type, bool confirmed, int views,bool onGoing) : base(id, usersThatShared, usersThatLiked, comments, media, creationDate, authorId, groupId, promoted, usersThatFavorited, location, description, title, interestStatuses, contacts, reports, price, expirationDate, delivery, reviews, reviewScore, buyerId, type, confirmed, views)
         {
             this.currentPriceLeader = currentPriceLeader;
             this.currentBidPrice = currentBidPrice;
             this.minimumBidPrice = minimumBidPrice;
+            this.onGoing = onGoing;
         }
+
+        public bool OnGoing { get => onGoing; set => onGoing = value; }
 
         public double CurrentBidPrice{ get => currentBidPrice; set => currentBidPrice = value; }
 
@@ -57,8 +62,7 @@ namespace ISSLab.Model
         public void add30SecondsToExpirationDate()
         {
             DateTime now = DateTime.Now;
-            if((this.ExpirationDate - now).TotalSeconds <= 60)
-                this.ExpirationDate = this.ExpirationDate.AddSeconds(30);
+            this.ExpirationDate = this.ExpirationDate.AddSeconds(30);
         }
 
     }
