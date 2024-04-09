@@ -87,6 +87,9 @@ namespace ISSLab.Model
             this.userScores.Add(userScor);
         }
 
+
+        public int NrOfSells { get => nrOfSells; set => nrOfSells = value; }
+
         public void removeUserScore(SellingUserScore userScore)
         {
             this.userScores = this.userScores.FindAll(val => val.GroupId != userScore.GroupId);
