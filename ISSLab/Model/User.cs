@@ -23,7 +23,9 @@ namespace ISSLab.Model
         private List<Cart> carts;
         private List<Favorites> favorites;
         private List<Group> groups;
-        private List<Review> reviews;
+
+        private List<Review> receivedReviews;
+
 
 
 
@@ -41,6 +43,10 @@ namespace ISSLab.Model
             this.groupsWithSellingPrivelage = new List<Guid>();
             this.groupsWithActiveRequestToSell = new List<Guid>();
             this.userScores = new List<SellingUserScore>();
+            this.carts = new List<Cart>();
+            this.favorites = new List<Favorites>();
+            this.groups = new List<Group>();
+            this.receivedReviews = new List<Review>();
             this.nrOfSells = 0;
         }
         public User(Guid id, string username, string realName, DateOnly dateOfBirth, string profilePicture, string password, DateTime creationDate, List<Guid> groupsWithSellingPrivelage, List<Guid> groupsWithActiveRequestToSell,List<SellingUserScore> userScores, int nrOfSells)
@@ -82,6 +88,14 @@ namespace ISSLab.Model
         public string Password { get => password; set => password = value; }
         public DateTime CreationDate { get => creationDate; }
 
+        public List<Cart> Carts { get => carts; }
+
+        public List<Favorites> Favorites { get => favorites; }
+
+        public List<Group> Groups { get => groups; }
+
+        public List<Review> Reviews { get => receivedReviews; }
+
 
         public List<Guid> GroupsWithSellingPrivelage { get => groupsWithSellingPrivelage; }
 
@@ -89,6 +103,40 @@ namespace ISSLab.Model
 
 
 
+
+        public void AddCarts(Cart newCart)
+        {
+            carts.Add(newCart);
+        }
+
+        public void AddFavorites(Favorites newFavorite)
+        {
+            favorites.Add(newFavorite);
+        }
+        public void AddGroup(Group newGroup)
+        {
+            groups.Add(newGroup);
+        }
+
+
+        public void AddCarts(Cart newCart)
+        {
+            carts.Add(newCart);
+        }
+
+        public void AddFavorites(Favorites newFavorite)
+        {
+            favorites.Add(newFavorite);
+        }
+        public void AddGroup(Group newGroup)
+        {
+            groups.Add(newGroup);
+        }
+
+        public void AddReview(Review newReview)
+        {
+            receivedReviews.Add(newReview);
+        }
         public void addNewUserScore( SellingUserScore userScor)
         {
             this.userScores.Add(userScor);
