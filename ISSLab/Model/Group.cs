@@ -11,11 +11,12 @@ namespace ISSLab.Model
         private Guid id;
         private string name;
         private int memberCount;
-        private List<User> members;
-        private List<Post> posts;
+        private List<Guid> members;
+        private List<Guid> posts;
         private List<Guid> bigSellers;
         private List<Guid> admins;
         private List<Guid> sellingUsers;
+        private List<Guid> requestedUsers;
         private string description;
         private string type;
         private string banner;
@@ -26,8 +27,8 @@ namespace ISSLab.Model
             this.id = Guid.NewGuid();
             this.name = name;
             this.memberCount = 0;
-            this.members = new List<User>();
-            this.posts = new List<Post>();
+            this.members = new List<Guid>();
+            this.posts = new List<Guid>();
             this.admins = new List<Guid>();
             this.sellingUsers = new List<Guid>();
             this.description = description;
@@ -35,6 +36,7 @@ namespace ISSLab.Model
             this.banner = banner;
             this.creationDate = DateTime.Now;
             this.bigSellers = new List<Guid>();
+            this.requestedUsers = new List<Guid>();
             
         }
         public Group()
@@ -42,8 +44,8 @@ namespace ISSLab.Model
             this.id = Guid.NewGuid();
             this.name = "";
             this.memberCount = 0;
-            this.members = new List<User>();
-            this.posts = new List<Post>();
+            this.members = new List<Guid>();
+            this.posts = new List<Guid>();
             this.admins = new List<Guid>();
             this.sellingUsers = new List<Guid>();
             this.description = "";
@@ -52,7 +54,7 @@ namespace ISSLab.Model
             this.creationDate = DateTime.Now;
             this.bigSellers = new List<Guid>();
         }
-        public Group(Guid id, string name, int memberCount, List<User> members, List<Post> posts, List<Guid> admins, List<Guid> sellingUsers, string description, string type, string banner, DateTime creationDate, List<Guid> bigSellers)
+        public Group(Guid id, string name, int memberCount, List<Guid> members, List<Guid> posts, List<Guid> admins, List<Guid> sellingUsers, string description, string type, string banner, DateTime creationDate, List<Guid> bigSellers, List<Guid> requestedUsers)
         {
             this.id = id;
             this.name = name;
@@ -66,6 +68,7 @@ namespace ISSLab.Model
             this.banner = banner;
             this.creationDate = creationDate;
             this.bigSellers = bigSellers;
+            this.requestedUsers = requestedUsers;
         }
 
 
@@ -84,16 +87,18 @@ namespace ISSLab.Model
         public Guid Id { get => id; }
         public string Name { get => name; set => name = value; }
         public int MemberCount { get => memberCount; }
-        public List<User> Members { get => members; }
-        public List<Post> Posts { get => posts; }
+        public List<Guid> Members { get => members; }
+        public List<Guid> Posts { get => posts; }
         public List<Guid> Admins { get => admins; }
         public List<Guid> SellingUsers { get => sellingUsers; }
+
+        public List<Guid> RequestedUsers { get => requestedUsers; }
         public string Description { get => description; set => description = value; }
         public string Type { get => type; set => type = value; }
         public string Banner { get => banner; set => banner = value; }
         public DateTime CreationDate { get => creationDate; }
 
-        public void AddMember(User user)
+        public void AddMember(Guid user)
         {
             if(!members.Contains(user))
             {
@@ -103,7 +108,7 @@ namespace ISSLab.Model
             else
                 throw new Exception("User is already a member of this group");
         }
-        public void RemoveMember(User user)
+        public void RemoveMember(Guid user)
         {
             if(members.Contains(user))
             {
@@ -113,45 +118,62 @@ namespace ISSLab.Model
             else
                 throw new Exception("User is not a member of this group");
         }
-        public void AddPost(Post post)
+        public void AddPost(Guid post)
         {
             posts.Add(post);
         }
-        public void RemovePost(Post post)
+        public void RemovePost(Guid post)
         {
             posts.Remove(post);
         }
-        public void AddAdmin(User user)
+        public void AddAdmin(Guid user)
         {
             if(!members.Contains(user))
                 throw new Exception("User is not a member of this group");
-            if(admins.Contains(user.Id))
+            if(admins.Contains(user))
                 throw new Exception("User is already an admin of this group");
-            admins.Add(user.Id);
+            admins.Add(user);
         }
-        public void removeAdmin(User user)
+        public void removeAdmin(Guid user)
         {
             if(!members.Contains(user))
                 throw new Exception("User is not a member of this group");
-            if(!admins.Contains(user.Id))
+            if(!admins.Contains(user))
                 throw new Exception("User is not an admin of this group");
-            admins.Remove(user.Id);
+            admins.Remove(user);
         }
-        public void AddSellingUser(User user)
+        public void AddSellingUser(Guid user)
         {
             if(!members.Contains(user))
                 throw new Exception("User is not a member of this group");
-            if(sellingUsers.Contains(user.Id))
+            if(sellingUsers.Contains(user))
                 throw new Exception("User is already a selling user of this group");
-            sellingUsers.Add(user.Id);
+            sellingUsers.Add(user);
         }
-        public void RemoveSellingUser(User user)
+        public void RemoveSellingUser(Guid user)
         {
             if(!members.Contains(user))
                 throw new Exception("User is not a member of this group");
-            if(!sellingUsers.Contains(user.Id))
+            if(!sellingUsers.Contains(user))
                 throw new Exception("User is not a selling user of this group");
-            sellingUsers.Remove(user.Id);
+            sellingUsers.Remove(user);
+        }
+
+        public void AddRequestedUser(Guid user)
+        {
+            if (!members.Contains(user))
+                throw new Exception("User is not a member of this group");
+            if (sellingUsers.Contains(user))
+                throw new Exception("User is already a selling user of this group");
+            sellingUsers.Add(user);
+        }
+        public void RemoveRequestedUser(Guid user)
+        {
+            if (!requestedUsers.Contains(user))
+                throw new Exception("User is not a member of this group");
+            if (!requestedUsers.Contains(user))
+                throw new Exception("User is not a selling user of this group");
+            requestedUsers.Remove(user);
         }
 
     }

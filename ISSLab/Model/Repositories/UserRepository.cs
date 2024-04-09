@@ -75,7 +75,7 @@ namespace ISSLab.Model.Repositories
                     string profilePicture = (string)row["profile_picture"];
                     string password = (string)row["password"];
                     DateTime creationDate = (DateTime)row["creation_date"];
-                    int nrOfSells = (int)row["numbe_of_sells"];
+                    int nrOfSells = (int)row["number_of_sells"];
                     List<Guid> sellPrivelageGroups = new List<Guid>();
                     List<Guid> requestToSellGroups = new List<Guid>();
                     List<SellingUserScore> sellingUserScores = new List<SellingUserScore>();
@@ -340,6 +340,25 @@ namespace ISSLab.Model.Repositories
                 if (users[i].Id == id)
                 {
                     users[i].Password = newPassword;
+                    break;
+                }
+            }
+        }
+
+        public void updateUserNrOfSells(Guid id, int nrOfSells)
+        {
+            DataRow row = dataSet.Tables["Users"].Rows.Find(id);
+
+            if (row != null)
+            {
+                row["number_of_sells"] = nrOfSells;
+            }
+
+            for(int i = 0; i < users.Count;i++)
+            {
+                if (users[i].Id == id)
+                {
+                    users[i].NrOfSells = nrOfSells;
                     break;
                 }
             }
