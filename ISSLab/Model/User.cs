@@ -23,7 +23,9 @@ namespace ISSLab.Model
         private List<Cart> carts;
         private List<Favorites> favorites;
         private List<Group> groups;
+
         private List<Review> receivedReviews;
+
 
 
 

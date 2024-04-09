@@ -14,7 +14,6 @@ namespace ISSLab.Model
         private List<User> members;
         private List<Post> posts;
         private List<Guid> bigSellers;
-        private List<Guid> bigBuyers;
         private List<Guid> admins;
         private List<Guid> sellingUsers;
         private string description;
@@ -37,7 +36,6 @@ namespace ISSLab.Model
             this.creationDate = DateTime.Now;
             this.bigSellers = new List<Guid>();
             
-            this.bigBuyers = new List<Guid>();
         }
         public Group()
         {
@@ -53,9 +51,8 @@ namespace ISSLab.Model
             this.banner = "";
             this.creationDate = DateTime.Now;
             this.bigSellers = new List<Guid>();
-            this.bigBuyers = new List<Guid>();
         }
-        public Group(Guid id, string name, int memberCount, List<User> members, List<Post> posts, List<Guid> admins, List<Guid> sellingUsers, string description, string type, string banner, DateTime creationDate, List<Guid> bigSellers, List<Guid> bigBuyers)
+        public Group(Guid id, string name, int memberCount, List<User> members, List<Post> posts, List<Guid> admins, List<Guid> sellingUsers, string description, string type, string banner, DateTime creationDate, List<Guid> bigSellers)
         {
             this.id = id;
             this.name = name;
@@ -69,7 +66,6 @@ namespace ISSLab.Model
             this.banner = banner;
             this.creationDate = creationDate;
             this.bigSellers = bigSellers;
-            this.bigBuyers = bigBuyers;
         }
 
 
@@ -83,16 +79,8 @@ namespace ISSLab.Model
             this.bigSellers.Remove(userID);
         }
 
-        public void AddBigBuyer(Guid userID)
-        {
-            this.bigBuyers.Add(userID);
-        }
-        public void RemoveBigBuyer(Guid userID)
-        {
-            this.bigBuyers.Remove(userID);
-        }
+    
 
-        public List<Guid> BigBuyers { get => this.bigBuyers; set => this.bigBuyers = value; }
         public Guid Id { get => id; }
         public string Name { get => name; set => name = value; }
         public int MemberCount { get => memberCount; }

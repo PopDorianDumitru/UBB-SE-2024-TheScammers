@@ -16,6 +16,12 @@ namespace ISSLab.Model.Repositories
         private readonly string connectionString;
         List<User> users;
 
+        public UserRepository()
+        {
+            dataSet = new DataSet();
+            connectionString = "Data Source=DESKTOP-1VJ4V0K;Initial Catalog=ISSLab;Integrated Security=True";
+            users = new List<User>();
+        }
         public UserRepository(DataSet _dataSet, string _connectionString)
         {
             dataSet = _dataSet;
@@ -80,7 +86,7 @@ namespace ISSLab.Model.Repositories
                         }
                     }
 
-                    users.Add(new User(id, username, realName, dateOfBirth, profilePicture, password, creationDate, sellPrivelageGroups, requestToSellGroups));
+                    users.Add(new User(id, username, realName, dateOfBirth, profilePicture, password, creationDate, sellPrivelageGroups, requestToSellGroups, new List<SellingUserScore>(), 0));
                 }
             }
         }
