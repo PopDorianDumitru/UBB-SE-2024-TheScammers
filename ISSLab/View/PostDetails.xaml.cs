@@ -14,7 +14,7 @@ namespace wpf_lab4_details_extension
     /// <summary>
     /// Interaction logic for PostDetails.xaml
     /// </summary>
-    public partial class PostDetails : Window
+    public partial class PostDetails : Window   
     {
         public PostDetails()
         {
