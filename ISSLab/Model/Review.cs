@@ -9,8 +9,9 @@ namespace ISSLab.Model
     class Review
     {
         private Guid id;
-        private Guid userId;
-        private Guid postId;
+        private Guid reviewerId;
+        private Guid sellerId;
+        private Guid groupId;
         private string content;
         private DateTime date;
         private int rating;
