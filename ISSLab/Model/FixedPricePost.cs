@@ -15,7 +15,7 @@ namespace ISSLab.Model
         private string delivery;
         private Guid buyerId;
 
-        public FixedPricePost(string media, Guid authorId, Guid groupId, string location, string description, string title, string contacts, double price, DateTime expirationDate, float review, string delivery, List<Review> reviews, float reviewScore, Guid buyerId, string type) : base(media, authorId, groupId, location, description, title, contacts, type)
+        public FixedPricePost(string media, Guid authorId, Guid groupId, string location, string description, string title, string contacts, double price, DateTime expirationDate, string delivery, List<Review> reviews, float reviewScore, Guid buyerId, string type, bool confirmed) : base(media, authorId, groupId, location, description, title, contacts, type, confirmed)
         {
             this.price = price;
             this.expirationDate = expirationDate;
@@ -34,7 +34,7 @@ namespace ISSLab.Model
             this.delivery = "";
             this.buyerId = Guid.Empty;
         }
-        public FixedPricePost(Guid id, List<Guid> usersThatShared, List<Guid> usersThatLiked, List<Comment> comments, string media, DateTime creationDate, Guid authorId, Guid groupId, bool promoted, List<Guid> usersThatFavorited, string location, string description, string title, List<InterestStatus> interestStatuses, string contacts, List<Report> reports, double price, DateTime expirationDate, float review, string delivery, List<Review> reviews, float reviewScore, Guid buyerId, string type) : base(id, usersThatShared, usersThatLiked, comments, media, creationDate, authorId, groupId, promoted, usersThatFavorited, location, description, title, interestStatuses, contacts, reports, type)
+        public FixedPricePost(Guid id, List<Guid> usersThatShared, List<Guid> usersThatLiked, List<Comment> comments, string media, DateTime creationDate, Guid authorId, Guid groupId, bool promoted, List<Guid> usersThatFavorited, string location, string description, string title, List<InterestStatus> interestStatuses, string contacts, List<Report> reports, double price, DateTime expirationDate, string delivery, List<Review> reviews, float reviewScore, Guid buyerId, string type, bool confirmed, int views) : base(id, usersThatShared, usersThatLiked, comments, media, creationDate, authorId, groupId, promoted, usersThatFavorited, location, description, title, interestStatuses, contacts, reports, type, confirmed, views)
         {
             this.price = price;
             this.expirationDate = expirationDate;

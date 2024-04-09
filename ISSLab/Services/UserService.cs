@@ -27,7 +27,12 @@ namespace ISSLab.Services
         }
         public User GetUserById(Guid id)
         {
-            return users.Find(user => user.Id == id);
+            User? user =  users.Find(user => user.Id == id);
+            if(user == null)
+            {
+                throw new Exception("User not found");
+            }
+            return user;
         }
         public List<User> GetUsers()
         {
@@ -36,7 +41,8 @@ namespace ISSLab.Services
 
         public User CreateUser(string username, string realName, DateOnly dateOfBirth, string profilePicture, string password)
         {
-            return new User(username, realName, dateOfBirth, profilePicture, password);
+            User user = new User(username, realName, dateOfBirth, profilePicture, password);
+            return user;
         }
     
 
