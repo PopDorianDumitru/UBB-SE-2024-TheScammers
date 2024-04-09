@@ -17,12 +17,6 @@ namespace ISSLab.Services
         {
             this.users = users;
         }
-        
-        public void loadUsersFromDatabase()
-        {
-            //to do
-        }
-
         public void AddUser(User user)
         {
             users.Add(user);

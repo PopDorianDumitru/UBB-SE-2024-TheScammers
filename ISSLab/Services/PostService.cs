@@ -18,10 +18,6 @@ namespace ISSLab.Services
             this.posts = posts;
         }
 
-        public void loadPostsFromDatabase()
-        {
-            //to do
-        }
         public List<Post> GetPosts()
         {
                return posts;
