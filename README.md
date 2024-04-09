@@ -26,10 +26,7 @@ A group admin can give a user the ability to sell something
 A user can request to make a selling post
 Admins have the ability to remove a post
 Users can report a post
-
-- add tags
 - add reviews for selling
-- ban users from selling or buying stuff
 
 
 Target complexity ~ 1 database/table per team member 
