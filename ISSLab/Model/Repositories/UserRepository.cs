@@ -28,15 +28,32 @@ namespace ISSLab.Model.Repositories
                 string selectAllUsersQuery = "SELECT * FROM Users";
                 string selectAllGroupsWithSellingPrivelage = "SELECT * FROM UsersAndGroupsWithSellingPrivelage";
                 string selectAllGroupsWithRequestToSell = "SELECT * FROM UsersAndGroupsWithRequestToSell";
+                string selectAllCarts = "SELECT * FROM Carts";
+                string selectAllFavorites = "SELECT * FROM Favorites";
+                string selectAllMembers = "SELECT * FROM Members";
+                string selectAllReviews = "SELECT * FROM Reviews";
                 SqlDataAdapter usersDataAdapter = new SqlDataAdapter(selectAllUsersQuery, connection);
                 SqlDataAdapter groupsWithSellingPrivelageDataAdapter = new SqlDataAdapter(selectAllGroupsWithSellingPrivelage, connection);
                 SqlDataAdapter groupsWithRequestToSell = new SqlDataAdapter(selectAllGroupsWithRequestToSell, connection);
+                SqlDataAdapter cartsDataAdapter = new SqlDataAdapter(selectAllCarts, connection);
+                SqlDataAdapter favoritesDataAdapter = new SqlDataAdapter(selectAllFavorites, connection);
+                SqlDataAdapter membersDataAdapter = new SqlDataAdapter(selectAllMembers, connection);
+                SqlDataAdapter reviewsDataAdapter = new SqlDataAdapter (selectAllReviews, connection);
                 usersDataAdapter.Fill(dataSet, "Users");
                 groupsWithSellingPrivelageDataAdapter.Fill(dataSet, "UsersAndGroupsWithSellingPrivelage");
                 groupsWithRequestToSell.Fill(dataSet, "UsersAndGroupsWithRequestToSell");
+                cartsDataAdapter.Fill(dataSet, "Carts");
+                favoritesDataAdapter.Fill(dataSet, "Favorites");
+                membersDataAdapter.Fill(dataSet, "Members");
+                reviewsDataAdapter.Fill(dataSet, "Reviews");
+
                 DataTable usersTable = dataSet.Tables["Users"];
                 DataTable sellingPrivelageTable = dataSet.Tables["UsersAndGroupsWithSellingPrivelage"];
                 DataTable requestToSellTable = dataSet.Tables["UsersAndGroupsWithRequestToSell"];
+                DataTable cartsTable = dataSet.Tables["Carts"];
+                DataTable favoritesTable = dataSet.Tables["Favorites"];
+                DataTable membersTable = dataSet.Tables["Members"];
+                DataTable reviewsTable = dataSet.Tables["Reviews"];
                 foreach(DataRow row in usersTable.Rows)
                 {
                     Guid id = (Guid)row["id"];
