@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -75,6 +76,12 @@ namespace ISSLab.Model
         public DateTime CreationDate { get => creationDate; }
 
 
+        public List<Guid> GroupsWithSellingPrivelage { get => groupsWithSellingPrivelage; }
+
+        public List<Guid> GroupsWithActiveRequestToSell { get => groupsWithSellingPrivelage;}
+
+
+
         public void addNewUserScore( SellingUserScore userScor)
         {
             this.userScores.Add(userScor);
@@ -84,6 +91,7 @@ namespace ISSLab.Model
         {
             this.userScores = this.userScores.FindAll(val => val.GroupId != userScore.GroupId);
         }  
+
         public void requestSellingAccess(Guid groupId)
         {
             if(groupsWithActiveRequestToSell.Contains(groupId))
@@ -109,6 +117,15 @@ namespace ISSLab.Model
             groupsWithSellingPrivelage = groupsWithSellingPrivelage.FindAll(val => val != groupId);
         }
 
+
+        public void receivedPrivelageToSell(Guid groupId)
+        {
+            if (groupsWithSellingPrivelage.Contains(groupId))
+                throw new Exception("You can already sell in this group");
+            groupsWithActiveRequestToSell = groupsWithActiveRequestToSell.FindAll(val => val != groupId);
+            groupsWithSellingPrivelage.Add(groupId);
+        }
+
         public bool hasAccessToSell(Guid groupId)
         {
             if(!groupsWithSellingPrivelage.Contains(groupId))
@@ -116,6 +133,5 @@ namespace ISSLab.Model
             return true;
         }
 
-        
     }
 }
