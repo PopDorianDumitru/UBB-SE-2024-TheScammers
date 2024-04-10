@@ -131,12 +131,8 @@
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="3*"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
             <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.RowSpan="2">
-                <Grid x:Name="PostsGrid" Margin="5,5,5,5"></Grid>
+                <Grid x:Name="PostsGrid" Margin="5,5,5,5" Grid.Column="0" Grid.ColumnSpan="3"></Grid>
             </ScrollViewer>
         </Grid>
     </Grid>
