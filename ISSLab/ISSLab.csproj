@@ -33,6 +33,11 @@
   </ItemGroup>
 
   <ItemGroup>
+
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\Images\arrow-button.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -74,6 +79,7 @@
     <Resource Include="Resources\Images\Vini.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+
   </ItemGroup>
 
 </Project>

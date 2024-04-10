@@ -9,39 +9,39 @@ namespace ISSLab.Model
     class Favorites
     {
         private Guid userId;
-        private Guid postId;
-        private List<Post> posts;
-        public Favorites(Guid userId, Guid postId)
+        private Guid groupId;
+        private List<Guid> posts;
+        public Favorites(Guid userId, Guid groupId)
         {
             this.userId = userId;
-            this.postId = postId;
-            this.posts = new List<Post>();
+            this.groupId = groupId;
+            this.posts = new List<Guid>();
         }
 
-        public Favorites(Guid userId, Guid postId, List<Post> posts)
+        public Favorites(Guid userId, Guid groupId, List<Guid> posts)
         {
             this.userId = userId;
-            this.postId = postId;
+            this.groupId = groupId;
             this.posts = posts;
         }
 
         public Favorites()
         {
             this.userId = Guid.NewGuid();
-            this.postId = Guid.NewGuid();
-            this.posts = new List<Post>();
+            this.groupId = Guid.NewGuid();
+            this.posts = new List<Guid>();
         }
 
         public Guid UserId { get => userId; }
-        public Guid PostId { get => postId; }
-        public List<Post> Posts { get => posts; }
-        public void addPost(Post post)
+        public Guid GroupId { get => groupId; }
+        public List<Guid> Posts { get => posts; }
+        public void addPost(Guid post)
         {
             if(this.posts.Contains(post))
                 throw new Exception("Post already in favorites");
             posts.Add(post);
         }
-        public void removePost(Post post)
+        public void removePost(Guid post)
         {
             if(!this.posts.Contains(post))
                 throw new Exception("Post not in favorites");

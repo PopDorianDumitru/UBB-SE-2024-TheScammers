@@ -19,6 +19,7 @@ namespace ISSLab.View
     /// Interaction logic for PostDetails.xaml
     /// </summary>
     public partial class PostDetails : UserControl
+
     {
         public PostDetails()
         {

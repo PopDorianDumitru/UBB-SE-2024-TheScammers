@@ -6,41 +6,42 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using ISSLab.Model;
+using ISSLab.Model.Repositories;
 namespace ISSLab.Services
 {
     class PostService
     {
-        List<Post> posts;
-        List<User> users;
-        List<Group> groups;
+        PostRepository posts;
+        UserRepository users;
+        GroupRepository groups;
         public PostService()
         {
-            posts = new List<Post>();
-            users = new List<User>();
-            groups = new List<Group>();
+            posts = new PostRepository();
+            users = new UserRepository();
+            groups = new GroupRepository();
         }
-        public PostService(List<Post> posts, List<User> users, List<Group> groups)
+        public PostService(PostRepository posts, UserRepository users, GroupRepository groups)
         {
             this.posts = posts;
             this.users = users;
             this.groups = groups;
         }
 
-        public List<Post> GetPosts()
+        public PostRepository GetPosts()
         {
                return posts;
         }
         public void AddPost(Post post)
         {
-            posts.Add(post);
+            posts.addPost(post);
         }
         public void RemovePost(Post post)
         {
-            posts.Remove(post);
+            posts.removePost(post.Id);
         }
         public Post GetPostById(Guid id)
         {
-            Post? p = posts.Find(post => post.Id == id);
+            Post? p = posts.getById(id);
             if (p == null)
             {
                 throw new Exception("Post not found");
@@ -58,7 +59,7 @@ namespace ISSLab.Services
             {
                 throw new Exception("Price can't be negative");
             }
-            User? user = users.Find(user => user.Id == authorId);
+            User? user = users.findById(authorId);
             if (user == null)
             {
                 throw new Exception("User not found");
@@ -81,7 +82,7 @@ namespace ISSLab.Services
             {
                 throw new Exception("Price can't be negative");
             }
-            User? user = users.Find(user => user.Id == authorId);
+            User? user = users.findById(authorId);
             if (user == null)
             {
                 throw new Exception("User not found");
@@ -100,7 +101,7 @@ namespace ISSLab.Services
 
         public Post CreateDonationPost(string media, Guid authorId, Guid groupId, string location, string description, string title, string contacts, string donationPageLink)
         {
-            User? user = users.Find(user => user.Id == authorId);
+            User? user = users.findById(authorId);
             if (user == null)
             {
                 throw new Exception("User not found");
@@ -124,7 +125,7 @@ namespace ISSLab.Services
 
         public bool CheckIfNeedsConfirmation(Guid postID)
         {
-            Post? post = posts.Find(post => post.Id == postID);
+            Post? post = posts.getById(postID);
             if(post == null)
             {
                 throw new Exception("Post not found");
@@ -136,7 +137,7 @@ namespace ISSLab.Services
 
         public void RemoveConfirmation(Guid postID)
         {
-            Post? post = posts.Find(post => post.Id == postID);
+            Post? post = posts.getById(postID);
             if(post == null)
             {
                 throw new Exception("Post not found");
@@ -146,7 +147,7 @@ namespace ISSLab.Services
 
         public void ConfirmPost(Guid postID)
         {
-            Post? post = posts.Find(post => post.Id == postID);
+            Post? post = posts.getById(postID);
             if(post == null)
             {
                 throw new Exception("Post not found");
@@ -156,7 +157,7 @@ namespace ISSLab.Services
 
         public void AddReport(Guid postID, Guid userID, string reason)
         {
-            Post? post = posts.Find(post => post.Id == postID);
+            Post? post = posts.getById(postID);
             if(post == null)
             {
                 throw new Exception("Post not found");
@@ -166,7 +167,7 @@ namespace ISSLab.Services
 
         public void RemoveReport(Guid postID, Guid userID)
         {
-            Post? post = posts.Find(post => post.Id == postID);
+            Post? post = posts.getById(postID);
             if(post == null)
             {
                 throw new Exception("Post not found");
@@ -176,7 +177,7 @@ namespace ISSLab.Services
 
         public bool CheckIfAuctionTimeEnded(Guid postID)
         {
-            Post? post = posts.Find(post => post.Id == postID);
+            Post? post = posts.getById(postID);
             if(post == null)
             {
                 throw new Exception("Post not found");
@@ -195,7 +196,7 @@ namespace ISSLab.Services
 
         public void BidOnAuction(Guid postID, Guid userID, double bidAmount)
         {
-            Post? post = posts.Find(post => post.Id == postID);
+            Post? post = posts.getById(postID);
             if(post == null)
             {
                 throw new Exception("Post not found");
@@ -221,7 +222,7 @@ namespace ISSLab.Services
 
         public void Donate(Guid postID)
         {
-            Post? post = posts.Find(post => post.Id == postID);
+            Post? post = posts.getById(postID);
             if(post == null)
             {
                 throw new Exception("Post not found");
@@ -236,7 +237,7 @@ namespace ISSLab.Services
 
         public void EndAuctionDueToTime(Guid postID)
         {
-            Post? post = posts.Find(post => post.Id == postID);
+            Post? post = posts.getById(postID);
             if(post == null)
             {
                 throw new Exception("Post not found");
@@ -252,7 +253,7 @@ namespace ISSLab.Services
         public void EndAuctionExplicitly(Guid postID, Guid userID)
         {
 
-            Post? post = posts.Find(post => post.Id == postID);
+            Post? post = posts.getById(postID);
             if(post == null)
             {
                 throw new Exception("Post not found");
@@ -274,8 +275,13 @@ namespace ISSLab.Services
         public void RemoveOldFixedPricePosts()
         {
             DateTime threeMonthsAgo = DateTime.Now.AddMonths(-3); 
-            posts.RemoveAll(p=>p.CreationDate <= threeMonthsAgo && p.Type == "FixedPrice");
-        }
+            List<Post> fixedPricePosts = posts.getAll().FindAll(p=>p.Type == "FixedPricePost");
+            fixedPricePosts.ForEach(p =>
+            {
+                if (p.CreationDate <= threeMonthsAgo)
+                    posts.removePost(p.Id);
+            });
+         }
 
         public IEnumerable<Post> GetPostsByFavorites(List<Post> postsForGroup)
         {
@@ -285,7 +291,7 @@ namespace ISSLab.Services
 
         public void ToggleInterest(Guid postID, Guid userID, bool interested)
         {
-            Post? post = posts.Find(post => post.Id == postID);
+            Post? post = posts.getById(postID);
             if(post == null)
             {
                 throw new Exception("Post not found");
@@ -306,7 +312,7 @@ namespace ISSLab.Services
 
         public void PromotePost(Guid postID, Guid userID, Guid groupID)
         {
-            Post? post = posts.Find(post => post.Id == postID);
+            Post? post = posts.getById(postID);
             if(post == null)
             {
                 throw new Exception("Post not found");
@@ -315,7 +321,7 @@ namespace ISSLab.Services
             {
                 throw new Exception("User is not the author of the post");
             }
-            Group? group = groups.Find(g => g.Id == groupID);
+            Group? group = groups.FindById(groupID);
             if (group == null)
             {
                 throw new Exception("That group does not exist");
@@ -331,7 +337,7 @@ namespace ISSLab.Services
         
         public void FavoritePost(Guid postID, Guid userID)
         {
-            Post? post = posts.Find(post => post.Id == postID);
+            Post? post = posts.getById(postID);
             if(post == null)
             {
                 throw new Exception("Post not found");
@@ -341,7 +347,7 @@ namespace ISSLab.Services
 
         public void UnfavoritePost(Guid postID, Guid userID)
         {
-            Post? post = posts.Find(post => post.Id == postID);
+            Post? post = posts.getById(postID);
             if(post == null)
             {
                 throw new Exception("Post not found");
