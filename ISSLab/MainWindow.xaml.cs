@@ -67,13 +67,20 @@ namespace ISSLab
         {
             int numberOfPostsToAdd = 5;
             string[] usernames = ["Luca", "Dorian", "Marian", "Andrei", "Marcus"];
+            PostsGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
+            PostsGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
+            PostsGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Auto) });
             for (int i = 0; i < numberOfPostsToAdd; i++)
             {
-
                 PostContent postContent = new PostContent();
                 postContent.MoreButtonClicked += (sender, e) => ShowPostDetails(postContent);
-                PostsGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+
                 Grid.SetRow(postContent, i);
+                Grid.SetColumn(postContent, 0);
+                Grid.SetColumnSpan(postContent, 2);
+
+                PostsGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Auto) });
+
                 PostsGrid.Children.Add(postContent);
             }
         }
@@ -83,7 +90,7 @@ namespace ISSLab
             int index = PostsGrid.Children.IndexOf(postContent);
             PostDetails postDetails = new PostDetails();
             Grid.SetRow(postDetails, index);
-            Grid.SetColumn(postDetails, 1);
+            Grid.SetColumn(postDetails, 2);
             PostsGrid.Children.Add(postDetails);
         }
 
