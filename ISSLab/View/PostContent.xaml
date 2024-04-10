@@ -45,7 +45,7 @@
             <Button Width="24" Height="20" Margin="0,0,0,5" Background="Transparent" BorderThickness="0">
                 <Image Source="../Resources/Images/more-button.png" Width="20" Height="20"></Image>
             </Button>
-            <Button Width="24" Height="20" Margin="0,0,0,0" Background="Transparent" BorderThickness="0">
+            <Button x:Name="moreButton" Width="24" Height="20" Margin="0,0,0,0" Background="Transparent" BorderThickness="0" Click="OnMoreButtonClick">
                 <Image Source="../Resources/Images/arrow-button.png" Width="18" Height="18"></Image>
             </Button>
         </StackPanel>

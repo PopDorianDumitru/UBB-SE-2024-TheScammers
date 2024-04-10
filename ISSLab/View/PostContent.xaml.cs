@@ -21,10 +21,19 @@ namespace ISSLab.View
     /// </summary>
     public partial class PostContent : UserControl
     {
-        public PostContent(string username)
+
+
+        public event EventHandler MoreButtonClicked;
+        public PostContent()
+
         {
             InitializeComponent();
             this.userName.Text = username;
+        }
+
+        private void OnMoreButtonClick(object sender, RoutedEventArgs e)
+        {
+            MoreButtonClicked?.Invoke(this, EventArgs.Empty);
         }
     }
 }
