@@ -149,7 +149,7 @@ namespace ISSLab.Model.Repositories
                                 posts.Add((Guid)row2["post_id"]);
                             }
                         }
-                        //Favorites newFavorites = new Favorites(currGroup, id, posts);
+                        Favorites newFavorites = new Favorites(currGroup, id, posts);
                     }
                     List<Review> reviews = new List<Review>();
                     foreach(DataRow row2 in reviewsTable.Rows)
@@ -157,11 +157,13 @@ namespace ISSLab.Model.Repositories
                         if ((Guid)row2["user_id"] == id)
                         {
                             Guid reviewId = (Guid)row2["id"];
-                            Guid postId = (Guid)row2["post_id"];
+                            Guid reviewerId = (Guid)row2["reviewer_id"];
+                            Guid sellerId = (Guid)row2["seller_id"];
+                            Guid groupId = (Guid)row2["group_id"];
                             String content = (string)row2["content"];
                             DateTime date = (DateTime)row2["date"];
                             int rating = (int)row2["rating"];
-                            Review newReview = new Review(reviewId, id, postId, content, date, rating);
+                            Review newReview = new Review(reviewId, reviewerId, sellerId,groupId, content, date, rating);
                             reviews.Add(newReview);
                         }
                     }
@@ -272,6 +274,42 @@ namespace ISSLab.Model.Repositories
             }
         }
 
+        public void updateGroupsWithRemovingSellingRequest(Guid userId, Guid groupId)
+        {
+            DataRow row = dataSet.Tables["UsersAndGroupsWithRequestToSell"].Rows.Find((DataRow r) => (string)(r["user_id"]) == userId.ToString() && (string)(r["group_id"]) == groupId.ToString()  );
+            if (row != null)
+            {
+                dataSet.Tables["UsersAndGroupsWithRequestToSell"].Rows.Remove(row);
+            }
+
+            for (int i = 0; i < users.Count; i++)
+            {
+                if (users[i].Id == userId)
+                {
+                    users[i].accessToSellDenied(groupId);
+                    break;
+                }
+            }
+        }
+        public void updateGroupsWithRemovingSellingPrivelage(Guid userId, Guid groupId)
+        {
+            DataRow row = dataSet.Tables["UsersAndGroupsWithSellingPrivelage"].Rows.Find((DataRow r) => (string)(r["user_id"]) == userId.ToString() && (string)(r["group_id"]) == groupId.ToString());
+            if (row != null)
+            {
+                dataSet.Tables["UsersAndGroupsWithSellingPrivelage"].Rows.Remove(row);
+            }
+
+            for (int i = 0; i < users.Count; i++)
+            {
+                if (users[i].Id == userId)
+                {
+                    users[i].accessToSellWasTaken(groupId);
+                    break;
+                }
+            }
+        }
+
+
         public void updateUserRealName(Guid id, string newRealName)
         {
             DataRow row = dataSet.Tables["Users"].Rows.Find(id);
@@ -307,6 +345,21 @@ namespace ISSLab.Model.Repositories
                 }
             }
         }
+
+        public void AddReview(Review review)
+        {
+            DataRow row = dataSet.Tables["Reviews"].NewRow();
+            row["id"] = review.Id;
+            row["reviewer_id"] = review.ReviewerId;
+            row["seller_id"] = review.SellerId;
+            row["group_id"] = review.GroupId;
+            row["content"] = review.Content;
+            row["date"] = review.Date;
+            row["rating"] = review.Rating;
+            users.Find(u => u.Id == review.SellerId).AddReview(review);
+        }
+            
+     
 
         public void updateUserProfilePicture(Guid id, string newProfilePicture)
         {
