@@ -9,7 +9,7 @@ using System.Windows.Controls;
 
 namespace ISSLab.Model.Repositories
 {
-    internal class GroupRepository
+    class GroupRepository
     {
         private readonly DataSet dataSet;
         private readonly string connectionString;

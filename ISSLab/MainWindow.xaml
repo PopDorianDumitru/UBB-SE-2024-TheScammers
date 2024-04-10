@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ISSLab"
         xmlns:controls="clr-namespace:ISSLab.View"
+        xmlns:VM="clr-namespace:ISSLab.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="950" MinHeight="450" MinWidth="950">
+    <Window.DataContext>
+        <VM:PostContentViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>

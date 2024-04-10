@@ -29,8 +29,8 @@
                 </Ellipse.Fill>
             </Ellipse>
             <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                <TextBlock Text="Ratan Luca" FontSize="24" VerticalAlignment="Center" FontWeight="Bold"></TextBlock>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock x:Name="userName" Text="Ratan Luca" FontSize="24" VerticalAlignment="Center" FontWeight="Bold"></TextBlock>
+                <StackPanel x:Name="ratings" Orientation="Horizontal" HorizontalAlignment="Left">
                     <Image Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
                     <Image Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
                     <Image Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>

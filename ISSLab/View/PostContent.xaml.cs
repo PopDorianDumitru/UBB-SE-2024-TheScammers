@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ISSLab.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,10 +22,13 @@ namespace ISSLab.View
     public partial class PostContent : UserControl
     {
 
+
         public event EventHandler MoreButtonClicked;
         public PostContent()
+
         {
             InitializeComponent();
+            this.userName.Text = username;
         }
 
         private void OnMoreButtonClick(object sender, RoutedEventArgs e)
