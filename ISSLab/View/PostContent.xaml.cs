@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ISSLab.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,10 @@ namespace ISSLab.View
     /// </summary>
     public partial class PostContent : UserControl
     {
-        public PostContent()
+        public PostContent(string username)
         {
             InitializeComponent();
+            this.userName.Text = username;
         }
     }
 }

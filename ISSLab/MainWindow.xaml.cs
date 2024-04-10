@@ -27,10 +27,10 @@ namespace ISSLab
         private void LoadPosts()
         {
             int numberOfPostsToAdd = 5;
-
+            string[] usernames = ["Luca", "Dorian", "Marian", "Andrei", "Marcus"];
             for (int i = 0; i < numberOfPostsToAdd; i++)
             {
-                PostContent postContent = new PostContent();
+                PostContent postContent = new PostContent(usernames[i]);
                 PostsGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
                 Grid.SetRow(postContent, i);
                 PostsGrid.Children.Add(postContent);
