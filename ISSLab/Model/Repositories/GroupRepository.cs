@@ -22,10 +22,10 @@ namespace ISSLab.Model.Repositories
             connectionString = "";
             groups = new List<Group>();
         }
-        public GroupRepository(DataSet _dataSet, string _connectionString)
+        public GroupRepository(DataSet _dataSet)
         {
             dataSet = _dataSet;
-            connectionString = _connectionString;
+            connectionString = "";
             groups = new List<Group>();
 
             using (SqlConnection connection = new SqlConnection(connectionString))

@@ -23,10 +23,10 @@ namespace ISSLab.Model.Repositories
             connectionString = "Data Source=DESKTOP-1VJ4V0K;Initial Catalog=ISSLab;Integrated Security=True";
             users = new List<User>();
         }
-        public UserRepository(DataSet _dataSet, string _connectionString)
+        public UserRepository(DataSet _dataSet)
         {
             dataSet = _dataSet;
-            connectionString = _connectionString;
+            connectionString = "";
             users = new List<User>();
 
             using (SqlConnection connection = new SqlConnection(connectionString))

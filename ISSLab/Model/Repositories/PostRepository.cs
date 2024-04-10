@@ -24,10 +24,10 @@ namespace ISSLab.Model.Repositories
             posts = new List<Post>();
             groupID = Guid.NewGuid();
         }
-        public PostRepository(DataSet dataSet, string connectionString, Guid _groupID)
+        public PostRepository(DataSet dataSet, Guid _groupID)
         {
             this.dataSet = dataSet;
-            this.connectionString = connectionString;
+            this.connectionString = "";
             this.posts = new List<Post>();
             this.groupID = _groupID;
 
