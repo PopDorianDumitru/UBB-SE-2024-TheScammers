@@ -1,4 +1,8 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -9,12 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace wpf_lab4_details_extension
+namespace ISSLab.View
 {
     /// <summary>
     /// Interaction logic for PostDetails.xaml
     /// </summary>
-    public partial class PostDetails : Window
+    public partial class PostDetails : UserControl
     {
         public PostDetails()
         {
