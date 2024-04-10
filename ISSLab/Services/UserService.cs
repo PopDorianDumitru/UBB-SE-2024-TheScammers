@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 using ISSLab.Model;
 using ISSLab.Model.Repositories;
 namespace ISSLab.Services
@@ -11,14 +12,14 @@ namespace ISSLab.Services
     {
         private UserRepository users;
         private PostRepository posts;
-        private List<Group> groups;
+        private GroupRepository groups;
         public UserService()
         {
             users = new UserRepository();
             posts = new PostRepository();
-            groups = new List<Group>();
+            groups = new GroupRepository();
         }
-        public UserService(UserRepository users, PostRepository posts, List<Group> groups)
+        public UserService(UserRepository users, PostRepository posts, GroupRepository groups)
         {
             this.users = users;
             this.posts = posts;
@@ -72,7 +73,7 @@ namespace ISSLab.Services
     
         public bool UserIsAdminInGroup(Guid userId, Guid groupId)
         {
-            Group group = groups.Find(g=>g.Id == groupId);
+            Group group = groups.FindById(groupId);
             if(group == null)
             {
                 throw new Exception("Group not found");
@@ -81,7 +82,7 @@ namespace ISSLab.Services
         }
         public bool UserIsSellerInGroup(Guid userId, Guid groupId)
         {
-            Group group = groups.Find(g => g.Id == groupId);
+            Group group = groups.FindById(groupId);
             if(group == null)
             {
                 throw new Exception("Group not found");
@@ -91,12 +92,12 @@ namespace ISSLab.Services
 
         public bool UserIsMemberInGroup(User userId, Guid groupId)
         {
-            Group group = groups.Find(g => g.Id == groupId);
+            Group group = groups.FindById(groupId);
             if(group == null)
             {
                 throw new Exception("Group not found");
             }
-            return group.Members.Contains(userId);
+            return group.Members.Contains(userId.Id);
         }
 
         public void UpdateUserUsername(Guid user, string username)
@@ -203,7 +204,36 @@ namespace ISSLab.Services
             users.AddReview(review);
         }
 
+        public void AddItemToCart(Guid groupId, Guid postId, Guid userId)
+        {
+            users.addToCart(groupId, userId, postId);
+
+        }
+        public void RemoveFromCart(Guid groupId, Guid postId, Guid userId)
+        {
+            users.removeFromCart(groupId, userId, postId); 
+        }
  
+        public void AddItemToFavorites(Guid groupId, Guid postId, Guid userId)
+        {
+            users.addToFavorites(groupId, userId, postId);
+        }
+        public void RemoveFromFavorites(Guid groupId, Guid postId, Guid userId)
+        {
+            users.removeFromFavorites(groupId, userId, postId);
+        }
+        
+
+        public double GetUserScore(Guid userId, Guid groupId)
+        {
+            List<Review> reviews = users.findById(userId).Reviews.FindAll(r => r.GroupId == groupId);
+            double score = 0;
+            foreach (Review review in reviews)
+            {
+                score = score + review.Rating;
+            }
+            return score / reviews.Count;
+        }
 
 
     }

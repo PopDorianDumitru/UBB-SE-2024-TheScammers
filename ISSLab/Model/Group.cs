@@ -55,7 +55,7 @@ namespace ISSLab.Model
             this.banner = "";
             this.creationDate = DateTime.Now;
             this.bigSellers = new List<Guid>();
-            this.usersWithSellRequests = new List<Guid>();
+            this.sellingUsers = new List<Guid>();
         }
         public Group(Guid id, string name, int memberCount, List<Guid> members, List<Guid> posts, List<Guid> admins, List<Guid> sellingUsers, string description, string type, string banner, DateTime creationDate, List<Guid> bigSellers, List<Guid> requestedUsers)
 
@@ -77,14 +77,14 @@ namespace ISSLab.Model
         }
         
 
-        public List<Guid> UsersWithSellRequests { get => this.usersWithSellRequests; set => this.usersWithSellRequests = value; }
+        public List<Guid> UsersWithSellRequests { get => this.sellingUsers; set => this.sellingUsers = value; }
         public void AddUserWithSellRequest(Guid userID)
         {
-            this.usersWithSellRequests.Add(userID);
+            this.sellingUsers.Add(userID);
         }
         public void RemoveUserWithSellRequest(Guid userID)
         {
-            this.usersWithSellRequests.Remove(userID);
+            this.sellingUsers.Remove(userID);
         }
 
         public List<Guid> BigSellers { get => this.bigSellers; set => this.bigSellers = value; }

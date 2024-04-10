@@ -15,6 +15,13 @@ namespace ISSLab.Model.Repositories
         private readonly string connectionString;
         List<Group> groups;
 
+
+        public GroupRepository()
+        {
+            dataSet = new DataSet();
+            connectionString = "";
+            groups = new List<Group>();
+        }
         public GroupRepository(DataSet _dataSet, string _connectionString)
         {
             dataSet = _dataSet;

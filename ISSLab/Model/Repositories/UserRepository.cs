@@ -478,5 +478,40 @@ namespace ISSLab.Model.Repositories
                 groupsWithRequestToSellTable.Rows.Remove(rowToDelete);
             }
         }
+
+        public void addToCart(Guid groupId, Guid userId, Guid postId )
+        {
+            DataRow row = dataSet.Tables["Carts"].NewRow();
+            row["user_id"] = userId;
+            row["group_id"] = groupId;
+            row["post_id"] = postId;
+            users.Find(user => user.Id == userId).Carts.Find(c => c.GroupId == groupId).Posts.Add(postId);
+        }
+
+        public void removeFromCart(Guid groupId, Guid userId, Guid postId)
+        {
+            DataRow row = dataSet.Tables["Carts"].Rows.Find((DataRow r) => Guid.Parse((string)r["group_id"]) == groupId && Guid.Parse((string)r["user_id"]) == userId && Guid.Parse((string)r["post_id"]) == postId);
+            if(row !=  null)
+                dataSet.Tables["Carts"].Rows.Remove(row);
+            users.Find(u=>u.Id == userId).Carts.Find(c=>c.GroupId==groupId).Posts.Remove(postId);
+        }
+
+        public void addToFavorites(Guid groupId, Guid userId, Guid postId)
+        {
+            DataRow row = dataSet.Tables["Favorites"].NewRow();
+            row["user_id"] = userId;
+            row["group_id"] = groupId;
+            row["post_id"] = postId;
+            users.Find(user => user.Id == userId).Favorites.Find(c => c.GroupId == groupId).Posts.Add(postId);
+        }
+
+        public void removeFromFavorites(Guid groupId, Guid userId, Guid postId)
+        {
+            DataRow row = dataSet.Tables["Favorites"].Rows.Find((DataRow r) => Guid.Parse((string)r["group_id"]) == groupId && Guid.Parse((string)r["user_id"]) == userId && Guid.Parse((string)r["post_id"]) == postId);
+            if (row != null)
+                dataSet.Tables["Favorites"].Rows.Remove(row);
+            users.Find(u => u.Id == userId).Carts.Find(c => c.GroupId == groupId).Posts.Remove(postId);
+        }
+
     }
 }

@@ -39,7 +39,7 @@ namespace ISSLab.Model.Repositories
                 string selectAllSharedPosts = "SELECT * FROM UsersSharedPosts";
                 string selectAllLikedPosts = "SELECT * FROM UsersLikedPosts";
                 string selectAllComments = "SELECT * FROM Comments";
-                string selectAllFavoritedPosts = "SELECT * FROM UsersFavoritedPosts";
+                string selectAllFavoritedPosts = "SELECT * FROM Favorites";
                 string selectAllReports = "SELECT * FROM Reports";
                 string selectAllInterestStatuses = "SELECT * FROM InterestStatuses";
 
@@ -55,7 +55,7 @@ namespace ISSLab.Model.Repositories
                 sharedPostsDataAdapter.Fill(dataSet, "UsersSharedPosts");
                 likedPostsDataAdapter.Fill(dataSet, "UsersLikedPosts");
                 commentsDataAdapter.Fill(dataSet, "Comments");
-                favoritedPostsDataAdapter.Fill(dataSet, "UsersFavoritedPosts");
+                favoritedPostsDataAdapter.Fill(dataSet, "Favorites");
                 reportsDataAdapter.Fill(dataSet, "Reports");
                 interestStatusesDataAdapter.Fill(dataSet, "InterestStatuses");
 
@@ -63,7 +63,7 @@ namespace ISSLab.Model.Repositories
                 DataTable sharedPostsTable = dataSet.Tables["UsersSharedPosts"];
                 DataTable likedPostsTable = dataSet.Tables["UsersLikedPosts"];
                 DataTable commentsTable = dataSet.Tables["Comments"];
-                DataTable favoritedPostsTable = dataSet.Tables["UsersFavoritedPosts"];
+                DataTable favoritedPostsTable = dataSet.Tables["Favorites"];
                 DataTable reportsTable = dataSet.Tables["Reports"];
                 DataTable interestStatusesTable = dataSet.Tables["InterestStatuses"];
                 //private Guid id;
@@ -255,7 +255,7 @@ namespace ISSLab.Model.Repositories
                 commentsTable.Rows.Remove(rowToDelete);
             }
 
-            DataTable usersThatFavoritedTable = dataSet.Tables["UsersFavoritedPosts"];
+            DataTable usersThatFavoritedTable = dataSet.Tables["Favorites"];
             List<DataRow> rowsToDelete4 = new List<DataRow>();
             foreach (DataRow row in usersThatFavoritedTable.Rows)
             {
@@ -406,11 +406,12 @@ namespace ISSLab.Model.Repositories
             }
         }
 
-        public void updatePostFavorite(Guid id, Guid userId)
+        public void updatePostFavorite(Guid id, Guid userId, Guid groupId)
         {
-            DataRow row = dataSet.Tables["UsersFavoritedPosts"].NewRow();
+            DataRow row = dataSet.Tables["Favorites"].NewRow();
             row["post_id"] = id.ToString();
             row["user_id"] = userId.ToString();
+            row["group_id"] = groupId.ToString();
 
             for (int i = 0; i < posts.Count; i++)
             {

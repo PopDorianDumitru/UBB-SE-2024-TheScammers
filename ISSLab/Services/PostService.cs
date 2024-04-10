@@ -13,14 +13,14 @@ namespace ISSLab.Services
     {
         PostRepository posts;
         UserRepository users;
-        List<Group> groups;
+        GroupRepository groups;
         public PostService()
         {
             posts = new PostRepository();
             users = new UserRepository();
-            groups = new List<Group>();
+            groups = new GroupRepository();
         }
-        public PostService(PostRepository posts, UserRepository users, List<Group> groups)
+        public PostService(PostRepository posts, UserRepository users, GroupRepository groups)
         {
             this.posts = posts;
             this.users = users;
@@ -321,7 +321,7 @@ namespace ISSLab.Services
             {
                 throw new Exception("User is not the author of the post");
             }
-            Group? group = groups.Find(g => g.Id == groupID);
+            Group? group = groups.FindById(groupID);
             if (group == null)
             {
                 throw new Exception("That group does not exist");
