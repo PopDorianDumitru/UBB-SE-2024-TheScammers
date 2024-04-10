@@ -28,118 +28,118 @@ namespace ISSLab.Model.Repositories
             connectionString = "";
             groups = new List<Group>();
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                string selectAllGroups = "SELECT * FROM Groups";
-                string selectAllMembers = "SELECT * FROM Members";
-                string selectAllPosts = "SELECT * FROM Posts";
-                string selectAllBigSellers = "SELECT * FROM BigSellers";
-                string selectAllAdmins = "SELECT * FROM Admins";
-                string selectAllGroupsWithSellingPrivelage = "SELECT * FROM UsersAndGroupsWithSellingPrivelage";
-                string selectAllGroupsWithRequestToSell = "SELECT * FROM UsersAndGroupsWithRequestToSell";
+            //using (SqlConnection connection = new SqlConnection(connectionString))
+            //{
+            //    connection.Open();
+            //    string selectAllGroups = "SELECT * FROM Groups";
+            //    string selectAllMembers = "SELECT * FROM Members";
+            //    string selectAllPosts = "SELECT * FROM Posts";
+            //    string selectAllBigSellers = "SELECT * FROM BigSellers";
+            //    string selectAllAdmins = "SELECT * FROM Admins";
+            //    string selectAllGroupsWithSellingPrivelage = "SELECT * FROM UsersAndGroupsWithSellingPrivelage";
+            //    string selectAllGroupsWithRequestToSell = "SELECT * FROM UsersAndGroupsWithRequestToSell";
 
 
-                SqlDataAdapter groupsDataAdapter = new SqlDataAdapter(selectAllGroups, connection);
-                SqlDataAdapter membersDataAdapter = new SqlDataAdapter(selectAllMembers, connection);
-                SqlDataAdapter postsDataAdapter = new SqlDataAdapter(selectAllPosts, connection);
-                SqlDataAdapter bigSellersDataAdapter = new SqlDataAdapter(selectAllBigSellers, connection);
-                SqlDataAdapter groupsWithSellingPrivelageDataAdapter = new SqlDataAdapter(selectAllGroupsWithSellingPrivelage, connection);
-                SqlDataAdapter groupsWithRequestToSell = new SqlDataAdapter(selectAllGroupsWithRequestToSell, connection);
-                SqlDataAdapter adminsDataAdapter = new SqlDataAdapter(selectAllAdmins, connection);
+            //    SqlDataAdapter groupsDataAdapter = new SqlDataAdapter(selectAllGroups, connection);
+            //    SqlDataAdapter membersDataAdapter = new SqlDataAdapter(selectAllMembers, connection);
+            //    SqlDataAdapter postsDataAdapter = new SqlDataAdapter(selectAllPosts, connection);
+            //    SqlDataAdapter bigSellersDataAdapter = new SqlDataAdapter(selectAllBigSellers, connection);
+            //    SqlDataAdapter groupsWithSellingPrivelageDataAdapter = new SqlDataAdapter(selectAllGroupsWithSellingPrivelage, connection);
+            //    SqlDataAdapter groupsWithRequestToSell = new SqlDataAdapter(selectAllGroupsWithRequestToSell, connection);
+            //    SqlDataAdapter adminsDataAdapter = new SqlDataAdapter(selectAllAdmins, connection);
 
 
-                groupsDataAdapter.Fill(dataSet, "Groups");
-                groupsDataAdapter.Fill(dataSet, "Members");
-                postsDataAdapter.Fill(dataSet, "Posts");
-                bigSellersDataAdapter.Fill(dataSet, "BigSellers");
-                groupsWithRequestToSell.Fill(dataSet, "UsersAndGroupsWithRequestToSell");
-                groupsWithSellingPrivelageDataAdapter.Fill(dataSet, "UsersAndGroupsWithSellingPrivelage");
-                adminsDataAdapter.Fill(dataSet, "Admins");
+            //    groupsDataAdapter.Fill(dataSet, "Groups");
+            //    groupsDataAdapter.Fill(dataSet, "Members");
+            //    postsDataAdapter.Fill(dataSet, "Posts");
+            //    bigSellersDataAdapter.Fill(dataSet, "BigSellers");
+            //    groupsWithRequestToSell.Fill(dataSet, "UsersAndGroupsWithRequestToSell");
+            //    groupsWithSellingPrivelageDataAdapter.Fill(dataSet, "UsersAndGroupsWithSellingPrivelage");
+            //    adminsDataAdapter.Fill(dataSet, "Admins");
 
 
-                DataTable groupsTable = dataSet.Tables["Groups"];
-                DataTable membersTable = dataSet.Tables["Members"];
-                DataTable postsTable = dataSet.Tables["Posts"];
-                DataTable bigSellersTable = dataSet.Tables["BigSellers"];
-                DataTable sellingPrivelageTable = dataSet.Tables["UsersAndGroupsWithSellingPrivelage"];
-                DataTable requestToSellTable = dataSet.Tables["UsersAndGroupsWithRequestToSell"];
-                DataTable adminsTable = dataSet.Tables["Admins"];
+            //    DataTable groupsTable = dataSet.Tables["Groups"];
+            //    DataTable membersTable = dataSet.Tables["Members"];
+            //    DataTable postsTable = dataSet.Tables["Posts"];
+            //    DataTable bigSellersTable = dataSet.Tables["BigSellers"];
+            //    DataTable sellingPrivelageTable = dataSet.Tables["UsersAndGroupsWithSellingPrivelage"];
+            //    DataTable requestToSellTable = dataSet.Tables["UsersAndGroupsWithRequestToSell"];
+            //    DataTable adminsTable = dataSet.Tables["Admins"];
 
 
-                foreach (DataRow row in groupsTable.Rows)
-                {
-                    Guid id = (Guid)row["id"];
-                    string name = (string)row["name"];
-                    int memberCount = (int)row["member_count"];
-                    string description = (string)row["description"];
-                    string type = (string)row["type"];
-                    string banner = (string)row["banner"];
-                    DateTime creationDate = (DateTime)row["creation_date"];
+            //    foreach (DataRow row in groupsTable.Rows)
+            //    {
+            //        Guid id = (Guid)row["id"];
+            //        string name = (string)row["name"];
+            //        int memberCount = (int)row["member_count"];
+            //        string description = (string)row["description"];
+            //        string type = (string)row["type"];
+            //        string banner = (string)row["banner"];
+            //        DateTime creationDate = (DateTime)row["creation_date"];
 
-                    List<Guid> members = new List<Guid>();
+            //        List<Guid> members = new List<Guid>();
 
-                    foreach (DataRow row2 in membersTable.Rows)
-                    {
-                        if ((Guid)row2["group_id"] == id)
-                        {
-                            members.Add((Guid)row2["user_id"]);
-                        }
-                    }
+            //        foreach (DataRow row2 in membersTable.Rows)
+            //        {
+            //            if ((Guid)row2["group_id"] == id)
+            //            {
+            //                members.Add((Guid)row2["user_id"]);
+            //            }
+            //        }
 
-                    List<Guid> posts = new List<Guid>();
+            //        List<Guid> posts = new List<Guid>();
 
-                    foreach (DataRow row2 in postsTable.Rows)
-                    {
-                        if ((Guid)row2["group_id"] == id)
-                        {
-                            posts.Add((Guid)row2["id"]);
-                        }
-                    }
+            //        foreach (DataRow row2 in postsTable.Rows)
+            //        {
+            //            if ((Guid)row2["group_id"] == id)
+            //            {
+            //                posts.Add((Guid)row2["id"]);
+            //            }
+            //        }
 
-                    List<Guid> bigSellers = new List<Guid>();
+            //        List<Guid> bigSellers = new List<Guid>();
 
-                    foreach (DataRow row2 in bigSellersTable.Rows)
-                    {
-                        if ((Guid)row2["group_id"] == id)
-                        {
-                            bigSellers.Add((Guid)row2["id"]);
-                        }
-                    }
+            //        foreach (DataRow row2 in bigSellersTable.Rows)
+            //        {
+            //            if ((Guid)row2["group_id"] == id)
+            //            {
+            //                bigSellers.Add((Guid)row2["id"]);
+            //            }
+            //        }
 
-                    List<Guid> admins = new List<Guid>();
+            //        List<Guid> admins = new List<Guid>();
 
-                    foreach (DataRow row2 in adminsTable.Rows)
-                    {
-                        if ((Guid)row2["group_id"] == id)
-                        {
-                            admins.Add((Guid)row2["id"]);
-                        }
-                    }
+            //        foreach (DataRow row2 in adminsTable.Rows)
+            //        {
+            //            if ((Guid)row2["group_id"] == id)
+            //            {
+            //                admins.Add((Guid)row2["id"]);
+            //            }
+            //        }
 
-                    List<Guid> sellingUsers = new List<Guid>();
+            //        List<Guid> sellingUsers = new List<Guid>();
 
-                    foreach (DataRow row2 in sellingPrivelageTable.Rows)
-                    {
-                        if ((Guid)row2["group_id"] == id)
-                        {
-                            sellingUsers.Add((Guid)row2["id"]);
-                        }
-                    }
+            //        foreach (DataRow row2 in sellingPrivelageTable.Rows)
+            //        {
+            //            if ((Guid)row2["group_id"] == id)
+            //            {
+            //                sellingUsers.Add((Guid)row2["id"]);
+            //            }
+            //        }
 
-                    List<Guid> requestedUsers = new List<Guid>();
+            //        List<Guid> requestedUsers = new List<Guid>();
 
-                    foreach (DataRow row2 in requestToSellTable.Rows)
-                    {
-                        if ((Guid)row2["group_id"] == id)
-                        {
-                            requestedUsers.Add((Guid)row2["id"]);
-                        }
-                    }
-                    Group newGroup = new Group(id, name, memberCount, members, posts, admins, sellingUsers, description, type, banner, creationDate, bigSellers, requestedUsers);
-                    groups.Add(newGroup);
-                }
-            }
+            //        foreach (DataRow row2 in requestToSellTable.Rows)
+            //        {
+            //            if ((Guid)row2["group_id"] == id)
+            //            {
+            //                requestedUsers.Add((Guid)row2["id"]);
+            //            }
+            //        }
+            //        Group newGroup = new Group(id, name, memberCount, members, posts, admins, sellingUsers, description, type, banner, creationDate, bigSellers, requestedUsers);
+            //        groups.Add(newGroup);
+            //    }
+            //}
         }
 
         public List<Group> FindAll()

@@ -23,6 +23,14 @@ namespace ISSLab.View
     {
 
 
+        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(PostContent));
+
+        public String Title
+        {
+            get { return (String)GetValue(TitleProperty); } 
+            set { SetValue(TitleProperty, value);}
+        }
+
         public event EventHandler MoreButtonClicked;
         public PostContent()
 
@@ -32,7 +40,15 @@ namespace ISSLab.View
 
         private void OnMoreButtonClick(object sender, RoutedEventArgs e)
         {
-            MoreButtonClicked?.Invoke(this, EventArgs.Empty);
+            if (GridDetails.Children.Count > 0 && GridDetails.Children[0] is PostDetails)
+            {
+                GridDetails.Children.RemoveAt(0);
+            }
+            else
+            {
+                GridDetails.Children.Add(new PostDetails());
+            }
         }
+
     }
 }

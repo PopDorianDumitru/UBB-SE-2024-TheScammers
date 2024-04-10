@@ -28,7 +28,6 @@ namespace ISSLab
         private void LoadMarketplace()
         {
             marketPlaceButton.Background = Brushes.LightBlue;
-            LoadPosts();
         }
 
         private void onClickedMarketplace(object sender, RoutedEventArgs e)
