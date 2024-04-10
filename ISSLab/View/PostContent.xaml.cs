@@ -28,7 +28,6 @@ namespace ISSLab.View
 
         {
             InitializeComponent();
-            this.userName.Text = username;
         }
 
         private void OnMoreButtonClick(object sender, RoutedEventArgs e)
