@@ -38,17 +38,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Images\arrow-button.png" />
-    <Resource Include="Resources\Images\buy-button.png" />
-    <Resource Include="Resources\Images\catei.png" />
-    <Resource Include="Resources\Images\comments.png" />
-    <Resource Include="Resources\Images\dislike.png" />
-    <Resource Include="Resources\Images\like.png" />
-    <Resource Include="Resources\Images\more-button.png" />
-    <Resource Include="Resources\Images\share.png" />
-    <Resource Include="Resources\Images\Star.png" />
-    <Resource Include="Resources\Images\Vini.png" />
-
     <Resource Include="Resources\Images\arrow-button.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

@@ -65,6 +65,10 @@ namespace ISSLab.Model
             this.favorites = favorites;
             this.groups = groups;
             this.nrOfSells = nrOfSells;
+            this.carts = carts;
+            this.favorites = favorites;
+            this.groups = groups;
+            this.receivedReviews = receivedReviews;
         }
 
         public User()
@@ -80,6 +84,11 @@ namespace ISSLab.Model
             this.groupsWithActiveRequestToSell = new List<Guid>();
             this.userScores = new List<SellingUserScore>();
             this.nrOfSells = 0;
+            this.carts = new List<Cart>();
+            this.favorites = new List<Favorites>();
+            this.groups = new List<Guid>();
+            this.receivedReviews = new List<Review>();
+
         }
 
         public List<SellingUserScore> sellingUserScores { get => userScores; set => userScores = value; }
@@ -120,7 +129,9 @@ namespace ISSLab.Model
         {
             groups.Add(newGroup);
         }
+     
 
+        
         public void AddReview(Review newReview)
         {
             receivedReviews.Add(newReview);

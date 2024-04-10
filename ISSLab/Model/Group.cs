@@ -17,6 +17,7 @@ namespace ISSLab.Model
         private List<Guid> admins;
         private List<Guid> sellingUsers;
         private List<Guid> requestedUsers;
+
         private string description;
         private string type;
         private string banner;
@@ -37,6 +38,7 @@ namespace ISSLab.Model
             this.creationDate = DateTime.Now;
             this.bigSellers = new List<Guid>();
             this.requestedUsers = new List<Guid>();
+
             
         }
         public Group()
@@ -53,8 +55,10 @@ namespace ISSLab.Model
             this.banner = "";
             this.creationDate = DateTime.Now;
             this.bigSellers = new List<Guid>();
+            this.usersWithSellRequests = new List<Guid>();
         }
         public Group(Guid id, string name, int memberCount, List<Guid> members, List<Guid> posts, List<Guid> admins, List<Guid> sellingUsers, string description, string type, string banner, DateTime creationDate, List<Guid> bigSellers, List<Guid> requestedUsers)
+
         {
             this.id = id;
             this.name = name;
@@ -69,8 +73,19 @@ namespace ISSLab.Model
             this.creationDate = creationDate;
             this.bigSellers = bigSellers;
             this.requestedUsers = requestedUsers;
-        }
 
+        }
+        
+
+        public List<Guid> UsersWithSellRequests { get => this.usersWithSellRequests; set => this.usersWithSellRequests = value; }
+        public void AddUserWithSellRequest(Guid userID)
+        {
+            this.usersWithSellRequests.Add(userID);
+        }
+        public void RemoveUserWithSellRequest(Guid userID)
+        {
+            this.usersWithSellRequests.Remove(userID);
+        }
 
         public List<Guid> BigSellers { get => this.bigSellers; set => this.bigSellers = value; }
         public void AddBigSeller(Guid userID)
