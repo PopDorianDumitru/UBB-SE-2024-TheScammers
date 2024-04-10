@@ -27,10 +27,13 @@ namespace ISSLab.Services
             this.groups = groups;
         }
 
-        public PostRepository GetPosts()
+        public List<Post> GetPosts()
         {
-               return posts;
+               return posts.getAll();
         }
+
+     
+
         public void AddPost(Post post)
         {
             posts.addPost(post);

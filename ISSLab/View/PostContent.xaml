@@ -7,96 +7,108 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
+        <Grid Grid.Column="0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
                 <ColumnDefinition Width="auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Ellipse Width="80" Height="80" ClipToBounds="True">
-                <Ellipse.Fill>
-                    <ImageBrush ImageSource="../Resources/Images/Vini.png"/>
-                </Ellipse.Fill>
-            </Ellipse>
-            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                <TextBlock x:Name="userName" Text="Ratan Luca" FontSize="24" VerticalAlignment="Center" FontWeight="Bold"></TextBlock>
-                <StackPanel x:Name="ratings" Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Image Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
-                    <Image Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
-                    <Image Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
-                    <Image Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
-                    <Image Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
+
+            <Grid Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Ellipse Width="80" Height="80" ClipToBounds="True">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="../Resources/Images/Vini.png"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <TextBlock x:Name="userName" Text="{Binding Title, RelativeSource={RelativeSource AncestorType={x:Type local:PostContent}}}"  FontSize="24" VerticalAlignment="Center" FontWeight="Bold"></TextBlock>
+                    <StackPanel x:Name="ratings" Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Image Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
+                        <Image Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
+                        <Image Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
+                        <Image Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
+                        <Image Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
+                    </StackPanel>
+                    <TextBlock Text="2 min ago • Oradea" FontSize="14" VerticalAlignment="Center"></TextBlock>
                 </StackPanel>
-                <TextBlock Text="2 min ago • Oradea" FontSize="14" VerticalAlignment="Center"></TextBlock>
-            </StackPanel>
-        </Grid>
-        <TextBlock Grid.Row="0" Grid.Column="1" Text="Available for: 3 months" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" />
-        <StackPanel Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Margin="5,0,0,0">
-            <Button Width="24" Height="20" Margin="0,0,0,5" Background="Transparent" BorderThickness="0">
-                <Image Source="../Resources/Images/more-button.png" Width="20" Height="20"></Image>
-            </Button>
-            <Button x:Name="moreButton" Width="24" Height="20" Margin="0,0,0,0" Background="Transparent" BorderThickness="0" Click="OnMoreButtonClick">
-                <Image Source="../Resources/Images/arrow-button.png" Width="18" Height="18"></Image>
-            </Button>
-        </StackPanel>
-        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="10,10,10,10">
-            <Image Source="../Resources/Images/catei.png" Stretch="Fill"></Image>
-        </Grid>
-        <Grid Grid.Row="2" Grid.Column="0" Margin="0,10,0,10" HorizontalAlignment="Left">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="$300" Margin="20,0,0,0" VerticalAlignment="Center" FontSize="24"></TextBlock>
-                <Button Width="64" Height="40" Margin="2,0,0,0" Background="Transparent" BorderThickness="0" VerticalAlignment="Center">
-                    <Image Source="../Resources/Images/buy-button.png" Width="80" Height="60" VerticalAlignment="Center"></Image>
+            </Grid>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="Available for: 3 months" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <StackPanel Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Margin="5,0,0,0">
+                <Button Width="24" Height="20" Margin="0,0,0,5" Background="Transparent" BorderThickness="0">
+                    <Image Source="../Resources/Images/more-button.png" Width="20" Height="20"></Image>
+                </Button>
+                <Button x:Name="moreButton" Width="24" Height="20" Margin="0,0,0,0" Background="Transparent" BorderThickness="0" Click="OnMoreButtonClick">
+                    <Image Source="../Resources/Images/arrow-button.png" Width="18" Height="18"></Image>
                 </Button>
             </StackPanel>
+            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="10,10,10,10">
+                <Image Source="../Resources/Images/catei.png" Stretch="Fill"></Image>
+            </Grid>
+            <Grid Grid.Row="2" Grid.Column="0" Margin="0,10,0,10" HorizontalAlignment="Left">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="$300" Margin="20,0,0,0" VerticalAlignment="Center" FontSize="24"></TextBlock>
+                    <Button Width="64" Height="40" Margin="2,0,0,0" Background="Transparent" BorderThickness="0" VerticalAlignment="Center">
+                        <Image Source="../Resources/Images/buy-button.png" Width="80" Height="60" VerticalAlignment="Center"></Image>
+                    </Button>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="2" Grid.Column="2" Margin="0,0,10,10">
+                <Button Content="Trimite mesaj" Height="30" Background="#d4ccc2" FontWeight="Bold">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="3" Margin="0,0,10,10">
+                <Label Content="Promoted" HorizontalAlignment="Center" Background="Yellow" FontWeight="Bold">
+                    <Label.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Label.Resources>
+                </Label>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <Button Width="20" Height="20" Margin="10,0,0,0" Background="Transparent" BorderThickness="0">
+                        <Image Source="../Resources/Images/like.png"></Image>
+                    </Button>
+                    <TextBlock Text="0 intrested" VerticalAlignment="Center" Margin="5,0,0,0"></TextBlock>
+                    <Button Width="20" Height="20" Margin="10,0,0,0" Background="Transparent" BorderThickness="0">
+                        <Image Source="../Resources/Images/dislike.png"></Image>
+                    </Button>
+                    <TextBlock Text="0 uniterested" VerticalAlignment="Center" Margin="5,0,0,0"></TextBlock>
+                    <Button Width="25" Height="20" Margin="10,0,0,0" Background="Transparent" BorderThickness="0">
+                        <Image Source="../Resources/Images/comments.png"></Image>
+                    </Button>
+                    <TextBlock Text="0 comments" VerticalAlignment="Center" Margin="5,0,0,0"></TextBlock>
+                    <Button Width="25" Height="20" Margin="10,0,0,0" Background="Transparent" BorderThickness="0">
+                        <Image Source="../Resources/Images/share.png"></Image>
+                    </Button>
+                    <TextBlock Text="share" VerticalAlignment="Center" Margin="5,0,0,0"></TextBlock>
+                </StackPanel>
+            </Grid>
+
         </Grid>
-        <Grid Grid.Row="2" Grid.Column="2" Margin="0,0,10,10">
-            <Button Content="Trimite mesaj" Height="30" Background="#d4ccc2" FontWeight="Bold">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="10"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
-        </Grid>
-        <Grid Grid.Row="3" Grid.Column="3" Margin="0,0,10,10">
-            <Label Content="Promoted" HorizontalAlignment="Center" Background="Yellow" FontWeight="Bold">
-                <Label.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="10"/>
-                    </Style>
-                </Label.Resources>
-            </Label>
-        </Grid>
-        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <Button Width="20" Height="20" Margin="10,0,0,0" Background="Transparent" BorderThickness="0">
-                    <Image Source="../Resources/Images/like.png"></Image>
-                </Button>
-                <TextBlock Text="0 intrested" VerticalAlignment="Center" Margin="5,0,0,0"></TextBlock>
-                <Button Width="20" Height="20" Margin="10,0,0,0" Background="Transparent" BorderThickness="0">
-                    <Image Source="../Resources/Images/dislike.png"></Image>
-                </Button>
-                <TextBlock Text="0 uniterested" VerticalAlignment="Center" Margin="5,0,0,0"></TextBlock>
-                <Button Width="25" Height="20" Margin="10,0,0,0" Background="Transparent" BorderThickness="0">
-                    <Image Source="../Resources/Images/comments.png"></Image>
-                </Button>
-                <TextBlock Text="0 comments" VerticalAlignment="Center" Margin="5,0,0,0"></TextBlock>
-                <Button Width="25" Height="20" Margin="10,0,0,0" Background="Transparent" BorderThickness="0">
-                    <Image Source="../Resources/Images/share.png"></Image>
-                </Button>
-                <TextBlock Text="share" VerticalAlignment="Center" Margin="5,0,0,0"></TextBlock>
-            </StackPanel>
+        <Grid Grid.Column="1" x:Name="GridDetails">
+            
         </Grid>
     </Grid>
 </UserControl>

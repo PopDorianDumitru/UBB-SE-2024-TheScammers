@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ISSLab"
         xmlns:controls="clr-namespace:ISSLab.View"
-        xmlns:VM="clr-namespace:ISSLab.ViewModel"
+        xmlns:viewModels="clr-namespace:ISSLab.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="950" MinHeight="450" MinWidth="950">
     <Window.DataContext>
-        <VM:PostContentViewModel/>
+        <viewModels:MainWindowViewModel/>
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
@@ -132,7 +132,18 @@
         </Grid>
         <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="2">
             <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.RowSpan="2">
-                <Grid x:Name="PostsGrid" Margin="5,5,5,5" Grid.Column="0" Grid.ColumnSpan="3"></Grid>
+                <Grid x:Name="PostsGrid" Margin="5,5,5,5" Grid.Column="0" Grid.ColumnSpan="3" >
+                    <ItemsControl ItemsSource="{Binding ShownPosts}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <controls:PostContent Title="{Binding Title}" >
+                                    
+                                </controls:PostContent>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    
+                </Grid>
             </ScrollViewer>
         </Grid>
     </Grid>
