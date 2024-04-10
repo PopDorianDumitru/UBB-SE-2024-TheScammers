@@ -17,6 +17,7 @@
             <ColumnDefinition Width="auto" MinWidth="150"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" Grid.Row="0">
             <StackPanel>
@@ -63,31 +64,31 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
-        <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+        <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center">
             <StackPanel Orientation="Vertical">
                 <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                     <TextBlock Text="Group 926" FontWeight="Bold" FontSize="18"></TextBlock>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                    <Button Content="Post" Margin="0,0,0,0" MinWidth="50" Background="White">
+                    <Button Content="Post" Margin="0,0,0,0" MinWidth="50" Background="White" FontWeight="Bold">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button Content="Marketplace" Margin="5,0,0,0" Background="White">
+                    <Button x:Name="marketPlaceButton" Content="Marketplace" Margin="5,0,0,0" Background="White" FontWeight="Bold" Click="onClickedMarketplace">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button Margin="5,0,0,0" Background="White">
+                    <Button x:Name="createMarketplacePostButton" Margin="5,0,0,0" Background="White" Click="onClickedCreateMarketplacePost">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" Margin="2,0,2,0">
                                 <Image Source="./Resources/Images/plusLogo.png" Width="18" Height="18" VerticalAlignment="Center" Margin="0,0,2,0"/>
-                                <TextBlock Text="Create a marketplace post" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Create a marketplace post" Margin="0,0,5,0" VerticalAlignment="Center" FontWeight="Bold"/>
                             </StackPanel>
                         </Button.Content>
                         <Button.Resources>
@@ -96,11 +97,11 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button Margin="5,0,0,0" Background="White">
+                    <Button x:Name="yourMarketplaceCartButton" Margin="5,0,0,0" Background="White" Click="onClickedYourMarketplaceCart">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" Margin="2,0,2,0">
                                 <Image Source="./Resources/Images/basket.png" Width="15" Height="20" VerticalAlignment="Center" Margin="0,0,2,0"/>
-                                <TextBlock Text="Your marketplace cart" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Your marketplace cart" Margin="0,0,5,0" VerticalAlignment="Center" FontWeight="Bold"/>
                             </StackPanel>
                         </Button.Content>
                         <Button.Resources>
@@ -109,11 +110,11 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button Margin="5,0,0,0" Background="White">
+                    <Button x:Name="favoritesButton" Margin="5,0,0,0" Background="White" Click="onClickedFavoritesButton">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" Margin="2,0,2,0">
                                 <Image Source="./Resources/Images/heart.png" Width="14" Height="16" VerticalAlignment="Center" Margin="0,0,2,0"/>
-                                <TextBlock Text="Favorites" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Favorites" Margin="0,0,5,0" VerticalAlignment="Center" FontWeight="Bold"/>
                             </StackPanel>
                         </Button.Content>
                         <Button.Resources>
@@ -125,8 +126,12 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
-        <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.RowSpan="2">
                 <Grid x:Name="PostsGrid" Margin="5,5,5,5"></Grid>
             </ScrollViewer>
         </Grid>

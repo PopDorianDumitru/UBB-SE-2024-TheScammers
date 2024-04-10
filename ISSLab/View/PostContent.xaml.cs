@@ -20,9 +20,16 @@ namespace ISSLab.View
     /// </summary>
     public partial class PostContent : UserControl
     {
+
+        public event EventHandler MoreButtonClicked;
         public PostContent()
         {
             InitializeComponent();
+        }
+
+        private void OnMoreButtonClick(object sender, RoutedEventArgs e)
+        {
+            MoreButtonClicked?.Invoke(this, EventArgs.Empty);
         }
     }
 }
