@@ -16,6 +16,7 @@ namespace ISSLab.Model
         private List<Guid> bigSellers;
         private List<Guid> admins;
         private List<Guid> sellingUsers;
+        private List<Guid> usersWithSellRequests;
         private string description;
         private string type;
         private string banner;
@@ -35,6 +36,7 @@ namespace ISSLab.Model
             this.banner = banner;
             this.creationDate = DateTime.Now;
             this.bigSellers = new List<Guid>();
+            this.usersWithSellRequests = new List<Guid>();
             
         }
         public Group()
@@ -51,8 +53,9 @@ namespace ISSLab.Model
             this.banner = "";
             this.creationDate = DateTime.Now;
             this.bigSellers = new List<Guid>();
+            this.usersWithSellRequests = new List<Guid>();
         }
-        public Group(Guid id, string name, int memberCount, List<User> members, List<Post> posts, List<Guid> admins, List<Guid> sellingUsers, string description, string type, string banner, DateTime creationDate, List<Guid> bigSellers)
+        public Group(Guid id, string name, int memberCount, List<User> members, List<Post> posts, List<Guid> admins, List<Guid> sellingUsers, string description, string type, string banner, DateTime creationDate, List<Guid> bigSellers, List<Guid> usersWithSellingRequests)
         {
             this.id = id;
             this.name = name;
@@ -66,8 +69,19 @@ namespace ISSLab.Model
             this.banner = banner;
             this.creationDate = creationDate;
             this.bigSellers = bigSellers;
+            this.usersWithSellRequests = usersWithSellingRequests;
         }
+        
 
+        public List<Guid> UsersWithSellRequests { get => this.usersWithSellRequests; set => this.usersWithSellRequests = value; }
+        public void AddUserWithSellRequest(Guid userID)
+        {
+            this.usersWithSellRequests.Add(userID);
+        }
+        public void RemoveUserWithSellRequest(Guid userID)
+        {
+            this.usersWithSellRequests.Remove(userID);
+        }
 
         public List<Guid> BigSellers { get => this.bigSellers; set => this.bigSellers = value; }
         public void AddBigSeller(Guid userID)
