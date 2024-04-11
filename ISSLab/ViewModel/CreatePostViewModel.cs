@@ -50,7 +50,27 @@ namespace ISSLab.ViewModel
         public string Description { get { return description; } set { description = value; OnPropertyChanged(nameof(Description)); }
                }
         public Guid AccountId { get {  return accountId; }  }
-       
+
+        public void CreatePost()
+        {
+            if (Type == "Fixed price")
+                CreateFixedPricePost();
+
+        }
+
+        public void CreateFixedPricePost()
+        {
+            FixedPricePost fixedPrice = new FixedPricePost("", accountId, groupId, "Cluj", Description, "", PhoneNumber, float.Parse(Price), DateTime.Now.AddMonths(3), Delivery, new List<Review>(), 0, Guid.Empty, "FixedPrice", false);
+            postService.AddPost(fixedPrice);
+            Type = "";
+            PhoneNumber = "";
+            Price = "";
+            Condition = "";
+            Delivery = "";
+            Availability = "";
+            Description = "";
+        }
+
     }
 }
 
