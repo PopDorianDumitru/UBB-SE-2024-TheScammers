@@ -1,4 +1,5 @@
 ﻿using ISSLab.Model;
+using ISSLab.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -147,6 +148,24 @@ namespace ISSLab.View
                 GridOptions.Visibility = Visibility.Collapsed;
             else
                 GridOptions.Visibility = Visibility.Visible;
+        }
+
+        private void onInterestedClicked(object sender, RoutedEventArgs e)
+        {
+            var viewModel = DataContext as PostContentViewModel;
+            if (viewModel != null)
+            {
+                viewModel.AddInterests();
+            }
+        }
+
+        private void onUninterestedClicked(object sender, RoutedEventArgs e)
+        {
+            var viewModel = DataContext as PostContentViewModel;
+            if (viewModel != null)
+            {
+                viewModel.AddUniterests();
+            }
         }
 
     }
