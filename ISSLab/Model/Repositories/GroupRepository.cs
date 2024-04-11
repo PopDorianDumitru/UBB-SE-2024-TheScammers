@@ -14,132 +14,135 @@ namespace ISSLab.Model.Repositories
         private readonly DataSet dataSet;
         private readonly string connectionString;
         List<Group> groups;
+        SqlDataAdapter groupsDataAdapter;
+        SqlDataAdapter membersDataAdapter;
+        SqlDataAdapter postsDataAdapter;
 
 
         public GroupRepository()
         {
             dataSet = new DataSet();
-            connectionString = "";
+            connectionString = "data source=DESKTOP-GIKO44L\\SQLEXPRESS;initial catalog=ISSMarketplace;trusted_connection=true";
             groups = new List<Group>();
         }
         public GroupRepository(DataSet _dataSet)
         {
             dataSet = _dataSet;
-            connectionString = "";
+            connectionString = "data source=DESKTOP-GIKO44L\\SQLEXPRESS;initial catalog=ISSMarketplace;trusted_connection=true";
             groups = new List<Group>();
 
-            //using (SqlConnection connection = new SqlConnection(connectionString))
-            //{
-            //    connection.Open();
-            //    string selectAllGroups = "SELECT * FROM Groups";
-            //    string selectAllMembers = "SELECT * FROM Members";
-            //    string selectAllPosts = "SELECT * FROM Posts";
-            //    string selectAllBigSellers = "SELECT * FROM BigSellers";
-            //    string selectAllAdmins = "SELECT * FROM Admins";
-            //    string selectAllGroupsWithSellingPrivelage = "SELECT * FROM UsersAndGroupsWithSellingPrivelage";
-            //    string selectAllGroupsWithRequestToSell = "SELECT * FROM UsersAndGroupsWithRequestToSell";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string selectAllGroups = "SELECT * FROM Groups";
+                string selectAllMembers = "SELECT * FROM Members";
+                string selectAllPosts = "SELECT * FROM Posts";
+                //string selectAllBigSellers = "SELECT * FROM BigSellers";
+                //string selectAllAdmins = "SELECT * FROM Admins";
+                //string selectAllGroupsWithSellingPrivelage = "SELECT * FROM UsersAndGroupsWithSellingPrivelage";
+                //string selectAllGroupsWithRequestToSell = "SELECT * FROM UsersAndGroupsWithRequestToSell";
 
 
-            //    SqlDataAdapter groupsDataAdapter = new SqlDataAdapter(selectAllGroups, connection);
-            //    SqlDataAdapter membersDataAdapter = new SqlDataAdapter(selectAllMembers, connection);
-            //    SqlDataAdapter postsDataAdapter = new SqlDataAdapter(selectAllPosts, connection);
-            //    SqlDataAdapter bigSellersDataAdapter = new SqlDataAdapter(selectAllBigSellers, connection);
-            //    SqlDataAdapter groupsWithSellingPrivelageDataAdapter = new SqlDataAdapter(selectAllGroupsWithSellingPrivelage, connection);
-            //    SqlDataAdapter groupsWithRequestToSell = new SqlDataAdapter(selectAllGroupsWithRequestToSell, connection);
-            //    SqlDataAdapter adminsDataAdapter = new SqlDataAdapter(selectAllAdmins, connection);
+                groupsDataAdapter = new SqlDataAdapter(selectAllGroups, connection);
+                membersDataAdapter = new SqlDataAdapter(selectAllMembers, connection);
+                postsDataAdapter = new SqlDataAdapter(selectAllPosts, connection);
+                //SqlDataAdapter bigSellersDataAdapter = new SqlDataAdapter(selectAllBigSellers, connection);
+                //SqlDataAdapter groupsWithSellingPrivelageDataAdapter = new SqlDataAdapter(selectAllGroupsWithSellingPrivelage, connection);
+                //SqlDataAdapter groupsWithRequestToSell = new SqlDataAdapter(selectAllGroupsWithRequestToSell, connection);
+                //SqlDataAdapter adminsDataAdapter = new SqlDataAdapter(selectAllAdmins, connection);
 
 
-            //    groupsDataAdapter.Fill(dataSet, "Groups");
-            //    groupsDataAdapter.Fill(dataSet, "Members");
-            //    postsDataAdapter.Fill(dataSet, "Posts");
-            //    bigSellersDataAdapter.Fill(dataSet, "BigSellers");
-            //    groupsWithRequestToSell.Fill(dataSet, "UsersAndGroupsWithRequestToSell");
-            //    groupsWithSellingPrivelageDataAdapter.Fill(dataSet, "UsersAndGroupsWithSellingPrivelage");
-            //    adminsDataAdapter.Fill(dataSet, "Admins");
+                groupsDataAdapter.Fill(dataSet, "Groups");
+                groupsDataAdapter.Fill(dataSet, "Members");
+                postsDataAdapter.Fill(dataSet, "Posts");
+                //bigSellersDataAdapter.Fill(dataSet, "BigSellers");
+                //groupsWithRequestToSell.Fill(dataSet, "UsersAndGroupsWithRequestToSell");
+                //groupsWithSellingPrivelageDataAdapter.Fill(dataSet, "UsersAndGroupsWithSellingPrivelage");
+                //adminsDataAdapter.Fill(dataSet, "Admins");
 
 
-            //    DataTable groupsTable = dataSet.Tables["Groups"];
-            //    DataTable membersTable = dataSet.Tables["Members"];
-            //    DataTable postsTable = dataSet.Tables["Posts"];
-            //    DataTable bigSellersTable = dataSet.Tables["BigSellers"];
-            //    DataTable sellingPrivelageTable = dataSet.Tables["UsersAndGroupsWithSellingPrivelage"];
-            //    DataTable requestToSellTable = dataSet.Tables["UsersAndGroupsWithRequestToSell"];
-            //    DataTable adminsTable = dataSet.Tables["Admins"];
+                DataTable groupsTable = dataSet.Tables["Groups"];
+                DataTable membersTable = dataSet.Tables["Members"];
+                DataTable postsTable = dataSet.Tables["Posts"];
+                //DataTable bigSellersTable = dataSet.Tables["BigSellers"];
+                //DataTable sellingPrivelageTable = dataSet.Tables["UsersAndGroupsWithSellingPrivelage"];
+                //DataTable requestToSellTable = dataSet.Tables["UsersAndGroupsWithRequestToSell"];
+                //DataTable adminsTable = dataSet.Tables["Admins"];
 
 
-            //    foreach (DataRow row in groupsTable.Rows)
-            //    {
-            //        Guid id = (Guid)row["id"];
-            //        string name = (string)row["name"];
-            //        int memberCount = (int)row["member_count"];
-            //        string description = (string)row["description"];
-            //        string type = (string)row["type"];
-            //        string banner = (string)row["banner"];
-            //        DateTime creationDate = (DateTime)row["creation_date"];
+                foreach (DataRow row in groupsTable.Rows)
+                {
+                    Guid id = (Guid)row["groupID"];
+                    string name = (string)row["name"];
+                    int memberCount = (int)row["memberCount"];
+                    string description = (string)row["description"];
+                    string type = (string)row["type"];
+                    string banner = (string)row["banner"];
+                    DateTime creationDate = (DateTime)row["creationDate"];
 
-            //        List<Guid> members = new List<Guid>();
+                    List<Guid> members = new List<Guid>();
 
-            //        foreach (DataRow row2 in membersTable.Rows)
-            //        {
-            //            if ((Guid)row2["group_id"] == id)
-            //            {
-            //                members.Add((Guid)row2["user_id"]);
-            //            }
-            //        }
+                    foreach (DataRow row2 in membersTable.Rows)
+                    {
+                        if ((Guid)row2["groupID"] == id)
+                        {
+                            members.Add((Guid)row2["userID"]);
+                        }
+                    }
 
-            //        List<Guid> posts = new List<Guid>();
+                    List<Guid> posts = new List<Guid>();
 
-            //        foreach (DataRow row2 in postsTable.Rows)
-            //        {
-            //            if ((Guid)row2["group_id"] == id)
-            //            {
-            //                posts.Add((Guid)row2["id"]);
-            //            }
-            //        }
+                    foreach (DataRow row2 in postsTable.Rows)
+                    {
+                        if ((Guid)row2["groupID"] == id)
+                        {
+                            posts.Add((Guid)row2["postID"]);
+                        }
+                    }
 
-            //        List<Guid> bigSellers = new List<Guid>();
+                    List<Guid> bigSellers = new List<Guid>();
 
-            //        foreach (DataRow row2 in bigSellersTable.Rows)
-            //        {
-            //            if ((Guid)row2["group_id"] == id)
-            //            {
-            //                bigSellers.Add((Guid)row2["id"]);
-            //            }
-            //        }
+                    foreach (DataRow row2 in membersTable.Rows)
+                    {
+                        if ((Guid)row2["groupID"] == id && (bool)row2["isBigSeller"])
+                        {
+                            bigSellers.Add((Guid)row2["userID"]);
+                        }
+                    }
 
-            //        List<Guid> admins = new List<Guid>();
+                    List<Guid> admins = new List<Guid>();
 
-            //        foreach (DataRow row2 in adminsTable.Rows)
-            //        {
-            //            if ((Guid)row2["group_id"] == id)
-            //            {
-            //                admins.Add((Guid)row2["id"]);
-            //            }
-            //        }
+                    foreach (DataRow row2 in membersTable.Rows)
+                    {
+                        if ((Guid)row2["groupID"] == id && (bool)row2["isAdmin"])
+                        {
+                            admins.Add((Guid)row2["userID"]);
+                        }
+                    }
 
-            //        List<Guid> sellingUsers = new List<Guid>();
+                    List<Guid> sellingUsers = new List<Guid>();
 
-            //        foreach (DataRow row2 in sellingPrivelageTable.Rows)
-            //        {
-            //            if ((Guid)row2["group_id"] == id)
-            //            {
-            //                sellingUsers.Add((Guid)row2["id"]);
-            //            }
-            //        }
+                    foreach (DataRow row2 in membersTable.Rows)
+                    {
+                        if ((Guid)row2["group_id"] == id && (bool)row2["hasSellingPrivelage"])
+                        {
+                            sellingUsers.Add((Guid)row2["userId"]);
+                        }
+                    }
 
-            //        List<Guid> requestedUsers = new List<Guid>();
+                    List<Guid> requestedUsers = new List<Guid>();
 
-            //        foreach (DataRow row2 in requestToSellTable.Rows)
-            //        {
-            //            if ((Guid)row2["group_id"] == id)
-            //            {
-            //                requestedUsers.Add((Guid)row2["id"]);
-            //            }
-            //        }
-            //        Group newGroup = new Group(id, name, memberCount, members, posts, admins, sellingUsers, description, type, banner, creationDate, bigSellers, requestedUsers);
-            //        groups.Add(newGroup);
-            //    }
-            //}
+                    foreach (DataRow row2 in membersTable.Rows)
+                    {
+                        if ((Guid)row2["group_id"] == id && (bool)row2["requestedToSell"])
+                        {
+                            requestedUsers.Add((Guid)row2["userID"]);
+                        }
+                    }
+                    Group newGroup = new Group(id, name, memberCount, members, posts, admins, sellingUsers, description, type, banner, creationDate, bigSellers, requestedUsers);
+                    groups.Add(newGroup);
+                }
+            }
         }
 
         public List<Group> FindAll()
@@ -221,95 +224,95 @@ namespace ISSLab.Model.Repositories
 
 
 
-            DataTable bigSellersTable = dataSet.Tables["BigSellers"];
+            //DataTable bigSellersTable = dataSet.Tables["BigSellers"];
 
-            // Create a list to store the rows that match the specified age
-            List<DataRow> rowsToDelete3 = new List<DataRow>();
+            //// Create a list to store the rows that match the specified age
+            //List<DataRow> rowsToDelete3 = new List<DataRow>();
 
-            // Iterate through each row in the DataTable
-            foreach (DataRow row in bigSellersTable.Rows)
-            {
-                // Check if the "Age" column value matches the specified age
-                if (row["group_id"] != DBNull.Value && (Guid)row["group_id"] == id)
-                {
-                    // If the condition is met, add the row to the list of rows to delete
-                    rowsToDelete3.Add(row);
-                }
-            }
+            //// Iterate through each row in the DataTable
+            //foreach (DataRow row in bigSellersTable.Rows)
+            //{
+            //    // Check if the "Age" column value matches the specified age
+            //    if (row["group_id"] != DBNull.Value && (Guid)row["group_id"] == id)
+            //    {
+            //        // If the condition is met, add the row to the list of rows to delete
+            //        rowsToDelete3.Add(row);
+            //    }
+            //}
 
-            // Remove the rows from the DataTable
-            foreach (DataRow rowToDelete in rowsToDelete3)
-            {
-               bigSellersTable.Rows.Remove(rowToDelete);
-            }
-
-
-            DataTable adminsTable = dataSet.Tables["Admins"];
-
-            // Create a list to store the rows that match the specified age
-            List<DataRow> rowsToDelete4 = new List<DataRow>();
-
-            // Iterate through each row in the DataTable
-            foreach (DataRow row in adminsTable.Rows)
-            {
-                // Check if the "Age" column value matches the specified age
-                if (row["group_id"] != DBNull.Value && (Guid)row["group_id"] == id)
-                {
-                    // If the condition is met, add the row to the list of rows to delete
-                    rowsToDelete4.Add(row);
-                }
-            }
-
-            // Remove the rows from the DataTable
-            foreach (DataRow rowToDelete in rowsToDelete4)
-            {
-                adminsTable.Rows.Remove(rowToDelete);
-            }
+            //// Remove the rows from the DataTable
+            //foreach (DataRow rowToDelete in rowsToDelete3)
+            //{
+            //   bigSellersTable.Rows.Remove(rowToDelete);
+            //}
 
 
-            DataTable groupsWithSellingPrivelageTable = dataSet.Tables["UsersAndGroupsWithSellingPrivelage"];
+            //DataTable adminsTable = dataSet.Tables["Admins"];
 
-            // Create a list to store the rows that match the specified age
-            List<DataRow> rowsToDelete5 = new List<DataRow>();
-            // Iterate through each row in the DataTable
-            foreach (DataRow row in groupsWithSellingPrivelageTable.Rows)
-            {
-                // Check if the "Age" column value matches the specified age
-                if (row["group_id"] != DBNull.Value && (Guid)row["group_id"] == id)
-                {
-                    // If the condition is met, add the row to the list of rows to delete
-                    rowsToDelete5.Add(row);
-                }
-            }
+            //// Create a list to store the rows that match the specified age
+            //List<DataRow> rowsToDelete4 = new List<DataRow>();
 
-            // Remove the rows from the DataTable
-            foreach (DataRow rowToDelete in rowsToDelete5)
-            {
-                groupsWithSellingPrivelageTable.Rows.Remove(rowToDelete);
-            }
+            //// Iterate through each row in the DataTable
+            //foreach (DataRow row in adminsTable.Rows)
+            //{
+            //    // Check if the "Age" column value matches the specified age
+            //    if (row["group_id"] != DBNull.Value && (Guid)row["group_id"] == id)
+            //    {
+            //        // If the condition is met, add the row to the list of rows to delete
+            //        rowsToDelete4.Add(row);
+            //    }
+            //}
+
+            //// Remove the rows from the DataTable
+            //foreach (DataRow rowToDelete in rowsToDelete4)
+            //{
+            //    adminsTable.Rows.Remove(rowToDelete);
+            //}
 
 
-            DataTable groupsWithRequestToSellTable = dataSet.Tables["UsersAndGroupsWithRequestToSell"];
+            //DataTable groupsWithSellingPrivelageTable = dataSet.Tables["UsersAndGroupsWithSellingPrivelage"];
 
-            // Create a list to store the rows that match the specified age
-            List<DataRow> rowsToDelete6 = new List<DataRow>();
+            //// Create a list to store the rows that match the specified age
+            //List<DataRow> rowsToDelete5 = new List<DataRow>();
+            //// Iterate through each row in the DataTable
+            //foreach (DataRow row in groupsWithSellingPrivelageTable.Rows)
+            //{
+            //    // Check if the "Age" column value matches the specified age
+            //    if (row["group_id"] != DBNull.Value && (Guid)row["group_id"] == id)
+            //    {
+            //        // If the condition is met, add the row to the list of rows to delete
+            //        rowsToDelete5.Add(row);
+            //    }
+            //}
 
-            // Iterate through each row in the DataTable
-            foreach (DataRow row in groupsWithRequestToSellTable.Rows)
-            {
-                // Check if the "Age" column value matches the specified age
-                if (row["group_id"] != DBNull.Value && (Guid)row["group_id"] == id)
-                {
-                    // If the condition is met, add the row to the list of rows to delete
-                    rowsToDelete6.Add(row);
-                }
-            }
+            //// Remove the rows from the DataTable
+            //foreach (DataRow rowToDelete in rowsToDelete5)
+            //{
+            //    groupsWithSellingPrivelageTable.Rows.Remove(rowToDelete);
+            //}
 
-            // Remove the rows from the DataTable
-            foreach (DataRow rowToDelete in rowsToDelete6)
-            {
-                groupsWithRequestToSellTable.Rows.Remove(rowToDelete);
-            }
+
+            //DataTable groupsWithRequestToSellTable = dataSet.Tables["UsersAndGroupsWithRequestToSell"];
+
+            //// Create a list to store the rows that match the specified age
+            //List<DataRow> rowsToDelete6 = new List<DataRow>();
+
+            //// Iterate through each row in the DataTable
+            //foreach (DataRow row in groupsWithRequestToSellTable.Rows)
+            //{
+            //    // Check if the "Age" column value matches the specified age
+            //    if (row["group_id"] != DBNull.Value && (Guid)row["group_id"] == id)
+            //    {
+            //        // If the condition is met, add the row to the list of rows to delete
+            //        rowsToDelete6.Add(row);
+            //    }
+            //}
+
+            //// Remove the rows from the DataTable
+            //foreach (DataRow rowToDelete in rowsToDelete6)
+            //{
+            //    groupsWithRequestToSellTable.Rows.Remove(rowToDelete);
+            //}
         }
 
 
@@ -329,11 +332,13 @@ namespace ISSLab.Model.Repositories
 
         public void UpdateGroupBigSellersAdd(Guid id, Guid user)
         {
-            DataRow newRow = dataSet.Tables["BigSellers"].NewRow();
-            newRow["user_id"] = user.ToString();
-            newRow["group_id"] = id.ToString();
+            DataRow row = dataSet.Tables["Members"].Rows.Find(user);
+            if (row != null)
+            {
+                row["isBigSeller"] = 1;
+            }
 
-            for(int i = 0; i < groups.Count; i++)
+            for (int i = 0; i < groups.Count; i++)
             {
                 if (groups[i].Id == id)
                 {
@@ -345,10 +350,10 @@ namespace ISSLab.Model.Repositories
 
         public void UpdateGroupBigSellersRemove(Guid id, Guid user)
         {
-            DataRow row = dataSet.Tables["BigSellers"].Rows.Find(user);
+            DataRow row = dataSet.Tables["Members"].Rows.Find(user);
             if(row != null)
             {
-                row.Delete();
+                row["isBigSeller"] = 0;
             }
 
             for (int i = 0; i < groups.Count; i++)
@@ -363,9 +368,11 @@ namespace ISSLab.Model.Repositories
 
         public void UpdateGroupsSellersAdd(Guid id, Guid user)
         {
-            DataRow row = dataSet.Tables["UsersAndGroupsWithSellingPrivelage"].NewRow();
-            row["group_id"] = id.ToString();
-            row["user_id"] = user.ToString();
+            DataRow row = dataSet.Tables["Members"].Rows.Find(user);
+            if (row != null)
+            {
+                row["hasSellingPrivelage"] = 1;
+            }
 
             for (int i = 0; i < groups.Count; i++)
             {
@@ -379,10 +386,10 @@ namespace ISSLab.Model.Repositories
 
         public void UpdateGroupsSellersRemove(Guid id, Guid user)
         {
-            DataRow row = dataSet.Tables["UsersAndGroupsWithSellingPrivelage"].Rows.Find(user);
-            if( row != null)
+            DataRow row = dataSet.Tables["Members"].Rows.Find(user);
+            if (row != null)
             {
-                row.Delete();
+                row["hasSellingPrivelage"] = 0;
             }
 
             for (int i = 0; i < groups.Count; i++)
@@ -397,9 +404,11 @@ namespace ISSLab.Model.Repositories
 
         public void UpdateGroupsRequestedUsersAdd(Guid id, Guid user)
         {
-            DataRow row = dataSet.Tables["UsersAndGroupsWithRequestToSell"].NewRow();
-            row["group_id"] = id.ToString();
-            row["user_id"] = user.ToString();
+            DataRow row = dataSet.Tables["Members"].Rows.Find(user);
+            if (row != null)
+            {
+                row["requestedToSell"] = 1;
+            }
 
             for (int i = 0; i < groups.Count; i++)
             {
@@ -413,10 +422,10 @@ namespace ISSLab.Model.Repositories
 
         public void UpdateGroupsRequestedUsersRemove(Guid id, Guid user)
         {
-            DataRow row = dataSet.Tables["UsersAndGroupsWithRequestToSell"].Rows.Find(user);
-            if(row != null)
+            DataRow row = dataSet.Tables["Members"].Rows.Find(user);
+            if (row != null)
             {
-                row.Delete();
+                row["requestedToSell"] = 0;
             }
 
             for (int i = 0; i < groups.Count; i++)
@@ -433,7 +442,7 @@ namespace ISSLab.Model.Repositories
         public void UpdateGroupPostsAdd(Guid id, Post post)
         {
             DataRow newRow = dataSet.Tables["Posts"].NewRow();
-            newRow["id"] = post.Id.ToString();
+            newRow["postID"] = post.Id.ToString();
             newRow["views"] = post.Views;
             newRow["media"] = post.Media;
             newRow["creation_date"] = post.CreationDate;

@@ -17,159 +17,181 @@ namespace ISSLab.Model.Repositories
         private readonly string connectionString;
         List<User> users;
 
+        SqlDataAdapter usersDataAdapter;
+        //SqlDataAdapter groupsWithRequestToSell;
+        SqlDataAdapter postInteractionsDataAdapter;
+        SqlDataAdapter membersDataAdapter;
+        SqlDataAdapter reviewsDataAdapter;
+        SqlDataAdapter postsDataAdapter;
+
+        SqlCommandBuilder userCommandBuilder;
+        SqlCommandBuilder postInteractionsCommandBuilder;
+        SqlCommandBuilder membersCommandBuilder;
+        SqlCommandBuilder reviewsCommandBuilder;
+        SqlCommandBuilder postsCommandBuilder;
+
         public UserRepository()
         {
             dataSet = new DataSet();
-            connectionString = "Data Source=DESKTOP-1VJ4V0K;Initial Catalog=ISSLab;Integrated Security=True";
+            connectionString = "data source=DESKTOP-GIKO44L\\SQLEXPRESS;initial catalog=ISSMarketplace;trusted_connection=true";
             users = new List<User>();
         }
         public UserRepository(DataSet _dataSet)
         {
             dataSet = _dataSet;
-            connectionString = "";
+            connectionString = "data source=DESKTOP-GIKO44L\\SQLEXPRESS;initial catalog=ISSMarketplace;trusted_connection=true";
             users = new List<User>();
 
-            //using (SqlConnection connection = new SqlConnection(connectionString))
-            //{
-            //    connection.Open();
-            //    string selectAllUsersQuery = "SELECT * FROM Users";
-            //    string selectAllGroupsWithSellingPrivelage = "SELECT * FROM UsersAndGroupsWithSellingPrivelage";
-            //    string selectAllGroupsWithRequestToSell = "SELECT * FROM UsersAndGroupsWithRequestToSell";
-            //    string selectAllCarts = "SELECT * FROM Carts";
-            //    string selectAllFavorites = "SELECT * FROM Favorites";
-            //    string selectAllMembers = "SELECT * FROM Members";
-            //    string selectAllReviews = "SELECT * FROM Reviews";
-            //    string selectAllPosts = "SELECT * FROM Posts";
-            //    SqlDataAdapter usersDataAdapter = new SqlDataAdapter(selectAllUsersQuery, connection);
-            //    SqlDataAdapter groupsWithSellingPrivelageDataAdapter = new SqlDataAdapter(selectAllGroupsWithSellingPrivelage, connection);
-            //    SqlDataAdapter groupsWithRequestToSell = new SqlDataAdapter(selectAllGroupsWithRequestToSell, connection);
-            //    SqlDataAdapter cartsDataAdapter = new SqlDataAdapter(selectAllCarts, connection);
-            //    SqlDataAdapter favoritesDataAdapter = new SqlDataAdapter(selectAllFavorites, connection);
-            //    SqlDataAdapter membersDataAdapter = new SqlDataAdapter(selectAllMembers, connection);
-            //    SqlDataAdapter reviewsDataAdapter = new SqlDataAdapter (selectAllReviews, connection);
-            //    SqlDataAdapter postsDataAdapter = new SqlDataAdapter(selectAllPosts, connection);
-            //    usersDataAdapter.Fill(dataSet, "Users");
-            //    groupsWithSellingPrivelageDataAdapter.Fill(dataSet, "UsersAndGroupsWithSellingPrivelage");
-            //    groupsWithRequestToSell.Fill(dataSet, "UsersAndGroupsWithRequestToSell");
-            //    cartsDataAdapter.Fill(dataSet, "Carts");
-            //    favoritesDataAdapter.Fill(dataSet, "Favorites");
-            //    membersDataAdapter.Fill(dataSet, "Members");
-            //    reviewsDataAdapter.Fill(dataSet, "Reviews");
-            //    postsDataAdapter.Fill(dataSet, "Posts");
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            string selectAllUsersQuery = "SELECT * FROM Users";
+            //string selectAllGroupsWithSellingPrivelage = "SELECT * FROM UsersAndGroupsWithSellingPrivelage";
+            string selectAllGroupsWithRequestToSell = "SELECT * FROM UsersAndGroupsWithRequestToSell";
+            //string selectAllCarts = "SELECT * FROM Carts";
+            //string selectAllFavorites = "SELECT * FROM Favorites";
+            string selectAllPostInteractions = "SELECT * FROM PostInteractions";
+            string selectAllMembers = "SELECT * FROM Members";
+            string selectAllReviews = "SELECT * FROM Reviews";
+            string selectAllPosts = "SELECT * FROM Posts";
+            usersDataAdapter = new SqlDataAdapter(selectAllUsersQuery, connection);
+            //SqlDataAdapter groupsWithSellingPrivelageDataAdapter = new SqlDataAdapter(selectAllGroupsWithSellingPrivelage, connection);
+            //groupsWithRequestToSell = new SqlDataAdapter(selectAllGroupsWithRequestToSell, connection);
+            //SqlDataAdapter cartsDataAdapter = new SqlDataAdapter(selectAllCarts, connection);
+            //SqlDataAdapter favoritesDataAdapter = new SqlDataAdapter(selectAllFavorites, connection);
+            postInteractionsDataAdapter = new SqlDataAdapter (selectAllPostInteractions, connection);
+            membersDataAdapter = new SqlDataAdapter(selectAllMembers, connection);
+            reviewsDataAdapter = new SqlDataAdapter(selectAllReviews, connection);
+            postsDataAdapter = new SqlDataAdapter(selectAllPosts, connection);
 
-            //    DataTable usersTable = dataSet.Tables["Users"];
-            //    DataTable sellingPrivelageTable = dataSet.Tables["UsersAndGroupsWithSellingPrivelage"];
-            //    DataTable requestToSellTable = dataSet.Tables["UsersAndGroupsWithRequestToSell"];
-            //    DataTable cartsTable = dataSet.Tables["Carts"];
-            //    DataTable favoritesTable = dataSet.Tables["Favorites"];
-            //    DataTable membersTable = dataSet.Tables["Members"];
-            //    DataTable reviewsTable = dataSet.Tables["Reviews"];
-            //    DataTable postsTable = dataSet.Tables["Posts"];
+            userCommandBuilder = new SqlCommandBuilder(usersDataAdapter);
+            postInteractionsCommandBuilder = new SqlCommandBuilder(postInteractionsDataAdapter);
+            membersCommandBuilder = new SqlCommandBuilder(membersDataAdapter);
+            reviewsCommandBuilder = new SqlCommandBuilder(reviewsDataAdapter);
+            postsCommandBuilder = new SqlCommandBuilder (postsDataAdapter);
 
-            //    foreach(DataRow row in usersTable.Rows)
-            //    {
-            //        Guid id = (Guid)row["id"];
-            //        string username = (string)row["username"];
-            //        string realName = (string)row["real_name"];
-            //        DateOnly dateOfBirth = (DateOnly)row["date_of_birth"];
-            //        string profilePicture = (string)row["profile_picture"];
-            //        string password = (string)row["password"];
-            //        DateTime creationDate = (DateTime)row["creation_date"];
-            //        int nrOfSells = (int)row["number_of_sells"];
-            //        List<Guid> sellPrivelageGroups = new List<Guid>();
-            //        List<Guid> requestToSellGroups = new List<Guid>();
-            //        List<SellingUserScore> sellingUserScores = new List<SellingUserScore>();
-            //        foreach (DataRow row2 in sellingPrivelageTable.Rows)
-            //        {
-            //            if ((Guid)row2["user_id"] == id)
-            //            {
-            //                sellPrivelageGroups.Add((Guid)row2["group_id"]);
-            //                Guid userScoreId = id;
-            //                Guid groupId = (Guid)row2["group_id"];
-            //                int score = (int)row2["score"];
-            //                SellingUserScore sellingUserScore = new SellingUserScore(userScoreId, groupId, score);
-            //                sellingUserScores.Add(sellingUserScore);
-            //            }
-            //        }
-            //        foreach(DataRow row3 in requestToSellTable.Rows)
-            //        {
-            //            if ((Guid)row3["user_id"] == id)
-            //            {
-            //                requestToSellGroups.Add((Guid)row3["group_id"]);
-            //            }
-            //        }
-            //        List<Guid> groups = new List<Guid>();
-            //        List<Cart> carts = new List<Cart>();
-            //        foreach (DataRow row2 in membersTable.Rows)
-            //        {
-            //            if ((Guid)row2["user_id"] == id)
-            //            {
-            //                Guid groupId = (Guid)row2["group_id"];
-            //                groups.Add(groupId);
-            //                List<Guid> posts = new List<Guid>();
-            //                foreach (DataRow row3 in cartsTable.Rows)
-            //                {
-            //                    if ((Guid)row3["user_id"] == id)
-            //                    {
-            //                        Guid cartUserId = (Guid)row3["user_id"];
-            //                        if ((Guid)row3["group_id"] == groupId)
-            //                        {
-            //                            Guid cartGroupId = (Guid)row3["group_id"];
-            //                            //foreach(DataRow row4 in postsTable.Rows)
-            //                            //{
-            //                            //    if ((Guid)row4["group_id"] == cartGroupId)
-            //                            //    {
-            //                            //        Guid postId = (Guid)row4["post_id"];
-            //                            //        posts.Add(postId);
-            //                            //    }
-            //                            //}
-            //                            Guid postId = (Guid)row3["post_id"];
-            //                            posts.Add(postId);
-            //                        }
+            usersDataAdapter.Fill(dataSet, "Users");
+            //groupsWithSellingPrivelageDataAdapter.Fill(dataSet, "UsersAndGroupsWithSellingPrivelage");
+            //groupsWithRequestToSell.Fill(dataSet, "UsersAndGroupsWithRequestToSell");
+            //cartsDataAdapter.Fill(dataSet, "Carts");
+            //favoritesDataAdapter.Fill(dataSet, "Favorites");
+            postInteractionsDataAdapter.Fill(dataSet, "PostInteractions");
+            membersDataAdapter.Fill(dataSet, "Members");
+            reviewsDataAdapter.Fill(dataSet, "Reviews");
+            postsDataAdapter.Fill(dataSet, "Posts");
 
-            //                    }
-            //                }
-            //                Cart newCart = new Cart(groupId, id, posts);
-            //                carts.Add(newCart);
-            //            }
-            //        }
+            DataTable usersTable = dataSet.Tables["Users"];
+            //DataTable sellingPrivelageTable = dataSet.Tables["UsersAndGroupsWithSellingPrivelage"];
+            DataTable requestToSellTable = dataSet.Tables["UsersAndGroupsWithRequestToSell"];
+            //DataTable cartsTable = dataSet.Tables["Carts"];
+            //DataTable favoritesTable = dataSet.Tables["Favorites"];
+            DataTable postInteractionsTable = dataSet.Tables["PostInteractions"];
+            DataTable membersTable = dataSet.Tables["Members"];
+            DataTable reviewsTable = dataSet.Tables["Reviews"];
+            DataTable postsTable = dataSet.Tables["Posts"];
 
-            //        List<Favorites> favorites = new List<Favorites>();
-            //        for(int i = 0; i <= groups.Count; i++)
-            //        {
-            //            Guid currGroup = groups[i];
-            //            List<Guid> posts = new List<Guid>();
-            //            foreach (DataRow row2 in favoritesTable.Rows)
-            //            {
-                            
-            //                if ((Guid)row2["user_id"] == id & (Guid)row2["group_id"] == currGroup)
-            //                {
-            //                    Guid favoritesUserId = (Guid)row2["user_id"];
-            //                    Guid favoritesGroupId = (Guid)row2["group_id"];
-            //                    posts.Add((Guid)row2["post_id"]);
-            //                }
-            //            }
-            //            Favorites newFavorites = new Favorites(currGroup, id, posts);
-            //        }
-            //        List<Review> reviews = new List<Review>();
-            //        foreach(DataRow row2 in reviewsTable.Rows)
-            //        {
-            //            if ((Guid)row2["user_id"] == id)
-            //            {
-            //                Guid reviewId = (Guid)row2["id"];
-            //                Guid reviewerId = (Guid)row2["reviewer_id"];
-            //                Guid sellerId = (Guid)row2["seller_id"];
-            //                Guid groupId = (Guid)row2["group_id"];
-            //                String content = (string)row2["content"];
-            //                DateTime date = (DateTime)row2["date"];
-            //                int rating = (int)row2["rating"];
-            //                Review newReview = new Review(reviewId, reviewerId, sellerId,groupId, content, date, rating);
-            //                reviews.Add(newReview);
-            //            }
-            //        }
-            //        users.Add(new User(id, username, realName, dateOfBirth, profilePicture, password, creationDate, sellPrivelageGroups, requestToSellGroups, sellingUserScores, carts, favorites, groups, reviews, nrOfSells));
-            //    }
-            //}
+            foreach (DataRow row in usersTable.Rows)
+            {
+                Guid id = (Guid)row["userID"];
+                string username = (string)row["username"];
+                string realName = (string)row["realName"];
+                DateOnly dateOfBirth = (DateOnly)row["dateOfBirth"];
+                string profilePicture = (string)row["profilePicture"];
+                string password = (string)row["password"];
+                DateTime creationDate = (DateTime)row["creationDate"];
+                int nrOfSells = (int)row["numberOfSells"];
+                List<Guid> sellPrivelageGroups = new List<Guid>();
+                List<Guid> requestToSellGroups = new List<Guid>();
+                List<SellingUserScore> sellingUserScores = new List<SellingUserScore>();
+                foreach (DataRow row2 in membersTable.Rows)
+                {
+                    if ((Guid)row2["userId"] == id && (bool)row2["hasSellingPrivelage"])
+                    {
+                        sellPrivelageGroups.Add((Guid)row2["groupID"]);
+                        Guid userScoreId = id;
+                        Guid groupId = (Guid)row2["groupID"];
+                        int score = (int)row2["score"];
+                        SellingUserScore sellingUserScore = new SellingUserScore(userScoreId, groupId, score);
+                        sellingUserScores.Add(sellingUserScore);
+                    }
+                }
+                foreach (DataRow row3 in membersTable.Rows)
+                {
+                    if ((Guid)row3["userID"] == id && (bool)row3["requestedToSell"])
+                    {
+                        requestToSellGroups.Add((Guid)row3["groupID"]);
+                    }
+                }
+                List<Guid> groups = new List<Guid>();
+                List<Cart> carts = new List<Cart>();
+                foreach (DataRow row2 in membersTable.Rows)
+                {
+                    if ((Guid)row2["userID"] == id)
+                    {
+                        Guid groupId = (Guid)row2["groupID"];
+                        groups.Add(groupId);
+                        List<Guid> posts = new List<Guid>();
+                        foreach (DataRow row3 in postInteractionsTable.Rows)
+                        {
+                            if ((Guid)row3["userID"]== id)
+                            {
+                                Guid cartUserId = (Guid)row3["userID"];
+                                if ((Guid)row3["groupID"] == groupId)
+                                {
+                                    Guid cartGroupId = (Guid)row3["groupID"];
+                                    //foreach(DataRow row4 in postsTable.Rows)
+                                    //{
+                                    //    if ((Guid)row4["group_id"] == cartGroupId)
+                                    //    {
+                                    //        Guid postId = (Guid)row4["post_id"];
+                                    //        posts.Add(postId);
+                                    //    }
+                                    //}
+                                    Guid postId = (Guid)row3["postID"];
+                                    posts.Add(postId);
+                                }
+
+                            }
+                        }
+                        Cart newCart = new Cart(groupId, id, posts);
+                        carts.Add(newCart);
+                    }
+                }
+
+                List<Favorites> favorites = new List<Favorites>();
+                for (int i = 0; i <= groups.Count; i++)
+                {
+                    Guid currGroup = groups[i];
+                    List<Guid> posts = new List<Guid>();
+                    foreach (DataRow row2 in postInteractionsTable.Rows)
+                    {
+
+                        if ((Guid)row2["userID"] == id & (Guid)row2["groupID"] == currGroup)
+                        {
+                            Guid favoritesUserId = (Guid)row2["userID"];
+                            Guid favoritesGroupId = (Guid)row2["groupID"];
+                            posts.Add((Guid)row2["postID"]);
+                        }
+                    }
+                    Favorites newFavorites = new Favorites(currGroup, id, posts);
+                }
+                List<Review> reviews = new List<Review>();
+                foreach (DataRow row2 in reviewsTable.Rows)
+                {
+                    if ((Guid)row2["user_id"] == id)
+                    {
+                        Guid reviewId = (Guid)row2["reviewID"];
+                        Guid reviewerId = (Guid)row2["reviewerID"];
+                        Guid sellerId = (Guid)row2["sellerID"];
+                        Guid groupId = (Guid)row2["groupID"];
+                        String content = (string)row2["content"];
+                        DateTime date = (DateTime)row2["creationDate"];
+                        int rating = (int)row2["rating"];
+                        Review newReview = new Review(reviewId, reviewerId, sellerId, groupId, content, date, rating);
+                        reviews.Add(newReview);
+                    }
+                }
+                users.Add(new User(id, username, realName, dateOfBirth, profilePicture, password, creationDate, sellPrivelageGroups, requestToSellGroups, sellingUserScores, carts, favorites, groups, reviews, nrOfSells));
+            }
         }
         //private Guid id;
         //private string username;
@@ -199,23 +221,27 @@ namespace ISSLab.Model.Repositories
         }
         public void AddUser(User newUser)
         {
-            //DataRow newRow = dataSet.Tables["Users"].NewRow();
-            //newRow["Id"] = newUser.Id.ToString();
-            //newRow["username"] = newUser.Username;
-            //newRow["real_name"] = newUser.RealName;
-            //newRow["date_of_birth"] = newUser.DateOfBirth;
-            //newRow["profile_picture"] = newUser.ProfilePicture;
-            //newRow["password"] = newUser.Password;
-            //newRow["creation_date"] = newUser.CreationDate;
+            DataRow newRow = dataSet.Tables["Users"].NewRow();
+            newRow["userID"] = newUser.Id.ToString();
+            newRow["username"] = newUser.Username;
+            newRow["realName"] = newUser.RealName;
+            //newRow["dateOfBirth"] = newUser.DateOfBirth;
+            DateTime dateTime = new DateTime(newUser.DateOfBirth.Year, newUser.DateOfBirth.Month, newUser.DateOfBirth.Day, 0, 0, 0);
+            newRow["dateOfBirth"] = dateTime;
+            newRow["profilePicture"] = newUser.ProfilePicture;
+            newRow["password"] = newUser.Password;
+            newRow["creationDate"] = newUser.CreationDate;
+            dataSet.Tables["Users"].Rows.Add(newRow);
+            usersDataAdapter.Update(dataSet, "Users");
             //List<Guid> groupsWithSellingPrivelage = newUser.GroupsWithSellingPrivelage;
-            //for(int i = 0; i < groupsWithSellingPrivelage.Count; i++)
+            //for (int i = 0; i < groupsWithSellingPrivelage.Count; i++)
             //{
             //    DataRow newSellingGroupsRow = dataSet.Tables["UsersAndGroupsWithSellingPrivelage"].NewRow();
             //    newSellingGroupsRow["user_id"] = newUser.Id;
             //    newSellingGroupsRow["group_id"] = groupsWithSellingPrivelage[i];
             //}
             //List<Guid> groupsWithRequestToSell = newUser.GroupsWithActiveRequestToSell;
-            //for(int i = 0; i < groupsWithRequestToSell.Count; i++)
+            //for (int i = 0; i < groupsWithRequestToSell.Count; i++)
             //{
             //    DataRow newSellingRequestGroupsRow = dataSet.Tables["UsersAndGroupsWithRequestToSell"].NewRow();
             //    newSellingRequestGroupsRow["user_id"] = newUser.Id;
@@ -244,9 +270,10 @@ namespace ISSLab.Model.Repositories
 
         public void updateGroupsWithSellingPrivelage(Guid id, Guid group)
         {
-            DataRow row = dataSet.Tables["UsersAndGroupsWithSellingPrivelage"].NewRow();
-            row["user_id"] = id.ToString();
-            row["group_id"] = group.ToString();
+            DataRow row = dataSet.Tables["Members"].NewRow();
+            row["userID"] = id.ToString();
+            row["groupID"] = group.ToString();
+            row["hasSellingPrivelage"] = 1;
 
             for (int i = 0; i < users.Count; i++)
             {
@@ -260,9 +287,10 @@ namespace ISSLab.Model.Repositories
 
         public void updateGroupsWithSellingRequest(Guid id, Guid group)
         {
-            DataRow row = dataSet.Tables["UsersAndGroupsWithRequestToSell"].NewRow();
-            row["user_id"] = id.ToString();
-            row["group_id"] = group.ToString();
+            DataRow row = dataSet.Tables["Members"].NewRow();
+            row["userID"] = id.ToString();
+            row["groupID"] = group.ToString();
+            row["requestedToSell"] = 1;
 
             for (int i = 0; i < users.Count; i++)
             {
@@ -276,10 +304,18 @@ namespace ISSLab.Model.Repositories
 
         public void updateGroupsWithRemovingSellingRequest(Guid userId, Guid groupId)
         {
-            DataRow row = dataSet.Tables["UsersAndGroupsWithRequestToSell"].Rows.Find((DataRow r) => (string)(r["user_id"]) == userId.ToString() && (string)(r["group_id"]) == groupId.ToString()  );
-            if (row != null)
+            //DataRow row = dataSet.Tables["Members"].Rows.Fi
+            //if (row != null)
+            //{
+            //    dataSet.Tables["UsersAndGroupsWithRequestToSell"].Rows.Remove(row);
+            //}
+
+            foreach(DataRow row in dataSet.Tables["Members"].Rows)
             {
-                dataSet.Tables["UsersAndGroupsWithRequestToSell"].Rows.Remove(row);
+                if ((Guid)row["userID"] == userId && (Guid)row["groupID"] == groupId)
+                {
+                    row["requestedToSell"] = 0;
+                }
             }
 
             for (int i = 0; i < users.Count; i++)
@@ -293,10 +329,18 @@ namespace ISSLab.Model.Repositories
         }
         public void updateGroupsWithRemovingSellingPrivelage(Guid userId, Guid groupId)
         {
-            DataRow row = dataSet.Tables["UsersAndGroupsWithSellingPrivelage"].Rows.Find((DataRow r) => (string)(r["user_id"]) == userId.ToString() && (string)(r["group_id"]) == groupId.ToString());
-            if (row != null)
+            //DataRow row = dataSet.Tables["UsersAndGroupsWithSellingPrivelage"].Rows.Find((DataRow r) => (string)(r["user_id"]) == userId.ToString() && (string)(r["group_id"]) == groupId.ToString());
+            //if (row != null)
+            //{
+            //    dataSet.Tables["UsersAndGroupsWithSellingPrivelage"].Rows.Remove(row);
+            //}
+
+            foreach (DataRow row in dataSet.Tables["Members"].Rows)
             {
-                dataSet.Tables["UsersAndGroupsWithSellingPrivelage"].Rows.Remove(row);
+                if ((Guid)row["userID"] == userId && (Guid)row["groupID"] == groupId)
+                {
+                    row["hasSellingPrivelage"] = 0;
+                }
             }
 
             for (int i = 0; i < users.Count; i++)
@@ -315,7 +359,7 @@ namespace ISSLab.Model.Repositories
             DataRow row = dataSet.Tables["Users"].Rows.Find(id);
             if (row != null)
             {
-                row["real_name"] = newRealName;
+                row["realName"] = newRealName;
             }
 
             for (int i = 0; i < users.Count; i++)
@@ -333,7 +377,7 @@ namespace ISSLab.Model.Repositories
             DataRow row = dataSet.Tables["Users"].Rows.Find(id);
             if (row != null)
             {
-                row["date_of_birth"] = newDateOfBirth;
+                row["dateOfBirth"] = newDateOfBirth;
             }
 
             for (int i = 0; i < users.Count; i++)
@@ -349,12 +393,12 @@ namespace ISSLab.Model.Repositories
         public void AddReview(Review review)
         {
             DataRow row = dataSet.Tables["Reviews"].NewRow();
-            row["id"] = review.Id;
-            row["reviewer_id"] = review.ReviewerId;
-            row["seller_id"] = review.SellerId;
-            row["group_id"] = review.GroupId;
+            row["reviewID"] = review.Id;
+            row["reviewerID"] = review.ReviewerId;
+            row["sellerID"] = review.SellerId;
+            row["groupID"] = review.GroupId;
             row["content"] = review.Content;
-            row["date"] = review.Date;
+            row["creationDate"] = review.Date;
             row["rating"] = review.Rating;
             users.Find(u => u.Id == review.SellerId).AddReview(review);
         }
@@ -366,7 +410,7 @@ namespace ISSLab.Model.Repositories
             DataRow row = dataSet.Tables["Users"].Rows.Find(id);
             if (row != null)
             {
-                row["profile_picture"] = newProfilePicture;
+                row["profilePicture"] = newProfilePicture;
             }
 
             for (int i = 0; i < users.Count; i++)
@@ -404,7 +448,7 @@ namespace ISSLab.Model.Repositories
 
             if (row != null)
             {
-                row["number_of_sells"] = nrOfSells;
+                row["numberOfSells"] = nrOfSells;
             }
 
             for(int i = 0; i < users.Count;i++)
@@ -434,16 +478,16 @@ namespace ISSLab.Model.Repositories
                 }
             }
 
-            DataTable groupsWithSellingPrivelageTable = dataSet.Tables["UsersAndGroupsWithSellingPrivelage"];
+            DataTable postInteractionsTable = dataSet.Tables["PostInteractions"];
 
             // Create a list to store the rows that match the specified age
             List<DataRow> rowsToDelete = new List<DataRow>();
 
             // Iterate through each row in the DataTable
-            foreach (DataRow row in groupsWithSellingPrivelageTable.Rows)
+            foreach (DataRow row in postInteractionsTable.Rows)
             {
                 // Check if the "Age" column value matches the specified age
-                if (row["user_id"] != DBNull.Value && (Guid)row["user_id"] == id)
+                if (row["userID"] != DBNull.Value && (Guid)row["userID"] == id)
                 {
                     // If the condition is met, add the row to the list of rows to delete
                     rowsToDelete.Add(row);
@@ -453,19 +497,19 @@ namespace ISSLab.Model.Repositories
             // Remove the rows from the DataTable
             foreach (DataRow rowToDelete in rowsToDelete)
             {
-                groupsWithSellingPrivelageTable.Rows.Remove(rowToDelete);
+                postInteractionsTable.Rows.Remove(rowToDelete);
             }
 
-            DataTable groupsWithRequestToSellTable = dataSet.Tables["UsersAndGroupsWithRequestToSell"];
+            DataTable membersTable = dataSet.Tables["Members"];
 
             // Create a list to store the rows that match the specified age
             List<DataRow> rowsToDelete2 = new List<DataRow>();
 
             // Iterate through each row in the DataTable
-            foreach (DataRow row in groupsWithRequestToSellTable.Rows)
+            foreach (DataRow row in membersTable.Rows)
             {
                 // Check if the "Age" column value matches the specified age
-                if (row["user_id"] != DBNull.Value && (Guid)row["user_id"] == id)
+                if (row["userID"] != DBNull.Value && (Guid)row["userID"] == id)
                 {
                     // If the condition is met, add the row to the list of rows to delete
                     rowsToDelete2.Add(row);
@@ -475,7 +519,7 @@ namespace ISSLab.Model.Repositories
             // Remove the rows from the DataTable
             foreach (DataRow rowToDelete in rowsToDelete2)
             {
-                groupsWithRequestToSellTable.Rows.Remove(rowToDelete);
+                membersTable.Rows.Remove(rowToDelete);
             }
         }
 
@@ -485,6 +529,14 @@ namespace ISSLab.Model.Repositories
             //row["user_id"] = userId;
             //row["group_id"] = groupId;
             //row["post_id"] = postId;
+            foreach (DataRow row in dataSet.Tables["PostInteractions"].Rows)
+            {
+                if ((Guid)row["userID"] == userId && (Guid)row["groupID"] == groupId && (Guid)row["postID"] == postId)
+                {
+                    row["addedToCart"] = 1;
+                }
+            }
+
             Cart cart = users.Find(user => user.Id == userId).Carts.Find(c => c.GroupId == groupId);
             if(cart == null)
             {
@@ -498,10 +550,20 @@ namespace ISSLab.Model.Repositories
 
         public void removeFromCart(Guid groupId, Guid userId, Guid postId)
         {
-            DataRow row = dataSet.Tables["Carts"].Rows.Find((DataRow r) => Guid.Parse((string)r["group_id"]) == groupId && Guid.Parse((string)r["user_id"]) == userId && Guid.Parse((string)r["post_id"]) == postId);
-            if(row !=  null)
-                dataSet.Tables["Carts"].Rows.Remove(row);
+
+            foreach (DataRow row in dataSet.Tables["PostInteractions"].Rows)
+            {
+                if ((Guid)row["userID"] == userId && (Guid)row["groupID"] == groupId && (Guid)row["postID"] == postId)
+                {
+                    row["addedToCart"] = 0;
+                }
+            }
+
+            //DataRow selectedRow = dataSet.Tables["Carts"].Rows.Find((DataRow r) => Guid.Parse((string)r["groupID"]) == groupId && Guid.Parse((string)r["user_id"]) == userId && Guid.Parse((string)r["post_id"]) == postId);
+            //if(selectedRow !=  null)
+            //    dataSet.Tables["Carts"].Rows.Remove(selectedRow);
             users.Find(u=>u.Id == userId).Carts.Find(c=>c.GroupId==groupId).Posts.Remove(postId);
+
         }
 
         public void addToFavorites(Guid groupId, Guid userId, Guid postId)
@@ -510,6 +572,13 @@ namespace ISSLab.Model.Repositories
             //row["user_id"] = userId;
             //row["group_id"] = groupId;
             //row["post_id"] = postId;
+            foreach (DataRow row in dataSet.Tables["PostInteractions"].Rows)
+            {
+                if ((Guid)row["userID"] == userId && (Guid)row["groupID"] == groupId && (Guid)row["postID"] == postId)
+                {
+                    row["favorited"] = 1;
+                }
+            }
             Favorites favoriteFromGroup = users.Find(user => user.Id == userId).Favorites.Find(c => c.GroupId == groupId);
             if (favoriteFromGroup == null)
             {
@@ -523,9 +592,16 @@ namespace ISSLab.Model.Repositories
 
         public void removeFromFavorites(Guid groupId, Guid userId, Guid postId)
         {
-            DataRow row = dataSet.Tables["Favorites"].Rows.Find((DataRow r) => Guid.Parse((string)r["group_id"]) == groupId && Guid.Parse((string)r["user_id"]) == userId && Guid.Parse((string)r["post_id"]) == postId);
-            if (row != null)
-                dataSet.Tables["Favorites"].Rows.Remove(row);
+            foreach (DataRow row in dataSet.Tables["PostInteractions"].Rows)
+            {
+                if ((Guid)row["userID"] == userId && (Guid)row["groupID"] == groupId && (Guid)row["postID"] == postId)
+                {
+                    row["favorited"] = 0;
+                }
+            }
+            //DataRow selectedRow = dataSet.Tables["Favorites"].Rows.Find((DataRow r) => Guid.Parse((string)r["groupID"]) == groupId && Guid.Parse((string)r["user_id"]) == userId && Guid.Parse((string)r["post_id"]) == postId);
+            //if (selectedRow != null)
+            //    dataSet.Tables["Favorites"].Rows.Remove(selectedRow);
             users.Find(u => u.Id == userId).Carts.Find(c => c.GroupId == groupId).Posts.Remove(postId);
         }
 
