@@ -23,13 +23,14 @@ namespace ISSLab.View
     public partial class Chat : Window
     {
         public ObservableCollection<Message> AllMessages { get; set; }
-
-        internal Chat(User selectedUser)
+        Post post;
+        internal Chat(User selectedUser,Post post)
         {
             InitializeComponent();
             DataContext = this;
             Username.Content = selectedUser.Username.ToString();
             AllMessages = new ObservableCollection<Message>();
+            this.post = post;
         }
 
 
@@ -186,6 +187,8 @@ namespace ISSLab.View
                 rejectButton.Visibility = Visibility.Collapsed;
                 MessageTextBox.Visibility = Visibility.Collapsed;
                 SendButton.Visibility = Visibility.Collapsed;
+                
+                
 
             }
         }
