@@ -40,10 +40,54 @@ namespace ISSLab.View
         public static readonly DependencyProperty DeliveryProperty = DependencyProperty.Register("Delivery", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty VisibleProperty = DependencyProperty.Register("Visible", typeof(string), typeof(PostContent));
 
+        public static readonly DependencyProperty DonationButtonVisibleProperty = DependencyProperty.Register("DonationButtonVisible", typeof(string), typeof(PostContent));
+        public static readonly DependencyProperty BuyButtonVisibleProperty = DependencyProperty.Register("BuyButtonVisible", typeof(string), typeof(PostContent));
+        public static readonly DependencyProperty BidButtonVisibleProperty = DependencyProperty.Register("BidButtonVisible", typeof(string), typeof(PostContent));
+        public static readonly DependencyProperty BidPriceVisibleProperty = DependencyProperty.Register("BidPriceVisible", typeof(string), typeof(PostContent));
+        public static readonly DependencyProperty BidPriceProperty = DependencyProperty.Register("BidPrice", typeof(string), typeof(PostContent));
+        public String DonationButtonVisible
+        {
+            get { return (String)GetValue(DonationButtonVisibleProperty); }
+            set {SetValue(VisibleProperty, value);  }
+
+        }
+
+        public String BuyButtonVisible
+        {
+            get { return (String)GetValue(DonationButtonVisibleProperty); }
+            set { SetValue(VisibleProperty, value); }
+
+        }
+
+        public string BidButtonVisible
+        {
+            get { return (String)GetValue(BidButtonVisibleProperty); }
+            set { SetValue(VisibleProperty, value); }
+        }
+
+        public string BidPriceVisible
+        {
+            get { return (String)GetValue(BidPriceVisibleProperty); }
+            set { SetValue(VisibilityProperty, value); }
+        }
+
+        public String BidPrice
+        {
+            get { return (String)GetValue(BidPriceProperty); }
+            set { SetValue(BidPriceProperty, value); }
+        }
+        public static readonly DependencyProperty RatingProperty = DependencyProperty.Register("Rating", typeof(float), typeof(PostContent));
+
+
         public String Title
         {
             get { return (String)GetValue(TitleProperty); } 
             set { SetValue(TitleProperty, value);}
+        }
+        public float Rating
+        {
+            get { return (float)GetValue(RatingProperty); }
+            set { SetValue(RatingProperty, value); }
         }
 
         public String Username
@@ -126,8 +170,34 @@ namespace ISSLab.View
         public event EventHandler OptionsButtonClicked;
         public PostContent()
         {
-           
+
             InitializeComponent();
+            if(this.Rating < 2)
+            {
+                this.star2.Visibility = Visibility.Collapsed;
+                this.star3.Visibility = Visibility.Collapsed;
+                this.star4.Visibility = Visibility.Collapsed;
+                this.star5.Visibility = Visibility.Collapsed;
+
+            }
+            else
+                if(this.Rating < 3)
+            {
+                this.star3.Visibility = Visibility.Collapsed;
+                this.star4.Visibility = Visibility.Collapsed;
+                this.star5.Visibility = Visibility.Collapsed;
+            }
+            else
+                if(this.Rating < 4)
+            {
+                this.star4.Visibility = Visibility.Collapsed;
+                this.star5.Visibility = Visibility.Collapsed;
+            }
+            else
+                if(this.Rating < 5)
+            {
+                this.star5.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void OnMoreButtonClick(object sender, RoutedEventArgs e)
@@ -180,6 +250,26 @@ namespace ISSLab.View
         }
 
 
+
+        private void onBidButtonClicked(object sender, RoutedEventArgs e)
+        {
+            var viewModel = DataContext as PostContentViewModel;
+            if(viewModel != null)
+            {
+                viewModel.UpdateBidPrice();
+            }
+        }
+
+        private void onDonationButtonClicked(object sender, RoutedEventArgs e)
+        {
+            var viewModel = DataContext as PostContentViewModel;
+            DonationPost post = (DonationPost)viewModel.getPost();
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = post.DonationPageLink,
+                UseShellExecute = true
+            });
+        }
 
     }
 }
