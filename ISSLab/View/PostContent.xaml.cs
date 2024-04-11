@@ -179,7 +179,14 @@ namespace ISSLab.View
             chat.Show();
         }
 
+        private void SendMessageButton(object sender, RoutedEventArgs e)
+        {
 
+            var viewModel = DataContext as PostContentViewModel;
+            User user = viewModel.user;
+            Chat chat = new Chat(user);
 
+            chat.Show();
+        }
     }
 }
