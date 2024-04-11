@@ -67,8 +67,8 @@
                     <Button Width="64" Visibility="{Binding BuyButtonVisible}" Height="40" Margin="2,0,0,0" Background="Transparent" BorderThickness="0" VerticalAlignment="Center">
                         <Image Source="../Resources/Images/buy-button.png" Width="80" Height="60" VerticalAlignment="Center"></Image>
                     </Button>
-                    <TextBlock Text="{Binding Price}" Visibility="{Binding BidPriceVisible}" Margin="20,0,0,0" VerticalAlignment="Center" FontSize="24"></TextBlock>
-                    <Button Width="64" Visibility="{Binding BidButtonVisible}" Height="40" Margin="2,0,0,0" Background="Transparent" BorderThickness="0" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding BidPrice}" Visibility="{Binding BidPriceVisible}" Margin="20,0,0,0" VerticalAlignment="Center" FontSize="24"></TextBlock>
+                    <Button Width="64" Click="onBidButtonClicked" Visibility="{Binding BidButtonVisible}" Height="40" Margin="2,0,0,0" Background="Transparent" BorderThickness="0" VerticalAlignment="Center">
                         <Image Source="../Resources/Images/bid-button.png" Width="80" Height="60" VerticalAlignment="Center"></Image>
                     </Button>
                 </StackPanel>
