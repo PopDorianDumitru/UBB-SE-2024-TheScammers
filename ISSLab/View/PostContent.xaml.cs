@@ -242,9 +242,9 @@ namespace ISSLab.View
         {
             var viewModel = DataContext as PostContentViewModel;
             User user = viewModel.user;
-
+            Post post = viewModel.getPost();
             
-            Chat chat = new Chat(user);
+            Chat chat = new Chat(user,post);
             chat.SendBuyingMessage(Media);
             chat.Show();
         }

@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows;
+using ISSLab.Model;
+using ISSLab.ViewModel;
 
 namespace ISSLab.View
 {
@@ -26,7 +28,10 @@ namespace ISSLab.View
                 Window parentWindow = Window.GetWindow(this);
                 parentWindow?.Close();
 
-                Chat chat = new Chat(selectedUser);
+                var viewModel = DataContext as PostContentViewModel;
+                Post post = viewModel.getPost();
+
+                Chat chat = new Chat(selectedUser,post);
                 parentWindow.Content = chat;
             }
         }
