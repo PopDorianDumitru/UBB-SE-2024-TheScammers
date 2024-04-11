@@ -31,7 +31,7 @@
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
             <Border Margin="0,0,10,0" BorderBrush="Black" BorderThickness="4" CornerRadius="30,30,30,30" Grid.Row="2" Grid.RowSpan="7" VerticalAlignment="Center" HorizontalAlignment="Right" Width="300" Height="200"> 
-                <Button  Padding="10,10,13,35" Margin="0" Content="+" FontSize="100" FontWeight="Bold" Background="Transparent" BorderThickness="0"/>
+                <Button x:Name="CreatePostButton" Click="CreationButtonClick" Padding="10,10,13,35" Margin="0" Content="+" FontSize="100" FontWeight="Bold" Background="Transparent" BorderThickness="0"/>
             </Border>
             <Grid Grid.Row="0" Grid.RowSpan="2">
                 <Grid.RowDefinitions>
@@ -47,8 +47,6 @@
                         <ImageBrush Stretch="Fill" ImageSource="../Resources/Images/Dorian.jpeg" />
                     </Border.Background>
                 </Border>
-                <Label Padding="5,0,0,0" Content="Pop Dorian" Grid.Column="1" VerticalAlignment="Center" FontSize="20"/>
-                <Label FontSize="15" Padding="5,0,0,0" Content="Group 1" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top"/>
 
             </Grid>
             <Grid Grid.Row="2">
@@ -58,7 +56,11 @@
                         <ColumnDefinition Width="1.4*"/>
                     </Grid.ColumnDefinitions>
                     <Label Content="Type:" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15"/>
-                    <TextBox HorizontalAlignment="Left" Width="100" MaxWidth="500" Margin="0,10,0,10" Grid.Column="1"></TextBox>
+                    <ComboBox SelectedValue="{Binding Type}" HorizontalAlignment="Left" Width="100" MaxWidth="500" Margin="0,6,0,6" Grid.Column="1">
+                        <ComboBoxItem Content="Fixed price" />
+                        <ComboBoxItem Content="Auction" />
+                        <ComboBoxItem Content="Donation" />
+                    </ComboBox>
                 </Grid>
             </Grid>
             <Grid Grid.Row="3">
@@ -68,11 +70,8 @@
                         <ColumnDefinition Width="1.4*"/>
                     </Grid.ColumnDefinitions>
                     <Label Content="Phone Number:" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15"/>
-                    <ComboBox HorizontalAlignment="Left" Width="100" MaxWidth="500" Margin="0,6,0,6" Grid.Column="1">
-                        <ComboBoxItem Content="Fixed price" />
-                        <ComboBoxItem Content="Auction" />
-                        <ComboBoxItem Content="Donation" />
-                    </ComboBox>
+                    <TextBox Text="{Binding PhoneNumber}" HorizontalAlignment="Left" Width="100" MaxWidth="500" Margin="0,10,0,10" Grid.Column="1"></TextBox>
+
                 </Grid>
             </Grid>
             <Grid Grid.Row="4">
@@ -82,7 +81,7 @@
                         <ColumnDefinition Width="1.4*"/>
                     </Grid.ColumnDefinitions>
                     <Label Content="Price:" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15"/>
-                    <TextBox HorizontalAlignment="Left" Width="100" MaxWidth="500" Margin="0,10,0,10" Grid.Column="1"></TextBox>
+                    <TextBox Text="{Binding Price}" HorizontalAlignment="Left" Width="100" MaxWidth="500" Margin="0,10,0,10" Grid.Column="1"></TextBox>
                 </Grid>
             </Grid>
             <Grid Grid.Row="5">
@@ -92,7 +91,7 @@
                         <ColumnDefinition Width="1.4*"/>
                     </Grid.ColumnDefinitions>
                     <Label Content="Condition:" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15"/>
-                    <TextBox HorizontalAlignment="Left" Width="100" MaxWidth="500" Margin="0,10,0,10" Grid.Column="1"></TextBox>
+                    <TextBox Text="{Binding Condition}" HorizontalAlignment="Left" Width="100" MaxWidth="500" Margin="0,10,0,10" Grid.Column="1"></TextBox>
                 </Grid>
             </Grid>
             <Grid Grid.Row="6">
@@ -101,7 +100,7 @@
                         <ColumnDefinition Width="0.14*" />
                         <ColumnDefinition Width="1.4*"/>
                     </Grid.ColumnDefinitions>
-                    <ComboBox HorizontalAlignment="Left" Margin="0,6,0,6" Width="100" MaxWidth="500" Grid.Column="1">
+                    <ComboBox SelectedValue="{Binding Delivery}" HorizontalAlignment="Left" Margin="0,6,0,6" Width="100" MaxWidth="500" Grid.Column="1">
                         <ComboBoxItem Content="Included" />
                         <ComboBoxItem Content="Not Included"/>
                     </ComboBox>
@@ -115,7 +114,7 @@
                         <ColumnDefinition Width="1.4*"/>
                     </Grid.ColumnDefinitions>
                     <Label Content="Availability:" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15"/>
-                    <TextBox HorizontalAlignment="Left" Width="100" MaxWidth="500" Margin="0,10,0,10" Grid.Column="1"></TextBox>
+                    <TextBox Text="{Binding Availability}" HorizontalAlignment="Left" Width="100" MaxWidth="500" Margin="0,10,0,10" Grid.Column="1"></TextBox>
                 </Grid>
             </Grid>
             <Grid Grid.Row="8">
@@ -126,7 +125,7 @@
                     </Grid.ColumnDefinitions>
                     <Label Content="Description:" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="15"/>
 
-                    <TextBox HorizontalAlignment="Left" Width="300" MaxWidth="500" Margin="0,10,0,40" Grid.Column="1"></TextBox>
+                    <TextBox Text="{Binding Description}" HorizontalAlignment="Left" Width="300" MaxWidth="500" Margin="0,10,0,40" Grid.Column="1"></TextBox>
                 </Grid>
             </Grid>
 

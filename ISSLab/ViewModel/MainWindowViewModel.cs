@@ -22,6 +22,7 @@ namespace ISSLab.ViewModel
         ObservableCollection<PostContentViewModel> shownPosts;
         Guid userId;
         Guid groupId;
+        CreatePostViewModel postCreationViewModel;
 
         public ViewModelBase CurrentViewModel { get; }
         public MainWindowViewModel() 
@@ -37,19 +38,33 @@ namespace ISSLab.ViewModel
             userRepo.AddUser(tempUser2);
             userRepo.AddUser(connectedUser);
             userRepo.AddUser(tempUser1);
-            postRepo.addPost(new FixedPricePost("../Resources/Images/catei.jpeg", tempUser1.Id, groupId, "Oradea", "A bunch of great dogssdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "Dogs", "077333999", 300, DateTime.Now.AddMonths(2), "InPerson", new List<Review>(), 4, Guid.Empty, "FixedPrice", true));
+            FixedPricePost post1 = new FixedPricePost("../Resources/Images/catei.jpeg", tempUser1.Id, groupId, "Oradea", "A bunch of great dogssdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "Dogs", "077333999", 300, DateTime.Now.AddMonths(2), "InPerson", new List<Review>(), 4, Guid.Empty, "FixedPrice", true);
+            post1.ReviewScore = 4;
+            postRepo.addPost(post1);
             postRepo.addPost(new FixedPricePost("../Resources/Images/catei.jpeg", tempUser2.Id, groupId, "Bistrita", "Some great dogs", "Something else", "0222111333", 350, DateTime.Now.AddDays(6), "shipping", new List<Review>(), 4, Guid.Empty, "FixedPrice", true));
             shownPosts = new ObservableCollection<PostContentViewModel>();
             groupRepository = new GroupRepository(dataSet);
             postService = new PostService(postRepo,userRepo,groupRepository);
             userService = new UserService(userRepo,postRepo,groupRepository);
-           
+            
+            
+            postCreationViewModel = new CreatePostViewModel(userId, groupId, userService, postService);
+
             LoadPostsCommand(postRepo.getAll());
 
 
         }
 
 
+        public CreatePostViewModel PostCreationViewModel
+        {
+            get { return postCreationViewModel; }
+            set
+            {
+                postCreationViewModel = value;
+                OnPropertyChanged(nameof(PostCreationViewModel));
+            }
+        }
 
         public ObservableCollection<PostContentViewModel> ShownPosts { get { return shownPosts; } set
             {
@@ -74,6 +89,11 @@ namespace ISSLab.ViewModel
         {
             List<Post> cart = userService.GetItemsFromCart(userId, groupId);
             LoadPostsCommand(cart);
+            
+        }
+
+        public void ChangeToMarketplacePost()
+        {
             
         }
 
