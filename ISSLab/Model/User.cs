@@ -4,6 +4,8 @@ using System.Linq;
 using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace ISSLab.Model
 {
@@ -114,7 +116,20 @@ namespace ISSLab.Model
         public List<Guid> GroupsWithActiveRequestToSell { get => groupsWithSellingPrivelage;}
 
 
-
+        public ImageSource ProfilePictureImageSource
+        {
+            get
+            {
+                try
+                {
+                    return new BitmapImage(new Uri(profilePicture));
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+        }
 
         public void AddCarts(Cart newCart)
         {

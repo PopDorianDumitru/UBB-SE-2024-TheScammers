@@ -168,5 +168,18 @@ namespace ISSLab.View
             }
         }
 
+        private void onBuyButtonClicked(object sender, RoutedEventArgs e)
+        {
+            var viewModel = DataContext as PostContentViewModel;
+            User user = viewModel.user;
+
+            
+            Chat chat = new Chat(user);
+            chat.SendBuyingMessage(Media);
+            chat.Show();
+        }
+
+
+
     }
 }
