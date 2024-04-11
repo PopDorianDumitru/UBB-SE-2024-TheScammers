@@ -72,7 +72,7 @@ namespace ISSLab.View
 
         public void CreationButtonClick(Object sender, RoutedEventArgs e)
         {
-
+            this.DataContext.GetType().GetMethod("CreateFixedPricePost").Invoke(this.DataContext, null);
         }
     }
 }
