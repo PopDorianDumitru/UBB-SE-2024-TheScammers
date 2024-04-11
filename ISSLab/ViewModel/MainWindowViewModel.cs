@@ -19,41 +19,50 @@ namespace ISSLab.ViewModel
         PostService postService;
         UserService userService;
         GroupRepository groupRepository;
-        ObservableCollection<Post> shownPosts;
+        ObservableCollection<PostContentViewModel> shownPosts;
         Guid userId;
+        Guid groupId;
         public ViewModelBase CurrentViewModel { get; }
         public MainWindowViewModel() 
         {
             userId = Guid.NewGuid();
+            groupId = Guid.NewGuid();
             DataSet dataSet = new DataSet();
-            PostRepository postRepo = new PostRepository(dataSet, Guid.Parse("e21f4b3b-f80b-48ea-a309-a25948fd150e"));
+            PostRepository postRepo = new PostRepository(dataSet, groupId);
             UserRepository userRepo = new UserRepository(dataSet);
-            postRepo.addPost(new FixedPricePost("../Resources/Images/vini.jpeg", new Guid(), new Guid(), "fsd", "fds", "Macarena", "fds", 34, DateTime.Now, "", new List<Review>(), 4, Guid.Empty, "FixedPrice", true));
-            postRepo.addPost(new FixedPricePost("../Resources/Images/vini.jpeg", new Guid(), new Guid(), "fsd", "fds", "Macarena", "fds", 34, DateTime.Now, "", new List<Review>(), 4, Guid.Empty, "FixedPrice", true));
-
-            shownPosts = [.. postRepo.getAll()];
+            User tempUser1 = new User("Vini", "Vinicius Junior", DateOnly.Parse("15.12.2003"), "../Resources/Images/Vini.png", "fdsfsdfds");
+            User tempUser2 = new User("DDoorian", "Pop Dorian", DateOnly.Parse("12.12.2003"), "../Resources/Images/Dorian.jpeg", "bcvbc");
+            userRepo.AddUser(tempUser2);
+            userRepo.AddUser(tempUser1);
+            postRepo.addPost(new FixedPricePost("../Resources/Images/catei.jpeg", tempUser1.Id, groupId, "Oradea", "A bunch of great dogssdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "Dogs", "077333999", 300, DateTime.Now.AddMonths(2), "InPerson", new List<Review>(), 4, Guid.Empty, "FixedPrice", true));
+            postRepo.addPost(new FixedPricePost("../Resources/Images/catei.jpeg", tempUser2.Id, groupId, "Bistrita", "Some great dogs", "Something else", "0222111333", 350, DateTime.Now.AddDays(6), "shipping", new List<Review>(), 4, Guid.Empty, "FixedPrice", true));
+            shownPosts = new ObservableCollection<PostContentViewModel>();
             groupRepository = new GroupRepository(dataSet);
             postService = new PostService(postRepo,userRepo,groupRepository);
             userService = new UserService(userRepo,postRepo,groupRepository);
+            LoadPostsCommand(postRepo.getAll());
+
 
         }
 
 
 
-        public ObservableCollection<Post> ShownPosts { get { return shownPosts; } set
+        public ObservableCollection<PostContentViewModel> ShownPosts { get { return shownPosts; } set
             {
                 ShownPosts = value;
                 OnPropertyChanged(nameof(ShownPosts));
             }
         }
 
-        public void LoadPostsCommand()
+        public void LoadPostsCommand(List<Post> posts)
         {
-            List<Post> posts = postService.GetPosts();
+            
             shownPosts.Clear();
             foreach(Post p in posts)
             {
-                shownPosts.Add(p);
+                User originalPoster = userService.GetUserById(p.AuthorId);
+                //shownPosts.Add(p);
+                shownPosts.Add(new PostContentViewModel(p, originalPoster, this.userId, this.groupId, this.userService, this.postService));
             }
 
             OnPropertyChanged(nameof(ShownPosts));
