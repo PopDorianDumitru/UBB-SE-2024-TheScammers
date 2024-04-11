@@ -27,6 +27,64 @@ namespace ISSLab.View
         private readonly DependencyProperty DeliveryProperty = DependencyProperty.Register("Delivery", typeof(string), typeof(CreationPost));
         private readonly DependencyProperty ConditionPropery = DependencyProperty.Register("Condition", typeof(string), typeof(CreationPost));
         private readonly DependencyProperty AvailabilityProperty = DependencyProperty.Register("Availability", typeof(string), typeof(CreationPost));
+        private readonly DependencyProperty PhoneVisibleProperty = DependencyProperty.Register("PhoneVisible", typeof(bool), typeof(CreationPost));
+        private readonly DependencyProperty PriceVisibleProperty = DependencyProperty.Register("PriceVisible", typeof(bool), typeof(CreationPost));
+        private readonly DependencyProperty ConditionVisibleProperty = DependencyProperty.Register("ConditionVisible", typeof(bool), typeof(CreationPost));
+        private readonly DependencyProperty AvailabilityVisibleProperty = DependencyProperty.Register("AvailabilityVisible", typeof(bool), typeof(CreationPost));
+        private readonly DependencyProperty DeliveryVisibleProperty = DependencyProperty.Register("DeliveryVisible", typeof(bool), typeof(CreationPost));
+        private readonly DependencyProperty IsDonationProperty = DependencyProperty.Register("IsDonation", typeof(string), typeof(CreationPost));
+        private readonly DependencyProperty DonationLinkProperty = DependencyProperty.Register("DonationLink", typeof(string), typeof(CreationPost));
+        private readonly DependencyProperty IsAuctionProperty = DependencyProperty.Register("IsAuction", typeof(string), typeof(CreationPost));
+        private readonly DependencyProperty MinimumBidProperty = DependencyProperty.Register("MinimumBid", typeof(string), typeof(CreationPost));
+        
+        public string MinimumBid
+        {
+            get { return (string)GetValue(MinimumBidProperty); }
+            set { SetValue(MinimumBidProperty, value); }
+        }
+        public string IsAuction
+        {
+            get { return (string)GetValue(IsAuctionProperty); }
+            set { SetValue(IsDonationProperty, value); }
+        }
+
+        public string IsDonation
+        {
+            get { return (string)GetValue(IsDonationProperty); }
+            set { SetValue(IsDonationProperty, value); }
+        }
+
+        public string DonationLink
+        {
+            get { return (string)GetValue(DonationLinkProperty); }
+            set { SetValue(DonationLinkProperty, value);}
+        }
+        public string PhoneVisible
+        {
+            get { return (string)GetValue(PhoneVisibleProperty); }
+            set { SetValue(PhoneVisibleProperty, value); }
+        }
+        public string PriceVisible
+        {
+            get { return (string)GetValue(PriceVisibleProperty); }
+            set { SetValue(PriceVisibleProperty, value); }
+        }
+        public string ConditionVisible
+        {
+            get { return (string)GetValue(ConditionVisibleProperty); }
+            set { SetValue(ConditionVisibleProperty, value); }
+        }
+        public string AvailabilityVisible
+        {
+            get { return (string)GetValue(AvailabilityVisibleProperty); }
+            set { SetValue(AvailabilityVisibleProperty, value); }
+        }
+        public string DeliveryVisible
+        {
+            get { return (string)GetValue(DeliveryVisibleProperty); }
+            set { SetValue(DeliveryVisibleProperty, value); }
+        }
+
 
         public string Type
         {
@@ -72,7 +130,7 @@ namespace ISSLab.View
 
         public void CreationButtonClick(Object sender, RoutedEventArgs e)
         {
-            this.DataContext.GetType().GetMethod("CreateFixedPricePost").Invoke(this.DataContext, null);
+            this.DataContext.GetType ().GetMethod("CreatePost").Invoke(this.DataContext, null);
         }
     }
 }

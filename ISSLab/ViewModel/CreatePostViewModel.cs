@@ -15,12 +15,25 @@ namespace ISSLab.ViewModel
         private Guid groupId;
         private Guid accountId;
 
+
+        private string phoneVisibleProperty;
+        private string priceVisibleProperty;
+        private string conditionVisibleProperty;
+        private string deliveryVisibleProperty;
+        private string availabilityVisibleProperty;
+        private string isDonation;
+        private string donationLink;
+        private string isAuction;
+        private string minimumBid;
+
         public CreatePostViewModel(Guid accountId, Guid groupId, UserService userService, PostService postService) : base()
         {
             this.postService = postService;
             this.userService = userService;
             this.groupId = groupId;
             this.accountId = accountId;
+            IsDonation = "Collapsed";
+            IsAuction = "Collapsed";
 
         }
         public CreatePostViewModel()
@@ -40,8 +53,54 @@ namespace ISSLab.ViewModel
         private string delivery;
         private string availability;
         private string description;
+       
 
-        public string Type { get { return type; } set { type = value; OnPropertyChanged(nameof(Type)); } }
+        public string MinimumBid { get { return minimumBid; } set { minimumBid = value; } }
+        public string IsAuction { get { return isAuction; } set {  isAuction = value; OnPropertyChanged(IsAuction); } }
+        public string DonationLink { get { return donationLink; } set { donationLink = value; OnPropertyChanged(nameof(DonationLink)); } }
+        public string IsDonation { get { return isDonation; } set { isDonation = value; OnPropertyChanged(nameof(IsDonation)); } }
+        public string PhoneVisible { get { return phoneVisibleProperty; } set { phoneVisibleProperty = value; OnPropertyChanged(nameof(PhoneVisible)); } }
+        public string PriceVisible { get { return priceVisibleProperty; } set { priceVisibleProperty = value; OnPropertyChanged(nameof(PriceVisible)); } }
+        public string ConditionVisible { get { return conditionVisibleProperty; } set { conditionVisibleProperty = value; OnPropertyChanged(nameof(ConditionVisible)); } }
+        public string DeliveryVisible { get { return deliveryVisibleProperty; } set { deliveryVisibleProperty = value; OnPropertyChanged(nameof(DeliveryVisible)); } }
+        public string AvailabilityVisible { get { return availabilityVisibleProperty; } set { availabilityVisibleProperty = value; OnPropertyChanged(nameof(AvailabilityVisible)); } }
+
+        public string Type { get { return type; } 
+            set { 
+                type = value;
+                if(type.Contains("Fixed price"))
+                {
+                    IsAuction = "Collapsed";
+                    PhoneVisible = "Visible";
+                    PriceVisible = "Visible";
+                    ConditionVisible = "Visible";
+                    DeliveryVisible = "Visible";
+                    AvailabilityVisible = "Visible";
+                    IsDonation = "Collapsed";
+                }
+                else if(type.Contains("Donation"))
+                {
+                    PriceVisible = "Collapsed";
+                    ConditionVisible = "Collapsed";
+                    DeliveryVisible = "Collapsed";
+                    AvailabilityVisible = "Collapsed";
+                    IsDonation = "Visible";
+                    IsAuction = "Collapsed";
+                }
+                else
+                {
+                    IsAuction = "Visible";
+                    IsDonation = "Collapsed";
+                    PhoneVisible = "Visible";
+                    AvailabilityVisible = "Collapsed";
+                    ConditionVisible = "Collapsed";
+                    PriceVisible = "Visible";
+
+                }
+
+                OnPropertyChanged(nameof(Type)); 
+            } 
+        }
         public string PhoneNumber { get { return phoneNumber; } set { phoneNumber = value; OnPropertyChanged(nameof(PhoneNumber)); } }
         public string Price { get { return price; } set { price = value; OnPropertyChanged(nameof(Price)); } }
         public string Condition { get { return condition; } set { condition = value; OnPropertyChanged(nameof(Condition)); } }
@@ -53,9 +112,25 @@ namespace ISSLab.ViewModel
 
         public void CreatePost()
         {
-            if (Type == "Fixed price")
+            if (Type.Contains("Fixed price"))
                 CreateFixedPricePost();
+            else
+                CreateDonationPost();
 
+        }
+
+        public void CreateDonationPost()
+        {
+            DonationPost donationPost = new DonationPost("", accountId, groupId, "", Description, "", phoneNumber, donationLink, "Donation", true);
+            postService.AddPost(donationPost);
+            Type = "";
+            PhoneNumber = "";
+            Price = "";
+            Condition = "";
+            Delivery = "";
+            Availability = "";
+            Description = "";
+            DonationLink = "";
         }
 
         public void CreateFixedPricePost()
