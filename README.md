@@ -86,31 +86,24 @@ Donation:
 Interest and Uninterest:
 - a user that wants to buy the product can choose to be interested or uninterested in a product
 - more interest means a post is higher up in the feed
-- less interest pushes it down
 - sorted in descending order using (nrOfInterests - nrOfUninterests) for each post
 
 Promote:
-- a user can decide to promote his post
 - a promoted post shows up first in the feed, if there are more promoted posts they will be ordered using the interested and uninterested criteria
 - a promoted post will lose its promotion status after 15 days
 
 Discounts:
-- a user which has bought 10 times can receive a discount of 10% on his next buy, 10 more buys and he gets the discount again
 - a user that has sold at least 10 times becomes a big seller for his next selling post
 - being a big seller on a post means you get free promotion for that post for a week
 
 Cart:
 - a user can choose items to put in his cart
 - only fixed price posts can be put in the cart
-- a seller knows if his item has been added to the cart and how many times, he does NOT know who has them
-- a user can press a button to buy every item in his cart
 
 Favorites:
 - any selling post can be favorited
 - a user can choose to favorite a post
 - a user can see all his favorited items
-- a selling user can see how many people have favorited his post
-- a user can sort the items in the marketplace by how many favorites the posts have
 
 
 
