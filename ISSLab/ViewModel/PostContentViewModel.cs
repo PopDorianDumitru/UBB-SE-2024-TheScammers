@@ -17,7 +17,7 @@ namespace ISSLab.ViewModel
         private Guid groupId;
         private Post post;
         private Guid accountId;
-        private User user;
+        public User user;
         private string visible;
         private string favoriteDisplay;
         private string donationButtonVisible;
