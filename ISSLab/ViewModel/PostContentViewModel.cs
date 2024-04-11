@@ -18,6 +18,7 @@ namespace ISSLab.ViewModel
         private Guid accountId;
         private User user;
         private string visible;
+        private string favoriteDisplay;
 
         public PostContentViewModel(Post post, User user, Guid accountId, Guid groupId, UserService userService, PostService postService) : base()
         {
@@ -27,7 +28,6 @@ namespace ISSLab.ViewModel
             this.accountId = accountId;
             this.post = post;
             this.user = user;
-
             this.visible = "Visible";
         }
         public PostContentViewModel()
@@ -75,6 +75,15 @@ namespace ISSLab.ViewModel
 
                 return Math.Ceiling(passed.TotalDays).ToString() + " days ago";
             }
+        }
+
+        public void AddPostToFavorites()
+        {
+            this.userService.AddItemToFavorites(groupId, post.Id, accountId);
+        }
+        public void AddPostToCart()
+        {
+            this.userService.AddItemToCart(groupId, post.Id, accountId);
         }
        public string AvailableFor
         {

@@ -22,6 +22,7 @@ namespace ISSLab.ViewModel
         ObservableCollection<PostContentViewModel> shownPosts;
         Guid userId;
         Guid groupId;
+
         public ViewModelBase CurrentViewModel { get; }
         public MainWindowViewModel() 
         {
@@ -30,9 +31,11 @@ namespace ISSLab.ViewModel
             DataSet dataSet = new DataSet();
             PostRepository postRepo = new PostRepository(dataSet, groupId);
             UserRepository userRepo = new UserRepository(dataSet);
+            User connectedUser = new User(userId, "Soundboard1", "Dorian", DateOnly.Parse("15.12.2003"), "../Resources/Images/Dorian.jpeg", "fsdgfd", DateTime.Parse("10.04.2024"), new List<Guid>(), new List<Guid>(), new List<SellingUserScore>(), new List<Cart>(), new List<Favorites>(), new List<Guid>(), new List<Review>(), 0);
             User tempUser1 = new User("Vini", "Vinicius Junior", DateOnly.Parse("15.12.2003"), "../Resources/Images/Vini.png", "fdsfsdfds");
             User tempUser2 = new User("DDoorian", "Pop Dorian", DateOnly.Parse("12.12.2003"), "../Resources/Images/Dorian.jpeg", "bcvbc");
             userRepo.AddUser(tempUser2);
+            userRepo.AddUser(connectedUser);
             userRepo.AddUser(tempUser1);
             postRepo.addPost(new FixedPricePost("../Resources/Images/catei.jpeg", tempUser1.Id, groupId, "Oradea", "A bunch of great dogssdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "Dogs", "077333999", 300, DateTime.Now.AddMonths(2), "InPerson", new List<Review>(), 4, Guid.Empty, "FixedPrice", true));
             postRepo.addPost(new FixedPricePost("../Resources/Images/catei.jpeg", tempUser2.Id, groupId, "Bistrita", "Some great dogs", "Something else", "0222111333", 350, DateTime.Now.AddDays(6), "shipping", new List<Review>(), 4, Guid.Empty, "FixedPrice", true));
@@ -40,6 +43,7 @@ namespace ISSLab.ViewModel
             groupRepository = new GroupRepository(dataSet);
             postService = new PostService(postRepo,userRepo,groupRepository);
             userService = new UserService(userRepo,postRepo,groupRepository);
+           
             LoadPostsCommand(postRepo.getAll());
 
 
@@ -52,6 +56,25 @@ namespace ISSLab.ViewModel
                 ShownPosts = value;
                 OnPropertyChanged(nameof(ShownPosts));
             }
+        }
+
+        public void ChangeToFavorites()
+        {
+            List<Post> favoritedPosts = userService.GetFavoritePosts(groupId, userId);
+            LoadPostsCommand(favoritedPosts);
+        }
+
+        public void ChangeToMarketPlace()
+        {
+            List<Post> posts = postService.GetPosts();
+            LoadPostsCommand(posts);
+        }
+
+        public void ChangeToCart()
+        {
+            List<Post> cart = userService.GetItemsFromCart(userId, groupId);
+            LoadPostsCommand(cart);
+            
         }
 
         public void LoadPostsCommand(List<Post> posts)
