@@ -130,7 +130,8 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
-        <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="2">
+        <controls:CreationPost DataContext="{Binding PostCreationViewModel}" x:Name="CreatePostControl" Visibility="Collapsed" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="2"></controls:CreationPost>
+        <Grid x:Name="ShowPostsControl" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="2">
             <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.RowSpan="2">
                 <Grid x:Name="PostsGrid" Margin="5,5,5,5" Grid.Column="0" Grid.ColumnSpan="3" >
                     <ItemsControl ItemsSource="{Binding ShownPosts}">

@@ -39,11 +39,11 @@
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                     <TextBlock x:Name="userName" Text="{Binding Username}"  FontSize="24" VerticalAlignment="Center" FontWeight="Bold"></TextBlock>
                     <StackPanel x:Name="ratings" Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Image Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
-                        <Image Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
-                        <Image Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
-                        <Image Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
-                        <Image Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
+                        <Image x:Name="star1" Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
+                        <Image x:Name="star2" Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
+                        <Image x:Name="star3" Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
+                        <Image x:Name="star4" Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
+                        <Image x:Name="star5" Source="../Resources/Images/Star.png" Width="20" Height="10" Margin="0"/>
                     </StackPanel>
                     <TextBlock Text="{Binding TimePosted}" FontSize="14" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Text="{Binding Location}" FontSize="14" VerticalAlignment="Center"></TextBlock>

@@ -39,6 +39,7 @@ namespace ISSLab.View
         public static readonly DependencyProperty ContactProperty = DependencyProperty.Register("Contact", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty DeliveryProperty = DependencyProperty.Register("Delivery", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty VisibleProperty = DependencyProperty.Register("Visible", typeof(string), typeof(PostContent));
+
         public static readonly DependencyProperty DonationButtonVisibleProperty = DependencyProperty.Register("DonationButtonVisible", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty BuyButtonVisibleProperty = DependencyProperty.Register("BuyButtonVisible", typeof(string), typeof(PostContent));
 
@@ -57,10 +58,17 @@ namespace ISSLab.View
 
         }
 
+        public static readonly DependencyProperty RatingProperty = DependencyProperty.Register("Rating", typeof(float), typeof(PostContent));
+
         public String Title
         {
             get { return (String)GetValue(TitleProperty); } 
             set { SetValue(TitleProperty, value);}
+        }
+        public float Rating
+        {
+            get { return (float)GetValue(RatingProperty); }
+            set { SetValue(RatingProperty, value); }
         }
 
         public String Username
@@ -143,8 +151,34 @@ namespace ISSLab.View
         public event EventHandler OptionsButtonClicked;
         public PostContent()
         {
-           
+
             InitializeComponent();
+            if(this.Rating < 2)
+            {
+                this.star2.Visibility = Visibility.Collapsed;
+                this.star3.Visibility = Visibility.Collapsed;
+                this.star4.Visibility = Visibility.Collapsed;
+                this.star5.Visibility = Visibility.Collapsed;
+
+            }
+            else
+                if(this.Rating < 3)
+            {
+                this.star3.Visibility = Visibility.Collapsed;
+                this.star4.Visibility = Visibility.Collapsed;
+                this.star5.Visibility = Visibility.Collapsed;
+            }
+            else
+                if(this.Rating < 4)
+            {
+                this.star4.Visibility = Visibility.Collapsed;
+                this.star5.Visibility = Visibility.Collapsed;
+            }
+            else
+                if(this.Rating < 5)
+            {
+                this.star5.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void OnMoreButtonClick(object sender, RoutedEventArgs e)

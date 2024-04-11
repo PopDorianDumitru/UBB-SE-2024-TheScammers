@@ -52,6 +52,8 @@ namespace ISSLab.ViewModel
 
         }
 
+        public float Rating { get { return ((FixedPricePost)(post)).ReviewScore; } }
+
         public string Visible { get { return visible; } set { visible = value; OnPropertyChanged(nameof(Visible)); } }
         public string Description { get { return post.Description; } set { post.Description = value; } }
         public string Contact { get { return post.Contacts; } set { post.Contacts = value; } }
@@ -196,6 +198,7 @@ namespace ISSLab.ViewModel
                 return interested.ToString() + " interested";
             }
         }
+
 
         public void AddInterests()
         {
