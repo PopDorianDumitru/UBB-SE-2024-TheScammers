@@ -22,6 +22,8 @@ namespace ISSLab.ViewModel
         private string donationButtonVisible;
         private string buyButtonVisible;
 
+       
+
         public PostContentViewModel(Post post, User user, Guid accountId, Guid groupId, UserService userService, PostService postService) : base()
         {
             this.postService = postService;
@@ -51,6 +53,8 @@ namespace ISSLab.ViewModel
             visible = "Visible";
 
         }
+
+
 
         public float Rating { get { return ((FixedPricePost)(post)).ReviewScore; } }
 
