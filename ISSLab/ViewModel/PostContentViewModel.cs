@@ -21,6 +21,8 @@ namespace ISSLab.ViewModel
         private string favoriteDisplay;
         private string donationButtonVisible;
         private string buyButtonVisible;
+        private string bidButtonVisible;
+        private string bidPriceVisible;
 
        
 
@@ -35,12 +37,20 @@ namespace ISSLab.ViewModel
             this.visible = "Visible";
             this.donationButtonVisible = "Collapsed";
             this.buyButtonVisible = "Collapsed";
+            this.bidButtonVisible = "Collapsed";
+            this.bidPriceVisible = "Collapsed";
             if (post.Type == "Donation")
             {
                 this.donationButtonVisible = "Visible";
             }
             else if (post.Type == "FixedPrice")
                 this.buyButtonVisible = "Visible";
+            else if(post.Type == "Auction")
+            {
+                this.buyButtonVisible = "Visible";
+                this.bidButtonVisible = "Visible";
+                this.bidPriceVisible = "Visible";
+            }
         }
         public PostContentViewModel()
         {
@@ -104,6 +114,18 @@ namespace ISSLab.ViewModel
         {
             get { return buyButtonVisible; }
             set { buyButtonVisible = value; OnPropertyChanged(nameof(BuyButtonVisible)); }
+        }
+
+        public string BidButtonVisible
+        {
+            get { return bidButtonVisible; }
+            set { bidButtonVisible = value;OnPropertyChanged(nameof(BidButtonVisible)); }
+        }
+
+        public string BidPriceVisible
+        {
+            get { return bidPriceVisible; }
+            set { bidPriceVisible = value;OnPropertyChanged(nameof(BidPriceVisible)); }
         }
 
         public string Username { get { return user.Username; } }

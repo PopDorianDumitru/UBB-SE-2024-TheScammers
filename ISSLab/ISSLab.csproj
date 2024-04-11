@@ -12,10 +12,12 @@
     <None Remove="Resources\Images\arrow-button.png" />
     <None Remove="Resources\Images\bannerGroup.png" />
     <None Remove="Resources\Images\basket.png" />
+    <None Remove="Resources\Images\bid-button.png" />
     <None Remove="Resources\Images\buy-button.png" />
     <None Remove="Resources\Images\catei.png" />
     <None Remove="Resources\Images\comments.png" />
     <None Remove="Resources\Images\dislike.png" />
+    <None Remove="Resources\Images\donate-button.png" />
     <None Remove="Resources\Images\Dorian.jpeg" />
     <None Remove="Resources\Images\download.jpg" />
     <None Remove="Resources\Images\heart.png" />
@@ -39,6 +41,7 @@
     </Resource>
     <Resource Include="Resources\Images\bannerGroup.png" />
     <Resource Include="Resources\Images\basket.png" />
+    <Resource Include="Resources\Images\bid-button.png" />
     <Resource Include="Resources\Images\buy-button.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -51,6 +54,7 @@
     <Resource Include="Resources\Images\dislike.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\donate-button.png" />
     <Resource Include="Resources\Images\Dorian.jpeg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
