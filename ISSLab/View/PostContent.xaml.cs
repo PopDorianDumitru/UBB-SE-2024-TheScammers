@@ -41,8 +41,8 @@ namespace ISSLab.View
         public static readonly DependencyProperty VisibleProperty = DependencyProperty.Register("Visible", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty DonationButtonVisibleProperty = DependencyProperty.Register("DonationButtonVisible", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty BuyButtonVisibleProperty = DependencyProperty.Register("BuyButtonVisible", typeof(string), typeof(PostContent));
-
-
+        public static readonly DependencyProperty BidButtonVisibleProperty = DependencyProperty.Register("BidButtonVisible", typeof(string), typeof(PostContent));
+        public static readonly DependencyProperty BidPriceVisibleProperty = DependencyProperty.Register("BidPriceVisible", typeof(string), typeof(PostContent));
         public String DonationButtonVisible
         {
             get { return (String)GetValue(DonationButtonVisibleProperty); }
@@ -55,6 +55,18 @@ namespace ISSLab.View
             get { return (String)GetValue(DonationButtonVisibleProperty); }
             set { SetValue(VisibleProperty, value); }
 
+        }
+
+        public string BidButtonVisible
+        {
+            get { return (String)GetValue(BidButtonVisibleProperty); }
+            set { SetValue(VisibleProperty, value); }
+        }
+
+        public string BidPriceVisible
+        {
+            get { return (String)GetValue(BidPriceVisibleProperty); }
+            set { SetValue(VisibilityProperty, value); }
         }
 
         public String Title
