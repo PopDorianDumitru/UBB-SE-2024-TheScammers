@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace ISSLab.ViewModel
 {
@@ -23,6 +24,7 @@ namespace ISSLab.ViewModel
         private string buyButtonVisible;
         private string bidButtonVisible;
         private string bidPriceVisible;
+        private DispatcherTimer timer;
 
         public PostContentViewModel(Post post, User user, Guid accountId, Guid groupId, UserService userService, PostService postService) : base()
         {
@@ -49,6 +51,10 @@ namespace ISSLab.ViewModel
                 this.bidButtonVisible = "Visible";
                 this.bidPriceVisible = "Visible";
             }
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += Timer_Tick;
+            timer.Start();
         }
         public PostContentViewModel()
         {
@@ -60,6 +66,11 @@ namespace ISSLab.ViewModel
             user = new User();
             visible = "Visible";
 
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            OnPropertyChanged(nameof(AvailableFor));
         }
 
         public string Visible { get { return visible; } set { visible = value; OnPropertyChanged(nameof(Visible)); } }
@@ -210,6 +221,36 @@ namespace ISSLab.ViewModel
             }
         }
 
+        public void UpdateBidPrice()
+        {
+            AuctionPost auctionPost = (AuctionPost)post;
+            TimeSpan timeLeft = auctionPost.ExpirationDate - DateTime.Now;
+            TimeSpan timeSpan = TimeSpan.FromSeconds(30);
+
+            if (timeLeft.TotalSeconds < 30)
+            {
+                auctionPost.add30SecondsToExpirationDate();
+                OnPropertyChanged(nameof(AvailableFor));
+            }
+
+            ((AuctionPost)(post)).CurrentBidPrice += 5;
+            ((AuctionPost)(post)).MinimumBidPrice += 5;
+            OnPropertyChanged(nameof(BidPrice));
+        }
+
+        public string BidPrice
+        {
+            get
+            {
+                if (post.Type == "Auction")
+                    return "$" + ((AuctionPost)(post)).CurrentBidPrice;
+                else
+                {
+                    return "";
+                }
+            }
+        }
+
         public string Interests
         {
             get
@@ -221,7 +262,17 @@ namespace ISSLab.ViewModel
 
         public void AddInterests()
         {
-            post.InterestStatuses.Add(new InterestStatus(user.Id, post.Id, true));
+            var existingInterest = post.InterestStatuses.FirstOrDefault(interest => interest.UserId == user.Id && interest.PostId == post.Id);
+
+            if (existingInterest != null)
+            {
+                post.InterestStatuses.Remove(existingInterest);
+            }
+            else
+            {
+                post.InterestStatuses.Add(new InterestStatus(user.Id, post.Id, true));
+            }
+
             OnPropertyChanged(nameof(Interests));
         }
 
@@ -236,7 +287,16 @@ namespace ISSLab.ViewModel
 
         public void AddUniterests()
         {
-            post.InterestStatuses.Add(new InterestStatus(user.Id,post.Id,false));
+            var existingUninterest = post.InterestStatuses.FirstOrDefault(interest => interest.UserId == user.Id && interest.PostId == post.Id && !interest.Interested);
+
+            if (existingUninterest != null)
+            {
+                post.InterestStatuses.Remove(existingUninterest);
+            }
+            else
+            {
+                post.InterestStatuses.Add(new InterestStatus(user.Id, post.Id, false));
+            }
             OnPropertyChanged(nameof(Uninterests));
         }
 
