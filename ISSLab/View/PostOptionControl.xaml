@@ -1,12 +1,12 @@
-﻿<Window x:Class="wpf_lab4_post_options.PostOptions"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:wpf_lab4_post_options"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="250" Width="200">
-    <Grid x:Name="postOptions">
+﻿<UserControl x:Class="ISSLab.View.PostOptionControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ISSLab.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid MaxHeight="200" x:Name="postOptions">
         <Grid.RowDefinitions>
             <RowDefinition x:Name="addToFavouritesRow" Height="0.2*"></RowDefinition>
             <RowDefinition x:Name="hidePostRow" Height="0.2*"/>
@@ -15,15 +15,15 @@
             <RowDefinition x:Name="deletePostRow" Height="0.2*"/>
         </Grid.RowDefinitions>
 
-        <Button x:Name="addToFavouritesButton" Grid.Row="0" Tag="AddToFavourites" Click="addToFavouritesButton_Click" Margin="15,5,15,5">
+        <Button Width="150" MaxWidth="150" MaxHeight="30" x:Name="addToFavouritesButton" Grid.Row="0" Tag="AddToFavourites" Click="addToFavouritesButton_Click" Margin="15,5,15,5">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
                 </Style>
             </Button.Resources>
-            Add to favourites
+            Add to favorites
         </Button>
-        <Button x:Name="hidePostButton" Grid.Row="1" Tag="HidePost" Click="hidePostButton_Click" Margin="15,5,15,5">
+        <Button MaxWidth="150" MaxHeight="30" x:Name="hidePostButton" Grid.Row="1" Tag="HidePost" Click="hidePostButton_Click" Margin="15,5,15,5">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
@@ -31,14 +31,15 @@
             </Button.Resources>
             Hide post
         </Button>
-        <Button Content="{Binding Visible}" x:Name="deletePostButton" Grid.Row="2" Tag="DeletePost" Click="deletePostButton_Click" Margin="15,5,15,5">
+        <Button MaxWidth="150" MaxHeight="30" x:Name="deletePostButton" Grid.Row="2" Tag="DeletePost" Click="deletePostButton_Click" Margin="15,5,15,5">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
                 </Style>
             </Button.Resources>
+            Delete post
         </Button>
-        <Button x:Name="reportPostButton" Grid.Row="3" Tag="ReportPost" Click="reportPostButton_Click" Margin="15,5,15,5">
+        <Button MaxWidth="150" MaxHeight="30" x:Name="reportPostButton" Grid.Row="3" Tag="ReportPost" Click="reportPostButton_Click" Margin="15,5,15,5">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
@@ -46,7 +47,7 @@
             </Button.Resources>
             Report post
         </Button>
-        <Button x:Name="addToCartButton" Grid.Row="4" Tag="AddToCart" Click="addToCartButton_Click" Margin="15,5,15,5">
+        <Button MaxWidth="150" MaxHeight="30" x:Name="addToCartButton" Grid.Row="4" Tag="AddToCart" Click="addToCartButton_Click" Margin="15,5,15,5">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
@@ -55,4 +56,4 @@
             Add to cart
         </Button>
     </Grid>
-</Window>
+</UserControl>

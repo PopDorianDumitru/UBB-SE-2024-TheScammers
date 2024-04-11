@@ -1,7 +1,11 @@
-﻿using System.Text;
+﻿using ISSLab.ViewModel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -10,21 +14,20 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace wpf_lab4_post_options
+namespace ISSLab.View
 {
     /// <summary>
-    /// Interaction logic for PostOptions.xaml
+    /// Interaction logic for PostOptionControl.xaml
     /// </summary>
-    public partial class PostOptions : Window
+    public partial class PostOptionControl : UserControl
     {
-        public PostOptions()
+        public PostOptionControl()
         {
             InitializeComponent();
             string userType = "Admin";
             string userID = "1234";
             string postUserId = "1244";
-            
-            if(userID != postUserId)
+            if (userID != postUserId)
             {
                 postOptions.RowDefinitions.Remove(deletePostRow);
             }
@@ -38,6 +41,7 @@ namespace wpf_lab4_post_options
         private void hidePostButton_Click(object sender, RoutedEventArgs e)
         {
             //Here, we would access the post element and basically rmeove it using code
+            this.DataContext.GetType().GetProperty("Visible").SetValue(this.DataContext, "Collapsed");
         }
 
         private void addToCartButton_Click(object sender, RoutedEventArgs e)

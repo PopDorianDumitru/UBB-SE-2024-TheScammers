@@ -136,7 +136,7 @@
                     <ItemsControl ItemsSource="{Binding ShownPosts}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <controls:PostContent Title="{Binding Title}" >
+                                <controls:PostContent Username="{Binding Username}" Media="{Binding Media}" Location="{Binding Location}" ProfilePicture="{Binding ProfilePicture}" TimePosted="{Binding TimePosted}" AvailableFor="{Binding AvailableFor}" Price="{Binding Price}" Interests="{Binding Interests}" Uninterests="{Binding Uninterests}" Comments="{Binding Comments}" Description="{Binding Description}" Delivery="{Binding Delivery}" Contact="{Binding Contact}" Visibility="{Binding Visible}">
                                     
                                 </controls:PostContent>
                             </DataTemplate>

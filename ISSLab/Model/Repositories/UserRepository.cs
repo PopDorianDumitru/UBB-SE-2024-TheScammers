@@ -199,28 +199,28 @@ namespace ISSLab.Model.Repositories
         }
         public void AddUser(User newUser)
         {
-            DataRow newRow = dataSet.Tables["Users"].NewRow();
-            newRow["Id"] = newUser.Id.ToString();
-            newRow["username"] = newUser.Username;
-            newRow["real_name"] = newUser.RealName;
-            newRow["date_of_birth"] = newUser.DateOfBirth;
-            newRow["profile_picture"] = newUser.ProfilePicture;
-            newRow["password"] = newUser.Password;
-            newRow["creation_date"] = newUser.CreationDate;
-            List<Guid> groupsWithSellingPrivelage = newUser.GroupsWithSellingPrivelage;
-            for(int i = 0; i < groupsWithSellingPrivelage.Count; i++)
-            {
-                DataRow newSellingGroupsRow = dataSet.Tables["UsersAndGroupsWithSellingPrivelage"].NewRow();
-                newSellingGroupsRow["user_id"] = newUser.Id;
-                newSellingGroupsRow["group_id"] = groupsWithSellingPrivelage[i];
-            }
-            List<Guid> groupsWithRequestToSell = newUser.GroupsWithActiveRequestToSell;
-            for(int i = 0; i < groupsWithRequestToSell.Count; i++)
-            {
-                DataRow newSellingRequestGroupsRow = dataSet.Tables["UsersAndGroupsWithRequestToSell"].NewRow();
-                newSellingRequestGroupsRow["user_id"] = newUser.Id;
-                newSellingRequestGroupsRow["group_id"] = groupsWithRequestToSell[i];
-            }
+            //DataRow newRow = dataSet.Tables["Users"].NewRow();
+            //newRow["Id"] = newUser.Id.ToString();
+            //newRow["username"] = newUser.Username;
+            //newRow["real_name"] = newUser.RealName;
+            //newRow["date_of_birth"] = newUser.DateOfBirth;
+            //newRow["profile_picture"] = newUser.ProfilePicture;
+            //newRow["password"] = newUser.Password;
+            //newRow["creation_date"] = newUser.CreationDate;
+            //List<Guid> groupsWithSellingPrivelage = newUser.GroupsWithSellingPrivelage;
+            //for(int i = 0; i < groupsWithSellingPrivelage.Count; i++)
+            //{
+            //    DataRow newSellingGroupsRow = dataSet.Tables["UsersAndGroupsWithSellingPrivelage"].NewRow();
+            //    newSellingGroupsRow["user_id"] = newUser.Id;
+            //    newSellingGroupsRow["group_id"] = groupsWithSellingPrivelage[i];
+            //}
+            //List<Guid> groupsWithRequestToSell = newUser.GroupsWithActiveRequestToSell;
+            //for(int i = 0; i < groupsWithRequestToSell.Count; i++)
+            //{
+            //    DataRow newSellingRequestGroupsRow = dataSet.Tables["UsersAndGroupsWithRequestToSell"].NewRow();
+            //    newSellingRequestGroupsRow["user_id"] = newUser.Id;
+            //    newSellingRequestGroupsRow["group_id"] = groupsWithRequestToSell[i];
+            //}
             users.Add(newUser);
         }
 
