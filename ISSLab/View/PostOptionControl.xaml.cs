@@ -36,6 +36,7 @@ namespace ISSLab.View
         private void addToFavouritesButton_Click(object sender, RoutedEventArgs e)
         {
             // We can have for each user a list of favourites and add the post to that list
+            this.DataContext.GetType().GetMethod("AddPostToFavorites").Invoke(this.DataContext, null);
         }
 
         private void hidePostButton_Click(object sender, RoutedEventArgs e)
@@ -47,6 +48,7 @@ namespace ISSLab.View
         private void addToCartButton_Click(object sender, RoutedEventArgs e)
         {
             // We can have for each user a cart(list) and add the post to that list
+            this.DataContext.GetType().GetMethod("AddPostToCart").Invoke(this.DataContext, null);
         }
 
         private void reportPostButton_Click(object sender, RoutedEventArgs e)

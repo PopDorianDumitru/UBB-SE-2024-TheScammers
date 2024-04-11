@@ -223,6 +223,21 @@ namespace ISSLab.Services
             users.removeFromFavorites(groupId, userId, postId);
         }
         
+        public List<Post> GetFavoritePosts(Guid groupId, Guid userId)
+        {
+            List<Post> favoritePosts = new List<Post>();
+            Favorites favorites = users.findById(userId).Favorites.Find(f => f.GroupId == groupId);
+            if(favorites == null)
+            {
+                users.findById(userId).Favorites.Add(new Favorites(userId, groupId));
+                return new List<Post>();
+            }
+            foreach(Guid postId in favorites.Posts)
+            {
+                favoritePosts.Add(posts.getById(postId));
+            }
+            return favoritePosts;
+        }
 
         public double GetUserScore(Guid userId, Guid groupId)
         {
@@ -235,8 +250,20 @@ namespace ISSLab.Services
             return score / reviews.Count;
         }
 
-
-
-
+        internal List<Post> GetItemsFromCart(Guid userId, Guid groupId)
+        {
+            Cart cart = users.findById(userId).Carts.Find(c => c.GroupId == groupId);
+            List<Post> cartedPosts = new List<Post>();
+            if(cart == null)
+            {
+                users.findById(userId).Carts.Add(new Cart(groupId, userId));
+                return new List<Post>();
+            }
+            foreach(Guid postId in cart.Posts)
+            {
+                cartedPosts.Add(posts.getById(postId));
+            }
+            return cartedPosts; 
+        }
     }
 }

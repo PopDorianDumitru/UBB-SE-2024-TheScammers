@@ -481,11 +481,19 @@ namespace ISSLab.Model.Repositories
 
         public void addToCart(Guid groupId, Guid userId, Guid postId )
         {
-            DataRow row = dataSet.Tables["Carts"].NewRow();
-            row["user_id"] = userId;
-            row["group_id"] = groupId;
-            row["post_id"] = postId;
-            users.Find(user => user.Id == userId).Carts.Find(c => c.GroupId == groupId).Posts.Add(postId);
+            //DataRow row = dataSet.Tables["Carts"].NewRow();
+            //row["user_id"] = userId;
+            //row["group_id"] = groupId;
+            //row["post_id"] = postId;
+            Cart cart = users.Find(user => user.Id == userId).Carts.Find(c => c.GroupId == groupId);
+            if(cart == null)
+            {
+                cart = new Cart(groupId, userId);
+                users.Find(user=>user.Id == userId).Carts.Add(cart);
+            }
+            if (cart.Posts.Contains(postId))
+                return;
+            cart.Posts.Add(postId);
         }
 
         public void removeFromCart(Guid groupId, Guid userId, Guid postId)
@@ -498,11 +506,19 @@ namespace ISSLab.Model.Repositories
 
         public void addToFavorites(Guid groupId, Guid userId, Guid postId)
         {
-            DataRow row = dataSet.Tables["Favorites"].NewRow();
-            row["user_id"] = userId;
-            row["group_id"] = groupId;
-            row["post_id"] = postId;
-            users.Find(user => user.Id == userId).Favorites.Find(c => c.GroupId == groupId).Posts.Add(postId);
+            //DataRow row = dataSet.Tables["Favorites"].NewRow();
+            //row["user_id"] = userId;
+            //row["group_id"] = groupId;
+            //row["post_id"] = postId;
+            Favorites favoriteFromGroup = users.Find(user => user.Id == userId).Favorites.Find(c => c.GroupId == groupId);
+            if (favoriteFromGroup == null)
+            {
+                favoriteFromGroup = new Favorites(userId, groupId);
+                users.Find(user => user.Id == userId).Favorites.Add(favoriteFromGroup);
+            }
+            if (favoriteFromGroup.Posts.Contains(postId))
+                return;
+            favoriteFromGroup.Posts.Add(postId);
         }
 
         public void removeFromFavorites(Guid groupId, Guid userId, Guid postId)

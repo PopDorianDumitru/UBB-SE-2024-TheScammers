@@ -36,6 +36,7 @@ namespace ISSLab
             marketPlaceButton.Background = Brushes.LightBlue;
             yourMarketplaceCartButton.Background = Brushes.Transparent;
             favoritesButton.Background = Brushes.Transparent;
+            this.DataContext.GetType().GetMethod("ChangeToMarketPlace").Invoke(this.DataContext, null);
         }
 
         private void onClickedCreateMarketplacePost(object sender, RoutedEventArgs e)
@@ -52,6 +53,7 @@ namespace ISSLab
             createMarketplacePostButton.Background = Brushes.Transparent;
             marketPlaceButton.Background = Brushes.Transparent;
             favoritesButton.Background = Brushes.Transparent;
+            this.DataContext.GetType().GetMethod("ChangeToCart").Invoke(this.DataContext, null);
         }
 
         private void onClickedFavoritesButton(object sender, RoutedEventArgs e)
@@ -60,6 +62,7 @@ namespace ISSLab
             yourMarketplaceCartButton.Background = Brushes.Transparent;
             createMarketplacePostButton.Background = Brushes.Transparent;
             marketPlaceButton.Background = Brushes.Transparent;
+            this.DataContext.GetType().GetMethod("ChangeToFavorites").Invoke(this.DataContext, null);
         }
 
         private void LoadPosts()
