@@ -116,6 +116,13 @@ namespace ISSLab.ViewModel
                 return interested.ToString() + " interested";
             }
         }
+
+        public void AddInterests()
+        {
+            post.InterestStatuses.Add(new InterestStatus(user.Id, post.Id, true));
+            OnPropertyChanged(nameof(Interests));
+        }
+
         public string Uninterests
         {
             get
@@ -124,6 +131,13 @@ namespace ISSLab.ViewModel
                 return uninterested.ToString() + " uninterested";
             }
         }
+
+        public void AddUniterests()
+        {
+            post.InterestStatuses.Add(new InterestStatus(user.Id,post.Id,false));
+            OnPropertyChanged(nameof(Uninterests));
+        }
+
         public string Comments
         {
             get

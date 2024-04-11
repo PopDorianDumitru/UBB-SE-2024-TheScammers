@@ -89,11 +89,11 @@
             </Grid>
             <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                    <Button Width="20" Height="20" Margin="10,0,0,0" Background="Transparent" BorderThickness="0">
+                    <Button Width="20" Height="20" Margin="10,0,0,0" Background="Transparent" BorderThickness="0" Click="onInterestedClicked">
                         <Image Source="../Resources/Images/like.png"></Image>
                     </Button>
                     <TextBlock Text="{Binding Interests}" VerticalAlignment="Center" Margin="5,0,0,0"></TextBlock>
-                    <Button Width="20" Height="20" Margin="10,0,0,0" Background="Transparent" BorderThickness="0">
+                    <Button Width="20" Height="20" Margin="10,0,0,0" Background="Transparent" BorderThickness="0" Click="onUninterestedClicked">
                         <Image Source="../Resources/Images/dislike.png"></Image>
                     </Button>
                     <TextBlock Text="{Binding Uninterests}" VerticalAlignment="Center" Margin="5,0,0,0"></TextBlock>
