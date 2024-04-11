@@ -24,6 +24,8 @@ namespace ISSLab.ViewModel
         private string bidButtonVisible;
         private string bidPriceVisible;
 
+       
+
         public PostContentViewModel(Post post, User user, Guid accountId, Guid groupId, UserService userService, PostService postService) : base()
         {
             this.postService = postService;
@@ -61,6 +63,10 @@ namespace ISSLab.ViewModel
             visible = "Visible";
 
         }
+
+
+
+        public float Rating { get { return ((FixedPricePost)(post)).ReviewScore; } }
 
         public string Visible { get { return visible; } set { visible = value; OnPropertyChanged(nameof(Visible)); } }
         public string Description { get { return post.Description; } set { post.Description = value; } }
@@ -218,6 +224,7 @@ namespace ISSLab.ViewModel
                 return interested.ToString() + " interested";
             }
         }
+
 
         public void AddInterests()
         {

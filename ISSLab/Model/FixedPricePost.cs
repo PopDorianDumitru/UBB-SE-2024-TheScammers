@@ -58,6 +58,7 @@ namespace ISSLab.Model
         public float ReviewScore
         {
             get { return reviewScore; }
+            set { reviewScore = value; }
         }
 
         public string Delivery
