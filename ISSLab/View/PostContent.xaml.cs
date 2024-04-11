@@ -39,6 +39,23 @@ namespace ISSLab.View
         public static readonly DependencyProperty ContactProperty = DependencyProperty.Register("Contact", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty DeliveryProperty = DependencyProperty.Register("Delivery", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty VisibleProperty = DependencyProperty.Register("Visible", typeof(string), typeof(PostContent));
+        public static readonly DependencyProperty DonationButtonVisibleProperty = DependencyProperty.Register("DonationButtonVisible", typeof(string), typeof(PostContent));
+        public static readonly DependencyProperty BuyButtonVisibleProperty = DependencyProperty.Register("BuyButtonVisible", typeof(string), typeof(PostContent));
+
+
+        public String DonationButtonVisible
+        {
+            get { return (String)GetValue(DonationButtonVisibleProperty); }
+            set {SetValue(VisibleProperty, value);  }
+
+        }
+
+        public String BuyButtonVisible
+        {
+            get { return (String)GetValue(DonationButtonVisibleProperty); }
+            set { SetValue(VisibleProperty, value); }
+
+        }
 
         public String Title
         {
@@ -166,6 +183,17 @@ namespace ISSLab.View
             {
                 viewModel.AddUniterests();
             }
+        }
+
+        private void onDonationButtonClicked(object sender, RoutedEventArgs e)
+        {
+            var viewModel = DataContext as PostContentViewModel;
+            DonationPost post = (DonationPost)viewModel.getPost();
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = post.DonationPageLink,
+                UseShellExecute = true
+            });
         }
 
     }
