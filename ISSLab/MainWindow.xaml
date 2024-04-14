@@ -28,7 +28,7 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,10,0,0">
                     <Ellipse Width="50" Height="50" ClipToBounds="True">
                         <Ellipse.Fill>
-                            <ImageBrush ImageSource="./Resources/Images/Vini.png"/>
+                            <ImageBrush ImageSource="./Resources/Images/Dorian.jpeg"/>
                         </Ellipse.Fill>
                     </Ellipse>
                     <TextBlock Text="Username" VerticalAlignment="Center" FontWeight="Bold"></TextBlock>
