@@ -25,9 +25,9 @@
             </Grid.ColumnDefinitions>
 
             <Border Grid.Column="1" CornerRadius="30" Margin="5,5,5,5" BorderBrush="Black" BorderThickness="0.5">
-                <Border.Background>
+                <!--<Border.Background>
                     <ImageBrush Stretch="Fill" ImageSource="D:\UBBprojects\ISS\Isslab2\Isslab2\user.JPG"/>
-                </Border.Background>
+                </Border.Background>-->
             </Border>
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>

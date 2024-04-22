@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ISSLab.Model
 {
-    class AuctionPost : FixedPricePost
+    public class AuctionPost : FixedPricePost
     {
         private Guid currentPriceLeader;
         private double currentBidPrice;

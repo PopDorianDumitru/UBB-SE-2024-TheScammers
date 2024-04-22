@@ -9,7 +9,7 @@ using ISSLab.Model;
 using ISSLab.Model.Repositories;
 namespace ISSLab.Services
 {
-    class PostService
+    public class PostService
     {
         PostRepository posts;
         UserRepository users;

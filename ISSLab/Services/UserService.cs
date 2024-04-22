@@ -8,7 +8,7 @@ using ISSLab.Model;
 using ISSLab.Model.Repositories;
 namespace ISSLab.Services
 {
-    class UserService
+    public class UserService
     {
         private UserRepository users;
         private PostRepository posts;

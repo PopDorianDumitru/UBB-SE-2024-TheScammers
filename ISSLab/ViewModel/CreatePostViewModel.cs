@@ -3,7 +3,7 @@ using ISSLab.Services;
 
 namespace ISSLab.ViewModel
 {
-    class CreatePostViewModel : ViewModelBase
+    public class CreatePostViewModel : ViewModelBase
     {
         private PostService postService;
         private Guid groupId;

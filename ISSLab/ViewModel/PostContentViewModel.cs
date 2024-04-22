@@ -10,16 +10,14 @@ using System.Windows.Threading;
 
 namespace ISSLab.ViewModel
 {
-    class PostContentViewModel : ViewModelBase
+    public class PostContentViewModel : ViewModelBase
     {
-        private PostService postService;
         private UserService userService;
         private Guid groupId;
         private Post post;
         private Guid accountId;
         public User user;
         private string visible;
-        private string favoriteDisplay;
         private string donationButtonVisible;
         private string buyButtonVisible;
         private string bidButtonVisible;
@@ -28,9 +26,8 @@ namespace ISSLab.ViewModel
 
        
 
-        public PostContentViewModel(Post post, User user, Guid accountId, Guid groupId, UserService userService, PostService postService) : base()
+        public PostContentViewModel(Post post, User user, Guid accountId, Guid groupId, UserService userService) : base()
         {
-            this.postService = postService;
             this.userService = userService;
             this.groupId = groupId;
             this.accountId = accountId;
@@ -60,7 +57,6 @@ namespace ISSLab.ViewModel
         }
         public PostContentViewModel()
         {
-            postService = new PostService();
             userService = new UserService();
             groupId = new Guid();
             accountId = Guid.NewGuid();

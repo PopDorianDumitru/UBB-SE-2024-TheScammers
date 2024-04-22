@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ISSLab.Model
 {
-    class Cart
+    public class Cart
     {
         private Guid groupId;
         private Guid userId;

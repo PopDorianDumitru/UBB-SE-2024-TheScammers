@@ -11,7 +11,7 @@ using System.Windows.Media;
 
 namespace ISSLab.Model.Repositories
 {
-    class UserRepository
+    public class UserRepository
     {
         private readonly DataSet dataSet;
         private readonly string connectionString;

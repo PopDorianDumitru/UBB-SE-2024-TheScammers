@@ -1,4 +1,5 @@
 ﻿using ISSLab.View;
+using ISSLab.ViewModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,10 +19,15 @@ namespace ISSLab
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainWindowViewModel _viewModel;
 
-        public MainWindow()
+        public MainWindow(MainWindowViewModel viewModel)
         {
             InitializeComponent();
+
+            _viewModel = viewModel;
+            this.DataContext = _viewModel;
+
             LoadMarketplace();
         }
 
@@ -38,7 +44,8 @@ namespace ISSLab
             favoritesButton.Background = Brushes.Transparent;
             this.CreatePostControl.Visibility = Visibility.Collapsed;
             this.ShowPostsControl.Visibility = Visibility.Visible;
-            this.DataContext.GetType().GetMethod("ChangeToMarketPlace").Invoke(this.DataContext, null);
+
+            _viewModel.ChangeToMarketPlace();
         }
 
         private void onClickedCreateMarketplacePost(object sender, RoutedEventArgs e)
@@ -59,7 +66,8 @@ namespace ISSLab
             favoritesButton.Background = Brushes.Transparent;
             this.CreatePostControl.Visibility = Visibility.Collapsed;
             this.ShowPostsControl.Visibility = Visibility.Visible;
-            this.DataContext.GetType().GetMethod("ChangeToCart").Invoke(this.DataContext, null);
+
+            _viewModel.ChangeToCart();
         }
 
         private void onClickedFavoritesButton(object sender, RoutedEventArgs e)
@@ -70,17 +78,8 @@ namespace ISSLab
             marketPlaceButton.Background = Brushes.Transparent;
             this.CreatePostControl.Visibility = Visibility.Collapsed;
             this.ShowPostsControl.Visibility = Visibility.Visible;
-            this.DataContext.GetType().GetMethod("ChangeToFavorites").Invoke(this.DataContext, null);
-        }
 
-        private void ShowPostDetails(PostContent postContent)
-        {
-            int index = PostsGrid.Children.IndexOf(postContent);
-            PostDetails postDetails = new PostDetails();
-            Grid.SetRow(postDetails, index);
-            Grid.SetColumn(postDetails, 2);
-            PostsGrid.Children.Add(postDetails);
+            _viewModel.ChangeToFavorites();
         }
-
     }
 }

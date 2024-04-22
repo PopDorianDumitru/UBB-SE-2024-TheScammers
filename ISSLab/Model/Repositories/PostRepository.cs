@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace ISSLab.Model.Repositories
 {
-    class PostRepository
+    public class PostRepository
     {
         private readonly DataSet dataSet;
         private readonly string connectionString;
