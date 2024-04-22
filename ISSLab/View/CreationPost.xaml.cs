@@ -131,6 +131,7 @@ namespace ISSLab.View
         public void CreationButtonClick(Object sender, RoutedEventArgs e)
         {
             this.DataContext.GetType ().GetMethod("CreatePost").Invoke(this.DataContext, null);
+
         }
     }
 }

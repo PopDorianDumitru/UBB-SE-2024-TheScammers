@@ -172,38 +172,22 @@ namespace ISSLab.View
         {
 
             InitializeComponent();
-            if(this.Rating < 2)
-            {
-                this.star2.Visibility = Visibility.Collapsed;
-                this.star3.Visibility = Visibility.Collapsed;
-                this.star4.Visibility = Visibility.Collapsed;
-                this.star5.Visibility = Visibility.Collapsed;
 
-            }
-            else
-                if(this.Rating < 3)
-            {
+            if (this.Rating < 5)
+                this.star5.Visibility = Visibility.Collapsed;
+            if (this.Rating < 4)
+                this.star4.Visibility = Visibility.Collapsed;
+            if (this.Rating < 3)
                 this.star3.Visibility = Visibility.Collapsed;
-                this.star4.Visibility = Visibility.Collapsed;
-                this.star5.Visibility = Visibility.Collapsed;
-            }
-            else
-                if(this.Rating < 4)
-            {
-                this.star4.Visibility = Visibility.Collapsed;
-                this.star5.Visibility = Visibility.Collapsed;
-            }
-            else
-                if(this.Rating < 5)
-            {
-                this.star5.Visibility = Visibility.Collapsed;
-            }
+            if (this.Rating < 2)
+                this.star2.Visibility = Visibility.Collapsed;
         }
 
         private void OnMoreButtonClick(object sender, RoutedEventArgs e)
         {
             if (GridOptions.IsVisible)
                 GridOptions.Visibility = Visibility.Collapsed;
+
             if (GridDetails.IsVisible)
                 GridDetails.Visibility = Visibility.Collapsed;
             else
@@ -214,6 +198,7 @@ namespace ISSLab.View
         {
             if (GridDetails.IsVisible)
                 GridDetails.Visibility = Visibility.Collapsed;
+
             if (GridOptions.IsVisible)
                 GridOptions.Visibility = Visibility.Collapsed;
             else
@@ -250,7 +235,6 @@ namespace ISSLab.View
         }
 
 
-
         private void onBidButtonClicked(object sender, RoutedEventArgs e)
         {
             var viewModel = DataContext as PostContentViewModel;
@@ -264,6 +248,7 @@ namespace ISSLab.View
         {
             var viewModel = DataContext as PostContentViewModel;
             DonationPost post = (DonationPost)viewModel.getPost();
+
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
             {
                 FileName = post.DonationPageLink,

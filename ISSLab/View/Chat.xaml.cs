@@ -72,68 +72,6 @@ namespace ISSLab.View
             AllMessages.Add(newMessage);
         }
 
-  /*      public void SendSellingMessage(string message, bool isMine, bool isSellingPost, bool isSeller)
-        {
-            var newMessage = new Message
-            {
-                Content = message,
-                Width = CalculateMessageWidth(message),
-                IsMine = isMine,
-                BubbleColor = isMine ? Brushes.LightBlue : Brushes.LightGray,
-                HorizontalAlignment = isMine ? HorizontalAlignment.Right : HorizontalAlignment.Left
-            };
-
-            if (isSellingPost)
-            {
-                var postImage = new Image
-                {
-                    Source = new BitmapImage(new Uri("/path/to/post/image.jpg", UriKind.Relative)), 
-                    Width = 100,
-                    Height = 100,
-                    Margin = new Thickness(0, 10, 0, 0)
-                };
-
-                var acceptButton = new Button
-                {
-                    Content = "Accept",
-                    Margin = new Thickness(0, 10, 5, 0), 
-                    HorizontalAlignment = HorizontalAlignment.Left
-                };
-                acceptButton.Click += (sender, e) =>
-                {
-                    // Handle accept button click
-                };
-
-                var rejectButton = new Button
-                {
-                    Content = "Reject",
-                    Margin = new Thickness(5, 10, 0, 0), 
-                    HorizontalAlignment = HorizontalAlignment.Right 
-                };
-                rejectButton.Click += (sender, e) =>
-                {
-                    // Handle reject button click
-                };
-
-                var stackPanel = new StackPanel();
-
-                stackPanel.Children.Add(postImage);
-
-                stackPanel.Children.Add(new TextBlock { Text = message, TextWrapping = TextWrapping.Wrap });
-
-                stackPanel.Children.Add(acceptButton);
-                stackPanel.Children.Add(rejectButton);
-
-                //newMessage.Content = stackPanel;
-
-                newMessage.BubbleColor = Brushes.YellowGreen;
-            }
-
-            AllMessages.Add(newMessage);
-
-            MessageTextBox.Text = "";
-        }*/
-
         private double CalculateMessageWidth(string message)
         {
             var textBlock = new TextBlock { Text = message, TextWrapping = TextWrapping.Wrap };
@@ -145,6 +83,7 @@ namespace ISSLab.View
         {
             SendMessage(MessageTextBox.Text, true, false);
         }
+
         private Button FindVisualChild<Button>(DependencyObject parent, string name) where Button : DependencyObject
         {
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
@@ -187,9 +126,6 @@ namespace ISSLab.View
                 rejectButton.Visibility = Visibility.Collapsed;
                 MessageTextBox.Visibility = Visibility.Collapsed;
                 SendButton.Visibility = Visibility.Collapsed;
-                
-                
-
             }
         }
 

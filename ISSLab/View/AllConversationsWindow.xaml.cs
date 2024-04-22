@@ -17,8 +17,8 @@ namespace ISSLab.View
             DataContext = this;
 
             AllProfiles = new ObservableCollection<ISSLab.Model.User>();
-            AllProfiles.Add(new ISSLab.Model.User { Username = "John Doe", ProfilePicture = @"D:\UBBprojects\ISS\Isslab2\Isslab2\user.JPG" });
-            AllProfiles.Add(new ISSLab.Model.User { Username = "Jane Smith", ProfilePicture = @"D:\UBBprojects\ISS\Isslab2\Isslab2\user.JPG" });
+            AllProfiles.Add(new ISSLab.Model.User { Username = "John Doe", ProfilePicture = @"" });
+            AllProfiles.Add(new ISSLab.Model.User { Username = "Jane Smith", ProfilePicture = @"" });
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

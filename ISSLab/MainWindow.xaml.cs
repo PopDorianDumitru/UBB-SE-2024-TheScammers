@@ -73,28 +73,6 @@ namespace ISSLab
             this.DataContext.GetType().GetMethod("ChangeToFavorites").Invoke(this.DataContext, null);
         }
 
-        private void LoadPosts()
-        {
-            int numberOfPostsToAdd = 5;
-            string[] usernames = ["Luca", "Dorian", "Marian", "Andrei", "Marcus"];
-            PostsGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
-            PostsGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
-            PostsGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Auto) });
-            for (int i = 0; i < numberOfPostsToAdd; i++)
-            {
-                PostContent postContent = new PostContent();
-                postContent.MoreButtonClicked += (sender, e) => ShowPostDetails(postContent);
-
-                Grid.SetRow(postContent, i);
-                Grid.SetColumn(postContent, 0);
-                Grid.SetColumnSpan(postContent, 2);
-
-                PostsGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Auto) });
-
-                PostsGrid.Children.Add(postContent);
-            }
-        }
-
         private void ShowPostDetails(PostContent postContent)
         {
             int index = PostsGrid.Children.IndexOf(postContent);

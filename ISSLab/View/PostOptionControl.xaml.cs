@@ -24,7 +24,6 @@ namespace ISSLab.View
         public PostOptionControl()
         {
             InitializeComponent();
-            string userType = "Admin";
             string userID = "1234";
             string postUserId = "1244";
             if (userID != postUserId)
@@ -53,12 +52,10 @@ namespace ISSLab.View
 
         private void reportPostButton_Click(object sender, RoutedEventArgs e)
         {
-            // again, for each user or post(post might be better) a field of "reports" and just increment that field
         }
 
         private void deletePostButton_Click(object sender, RoutedEventArgs e)
         {
-            // again, we could have a list the user's own posts and delete the post from the list
         }
     }
 }

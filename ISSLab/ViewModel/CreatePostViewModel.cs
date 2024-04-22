@@ -1,17 +1,11 @@
 ﻿using ISSLab.Model;
 using ISSLab.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ISSLab.ViewModel
 {
     class CreatePostViewModel : ViewModelBase
     {
         private PostService postService;
-        private UserService userService;
         private Guid groupId;
         private Guid accountId;
 
@@ -26,24 +20,20 @@ namespace ISSLab.ViewModel
         private string isAuction;
         private string minimumBid;
 
-        public CreatePostViewModel(Guid accountId, Guid groupId, UserService userService, PostService postService) : base()
+        public CreatePostViewModel(Guid accountId, Guid groupId, PostService postService) : base()
         {
             this.postService = postService;
-            this.userService = userService;
             this.groupId = groupId;
             this.accountId = accountId;
             IsDonation = "Collapsed";
             IsAuction = "Collapsed";
-
         }
+
         public CreatePostViewModel()
         {
             postService = new PostService();
-            userService = new UserService();
             groupId = new Guid();
             accountId = Guid.NewGuid();
-      
-
         }
 
         private string type;
@@ -116,27 +106,26 @@ namespace ISSLab.ViewModel
                 CreateFixedPricePost();
             else
                 CreateDonationPost();
-
         }
 
         public void CreateDonationPost()
         {
             DonationPost donationPost = new DonationPost("", accountId, groupId, "", Description, "", phoneNumber, donationLink, "Donation", true);
             postService.AddPost(donationPost);
-            Type = "";
-            PhoneNumber = "";
-            Price = "";
-            Condition = "";
-            Delivery = "";
-            Availability = "";
-            Description = "";
-            DonationLink = "";
+
+            ResetFields();
         }
 
         public void CreateFixedPricePost()
         {
             FixedPricePost fixedPrice = new FixedPricePost("", accountId, groupId, "Cluj", Description, "", PhoneNumber, float.Parse(Price), DateTime.Now.AddMonths(3), Delivery, new List<Review>(), 0, Guid.Empty, "FixedPrice", false);
             postService.AddPost(fixedPrice);
+
+            ResetFields();
+        }
+
+        private void ResetFields()
+        {
             Type = "";
             PhoneNumber = "";
             Price = "";
@@ -145,7 +134,6 @@ namespace ISSLab.ViewModel
             Availability = "";
             Description = "";
         }
-
     }
 }
 
