@@ -1,5 +1,6 @@
 ﻿using ISSLab.Model;
 using ISSLab.Services;
+using ISSLab.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -313,7 +314,21 @@ namespace ISSLab.ViewModel
             }
         }
 
+        public void SendBuyingMessage()
+        {
+            Chat chat = new Chat(user, post);
+            chat.SendBuyingMessage(Media);
+            chat.Show();
+        }
 
+        public void Donate()
+        {
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = ((DonationPost)post).DonationPageLink,
+                UseShellExecute = true
+            });
+        }
     }
 
 }
