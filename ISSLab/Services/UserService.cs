@@ -13,18 +13,14 @@ namespace ISSLab.Services
         private UserRepository users;
         private PostRepository posts;
         private GroupRepository groups;
-        public UserService()
-        {
-            users = new UserRepository();
-            posts = new PostRepository();
-            groups = new GroupRepository();
-        }
+
         public UserService(UserRepository users, PostRepository posts, GroupRepository groups)
         {
             this.users = users;
             this.posts = posts;
             this.groups = groups;
         }
+
         public void AddUser(User user)
         {
             users.AddUser(user);

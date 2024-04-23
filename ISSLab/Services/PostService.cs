@@ -14,12 +14,7 @@ namespace ISSLab.Services
         PostRepository posts;
         UserRepository users;
         GroupRepository groups;
-        public PostService()
-        {
-            posts = new PostRepository();
-            users = new UserRepository();
-            groups = new GroupRepository();
-        }
+
         public PostService(PostRepository posts, UserRepository users, GroupRepository groups)
         {
             this.posts = posts;
@@ -31,8 +26,6 @@ namespace ISSLab.Services
         {
                return posts.getAll();
         }
-
-     
 
         public void AddPost(Post post)
         {

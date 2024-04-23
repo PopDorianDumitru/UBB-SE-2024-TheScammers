@@ -1,5 +1,4 @@
 ﻿using ISSLab.Model;
-using ISSLab.Model.Repositories;
 using ISSLab.Services;
 using ISSLab.View;
 using System;

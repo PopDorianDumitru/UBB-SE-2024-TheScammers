@@ -29,13 +29,6 @@ namespace ISSLab.ViewModel
             IsAuction = "Collapsed";
         }
 
-        public CreatePostViewModel()
-        {
-            postService = new PostService();
-            groupId = new Guid();
-            accountId = Guid.NewGuid();
-        }
-
         private string type;
         private string phoneNumber;
         private string price;

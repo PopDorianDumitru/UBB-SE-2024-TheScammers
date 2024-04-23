@@ -56,24 +56,11 @@ namespace ISSLab.ViewModel
             timer.Tick += Timer_Tick;
             timer.Start();
         }
-        public PostContentViewModel()
-        {
-            userService = new UserService();
-            groupId = new Guid();
-            accountId = Guid.NewGuid();
-            post = new Post();
-            user = new User();
-            visible = "Visible";
-
-        }
-
 
         private void Timer_Tick(object sender, EventArgs e)
         {
             OnPropertyChanged(nameof(AvailableFor));
         }
-
-
 
         public float Rating { get { return ((FixedPricePost)(post)).ReviewScore; } }
 
