@@ -9,7 +9,7 @@ using System.Windows.Controls;
 
 namespace ISSLab.Model.Repositories
 {
-    public class GroupRepository
+    public class GroupRepository : IGroupRepository
     {
         private readonly DataSet dataSet;
         private readonly string connectionString;
@@ -233,7 +233,7 @@ namespace ISSLab.Model.Repositories
             // Remove the rows from the DataTable
             foreach (DataRow rowToDelete in rowsToDelete3)
             {
-               bigSellersTable.Rows.Remove(rowToDelete);
+                bigSellersTable.Rows.Remove(rowToDelete);
             }
 
 
@@ -326,7 +326,7 @@ namespace ISSLab.Model.Repositories
             newRow["user_id"] = user.ToString();
             newRow["group_id"] = id.ToString();
 
-            for(int i = 0; i < groups.Count; i++)
+            for (int i = 0; i < groups.Count; i++)
             {
                 if (groups[i].Id == id)
                 {
@@ -339,7 +339,7 @@ namespace ISSLab.Model.Repositories
         public void UpdateGroupBigSellersRemove(Guid id, Guid user)
         {
             DataRow row = dataSet.Tables["BigSellers"].Rows.Find(user);
-            if(row != null)
+            if (row != null)
             {
                 row.Delete();
             }
@@ -373,7 +373,7 @@ namespace ISSLab.Model.Repositories
         public void UpdateGroupsSellersRemove(Guid id, Guid user)
         {
             DataRow row = dataSet.Tables["UsersAndGroupsWithSellingPrivelage"].Rows.Find(user);
-            if( row != null)
+            if (row != null)
             {
                 row.Delete();
             }
@@ -407,7 +407,7 @@ namespace ISSLab.Model.Repositories
         public void UpdateGroupsRequestedUsersRemove(Guid id, Guid user)
         {
             DataRow row = dataSet.Tables["UsersAndGroupsWithRequestToSell"].Rows.Find(user);
-            if(row != null)
+            if (row != null)
             {
                 row.Delete();
             }
@@ -453,7 +453,7 @@ namespace ISSLab.Model.Repositories
         public void UpdateGroupPostsRemove(Guid id, Post post)
         {
             DataRow row = dataSet.Tables["Posts"].Rows.Find(post.Id);
-            if(row != null)
+            if (row != null)
             {
                 row.Delete();
             }

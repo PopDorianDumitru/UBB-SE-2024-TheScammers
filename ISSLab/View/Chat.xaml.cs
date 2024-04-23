@@ -23,9 +23,9 @@ namespace ISSLab.View
     /// </summary>
     public partial class Chat : Window
     {
-        private ChatViewModel _viewModel;
+        private IChatViewModel _viewModel;
 
-        internal Chat(ChatViewModel viewModel)
+        internal Chat(IChatViewModel viewModel)
         {
             InitializeComponent();
             DataContext = viewModel;

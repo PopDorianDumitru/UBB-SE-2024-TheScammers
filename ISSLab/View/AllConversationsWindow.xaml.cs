@@ -8,10 +8,10 @@ namespace ISSLab.View
 {
     public partial class AllConversationsWindow : UserControl
     {
-        private AllConversationsViewModel _viewModel;
+        private IAllConversationsViewModel _viewModel;
 
 
-        public AllConversationsWindow(AllConversationsViewModel viewModel)
+        public AllConversationsWindow(IAllConversationsViewModel viewModel)
         {
             InitializeComponent();
 
@@ -26,7 +26,7 @@ namespace ISSLab.View
                 Window parentWindow = Window.GetWindow(this);
                 parentWindow?.Close();
 
-                var postContentViewModel = DataContext as PostContentViewModel;
+                var postContentViewModel = DataContext as IPostContentViewModel;
                 Post post = postContentViewModel.getPost();
 
                 Chat chat = new Chat(new ChatViewModel(selectedUser, post));

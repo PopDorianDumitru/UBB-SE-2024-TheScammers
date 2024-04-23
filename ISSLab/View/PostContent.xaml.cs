@@ -207,32 +207,32 @@ namespace ISSLab.View
 
         private void onInterestedClicked(object sender, RoutedEventArgs e)
         {
-            var viewModel = DataContext as PostContentViewModel;
+            var viewModel = DataContext as IPostContentViewModel;
             viewModel.AddInterests();
         }
 
         private void onUninterestedClicked(object sender, RoutedEventArgs e)
         {
-            var viewModel = DataContext as PostContentViewModel;
+            var viewModel = DataContext as IPostContentViewModel;
             viewModel.AddUniterests();
         }
 
         private void onBuyButtonClicked(object sender, RoutedEventArgs e)
         {
-            var viewModel = DataContext as PostContentViewModel;
+            var viewModel = DataContext as IPostContentViewModel;
             viewModel.SendBuyingMessage();
         }
 
 
         private void onBidButtonClicked(object sender, RoutedEventArgs e)
         {
-            var viewModel = DataContext as PostContentViewModel;
+            var viewModel = DataContext as IPostContentViewModel;
             viewModel.UpdateBidPrice();
         }
 
         private void onDonationButtonClicked(object sender, RoutedEventArgs e)
         {
-            var viewModel = DataContext as PostContentViewModel;
+            var viewModel = DataContext as IPostContentViewModel;
             viewModel.Donate();
         }
 

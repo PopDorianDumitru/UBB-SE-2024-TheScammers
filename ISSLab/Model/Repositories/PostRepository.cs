@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace ISSLab.Model.Repositories
 {
-    public class PostRepository
+    public class PostRepository : IPostRepository
     {
         private readonly DataSet dataSet;
         private readonly string connectionString;
@@ -159,7 +159,7 @@ namespace ISSLab.Model.Repositories
             //        }
             //    }
         }
-        
+
 
         public void addPost(Post newPost)
         {
@@ -178,7 +178,8 @@ namespace ISSLab.Model.Repositories
             posts.Add(newPost);
         }
 
-        public void removePost(Guid id) {
+        public void removePost(Guid id)
+        {
             DataRow postRow = dataSet.Tables["Posts"].Rows.Find(id);
             if (postRow != null)
             {
@@ -226,7 +227,7 @@ namespace ISSLab.Model.Repositories
                 }
             }
 
-            foreach(DataRow rowToDelete in rowsToDelete2)
+            foreach (DataRow rowToDelete in rowsToDelete2)
             {
                 usersThatLikedTable.Rows.Remove(rowToDelete);
             }
@@ -317,7 +318,7 @@ namespace ISSLab.Model.Repositories
             row["post_id"] = id.ToString();
             row["user_id"] = userId.ToString();
 
-            for(int i = 0; i < posts.Count; i++)
+            for (int i = 0; i < posts.Count; i++)
             {
                 if (posts[i].Id == id)
                 {
@@ -334,7 +335,7 @@ namespace ISSLab.Model.Repositories
             row["content"] = comment.Content;
             row["user_id"] = comment.UserId;
 
-            for(int i =  0; i < posts.Count; i++)
+            for (int i = 0; i < posts.Count; i++)
             {
                 if (posts[i].Id == id)
                 {
@@ -552,9 +553,10 @@ namespace ISSLab.Model.Repositories
 
         public Post getById(Guid id)
         {
-            for(int i = 0; i < posts.Count; i++)
+            for (int i = 0; i < posts.Count; i++)
             {
-                if (posts[i].Id == id) {
+                if (posts[i].Id == id)
+                {
                     return posts[i];
                 }
             }

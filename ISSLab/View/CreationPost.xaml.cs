@@ -131,7 +131,7 @@ namespace ISSLab.View
 
         public void CreationButtonClick(Object sender, RoutedEventArgs e)
         {
-            var viewModel = DataContext as CreatePostViewModel;
+            var viewModel = DataContext as ICreatePostViewModel;
             viewModel.CreatePost();
         }
     }

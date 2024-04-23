@@ -13,24 +13,24 @@ using System.Windows.Input;
 
 namespace ISSLab.ViewModel
 {
-    public class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel : ViewModelBase, IMainWindowViewModel
     {
-        PostService postService;
-        UserService userService;
-        ObservableCollection<PostContentViewModel> shownPosts;
+        IPostService postService;
+        IUserService userService;
+        ObservableCollection<IPostContentViewModel> shownPosts;
         Guid userId;
         Guid groupId;
-        CreatePostViewModel postCreationViewModel;
+        ICreatePostViewModel postCreationViewModel;
 
         public ViewModelBase CurrentViewModel { get; }
-        public MainWindowViewModel(PostService givenPostService, UserService givenUserService, Guid userId, Guid groupId) 
+        public MainWindowViewModel(IPostService givenPostService, IUserService givenUserService, Guid userId, Guid groupId)
         {
             this.postService = givenPostService;
             this.userService = givenUserService;
             this.userId = userId;
             this.groupId = groupId;
 
-            shownPosts = new ObservableCollection<PostContentViewModel>();
+            shownPosts = new ObservableCollection<IPostContentViewModel>();
 
             postCreationViewModel = new CreatePostViewModel(userId, groupId, postService);
 
@@ -38,7 +38,7 @@ namespace ISSLab.ViewModel
         }
 
 
-        public CreatePostViewModel PostCreationViewModel
+        public ICreatePostViewModel PostCreationViewModel
         {
             get { return postCreationViewModel; }
             set
@@ -48,7 +48,10 @@ namespace ISSLab.ViewModel
             }
         }
 
-        public ObservableCollection<PostContentViewModel> ShownPosts { get { return shownPosts; } set
+        public ObservableCollection<IPostContentViewModel> ShownPosts
+        {
+            get { return shownPosts; }
+            set
             {
                 ShownPosts = value;
                 OnPropertyChanged(nameof(ShownPosts));
@@ -71,19 +74,19 @@ namespace ISSLab.ViewModel
         {
             List<Post> cart = userService.GetItemsFromCart(userId, groupId);
             LoadPostsCommand(cart);
-            
+
         }
 
         public void ChangeToMarketplacePost()
         {
-            
+
         }
 
         public void LoadPostsCommand(List<Post> posts)
         {
-            
+
             shownPosts.Clear();
-            foreach(Post p in posts)
+            foreach (Post p in posts)
             {
                 User originalPoster = userService.GetUserById(p.AuthorId);
                 //shownPosts.Add(p);

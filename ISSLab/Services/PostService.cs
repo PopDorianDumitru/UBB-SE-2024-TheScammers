@@ -9,13 +9,13 @@ using ISSLab.Model;
 using ISSLab.Model.Repositories;
 namespace ISSLab.Services
 {
-    public class PostService
+    public class PostService : IPostService
     {
-        PostRepository posts;
-        UserRepository users;
-        GroupRepository groups;
+        IPostRepository posts;
+        IUserRepository users;
+        IGroupRepository groups;
 
-        public PostService(PostRepository posts, UserRepository users, GroupRepository groups)
+        public PostService(IPostRepository posts, IUserRepository users, IGroupRepository groups)
         {
             this.posts = posts;
             this.users = users;
@@ -24,7 +24,7 @@ namespace ISSLab.Services
 
         public List<Post> GetPosts()
         {
-               return posts.getAll();
+            return posts.getAll();
         }
 
         public void AddPost(Post post)
@@ -51,7 +51,7 @@ namespace ISSLab.Services
 
         public Post CreateFixedPricePost(string media, Guid authorId, Guid groupId, string location, string description, string title, string contacts, double price, DateTime expirationDate, string delivery, List<Review> reviews, float reviewScore, Guid buyerId)
         {
-            if(price < 0)
+            if (price < 0)
             {
                 throw new Exception("Price can't be negative");
             }
@@ -74,7 +74,7 @@ namespace ISSLab.Services
 
         public Post CreateAuctionPost(string media, Guid authorId, Guid groupId, string location, string description, string title, string contacts, double price, DateTime expirationDate, string delivery, List<Review> reviews, float reviewScore, Guid buyerId, Guid currentPriceLeader, double currentBidPrice, double minimumBidPrice)
         {
-            if(price < 0 || minimumBidPrice < 0 || currentBidPrice < 0)
+            if (price < 0 || minimumBidPrice < 0 || currentBidPrice < 0)
             {
                 throw new Exception("Price can't be negative");
             }
@@ -116,13 +116,13 @@ namespace ISSLab.Services
 
         public IEnumerable<Post> GetPostsMainMarketPage(List<Post> postsForGroup)
         {
-            return postsForGroup.OrderByDescending(post=>post.Promoted).ThenByDescending(post=>post.interestLevel());
+            return postsForGroup.OrderByDescending(post => post.Promoted).ThenByDescending(post => post.interestLevel());
         }
 
         public bool CheckIfNeedsConfirmation(Guid postID)
         {
             Post? post = posts.getById(postID);
-            if(post == null)
+            if (post == null)
             {
                 throw new Exception("Post not found");
             }
@@ -134,7 +134,7 @@ namespace ISSLab.Services
         public void RemoveConfirmation(Guid postID)
         {
             Post? post = posts.getById(postID);
-            if(post == null)
+            if (post == null)
             {
                 throw new Exception("Post not found");
             }
@@ -144,7 +144,7 @@ namespace ISSLab.Services
         public void ConfirmPost(Guid postID)
         {
             Post? post = posts.getById(postID);
-            if(post == null)
+            if (post == null)
             {
                 throw new Exception("Post not found");
             }
@@ -154,7 +154,7 @@ namespace ISSLab.Services
         public void AddReport(Guid postID, Guid userID, string reason)
         {
             Post? post = posts.getById(postID);
-            if(post == null)
+            if (post == null)
             {
                 throw new Exception("Post not found");
             }
@@ -164,7 +164,7 @@ namespace ISSLab.Services
         public void RemoveReport(Guid postID, Guid userID)
         {
             Post? post = posts.getById(postID);
-            if(post == null)
+            if (post == null)
             {
                 throw new Exception("Post not found");
             }
@@ -174,16 +174,16 @@ namespace ISSLab.Services
         public bool CheckIfAuctionTimeEnded(Guid postID)
         {
             Post? post = posts.getById(postID);
-            if(post == null)
+            if (post == null)
             {
                 throw new Exception("Post not found");
             }
-            if(post.Type != "AuctionPost")
+            if (post.Type != "AuctionPost")
             {
                 throw new Exception("Post is not an auction post");
             }
             AuctionPost auctionPost = (AuctionPost)post;
-            if(auctionPost.ExpirationDate < DateTime.Now)
+            if (auctionPost.ExpirationDate < DateTime.Now)
             {
                 return true;
             }
@@ -193,20 +193,20 @@ namespace ISSLab.Services
         public void BidOnAuction(Guid postID, Guid userID, double bidAmount)
         {
             Post? post = posts.getById(postID);
-            if(post == null)
+            if (post == null)
             {
                 throw new Exception("Post not found");
             }
-            if(post.Type != "AuctionPost")
+            if (post.Type != "AuctionPost")
             {
                 throw new Exception("Post is not an auction post");
             }
             AuctionPost auctionPost = (AuctionPost)post;
-            if(auctionPost.CurrentBidPrice >= bidAmount)
+            if (auctionPost.CurrentBidPrice >= bidAmount)
             {
                 throw new Exception("The bid amount must be over the current maximum bid!");
             }
-            if(auctionPost.CurrentBidPrice + auctionPost.MinimumBidPrice > bidAmount)
+            if (auctionPost.CurrentBidPrice + auctionPost.MinimumBidPrice > bidAmount)
             {
                 throw new Exception("The bid amount must be at least the minimum bid price higher than the current maximum bid!");
             }
@@ -219,11 +219,11 @@ namespace ISSLab.Services
         public void Donate(Guid postID)
         {
             Post? post = posts.getById(postID);
-            if(post == null)
+            if (post == null)
             {
                 throw new Exception("Post not found");
             }
-            if(post.Type != "DonationPost")
+            if (post.Type != "DonationPost")
             {
                 throw new Exception("Post is not a donation post");
             }
@@ -234,11 +234,11 @@ namespace ISSLab.Services
         public void EndAuctionDueToTime(Guid postID)
         {
             Post? post = posts.getById(postID);
-            if(post == null)
+            if (post == null)
             {
                 throw new Exception("Post not found");
             }
-            if(post.Type != "AuctionPost")
+            if (post.Type != "AuctionPost")
             {
                 throw new Exception("Post is not an auction post");
             }
@@ -250,34 +250,34 @@ namespace ISSLab.Services
         {
 
             Post? post = posts.getById(postID);
-            if(post == null)
+            if (post == null)
             {
                 throw new Exception("Post not found");
             }
-            if(post.Type != "AuctionPost")
+            if (post.Type != "AuctionPost")
             {
                 throw new Exception("Post is not an auction post");
             }
             AuctionPost auctionPost = (AuctionPost)post;
-            if(auctionPost.AuthorId != userID)
+            if (auctionPost.AuthorId != userID)
             {
                 throw new Exception("User is not the auctioneer");
             }
-            
-            auctionPost.OnGoing = false; 
+
+            auctionPost.OnGoing = false;
 
         }
 
         public void RemoveOldFixedPricePosts()
         {
-            DateTime threeMonthsAgo = DateTime.Now.AddMonths(-3); 
-            List<Post> fixedPricePosts = posts.getAll().FindAll(p=>p.Type == "FixedPricePost");
+            DateTime threeMonthsAgo = DateTime.Now.AddMonths(-3);
+            List<Post> fixedPricePosts = posts.getAll().FindAll(p => p.Type == "FixedPricePost");
             fixedPricePosts.ForEach(p =>
             {
                 if (p.CreationDate <= threeMonthsAgo)
                     posts.removePost(p.Id);
             });
-         }
+        }
 
         public IEnumerable<Post> GetPostsByFavorites(List<Post> postsForGroup)
         {
@@ -288,12 +288,12 @@ namespace ISSLab.Services
         public void ToggleInterest(Guid postID, Guid userID, bool interested)
         {
             Post? post = posts.getById(postID);
-            if(post == null)
+            if (post == null)
             {
                 throw new Exception("Post not found");
             }
             InterestStatus? status = post.InterestStatuses.Find(status => status.UserId == userID);
-            if(status == null)
+            if (status == null)
             {
                 post.InterestStatuses.Add(new InterestStatus(userID, postID, interested));
             }
@@ -309,11 +309,11 @@ namespace ISSLab.Services
         public void PromotePost(Guid postID, Guid userID, Guid groupID)
         {
             Post? post = posts.getById(postID);
-            if(post == null)
+            if (post == null)
             {
                 throw new Exception("Post not found");
             }
-            if(post.AuthorId != userID)
+            if (post.AuthorId != userID)
             {
                 throw new Exception("User is not the author of the post");
             }
@@ -322,7 +322,7 @@ namespace ISSLab.Services
             {
                 throw new Exception("That group does not exist");
             }
-            if(group.BigSellers.Contains(userID))
+            if (group.BigSellers.Contains(userID))
             {
                 post.Promoted = true;
                 group.RemoveBigSeller(userID);
@@ -330,11 +330,11 @@ namespace ISSLab.Services
             else
                 throw new Exception("User is not a big seller in the group");
         }
-        
+
         public void FavoritePost(Guid postID, Guid userID)
         {
             Post? post = posts.getById(postID);
-            if(post == null)
+            if (post == null)
             {
                 throw new Exception("Post not found");
             }
@@ -344,7 +344,7 @@ namespace ISSLab.Services
         public void UnfavoritePost(Guid postID, Guid userID)
         {
             Post? post = posts.getById(postID);
-            if(post == null)
+            if (post == null)
             {
                 throw new Exception("Post not found");
             }

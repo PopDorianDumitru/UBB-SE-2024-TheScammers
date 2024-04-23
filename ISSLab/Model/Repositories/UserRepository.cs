@@ -11,7 +11,7 @@ using System.Windows.Media;
 
 namespace ISSLab.Model.Repositories
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly DataSet dataSet;
         private readonly string connectionString;
@@ -135,7 +135,7 @@ namespace ISSLab.Model.Repositories
             //            List<Guid> posts = new List<Guid>();
             //            foreach (DataRow row2 in favoritesTable.Rows)
             //            {
-                            
+
             //                if ((Guid)row2["user_id"] == id & (Guid)row2["group_id"] == currGroup)
             //                {
             //                    Guid favoritesUserId = (Guid)row2["user_id"];
@@ -182,7 +182,7 @@ namespace ISSLab.Model.Repositories
 
         public User findById(Guid id)
         {
-            for(int i = 0;  i < users.Count; i++)
+            for (int i = 0; i < users.Count; i++)
             {
                 if (users[i].Id == id)
                 {
@@ -226,7 +226,7 @@ namespace ISSLab.Model.Repositories
                 row["username"] = newUsername;
             }
 
-            for(int i = 0; i <  users.Count; i++)
+            for (int i = 0; i < users.Count; i++)
             {
                 if (users[i].Id == id)
                 {
@@ -270,7 +270,7 @@ namespace ISSLab.Model.Repositories
 
         public void updateGroupsWithRemovingSellingRequest(Guid userId, Guid groupId)
         {
-            DataRow row = dataSet.Tables["UsersAndGroupsWithRequestToSell"].Rows.Find((DataRow r) => (string)(r["user_id"]) == userId.ToString() && (string)(r["group_id"]) == groupId.ToString()  );
+            DataRow row = dataSet.Tables["UsersAndGroupsWithRequestToSell"].Rows.Find((DataRow r) => (string)(r["user_id"]) == userId.ToString() && (string)(r["group_id"]) == groupId.ToString());
             if (row != null)
             {
                 dataSet.Tables["UsersAndGroupsWithRequestToSell"].Rows.Remove(row);
@@ -352,8 +352,8 @@ namespace ISSLab.Model.Repositories
             row["rating"] = review.Rating;
             users.Find(u => u.Id == review.SellerId).AddReview(review);
         }
-            
-     
+
+
 
         public void updateUserProfilePicture(Guid id, string newProfilePicture)
         {
@@ -401,7 +401,7 @@ namespace ISSLab.Model.Repositories
                 row["number_of_sells"] = nrOfSells;
             }
 
-            for(int i = 0; i < users.Count;i++)
+            for (int i = 0; i < users.Count; i++)
             {
                 if (users[i].Id == id)
                 {
@@ -419,7 +419,7 @@ namespace ISSLab.Model.Repositories
                 userRow.Delete();
             }
 
-            for(int i = 0; i < users.Count; i++)
+            for (int i = 0; i < users.Count; i++)
             {
                 if (users[i].Id == id)
                 {
@@ -473,17 +473,17 @@ namespace ISSLab.Model.Repositories
             }
         }
 
-        public void addToCart(Guid groupId, Guid userId, Guid postId )
+        public void addToCart(Guid groupId, Guid userId, Guid postId)
         {
             //DataRow row = dataSet.Tables["Carts"].NewRow();
             //row["user_id"] = userId;
             //row["group_id"] = groupId;
             //row["post_id"] = postId;
             Cart cart = users.Find(user => user.Id == userId).Carts.Find(c => c.GroupId == groupId);
-            if(cart == null)
+            if (cart == null)
             {
                 cart = new Cart(groupId, userId);
-                users.Find(user=>user.Id == userId).Carts.Add(cart);
+                users.Find(user => user.Id == userId).Carts.Add(cart);
             }
             if (cart.Posts.Contains(postId))
                 return;
@@ -493,9 +493,9 @@ namespace ISSLab.Model.Repositories
         public void removeFromCart(Guid groupId, Guid userId, Guid postId)
         {
             DataRow row = dataSet.Tables["Carts"].Rows.Find((DataRow r) => Guid.Parse((string)r["group_id"]) == groupId && Guid.Parse((string)r["user_id"]) == userId && Guid.Parse((string)r["post_id"]) == postId);
-            if(row !=  null)
+            if (row != null)
                 dataSet.Tables["Carts"].Rows.Remove(row);
-            users.Find(u=>u.Id == userId).Carts.Find(c=>c.GroupId==groupId).Posts.Remove(postId);
+            users.Find(u => u.Id == userId).Carts.Find(c => c.GroupId == groupId).Posts.Remove(postId);
         }
 
         public void addToFavorites(Guid groupId, Guid userId, Guid postId)

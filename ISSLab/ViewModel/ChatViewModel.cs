@@ -11,13 +11,14 @@ using System.Windows.Controls;
 
 namespace ISSLab.ViewModel
 {
-    public class ChatViewModel
+    public class ChatViewModel : IChatViewModel
     {
         public ObservableCollection<Message> AllMessages { get; set; }
         public User User { get; set; }
         public Post Post { get; set; }
 
-        public ChatViewModel(User user, Post post) { 
+        public ChatViewModel(User user, Post post)
+        {
             AllMessages = new ObservableCollection<Message>();
             this.User = user;
             this.Post = post;
