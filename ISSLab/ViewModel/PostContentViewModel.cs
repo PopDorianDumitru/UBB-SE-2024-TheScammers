@@ -316,7 +316,7 @@ namespace ISSLab.ViewModel
 
         public void SendBuyingMessage()
         {
-            Chat chat = new Chat(user, post, new ChatViewModel());
+            Chat chat = new Chat(new ChatViewModel(user, post));
             chat.SendBuyingMessage(Media);
             chat.Show();
         }

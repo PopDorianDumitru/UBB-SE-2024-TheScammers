@@ -24,15 +24,11 @@ namespace ISSLab.View
     public partial class Chat : Window
     {
         private ChatViewModel _viewModel;
-        public ObservableCollection<Message> AllMessages { get; set; }
-        Post post;
-        internal Chat(User selectedUser, Post post, ChatViewModel viewModel)
+        internal Chat(ChatViewModel viewModel)
         {
             InitializeComponent();
-            DataContext = this;
-            Username.Content = selectedUser.Username.ToString();
-            AllMessages = new ObservableCollection<Message>();
-            this.post = post;
+            DataContext = viewModel;
+            Username.Content = viewModel.User.Username.ToString();
             this._viewModel = viewModel;
         }
 
@@ -54,7 +50,7 @@ namespace ISSLab.View
                 newMessage.BubbleColor = Brushes.YellowGreen;
             }
 
-            AllMessages.Add(newMessage);
+            _viewModel.AddMessage(newMessage);
 
             MessageTextBox.Text = "";
         }
@@ -71,8 +67,7 @@ namespace ISSLab.View
                 ShowAcceptButton = true, 
                 ShowRejectButton = true
             };
-            var viewModel = DataContext;
-            AllMessages.Add(newMessage);
+            _viewModel.AddMessage(newMessage);
         }
 
         private double CalculateMessageWidth(string message)
