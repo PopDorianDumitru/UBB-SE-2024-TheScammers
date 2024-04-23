@@ -1,4 +1,5 @@
 ﻿using ISSLab.Model;
+using ISSLab.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,15 +23,17 @@ namespace ISSLab.View
     /// </summary>
     public partial class Chat : Window
     {
+        private ChatViewModel _viewModel;
         public ObservableCollection<Message> AllMessages { get; set; }
         Post post;
-        internal Chat(User selectedUser,Post post)
+        internal Chat(User selectedUser, Post post, ChatViewModel viewModel)
         {
             InitializeComponent();
             DataContext = this;
             Username.Content = selectedUser.Username.ToString();
             AllMessages = new ObservableCollection<Message>();
             this.post = post;
+            this._viewModel = viewModel;
         }
 
 
@@ -68,7 +71,7 @@ namespace ISSLab.View
                 ShowAcceptButton = true, 
                 ShowRejectButton = true
             };
-
+            var viewModel = DataContext;
             AllMessages.Add(newMessage);
         }
 

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ISSLab.ViewModel;
 
 namespace ISSLab.View
 {
@@ -130,8 +131,8 @@ namespace ISSLab.View
 
         public void CreationButtonClick(Object sender, RoutedEventArgs e)
         {
-            this.DataContext.GetType ().GetMethod("CreatePost").Invoke(this.DataContext, null);
-
+            var viewModel = DataContext as CreatePostViewModel;
+            viewModel.CreatePost();
         }
     }
 }

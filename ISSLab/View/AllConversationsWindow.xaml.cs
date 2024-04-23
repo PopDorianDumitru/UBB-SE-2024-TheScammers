@@ -31,7 +31,7 @@ namespace ISSLab.View
                 var viewModel = DataContext as PostContentViewModel;
                 Post post = viewModel.getPost();
 
-                Chat chat = new Chat(selectedUser,post);
+                Chat chat = new Chat(selectedUser,post, new ChatViewModel());
                 parentWindow.Content = chat;
             }
         }

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ISSLab.View"
+        xmlns:viewModels="clr-namespaces:ISSLab.ViewModel"
         mc:Ignorable="d"
         Title="Chat" Height="502" Width="352">
     <Grid>

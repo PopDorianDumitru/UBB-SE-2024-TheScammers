@@ -316,7 +316,7 @@ namespace ISSLab.ViewModel
 
         public void SendBuyingMessage()
         {
-            Chat chat = new Chat(user, post);
+            Chat chat = new Chat(user, post, new ChatViewModel());
             chat.SendBuyingMessage(Media);
             chat.Show();
         }
@@ -328,6 +328,11 @@ namespace ISSLab.ViewModel
                 FileName = ((DonationPost)post).DonationPageLink,
                 UseShellExecute = true
             });
+        }
+
+        public void HidePost()
+        {
+            Visible = "Collapsed";
         }
     }
 
