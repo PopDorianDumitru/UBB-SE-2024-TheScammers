@@ -22,7 +22,7 @@ namespace ISSLab.ViewModel
         Guid groupId;
         ICreatePostViewModel postCreationViewModel;
 
-        public ViewModelBase CurrentViewModel { get; }
+        public IViewModelBase CurrentViewModel { get; }
         public MainWindowViewModel(IPostService givenPostService, IUserService givenUserService, Guid userId, Guid groupId)
         {
             this.postService = givenPostService;

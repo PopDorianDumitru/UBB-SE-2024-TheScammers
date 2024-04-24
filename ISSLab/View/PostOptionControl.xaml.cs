@@ -35,21 +35,21 @@ namespace ISSLab.View
         private void addToFavouritesButton_Click(object sender, RoutedEventArgs e)
         {
             // We can have for each user a list of favourites and add the post to that list
-            var viewModel = this.DataContext as PostContentViewModel;
+            var viewModel = this.DataContext as IPostContentViewModel;
             viewModel.AddPostToFavorites();
         }
 
         private void hidePostButton_Click(object sender, RoutedEventArgs e)
         {
             //Here, we would access the post element and basically rmeove it using code
-            var viewModel = this.DataContext as PostContentViewModel;
+            var viewModel = this.DataContext as IPostContentViewModel;
             viewModel.HidePost();
         }
 
         private void addToCartButton_Click(object sender, RoutedEventArgs e)
         {
             // We can have for each user a cart(list) and add the post to that list
-            var viewModel = this.DataContext as PostContentViewModel;
+            var viewModel = this.DataContext as IPostContentViewModel;
             viewModel.AddPostToCart();
         }
 

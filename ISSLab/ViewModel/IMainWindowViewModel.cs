@@ -5,7 +5,7 @@ namespace ISSLab.ViewModel
 {
     public interface IMainWindowViewModel
     {
-        ViewModelBase CurrentViewModel { get; }
+        IViewModelBase CurrentViewModel { get; }
         ICreatePostViewModel PostCreationViewModel { get; set; }
         ObservableCollection<IPostContentViewModel> ShownPosts { get; set; }
 
