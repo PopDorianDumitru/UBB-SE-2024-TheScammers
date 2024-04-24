@@ -32,7 +32,7 @@ namespace ISSLab
             AddHardcodedUsers(userRepo, connectedUser, tempUser1, tempUser2);
             AddHardcodedPosts(postRepo, tempUser1, tempUser2, groupId);
 
-            IGroupRepository groupRepository = new GroupRepository(dataSet);
+            IGroupRepository groupRepository = new GroupRepository();
             IPostService postService = new PostService(postRepo, userRepo, groupRepository);
             IUserService userService = new UserService(userRepo, postRepo, groupRepository);
 
