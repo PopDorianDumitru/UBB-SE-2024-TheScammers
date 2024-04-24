@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ISSLab.Model
 {
-    class Comment
+    public class Comment
     {
         private Guid id;
         private string content;

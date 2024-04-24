@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ISSLab.Model
 {
-    class Favorites
+    public class Favorites
     {
         private Guid userId;
         private Guid groupId;

@@ -8,17 +8,15 @@ namespace ISSLab.View
 {
     public partial class AllConversationsWindow : UserControl
     {
-        private ObservableCollection<Model.User> AllProfiles { get; set; }
+        private IAllConversationsViewModel _viewModel;
 
 
-        public AllConversationsWindow()
+        public AllConversationsWindow(IAllConversationsViewModel viewModel)
         {
             InitializeComponent();
-            DataContext = this;
 
-            AllProfiles = new ObservableCollection<ISSLab.Model.User>();
-            AllProfiles.Add(new ISSLab.Model.User { Username = "John Doe", ProfilePicture = @"D:\UBBprojects\ISS\Isslab2\Isslab2\user.JPG" });
-            AllProfiles.Add(new ISSLab.Model.User { Username = "Jane Smith", ProfilePicture = @"D:\UBBprojects\ISS\Isslab2\Isslab2\user.JPG" });
+            DataContext = viewModel;
+            this._viewModel = viewModel;
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -28,10 +26,10 @@ namespace ISSLab.View
                 Window parentWindow = Window.GetWindow(this);
                 parentWindow?.Close();
 
-                var viewModel = DataContext as PostContentViewModel;
-                Post post = viewModel.getPost();
+                var postContentViewModel = DataContext as IPostContentViewModel;
+                Post post = postContentViewModel.getPost();
 
-                Chat chat = new Chat(selectedUser,post);
+                Chat chat = new Chat(new ChatViewModel(selectedUser, post));
                 parentWindow.Content = chat;
             }
         }

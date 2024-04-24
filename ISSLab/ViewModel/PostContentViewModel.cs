@@ -1,5 +1,6 @@
 ﻿using ISSLab.Model;
 using ISSLab.Services;
+using ISSLab.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,27 +11,24 @@ using System.Windows.Threading;
 
 namespace ISSLab.ViewModel
 {
-    class PostContentViewModel : ViewModelBase
+    public class PostContentViewModel : ViewModelBase, IPostContentViewModel
     {
-        private PostService postService;
-        private UserService userService;
+        private IUserService userService;
         private Guid groupId;
         private Post post;
         private Guid accountId;
         public User user;
         private string visible;
-        private string favoriteDisplay;
         private string donationButtonVisible;
         private string buyButtonVisible;
         private string bidButtonVisible;
         private string bidPriceVisible;
         private DispatcherTimer timer;
 
-       
 
-        public PostContentViewModel(Post post, User user, Guid accountId, Guid groupId, UserService userService, PostService postService) : base()
+
+        public PostContentViewModel(Post post, User user, Guid accountId, Guid groupId, IUserService userService) : base()
         {
-            this.postService = postService;
             this.userService = userService;
             this.groupId = groupId;
             this.accountId = accountId;
@@ -47,7 +45,7 @@ namespace ISSLab.ViewModel
             }
             else if (post.Type == "FixedPrice")
                 this.buyButtonVisible = "Visible";
-            else if(post.Type == "Auction")
+            else if (post.Type == "Auction")
             {
                 this.buyButtonVisible = "Visible";
                 this.bidButtonVisible = "Visible";
@@ -58,25 +56,11 @@ namespace ISSLab.ViewModel
             timer.Tick += Timer_Tick;
             timer.Start();
         }
-        public PostContentViewModel()
-        {
-            postService = new PostService();
-            userService = new UserService();
-            groupId = new Guid();
-            accountId = Guid.NewGuid();
-            post = new Post();
-            user = new User();
-            visible = "Visible";
-
-        }
-
 
         private void Timer_Tick(object sender, EventArgs e)
         {
             OnPropertyChanged(nameof(AvailableFor));
         }
-
-
 
         public float Rating { get { return ((FixedPricePost)(post)).ReviewScore; } }
 
@@ -84,7 +68,8 @@ namespace ISSLab.ViewModel
         public string Visible { get { return visible; } set { visible = value; OnPropertyChanged(nameof(Visible)); } }
         public string Description { get { return post.Description; } set { post.Description = value; } }
         public string Contact { get { return post.Contacts; } set { post.Contacts = value; } }
-        public string Delivery {
+        public string Delivery
+        {
             get
             {
                 if (post.Type == "FixedPrice")
@@ -132,13 +117,13 @@ namespace ISSLab.ViewModel
         public string BidButtonVisible
         {
             get { return bidButtonVisible; }
-            set { bidButtonVisible = value;OnPropertyChanged(nameof(BidButtonVisible)); }
+            set { bidButtonVisible = value; OnPropertyChanged(nameof(BidButtonVisible)); }
         }
 
         public string BidPriceVisible
         {
             get { return bidPriceVisible; }
-            set { bidPriceVisible = value;OnPropertyChanged(nameof(BidPriceVisible)); }
+            set { bidPriceVisible = value; OnPropertyChanged(nameof(BidPriceVisible)); }
         }
 
         public string Username { get { return user.Username; } }
@@ -146,16 +131,18 @@ namespace ISSLab.ViewModel
 
         public string Location { get { return post.Location; } }
         public string ProfilePicture { get { return user.ProfilePicture; } }
-        public string TimePosted {
-          get {
+        public string TimePosted
+        {
+            get
+            {
                 TimeSpan passed = DateTime.Now - post.CreationDate;
-                if(passed.TotalSeconds < 60)
+                if (passed.TotalSeconds < 60)
                     return Math.Ceiling(passed.TotalSeconds).ToString() + " seconds ago";
                 if (passed.TotalMinutes < 60)
                     return Math.Ceiling(passed.TotalMinutes).ToString() + " minutes ago";
                 if (passed.TotalHours < 24)
                     return Math.Ceiling(passed.TotalHours).ToString() + " hours ago";
-       
+
 
                 return Math.Ceiling(passed.TotalDays).ToString() + " days ago";
             }
@@ -174,7 +161,7 @@ namespace ISSLab.ViewModel
         {
             this.userService.AddItemToCart(groupId, post.Id, accountId);
         }
-       public string AvailableFor
+        public string AvailableFor
         {
             get
             {
@@ -192,7 +179,7 @@ namespace ISSLab.ViewModel
                 }
                 else if (post.Type == "Auction")
                 {
-                     AuctionPost fixedPricePost = (AuctionPost)post;
+                    AuctionPost fixedPricePost = (AuctionPost)post;
                     TimeSpan timeLeft = fixedPricePost.ExpirationDate - DateTime.Now;
                     if (timeLeft.TotalSeconds < 60)
                         return "Available for: " + Math.Ceiling(timeLeft.TotalSeconds).ToString() + " seconds";
@@ -206,7 +193,7 @@ namespace ISSLab.ViewModel
                 {
                     return "";
                 }
-                
+
             }
         }
         public string Price
@@ -219,7 +206,7 @@ namespace ISSLab.ViewModel
                 }
                 else if (post.Type == "Auction")
                 {
-                    return "$" + ((AuctionPost)(post)).Price; 
+                    return "$" + ((AuctionPost)(post)).Price;
                 }
                 else
                 {
@@ -317,7 +304,26 @@ namespace ISSLab.ViewModel
             }
         }
 
+        public void SendBuyingMessage()
+        {
+            Chat chat = new Chat(new ChatViewModel(user, post));
+            chat.SendBuyingMessage(Media);
+            chat.Show();
+        }
 
+        public void Donate()
+        {
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = ((DonationPost)post).DonationPageLink,
+                UseShellExecute = true
+            });
+        }
+
+        public void HidePost()
+        {
+            Visible = "Collapsed";
+        }
     }
 
 }

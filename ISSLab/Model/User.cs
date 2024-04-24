@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace ISSLab.Model
 {
-    class User
+    public class User
     {
         private Guid id;
         private string username;

@@ -8,9 +8,9 @@
         xmlns:viewModels="clr-namespace:ISSLab.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="950" MinHeight="450" MinWidth="950">
-    <Window.DataContext>
+    <!--<Window.DataContext>
         <viewModels:MainWindowViewModel/>
-    </Window.DataContext>
+    </Window.DataContext>-->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>

@@ -1,4 +1,5 @@
 ﻿using ISSLab.View;
+using ISSLab.ViewModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,10 +19,15 @@ namespace ISSLab
     /// </summary>
     public partial class MainWindow : Window
     {
+        private IMainWindowViewModel _viewModel;
 
-        public MainWindow()
+        public MainWindow(IMainWindowViewModel viewModel)
         {
             InitializeComponent();
+
+            _viewModel = viewModel;
+            this.DataContext = _viewModel;
+
             LoadMarketplace();
         }
 
@@ -38,7 +44,8 @@ namespace ISSLab
             favoritesButton.Background = Brushes.Transparent;
             this.CreatePostControl.Visibility = Visibility.Collapsed;
             this.ShowPostsControl.Visibility = Visibility.Visible;
-            this.DataContext.GetType().GetMethod("ChangeToMarketPlace").Invoke(this.DataContext, null);
+
+            _viewModel.ChangeToMarketPlace();
         }
 
         private void onClickedCreateMarketplacePost(object sender, RoutedEventArgs e)
@@ -59,7 +66,8 @@ namespace ISSLab
             favoritesButton.Background = Brushes.Transparent;
             this.CreatePostControl.Visibility = Visibility.Collapsed;
             this.ShowPostsControl.Visibility = Visibility.Visible;
-            this.DataContext.GetType().GetMethod("ChangeToCart").Invoke(this.DataContext, null);
+
+            _viewModel.ChangeToCart();
         }
 
         private void onClickedFavoritesButton(object sender, RoutedEventArgs e)
@@ -70,39 +78,8 @@ namespace ISSLab
             marketPlaceButton.Background = Brushes.Transparent;
             this.CreatePostControl.Visibility = Visibility.Collapsed;
             this.ShowPostsControl.Visibility = Visibility.Visible;
-            this.DataContext.GetType().GetMethod("ChangeToFavorites").Invoke(this.DataContext, null);
+
+            _viewModel.ChangeToFavorites();
         }
-
-        private void LoadPosts()
-        {
-            int numberOfPostsToAdd = 5;
-            string[] usernames = ["Luca", "Dorian", "Marian", "Andrei", "Marcus"];
-            PostsGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
-            PostsGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
-            PostsGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Auto) });
-            for (int i = 0; i < numberOfPostsToAdd; i++)
-            {
-                PostContent postContent = new PostContent();
-                postContent.MoreButtonClicked += (sender, e) => ShowPostDetails(postContent);
-
-                Grid.SetRow(postContent, i);
-                Grid.SetColumn(postContent, 0);
-                Grid.SetColumnSpan(postContent, 2);
-
-                PostsGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Auto) });
-
-                PostsGrid.Children.Add(postContent);
-            }
-        }
-
-        private void ShowPostDetails(PostContent postContent)
-        {
-            int index = PostsGrid.Children.IndexOf(postContent);
-            PostDetails postDetails = new PostDetails();
-            Grid.SetRow(postDetails, index);
-            Grid.SetColumn(postDetails, 2);
-            PostsGrid.Children.Add(postDetails);
-        }
-
     }
 }

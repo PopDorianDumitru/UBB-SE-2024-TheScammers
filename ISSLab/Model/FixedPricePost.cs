@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ISSLab.Model
 {
-    class FixedPricePost : Post
+    public class FixedPricePost : Post
     {
         private double price;
         private DateTime expirationDate;

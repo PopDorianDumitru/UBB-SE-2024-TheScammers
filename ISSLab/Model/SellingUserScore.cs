@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ISSLab.Model
 {
-    class SellingUserScore
+    public class SellingUserScore
     {
         private int score;
         private Guid userId;

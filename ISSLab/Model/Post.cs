@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ISSLab.Model
 {
-    class Post
+    public class Post
     {
         private Guid id;
         private int views;

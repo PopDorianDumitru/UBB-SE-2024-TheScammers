@@ -9,7 +9,7 @@ using System.Windows.Documents;
 
 namespace ISSLab.Model
 {
-    class DonationPost : Post
+    public class DonationPost : Post
     {
         private float reviewScore;
         private List<Review> reviews;

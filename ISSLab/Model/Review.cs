@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ISSLab.Model
 {
-    class Review
+    public class Review
     {
         private Guid id;
         private Guid reviewerId;

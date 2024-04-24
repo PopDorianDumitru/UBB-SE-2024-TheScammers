@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ISSLab.ViewModel
 {
-    public class ViewModelBase : INotifyPropertyChanged
+    public abstract class ViewModelBase : INotifyPropertyChanged, IViewModelBase
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

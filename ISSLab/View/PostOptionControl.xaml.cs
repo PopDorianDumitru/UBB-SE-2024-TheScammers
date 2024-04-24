@@ -24,7 +24,6 @@ namespace ISSLab.View
         public PostOptionControl()
         {
             InitializeComponent();
-            string userType = "Admin";
             string userID = "1234";
             string postUserId = "1244";
             if (userID != postUserId)
@@ -36,29 +35,30 @@ namespace ISSLab.View
         private void addToFavouritesButton_Click(object sender, RoutedEventArgs e)
         {
             // We can have for each user a list of favourites and add the post to that list
-            this.DataContext.GetType().GetMethod("AddPostToFavorites").Invoke(this.DataContext, null);
+            var viewModel = this.DataContext as IPostContentViewModel;
+            viewModel.AddPostToFavorites();
         }
 
         private void hidePostButton_Click(object sender, RoutedEventArgs e)
         {
             //Here, we would access the post element and basically rmeove it using code
-            this.DataContext.GetType().GetProperty("Visible").SetValue(this.DataContext, "Collapsed");
+            var viewModel = this.DataContext as IPostContentViewModel;
+            viewModel.HidePost();
         }
 
         private void addToCartButton_Click(object sender, RoutedEventArgs e)
         {
             // We can have for each user a cart(list) and add the post to that list
-            this.DataContext.GetType().GetMethod("AddPostToCart").Invoke(this.DataContext, null);
+            var viewModel = this.DataContext as IPostContentViewModel;
+            viewModel.AddPostToCart();
         }
 
         private void reportPostButton_Click(object sender, RoutedEventArgs e)
         {
-            // again, for each user or post(post might be better) a field of "reports" and just increment that field
         }
 
         private void deletePostButton_Click(object sender, RoutedEventArgs e)
         {
-            // again, we could have a list the user's own posts and delete the post from the list
         }
     }
 }

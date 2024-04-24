@@ -38,7 +38,7 @@ namespace ISSLab.View
         public static readonly DependencyProperty DescriptionProperty = DependencyProperty.Register("Description", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty ContactProperty = DependencyProperty.Register("Contact", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty DeliveryProperty = DependencyProperty.Register("Delivery", typeof(string), typeof(PostContent));
-        public static readonly DependencyProperty VisibleProperty = DependencyProperty.Register("Visible", typeof(string), typeof(PostContent));
+        //public static readonly DependencyProperty VisibleProperty = DependencyProperty.Register("Visible", typeof(string), typeof(PostContent));
 
         public static readonly DependencyProperty DonationButtonVisibleProperty = DependencyProperty.Register("DonationButtonVisible", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty BuyButtonVisibleProperty = DependencyProperty.Register("BuyButtonVisible", typeof(string), typeof(PostContent));
@@ -48,27 +48,27 @@ namespace ISSLab.View
         public String DonationButtonVisible
         {
             get { return (String)GetValue(DonationButtonVisibleProperty); }
-            set {SetValue(VisibleProperty, value);  }
+            set {SetValue(DonationButtonVisibleProperty, value);  }
 
         }
 
         public String BuyButtonVisible
         {
-            get { return (String)GetValue(DonationButtonVisibleProperty); }
-            set { SetValue(VisibleProperty, value); }
+            get { return (String)GetValue(BuyButtonVisibleProperty); }
+            set { SetValue(BuyButtonVisibleProperty, value); }
 
         }
 
         public string BidButtonVisible
         {
             get { return (String)GetValue(BidButtonVisibleProperty); }
-            set { SetValue(VisibleProperty, value); }
+            set { SetValue(BidButtonVisibleProperty, value); }
         }
 
         public string BidPriceVisible
         {
             get { return (String)GetValue(BidPriceVisibleProperty); }
-            set { SetValue(VisibilityProperty, value); }
+            set { SetValue(BidPriceVisibleProperty, value); }
         }
 
         public String BidPrice
@@ -159,11 +159,11 @@ namespace ISSLab.View
             set { SetValue(DeliveryProperty, value); }
         }
 
-        public String Visible
-        {
-            get { return (String)GetValue(VisibleProperty); }
-            set { SetValue(VisibleProperty, value); }
-        }
+        //public String Visible
+        //{
+        //    get { return (String)GetValue(VisibleProperty); }
+        //    set { SetValue(VisibleProperty, value); }
+        //}
 
 
         public event EventHandler MoreButtonClicked;
@@ -172,38 +172,22 @@ namespace ISSLab.View
         {
 
             InitializeComponent();
-            if(this.Rating < 2)
-            {
-                this.star2.Visibility = Visibility.Collapsed;
-                this.star3.Visibility = Visibility.Collapsed;
-                this.star4.Visibility = Visibility.Collapsed;
-                this.star5.Visibility = Visibility.Collapsed;
 
-            }
-            else
-                if(this.Rating < 3)
-            {
+            if (this.Rating < 5)
+                this.star5.Visibility = Visibility.Collapsed;
+            if (this.Rating < 4)
+                this.star4.Visibility = Visibility.Collapsed;
+            if (this.Rating < 3)
                 this.star3.Visibility = Visibility.Collapsed;
-                this.star4.Visibility = Visibility.Collapsed;
-                this.star5.Visibility = Visibility.Collapsed;
-            }
-            else
-                if(this.Rating < 4)
-            {
-                this.star4.Visibility = Visibility.Collapsed;
-                this.star5.Visibility = Visibility.Collapsed;
-            }
-            else
-                if(this.Rating < 5)
-            {
-                this.star5.Visibility = Visibility.Collapsed;
-            }
+            if (this.Rating < 2)
+                this.star2.Visibility = Visibility.Collapsed;
         }
 
         private void OnMoreButtonClick(object sender, RoutedEventArgs e)
         {
             if (GridOptions.IsVisible)
                 GridOptions.Visibility = Visibility.Collapsed;
+
             if (GridDetails.IsVisible)
                 GridDetails.Visibility = Visibility.Collapsed;
             else
@@ -214,6 +198,7 @@ namespace ISSLab.View
         {
             if (GridDetails.IsVisible)
                 GridDetails.Visibility = Visibility.Collapsed;
+
             if (GridOptions.IsVisible)
                 GridOptions.Visibility = Visibility.Collapsed;
             else
@@ -222,53 +207,33 @@ namespace ISSLab.View
 
         private void onInterestedClicked(object sender, RoutedEventArgs e)
         {
-            var viewModel = DataContext as PostContentViewModel;
-            if (viewModel != null)
-            {
-                viewModel.AddInterests();
-            }
+            var viewModel = DataContext as IPostContentViewModel;
+            viewModel.AddInterests();
         }
 
         private void onUninterestedClicked(object sender, RoutedEventArgs e)
         {
-            var viewModel = DataContext as PostContentViewModel;
-            if (viewModel != null)
-            {
-                viewModel.AddUniterests();
-            }
+            var viewModel = DataContext as IPostContentViewModel;
+            viewModel.AddUniterests();
         }
 
         private void onBuyButtonClicked(object sender, RoutedEventArgs e)
         {
-            var viewModel = DataContext as PostContentViewModel;
-            User user = viewModel.user;
-            Post post = viewModel.getPost();
-            
-            Chat chat = new Chat(user,post);
-            chat.SendBuyingMessage(Media);
-            chat.Show();
+            var viewModel = DataContext as IPostContentViewModel;
+            viewModel.SendBuyingMessage();
         }
-
 
 
         private void onBidButtonClicked(object sender, RoutedEventArgs e)
         {
-            var viewModel = DataContext as PostContentViewModel;
-            if(viewModel != null)
-            {
-                viewModel.UpdateBidPrice();
-            }
+            var viewModel = DataContext as IPostContentViewModel;
+            viewModel.UpdateBidPrice();
         }
 
         private void onDonationButtonClicked(object sender, RoutedEventArgs e)
         {
-            var viewModel = DataContext as PostContentViewModel;
-            DonationPost post = (DonationPost)viewModel.getPost();
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
-            {
-                FileName = post.DonationPageLink,
-                UseShellExecute = true
-            });
+            var viewModel = DataContext as IPostContentViewModel;
+            viewModel.Donate();
         }
 
     }
