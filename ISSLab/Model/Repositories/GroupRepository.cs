@@ -428,12 +428,12 @@ namespace ISSLab.Model.Repositories
             DataRow newRow = dataSet.Tables["Posts"].NewRow();
             newRow["id"] = post.Id.ToString();
             newRow["views"] = post.Views;
-            newRow["media"] = post.Media;
+            newRow["media"] = post.MediaContent;
             newRow["creation_date"] = post.CreationDate;
             newRow["author_id"] = post.AuthorId.ToString();
             newRow["group_id"] = id.ToString();
             newRow["promoted"] = post.Promoted;
-            newRow["location"] = post.Location;
+            newRow["location"] = post.ItemLocation;
             newRow["confirmed"] = post.Confirmed;
             newRow["description"] = post.Description;
             newRow["title"] = post.Title;

@@ -306,7 +306,7 @@ namespace ISSLab.Model.Repositories
             {
                 if (posts[i].Id == id)
                 {
-                    posts[i].toggleShare(userId);
+                    posts[i].ToggleShare(userId);
                     break;
                 }
             }
@@ -322,7 +322,7 @@ namespace ISSLab.Model.Repositories
             {
                 if (posts[i].Id == id)
                 {
-                    posts[i].toggleLike(userId);
+                    posts[i].ToggleLike(userId);
                     break;
                 }
             }
@@ -339,7 +339,7 @@ namespace ISSLab.Model.Repositories
             {
                 if (posts[i].Id == id)
                 {
-                    posts[i].addComment(comment);
+                    posts[i].AddComment(comment);
                     break;
                 }
             }
@@ -357,7 +357,7 @@ namespace ISSLab.Model.Repositories
             {
                 if (posts[i].Id == id)
                 {
-                    posts[i].Media = newMedia;
+                    posts[i].MediaContent = newMedia;
                     break;
                 }
             }
@@ -410,7 +410,7 @@ namespace ISSLab.Model.Repositories
             {
                 if (posts[i].Id == id)
                 {
-                    posts[i].toggleFavorite(userId);
+                    posts[i].ToggleFavorite(userId);
                     break;
                 }
             }
@@ -422,14 +422,14 @@ namespace ISSLab.Model.Repositories
             row["id"] = report.Id.ToString();
             row["user_id"] = report.UserId.ToString();
             row["post_id"] = report.PostId.ToString();
-            row["reason"] = report.Reason;
-            row["date"] = report.Date;
+            row["reason"] = report.ReasonForReporting;
+            row["date"] = report.DateOfReport;
 
             for (int i = 0; i < posts.Count; i++)
             {
                 if (posts[i].Id == id)
                 {
-                    posts[i].addReport(report);
+                    posts[i].AddReport(report);
                     break;
                 }
             }
@@ -447,7 +447,7 @@ namespace ISSLab.Model.Repositories
             {
                 if (posts[i].Id == id)
                 {
-                    posts[i].Location = newLocation;
+                    posts[i].ItemLocation = newLocation;
                     break;
                 }
             }
@@ -501,7 +501,7 @@ namespace ISSLab.Model.Repositories
             {
                 if (posts[i].Id == id)
                 {
-                    posts[i].addInterestStatus(status);
+                    posts[i].AddInterestStatus(status);
                     break;
                 }
             }

@@ -348,7 +348,7 @@ namespace ISSLab.Model.Repositories
             row["seller_id"] = review.SellerId;
             row["group_id"] = review.GroupId;
             row["content"] = review.Content;
-            row["date"] = review.Date;
+            row["date"] = review.DateOfReview;
             row["rating"] = review.Rating;
             users.Find(u => u.Id == review.SellerId).AddReview(review);
         }

@@ -116,7 +116,7 @@ namespace ISSLab.Services
 
         public IEnumerable<Post> GetPostsMainMarketPage(List<Post> postsForGroup)
         {
-            return postsForGroup.OrderByDescending(post => post.Promoted).ThenByDescending(post => post.interestLevel());
+            return postsForGroup.OrderByDescending(post => post.Promoted).ThenByDescending(post => post.InterestLevel());
         }
 
         public bool CheckIfNeedsConfirmation(Guid postID)
@@ -300,9 +300,9 @@ namespace ISSLab.Services
             else
             {
                 if (status.Interested == interested)
-                    post.removeInterestStatus(userID);
+                    post.RemoveInterestStatus(userID);
                 else
-                    post.toggleInterestStatus(userID);
+                    post.ToggleInterestStatus(userID);
             }
         }
 
