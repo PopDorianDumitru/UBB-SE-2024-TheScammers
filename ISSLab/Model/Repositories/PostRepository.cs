@@ -161,7 +161,7 @@ namespace ISSLab.Model.Repositories
         }
 
 
-        public void addPost(Post newPost)
+        public void AddPost(Post newPost)
         {
             //DataRow newRow = dataSet.Tables["Posts"].NewRow();
             //newRow["id"] = newPost.Id;
@@ -178,7 +178,7 @@ namespace ISSLab.Model.Repositories
             posts.Add(newPost);
         }
 
-        public void removePost(Guid id)
+        public void RemovePost(Guid id)
         {
             DataRow postRow = dataSet.Tables["Posts"].Rows.Find(id);
             if (postRow != null)
@@ -296,7 +296,7 @@ namespace ISSLab.Model.Repositories
 
         }
 
-        public void updatePostShare(Guid id, Guid userId)
+        public void UpdatePostShare(Guid id, Guid userId)
         {
             DataRow row = dataSet.Tables["UsersSharedPosts"].NewRow();
             row["post_id"] = id.ToString();
@@ -312,7 +312,7 @@ namespace ISSLab.Model.Repositories
             }
         }
 
-        public void updatePostLike(Guid id, Guid userId)
+        public void UpdatePostLike(Guid id, Guid userId)
         {
             DataRow row = dataSet.Tables["UsersLikedPosts"].NewRow();
             row["post_id"] = id.ToString();
@@ -328,7 +328,7 @@ namespace ISSLab.Model.Repositories
             }
         }
 
-        public void updatePostComment(Guid id, Comment comment)
+        public void UpdatePostComment(Guid id, Comment comment)
         {
             DataRow row = dataSet.Tables["Comments"].NewRow();
             row["id"] = comment.Id.ToString();
@@ -345,7 +345,7 @@ namespace ISSLab.Model.Repositories
             }
         }
 
-        public void updatePostMedia(Guid id, string newMedia)
+        public void UpdatePostMedia(Guid id, string newMedia)
         {
             DataRow row = dataSet.Tables["Posts"].Rows.Find(id);
             if (row != null)
@@ -363,7 +363,7 @@ namespace ISSLab.Model.Repositories
             }
         }
 
-        public void updateCreationDate(Guid id, DateTime newCreationDate)
+        public void UpdateCreationDate(Guid id, DateTime newCreationDate)
         {
             DataRow row = dataSet.Tables["Posts"].Rows.Find(id);
             if (row != null)
@@ -381,7 +381,7 @@ namespace ISSLab.Model.Repositories
             }
         }
 
-        public void updatePromoted(Guid id, bool newPromoted)
+        public void UpdatePromoted(Guid id, bool newPromoted)
         {
             DataRow row = dataSet.Tables["Posts"].Rows.Find(id);
             if (row != null)
@@ -399,7 +399,7 @@ namespace ISSLab.Model.Repositories
             }
         }
 
-        public void updatePostFavorite(Guid id, Guid userId, Guid groupId)
+        public void UpdatePostFavorite(Guid id, Guid userId, Guid groupId)
         {
             DataRow row = dataSet.Tables["Favorites"].NewRow();
             row["post_id"] = id.ToString();
@@ -416,7 +416,7 @@ namespace ISSLab.Model.Repositories
             }
         }
 
-        public void updatePostReport(Guid id, Report report)
+        public void UpdatePostReport(Guid id, Report report)
         {
             DataRow row = dataSet.Tables["Reports"].NewRow();
             row["id"] = report.Id.ToString();
@@ -435,7 +435,7 @@ namespace ISSLab.Model.Repositories
             }
         }
 
-        public void updateLocation(Guid id, string newLocation)
+        public void UpdateLocation(Guid id, string newLocation)
         {
             DataRow row = dataSet.Tables["Posts"].Rows.Find(id);
             if (row != null)
@@ -453,7 +453,7 @@ namespace ISSLab.Model.Repositories
             }
         }
 
-        public void updateDescription(Guid id, string newDescription)
+        public void UpdateDescription(Guid id, string newDescription)
         {
             DataRow row = dataSet.Tables["Posts"].Rows.Find(id);
             if (row != null)
@@ -471,7 +471,7 @@ namespace ISSLab.Model.Repositories
             }
         }
 
-        public void updateTitle(Guid id, string newTitle)
+        public void UpdateTitle(Guid id, string newTitle)
         {
             DataRow row = dataSet.Tables["Posts"].Rows.Find(id);
             if (row != null)
@@ -489,7 +489,7 @@ namespace ISSLab.Model.Repositories
             }
         }
 
-        public void updatePostInterestStatuses(Guid id, InterestStatus status)
+        public void UpdatePostInterestStatuses(Guid id, InterestStatus status)
         {
             DataRow row = dataSet.Tables["InterestStatuses"].NewRow();
             row["user_id"] = status.UserId.ToString();
@@ -508,7 +508,7 @@ namespace ISSLab.Model.Repositories
         }
 
 
-        public void updateContacts(Guid id, string newContacts)
+        public void UpdateContacts(Guid id, string newContacts)
         {
             DataRow row = dataSet.Tables["Posts"].Rows.Find(id);
             if (row != null)
@@ -526,7 +526,7 @@ namespace ISSLab.Model.Repositories
             }
         }
 
-        public void updateType(Guid id, string newType)
+        public void UpdateType(Guid id, string newType)
         {
             DataRow row = dataSet.Tables["Posts"].Rows.Find(id);
             if (row != null)
@@ -545,13 +545,13 @@ namespace ISSLab.Model.Repositories
         }
 
 
-        public List<Post> getAll()
+        public List<Post> GetAll()
         {
             return posts;
         }
 
 
-        public Post getById(Guid id)
+        public Post GetById(Guid id)
         {
             for (int i = 0; i < posts.Count; i++)
             {

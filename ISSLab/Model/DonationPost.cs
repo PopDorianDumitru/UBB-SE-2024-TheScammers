@@ -12,7 +12,6 @@ namespace ISSLab.Model
     public class DonationPost : Post
     {
         private float reviewScore;
-        private List<Review> reviews;
         private double currentDonationAmount;
         private string donationPageLink;
 
@@ -21,7 +20,6 @@ namespace ISSLab.Model
             this.currentDonationAmount = 0;
             this.donationPageLink = donationPageLink;
             this.reviewScore = 0;
-            this.reviews = new List<Review>();
         }
 
         public DonationPost() : base()
@@ -29,34 +27,21 @@ namespace ISSLab.Model
             this.currentDonationAmount = 0;
             this.donationPageLink = "";
             this.reviewScore = 0;
-            this.reviews = new List<Review>();
         }
 
-        public DonationPost(Guid id, List<Guid> usersThatShared, List<Guid> usersThatLiked, List<Comment> comments, string media, DateTime creationDate, Guid authorId, Guid groupId, bool promoted, List<Guid> usersThatFavorited, string location, string description, string title, List<InterestStatus> interestStatuses, string contacts, List<Report> reports, float reviewScore, List<Review> reviews, double currentDonationAmount, string donationPageLink, string type, bool confirmed, int views) : base(id, usersThatShared, usersThatLiked, comments, media, creationDate, authorId, groupId, promoted, usersThatFavorited, location, description, title, interestStatuses, contacts, reports, type, confirmed, views)
+        public DonationPost(Guid id, List<Guid> usersThatShared, List<Guid> usersThatLiked, List<Comment> comments, string media, DateTime creationDate, Guid authorId, Guid groupId, bool promoted, List<Guid> usersThatFavorited, string location, string description, string title, List<InterestStatus> interestStatuses, string contacts, List<Report> reports, float reviewScore, double currentDonationAmount, string donationPageLink, string type, bool confirmed, int views) : base(id, usersThatShared, usersThatLiked, comments, media, creationDate, authorId, groupId, promoted, usersThatFavorited, location, description, title, interestStatuses, contacts, reports, type, confirmed, views)
         {
             this.reviewScore = reviewScore;
-            this.reviews = reviews;
             this.currentDonationAmount = currentDonationAmount;
             this.donationPageLink = donationPageLink;   
 
         }
 
-
         public void AddReview(Review review)
         {
-            if (reviews.Contains(review))
-            {
-                throw new Exception("Review already exists. Edit the existing one if you want");
-            }
-            reviews.Add(review);
         }
         public void RemoveReview(Review review)
         {
-            if (!reviews.Contains(review))
-            {
-                throw new Exception("Review does not exist");
-            }
-            reviews.Remove(review);
         }
 
         public float ReviewScore

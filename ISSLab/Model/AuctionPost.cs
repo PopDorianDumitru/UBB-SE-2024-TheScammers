@@ -55,11 +55,11 @@ namespace ISSLab.Model
             {
                 currentBidPrice = bidPrice;
                 currentPriceLeader = userId;
-                add30SecondsToExpirationDate();
+                Add30SecondsToExpirationDate();
             }
         }
 
-        public void add30SecondsToExpirationDate()
+        public void Add30SecondsToExpirationDate()
         {
             DateTime now = DateTime.Now;
             this.ExpirationDate = this.ExpirationDate.AddSeconds(30);

@@ -70,13 +70,14 @@ namespace ISSLab.Model
         public Guid BuyerId
         {
             get { return buyerId; }
+            set { buyerId = value; }
         }
 
         public List<Review> Reviews
         {
             get { return reviews; }
         }
-        public void addReview(Review review)
+        public void AddReview(Review review)
         {
             if(reviews.Contains(review))
             {
@@ -84,7 +85,7 @@ namespace ISSLab.Model
             }
             reviews.Add(review);
         }
-        public void removeReview(Review review)
+        public void RemoveReview(Review review)
         {
             if(!reviews.Contains(review))
             {
@@ -93,7 +94,7 @@ namespace ISSLab.Model
             reviews.Remove(review);
         }
 
-        public void buyProduct(Guid buyerId)
+        public void BuyProduct(Guid buyerId)
         {
             if(this.buyerId != Guid.Empty)
             {

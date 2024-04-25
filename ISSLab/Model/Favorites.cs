@@ -35,13 +35,13 @@ namespace ISSLab.Model
         public Guid UserId { get => userId; }
         public Guid GroupId { get => groupId; }
         public List<Guid> Posts { get => posts; }
-        public void addPost(Guid post)
+        public void AddPost(Guid post)
         {
             if(this.posts.Contains(post))
                 throw new Exception("Post already in favorites");
             posts.Add(post);
         }
-        public void removePost(Guid post)
+        public void RemovePost(Guid post)
         {
             if(!this.posts.Contains(post))
                 throw new Exception("Post not in favorites");
