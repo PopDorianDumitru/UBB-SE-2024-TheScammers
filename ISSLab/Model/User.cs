@@ -190,7 +190,7 @@ namespace ISSLab.Model
         }
 
 
-        public void ReceivedPrivelageToSell(Guid groupId)
+        public void ReceivedPrivilegeToSell(Guid groupId)
         {
             if (groupsWithSellingPrivelage.Contains(groupId))
                 throw new Exception("You can already sell in this group");

@@ -55,7 +55,7 @@ namespace ISSLab.Services
             {
                 throw new Exception("Price can't be negative");
             }
-            User? user = users.FindById(authorId);
+            User? user = users.GetById(authorId);
             if (user == null)
             {
                 throw new Exception("User not found");
@@ -78,7 +78,7 @@ namespace ISSLab.Services
             {
                 throw new Exception("Price can't be negative");
             }
-            User? user = users.FindById(authorId);
+            User? user = users.GetById(authorId);
             if (user == null)
             {
                 throw new Exception("User not found");
@@ -97,7 +97,7 @@ namespace ISSLab.Services
 
         public Post CreateDonationPost(string media, Guid authorId, Guid groupId, string location, string description, string title, string contacts, string donationPageLink)
         {
-            User? user = users.FindById(authorId);
+            User? user = users.GetById(authorId);
             if (user == null)
             {
                 throw new Exception("User not found");

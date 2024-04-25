@@ -23,7 +23,7 @@ namespace ISSLab
 
             DataSet dataSet = new DataSet();
             IPostRepository postRepo = new PostRepository();
-            IUserRepository userRepo = new UserRepository(dataSet);
+            IUserRepository userRepo = new UserRepository();
 
             User connectedUser = new User(userId, "Soundboard1", "Dorian", DateOnly.Parse("11.12.2003"), "../Resources/Images/Dorian.jpeg", "fsdgfd", DateTime.Parse("10.04.2024"), new List<Guid>(), new List<Guid>(), new List<SellingUserScore>(), new List<Cart>(), new List<UsersFavoritePosts>(), new List<Guid>(), new List<Review>(), 0);
             User tempUser1 = new User("Vini", "Vinicius Junior", DateOnly.Parse("11.12.2003"), "../Resources/Images/Vini.png", "fdsfsdfds");
