@@ -9,19 +9,19 @@ namespace ISSLab.ViewModel
 {
     public class AllConversationsViewModel
     {
-        private ObservableCollection<Model.User> AllProfiles { get; set; }
+        public ObservableCollection<Model.User> AllProfiles { get; set; }
 
         public AllConversationsViewModel()
         {
-            AllProfiles = new ObservableCollection<ISSLab.Model.User>();
+            AllProfiles = new ObservableCollection<Model.User>();
 
             AddHardcodedProfiles();
         }
 
         private void AddHardcodedProfiles()
         {
-            AllProfiles.Add(new ISSLab.Model.User { Username = "John Doe", ProfilePicture = @"" });
-            AllProfiles.Add(new ISSLab.Model.User { Username = "Jane Smith", ProfilePicture = @"" });
+            AllProfiles.Add(new Model.User { Username = "John Doe", ProfilePicture = @"" });
+            AllProfiles.Add(new Model.User { Username = "Jane Smith", ProfilePicture = @"" });
         }
     }
 }
