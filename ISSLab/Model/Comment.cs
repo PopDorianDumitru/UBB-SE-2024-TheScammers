@@ -40,7 +40,7 @@ namespace ISSLab.Model
         public Guid UserId { get => userId; }
         public string Content { get => content; set => content = value; }
         public List<Comment> Replies { get => replies; }
-        public void addReply(Comment reply)
+        public void AddReply(Comment reply)
         {
             replies.Add(reply); 
         }

@@ -10,19 +10,19 @@ namespace ISSLab.Model
     {
         private Guid groupId;
         private Guid userId;
-        private List<Guid> fixedPosts;
+        private List<Guid> postsSavedInCart;
 
-        public Cart(Guid groupId, Guid userId, List<Guid> posts)
+        public Cart(Guid groupId, Guid userId, List<Guid> postsSavedInCart)
         {
             this.groupId = groupId;
             this.userId = userId;
-            this.fixedPosts = posts;
+            this.postsSavedInCart = postsSavedInCart;
         }
         public Cart()
         {
             this.groupId = Guid.NewGuid();
             this.userId = Guid.NewGuid();
-            this.fixedPosts = new List<Guid>();
+            this.postsSavedInCart = new List<Guid>();
 
 
         }
@@ -30,24 +30,24 @@ namespace ISSLab.Model
         {
             this.groupId = groupId;
             this.userId = userId;
-            this.fixedPosts = new List<Guid>();
+            this.postsSavedInCart = new List<Guid>();
         }
 
         public Guid GroupId { get => groupId; }
         public Guid UserId { get => userId; }
-        public List<Guid> Posts { get => fixedPosts; }
+        public List<Guid> PostsSavedInCart { get => postsSavedInCart; }
 
-        void addPostToCart(Guid post)
+        void AddPostToCart(Guid postToSave)
         {
-            if (this.fixedPosts.Contains(post))
+            if (this.postsSavedInCart.Contains(postToSave))
                 throw new Exception("Post already in cart");
-            fixedPosts.Add(post);
+            postsSavedInCart.Add(postToSave);
         }
-        void removePostFromCart(Guid post)
+        void RemovePostFromCart(Guid postToSave)
         {
-            if (!this.fixedPosts.Contains(post))
+            if (!this.postsSavedInCart.Contains(postToSave))
                 throw new Exception("Post not in cart");
-            fixedPosts.Remove(post);
+            postsSavedInCart.Remove(postToSave);
         }
 
 

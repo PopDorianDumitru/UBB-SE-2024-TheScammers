@@ -255,7 +255,7 @@ namespace ISSLab.Services
                 users.findById(userId).Carts.Add(new Cart(groupId, userId));
                 return new List<Post>();
             }
-            foreach (Guid postId in cart.Posts)
+            foreach (Guid postId in cart.PostsSavedInCart)
             {
                 cartedPosts.Add(posts.getById(postId));
             }
