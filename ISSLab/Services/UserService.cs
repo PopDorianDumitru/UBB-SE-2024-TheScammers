@@ -31,7 +31,7 @@ namespace ISSLab.Services
         }
         public User GetUserById(Guid id)
         {
-            User? user = users.findById(id);
+            User? user = users.FindById(id);
             if (user == null)
             {
                 throw new Exception("User not found");
@@ -40,7 +40,7 @@ namespace ISSLab.Services
         }
         public List<User> GetUsers()
         {
-            return users.findAllUsers();
+            return users.FindAllUsers();
         }
 
         public User CreateUser(string username, string realName, DateOnly dateOfBirth, string profilePicture, string password)
@@ -98,33 +98,33 @@ namespace ISSLab.Services
 
         public void UpdateUserUsername(Guid user, string username)
         {
-            users.updateUserUsername(user, username);
+            users.UpdateUserUsername(user, username);
 
         }
 
         public void UpdateUserRealName(Guid user, string realName)
         {
-            users.updateUserRealName(user, realName);
+            users.UpdateUserRealName(user, realName);
         }
 
         public void UpdateUserDateOfBirth(Guid user, DateOnly dateOfBirth)
         {
-            users.updateUserDateOfBirth(user, dateOfBirth);
+            users.UpdateUserDateOfBirth(user, dateOfBirth);
         }
 
         public void UpdateUserProfilePicture(Guid user, string profilePicture)
         {
-            users.updateUserProfilePicture(user, profilePicture);
+            users.UpdateUserProfilePicture(user, profilePicture);
         }
 
         public void UpdateUserPassword(Guid user, string password)
         {
-            users.updateUserPassword(user, password);
+            users.UpdateUserPassword(user, password);
         }
 
         public void RequestAccessToSell(Guid userId, Guid GroupId)
         {
-            User usr = users.findById(userId);
+            User usr = users.FindById(userId);
             if (usr == null)
             {
                 throw new Exception("User not found");
@@ -137,11 +137,11 @@ namespace ISSLab.Services
             {
                 throw new Exception("User is already a seller in the group");
             }
-            users.updateGroupsWithSellingRequest(userId, GroupId);
+            users.UpdateGroupsWithSellingRequest(userId, GroupId);
         }
         public void DenyAccessToSell(Guid userId, Guid groupId)
         {
-            User usr = users.findById(userId);
+            User usr = users.FindById(userId);
             if (usr == null)
             {
                 throw new Exception("User not found");
@@ -154,12 +154,12 @@ namespace ISSLab.Services
             {
                 throw new Exception("User is not a seller in the group");
             }
-            users.updateGroupsWithRemovingSellingRequest(userId, groupId);
+            users.UpdateGroupsWithRemovingSellingRequest(userId, groupId);
         }
 
         public void AcceptAccessToSell(Guid userId, Guid groupId)
         {
-            User usr = users.findById(userId);
+            User usr = users.FindById(userId);
             if (usr == null)
             {
                 throw new Exception("User not found");
@@ -172,13 +172,13 @@ namespace ISSLab.Services
             {
                 throw new Exception("User is already a seller in the group");
             }
-            users.updateGroupsWithRemovingSellingRequest(userId, groupId);
-            users.updateGroupsWithSellingPrivelage(userId, groupId);
+            users.UpdateGroupsWithRemovingSellingRequest(userId, groupId);
+            users.UpdateGroupsWithSellingPrivelage(userId, groupId);
         }
 
         public void RemoveAccessToSell(Guid userId, Guid groupId)
         {
-            User usr = users.findById(userId);
+            User usr = users.FindById(userId);
             if (usr == null)
             {
                 throw new Exception("User not found");
@@ -191,7 +191,7 @@ namespace ISSLab.Services
             {
                 throw new Exception("User is not a seller in the group");
             }
-            users.updateGroupsWithRemovingSellingPrivelage(userId, groupId);
+            users.UpdateGroupsWithRemovingSellingPrivelage(userId, groupId);
         }
 
         public void AddReview(Guid reviewerId, Guid sellerId, Guid groupId, string content, DateTime date, int rating)
@@ -202,42 +202,42 @@ namespace ISSLab.Services
 
         public void AddItemToCart(Guid groupId, Guid postId, Guid userId)
         {
-            users.addToCart(groupId, userId, postId);
+            users.AddToCart(groupId, userId, postId);
 
         }
         public void RemoveFromCart(Guid groupId, Guid postId, Guid userId)
         {
-            users.removeFromCart(groupId, userId, postId);
+            users.RemoveFromCart(groupId, userId, postId);
         }
 
         public void AddItemToFavorites(Guid groupId, Guid postId, Guid userId)
         {
-            users.addToFavorites(groupId, userId, postId);
+            users.AddToFavorites(groupId, userId, postId);
         }
         public void RemoveFromFavorites(Guid groupId, Guid postId, Guid userId)
         {
-            users.removeFromFavorites(groupId, userId, postId);
+            users.RemoveFromFavorites(groupId, userId, postId);
         }
 
         public List<Post> GetFavoritePosts(Guid groupId, Guid userId)
         {
             List<Post> favoritePosts = new List<Post>();
-            Favorites favorites = users.findById(userId).Favorites.Find(f => f.GroupId == groupId);
+            UsersFavoritePosts favorites = users.FindById(userId).Favorites.Find(f => f.GroupId == groupId);
             if (favorites == null)
             {
-                users.findById(userId).Favorites.Add(new Favorites(userId, groupId));
+                users.FindById(userId).Favorites.Add(new UsersFavoritePosts(userId, groupId));
                 return new List<Post>();
             }
             foreach (Guid postId in favorites.Posts)
             {
-                favoritePosts.Add(posts.getById(postId));
+                favoritePosts.Add(posts.GetPostById(postId));
             }
             return favoritePosts;
         }
 
         public double GetUserScore(Guid userId, Guid groupId)
         {
-            List<Review> reviews = users.findById(userId).Reviews.FindAll(r => r.GroupId == groupId);
+            List<Review> reviews = users.FindById(userId).Reviews.FindAll(r => r.GroupId == groupId);
             double score = 0;
             foreach (Review review in reviews)
             {
@@ -248,16 +248,16 @@ namespace ISSLab.Services
 
         public List<Post> GetItemsFromCart(Guid userId, Guid groupId)
         {
-            Cart cart = users.findById(userId).Carts.Find(c => c.GroupId == groupId);
+            Cart cart = users.FindById(userId).Carts.Find(c => c.GroupId == groupId);
             List<Post> cartedPosts = new List<Post>();
             if (cart == null)
             {
-                users.findById(userId).Carts.Add(new Cart(groupId, userId));
+                users.FindById(userId).Carts.Add(new Cart(groupId, userId));
                 return new List<Post>();
             }
-            foreach (Guid postId in cart.Posts)
+            foreach (Guid postId in cart.PostsSavedInCart)
             {
-                cartedPosts.Add(posts.getById(postId));
+                cartedPosts.Add(posts.GetPostById(postId));
             }
             return cartedPosts;
         }

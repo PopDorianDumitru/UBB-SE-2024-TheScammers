@@ -43,8 +43,9 @@ namespace ISSLab.ViewModel
                 this._donationButtonVisible = "Visible";
             }
             else if (post.Type == "FixedPrice")
-                this._buyButtonVisible = "Visible";
-            else if (post.Type == "Auction")
+                this.buyButtonVisible = "Visible";
+            else if (post.Type == Constants.AUCTION_POST_TYPE)
+
             {
                 this._buyButtonVisible = "Visible";
                 this._bidButtonVisible = "Visible";
@@ -89,7 +90,7 @@ namespace ISSLab.ViewModel
                     FixedPricePost fixedPricePost = (FixedPricePost)_post;
                     return fixedPricePost.Delivery;
                 }
-                else if (_post.Type == "Auction")
+                else if (post.Type == Constants.AUCTION_POST_TYPE)
                 {
                     AuctionPost auctionPost = (AuctionPost)_post;
                     return auctionPost.Delivery;
@@ -106,7 +107,7 @@ namespace ISSLab.ViewModel
                     FixedPricePost fixedPricePost = (FixedPricePost)_post;
                     fixedPricePost.Delivery = value;
                 }
-                else if (_post.Type == "Auction")
+                else if (post.Type == Constants.AUCTION_POST_TYPE)
                 {
                     AuctionPost auctionPost = (AuctionPost)_post;
                     auctionPost.Delivery = value;
@@ -187,7 +188,7 @@ namespace ISSLab.ViewModel
                     TimeSpan timeLeft = fixedPricePost.ExpirationDate - DateTime.Now;
                     return DisplayRemainingTime(timeLeft);
                 }
-                else if (_post.Type == "Auction")
+                else if (post.Type == Constants.AUCTION_POST_TYPE)
                 {
                     AuctionPost fixedPricePost = (AuctionPost)_post;
                     TimeSpan timeLeft = fixedPricePost.ExpirationDate - DateTime.Now;
@@ -220,7 +221,7 @@ namespace ISSLab.ViewModel
                 {
                     return "$" + ((FixedPricePost)(_post)).Price;
                 }
-                else if (_post.Type == "Auction")
+                else if (post.Type == Constants.AUCTION_POST_TYPE)
                 {
                     return "$" + ((AuctionPost)(_post)).Price;
                 }
@@ -237,13 +238,11 @@ namespace ISSLab.ViewModel
                 AuctionPost auctionPost = (AuctionPost)_post;
                 TimeSpan timeLeft = auctionPost.ExpirationDate - DateTime.Now;
                 TimeSpan timeSpan = TimeSpan.FromSeconds(30);
-
-                if (timeLeft.TotalSeconds < 30)
-                {
-                    auctionPost.add30SecondsToExpirationDate();
-                    OnPropertyChanged(nameof(AvailableFor));
-                }
-
+            if (timeLeft.TotalSeconds < 30)
+            {
+                auctionPost.Add30SecondsToExpirationDate();
+                OnPropertyChanged(nameof(AvailableFor));
+            }
             ((AuctionPost)(_post)).CurrentBidPrice += 5;
                 ((AuctionPost)(_post)).MinimumBidPrice += 5;
                 OnPropertyChanged(nameof(BidPrice));
@@ -255,8 +254,8 @@ namespace ISSLab.ViewModel
         {
             get
             {
-                if (_post.Type == "Auction")
-                    return "$" + ((AuctionPost)(_post)).CurrentBidPrice;
+                if (post.Type == Constants.AUCTION_POST_TYPE)
+                    return "$" + ((AuctionPost)(post)).CurrentBidPrice;
                 else
                 {
                     return "";
