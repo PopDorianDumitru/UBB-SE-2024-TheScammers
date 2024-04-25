@@ -667,7 +667,7 @@ namespace Tests.ViewModel
             string expectedResult = expectedCount.ToString() + " uninterested";
             Assert.That(_postViewModel.Uninterests, Is.EqualTo(expectedResult));
 
-            _postViewModel.AddUniterests();
+            _postViewModel.AddUninterests();
             expectedCount = 1;
             expectedResult = expectedCount.ToString() + " uninterested";
             Assert.That(_postViewModel.Uninterests, Is.EqualTo(expectedResult));
@@ -681,7 +681,7 @@ namespace Tests.ViewModel
             _postViewModel.Post = noTypePost;
             _postViewModel.user = newUser;
 
-            _postViewModel.AddUniterests();
+            _postViewModel.AddUninterests();
 
             Assert.That(_postViewModel.Post.InterestStatuses.Count, Is.EqualTo(1));
             Assert.That(_postViewModel.Post.InterestStatuses[0].PostId, Is.EqualTo(noTypePost.Id));
@@ -696,8 +696,8 @@ namespace Tests.ViewModel
             _postViewModel.Post = noTypePost;
             _postViewModel.user = newUser;
 
-            _postViewModel.AddUniterests();
-            _postViewModel.AddUniterests();
+            _postViewModel.AddUninterests();
+            _postViewModel.AddUninterests();
 
             Assert.That(_postViewModel.Post.InterestStatuses.Count, Is.EqualTo(0));
         }

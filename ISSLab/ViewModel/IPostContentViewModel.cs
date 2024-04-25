@@ -29,7 +29,7 @@ namespace ISSLab.ViewModel
         void AddInterests();
         void AddPostToCart();
         void AddPostToFavorites();
-        void AddUniterests();
+        void AddUninterests();
         void Donate();
         Post GetPost();
         void HidePost();

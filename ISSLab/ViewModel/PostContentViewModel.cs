@@ -297,7 +297,7 @@ namespace ISSLab.ViewModel
             }
         }
 
-        public void AddUniterests()
+        public void AddUninterests()
         {
             var existingUninterest = _post.InterestStatuses.FirstOrDefault(interest => interest.UserId == user.Id && interest.PostId == _post.Id && !interest.Interested);
 
