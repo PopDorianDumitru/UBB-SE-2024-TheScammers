@@ -15,8 +15,8 @@ namespace ISSLab.Model
 
         public string ImagePath { get; set; }
 
-        public bool ShowAcceptButton { get; set; }
-        public bool ShowRejectButton { get; set; }
+        public bool AcceptButtonIsVisible { get; set; }
+        public bool RejectButtonIsVisible { get; set; }
 
         public RoutedEventHandler AcceptButtonClicked { get; set; }
         public RoutedEventHandler RejectButtonClicked { get; set; }
