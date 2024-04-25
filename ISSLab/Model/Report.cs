@@ -16,7 +16,7 @@ namespace ISSLab.Model
 
         public Report(Guid userId, Guid postId, string reasonForReporting)
         {
-            this.id = new Guid(userId.ToString() + postId.ToString());
+            this.id = Guid.NewGuid();;
             this.userId = userId;
             this.postId = postId;
             this.reasonForReporting = reasonForReporting;

@@ -300,7 +300,7 @@ namespace ISSLab.ViewModel
         {
             get
             {
-                return post.NrComments.Count + " comments";
+                return post.Comments.Count + " comments";
             }
         }
 

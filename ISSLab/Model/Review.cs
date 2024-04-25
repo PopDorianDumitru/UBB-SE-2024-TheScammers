@@ -18,7 +18,7 @@ namespace ISSLab.Model
 
         public Review(Guid reviewerId, Guid sellerId, Guid groupId, string content, DateTime dateOfReview, int rating)
         {
-            this.id = new Guid(reviewerId.ToString() + sellerId.ToString() + groupId.ToString());
+            this.id = Guid.NewGuid();
             this.reviewerId = reviewerId;
             this.groupId = groupId;
             this.sellerId = sellerId;

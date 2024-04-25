@@ -104,7 +104,7 @@ namespace ISSLab.Model
         public Guid Id { get => id; }
         public List<Guid> UsersThatShared { get => usersThatShared; }
         public List<Guid> UsersThatLiked { get => usersThatLiked; }
-        public List<Comment> NrComments { get => comments; }
+        public List<Comment> Comments { get => comments; }
         public string MediaContent{ get => mediaContent; set => mediaContent = value; }
         public DateTime CreationDate { get => creationDate; set => creationDate = value; }
         public Guid AuthorId { get => authorId; }
@@ -143,9 +143,9 @@ namespace ISSLab.Model
         public void ToggleLike(Guid userId)
         {
             if(usersThatLiked.Contains(userId))
-            {
+            
                 usersThatLiked.Remove(userId);
-            }
+            
             else
             {
                 usersThatLiked.Add(userId);
@@ -164,14 +164,14 @@ namespace ISSLab.Model
             }
         }
 
-        public void AddComment(Comment commentId)
+        public void AddComment(Comment comment)
         {
-            comments.Add(commentId);
+            comments.Add(comment);
         }
 
-        public void RemoveComment(Comment commentId)
+        public void RemoveComment(Comment comment)
         {
-            comments.Remove(commentId);
+            comments.Remove(comment);
         }
 
         public int InterestLevel()
@@ -203,4 +203,5 @@ namespace ISSLab.Model
 
 
     }
+
 }
