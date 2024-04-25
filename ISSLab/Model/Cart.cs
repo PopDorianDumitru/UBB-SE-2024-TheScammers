@@ -37,13 +37,13 @@ namespace ISSLab.Model
         public Guid UserId { get => userId; }
         public List<Guid> PostsSavedInCart { get => postsSavedInCart; }
 
-        void AddPostToCart(Guid postToSave)
+        public void AddPostToCart(Guid postToSave)
         {
             if (this.postsSavedInCart.Contains(postToSave))
                 throw new Exception("Post already in cart");
             postsSavedInCart.Add(postToSave);
         }
-        void RemovePostFromCart(Guid postToSave)
+        public void RemovePostFromCart(Guid postToSave)
         {
             if (!this.postsSavedInCart.Contains(postToSave))
                 throw new Exception("Post not in cart");
