@@ -16,7 +16,7 @@ namespace ISSLab.Model
         private List<Guid> bigSellers;
         private List<Guid> admins;
         private List<Guid> sellingUsers;
-        private List<Guid> requestedUsers;
+        private List<Guid> requestToSellUsers;
 
         private string description;
         private string type;
@@ -37,7 +37,7 @@ namespace ISSLab.Model
             this.banner = banner;
             this.creationDate = DateTime.Now;
             this.bigSellers = new List<Guid>();
-            this.requestedUsers = new List<Guid>();
+            this.requestToSellUsers = new List<Guid>();
 
             
         }
@@ -57,7 +57,7 @@ namespace ISSLab.Model
             this.bigSellers = new List<Guid>();
             this.sellingUsers = new List<Guid>();
         }
-        public Group(Guid id, string name, int memberCount, List<Guid> members, List<Guid> posts, List<Guid> admins, List<Guid> sellingUsers, string description, string type, string banner, DateTime creationDate, List<Guid> bigSellers, List<Guid> requestedUsers)
+        public Group(Guid id, string name, int memberCount, List<Guid> members, List<Guid> posts, List<Guid> admins, List<Guid> sellingUsers, string description, string type, string banner, DateTime creationDate, List<Guid> bigSellers, List<Guid> requestToSellUsers)
 
         {
             this.id = id;
@@ -72,7 +72,7 @@ namespace ISSLab.Model
             this.banner = banner;
             this.creationDate = creationDate;
             this.bigSellers = bigSellers;
-            this.requestedUsers = requestedUsers;
+            this.requestToSellUsers = requestToSellUsers;
 
         }
         
@@ -107,7 +107,7 @@ namespace ISSLab.Model
         public List<Guid> Admins { get => admins; }
         public List<Guid> SellingUsers { get => sellingUsers; }
 
-        public List<Guid> RequestedUsers { get => requestedUsers; }
+        public List<Guid> RequestedUsers { get => requestToSellUsers; }
         public string Description { get => description; set => description = value; }
         public string Type { get => type; set => type = value; }
         public string Banner { get => banner; set => banner = value; }
@@ -149,7 +149,7 @@ namespace ISSLab.Model
                 throw new Exception("User is already an admin of this group");
             admins.Add(user);
         }
-        public void removeAdmin(Guid user)
+        public void RemoveAdmin(Guid user)
         {
             if(!members.Contains(user))
                 throw new Exception("User is not a member of this group");
@@ -184,11 +184,11 @@ namespace ISSLab.Model
         }
         public void RemoveRequestedUser(Guid user)
         {
-            if (!requestedUsers.Contains(user))
+            if (!requestToSellUsers.Contains(user))
                 throw new Exception("User is not a member of this group");
-            if (!requestedUsers.Contains(user))
+            if (!requestToSellUsers.Contains(user))
                 throw new Exception("User is not a selling user of this group");
-            requestedUsers.Remove(user);
+            requestToSellUsers.Remove(user);
         }
 
     }
