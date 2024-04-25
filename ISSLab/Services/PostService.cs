@@ -60,7 +60,7 @@ namespace ISSLab.Services
             {
                 throw new Exception("User not found");
             }
-            if (!user.hasAccessToSell(groupId))
+            if (!user.HasAccessToSellInGroup(groupId))
             {
                 throw new Exception("User can't sell in this group!");
             }
@@ -83,7 +83,7 @@ namespace ISSLab.Services
             {
                 throw new Exception("User not found");
             }
-            if (!user.hasAccessToSell(groupId))
+            if (!user.HasAccessToSellInGroup(groupId))
             {
                 throw new Exception("User can't sell in this group!");
             }
@@ -102,7 +102,7 @@ namespace ISSLab.Services
             {
                 throw new Exception("User not found");
             }
-            if (!user.hasAccessToSell(groupId))
+            if (!user.HasAccessToSellInGroup(groupId))
             {
                 throw new Exception("User can't sell in this group!");
             }
