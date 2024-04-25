@@ -66,7 +66,13 @@ namespace ISSLab.ViewModel
             set { _post = value; }
         }
 
-        public float Rating { get { return ((FixedPricePost)(_post)).ReviewScore; } }
+        public float Rating
+        {
+            get
+            {
+                return ((FixedPricePost)_post).ReviewScore;
+            }
+        }
 
         public string Visible { get { return _visible; } set { _visible = value; OnPropertyChanged(nameof(Visible)); } }
         
@@ -90,7 +96,6 @@ namespace ISSLab.ViewModel
                 }
                 else
                 {
-                    DonationPost donationPost = (DonationPost)_post;
                     return "";
                 }
             }
@@ -157,7 +162,7 @@ namespace ISSLab.ViewModel
             }
         }
 
-        public Post getPost()
+        public Post GetPost()
         {
             return _post;
         }
@@ -221,7 +226,6 @@ namespace ISSLab.ViewModel
                 }
                 else
                 {
-                    DonationPost donationPost = (DonationPost)_post;
                     return "";
                 }
             }
@@ -229,19 +233,22 @@ namespace ISSLab.ViewModel
 
         public void UpdateBidPrice()
         {
-            AuctionPost auctionPost = (AuctionPost)_post;
-            TimeSpan timeLeft = auctionPost.ExpirationDate - DateTime.Now;
-            TimeSpan timeSpan = TimeSpan.FromSeconds(30);
+            if (_post.GetType() == typeof(AuctionPost)) {
+                AuctionPost auctionPost = (AuctionPost)_post;
+                TimeSpan timeLeft = auctionPost.ExpirationDate - DateTime.Now;
+                TimeSpan timeSpan = TimeSpan.FromSeconds(30);
 
-            if (timeLeft.TotalSeconds < 30)
-            {
-                auctionPost.add30SecondsToExpirationDate();
-                OnPropertyChanged(nameof(AvailableFor));
-            }
+                if (timeLeft.TotalSeconds < 30)
+                {
+                    auctionPost.add30SecondsToExpirationDate();
+                    OnPropertyChanged(nameof(AvailableFor));
+                }
 
             ((AuctionPost)(_post)).CurrentBidPrice += 5;
-            ((AuctionPost)(_post)).MinimumBidPrice += 5;
-            OnPropertyChanged(nameof(BidPrice));
+                ((AuctionPost)(_post)).MinimumBidPrice += 5;
+                OnPropertyChanged(nameof(BidPrice));
+            }
+            else throw new Exception("Post is not of type AuctionPost!");
         }
 
         public string BidPrice

@@ -27,7 +27,7 @@ namespace ISSLab.View
                 parentWindow?.Close();
 
                 var postContentViewModel = DataContext as IPostContentViewModel;
-                Post post = postContentViewModel.getPost();
+                Post post = postContentViewModel.GetPost();
 
                 Chat chat = new Chat(new ChatViewModel(selectedUser, post));
                 parentWindow.Content = chat;

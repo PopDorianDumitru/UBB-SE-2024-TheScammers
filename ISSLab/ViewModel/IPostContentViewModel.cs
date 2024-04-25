@@ -31,7 +31,7 @@ namespace ISSLab.ViewModel
         void AddPostToFavorites();
         void AddUniterests();
         void Donate();
-        Post getPost();
+        Post GetPost();
         void HidePost();
         void SendBuyingMessage();
         void UpdateBidPrice();
