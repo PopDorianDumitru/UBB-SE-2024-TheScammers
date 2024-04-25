@@ -8,24 +8,24 @@ namespace ISSLab.Model
 {
     public class Group
     {
-        private Guid id;
+        private Guid groupId;
         private string name;
         private int memberCount;
         private List<Guid> members;
         private List<Guid> posts;
-        private List<Guid> bigSellers;
+        private List<Guid> topSellers;
         private List<Guid> admins;
         private List<Guid> sellingUsers;
-        private List<Guid> requestToSellUsers;
+        private List<Guid> usersRequestingToSell;
 
         private string description;
         private string type;
-        private string banner;
+        private string bannerPath;
         private DateTime creationDate;
 
-        public Group(string name, string description, string type, string banner)
+        public Group(string name, string description, string type, string bannerPath)
         {
-            this.id = Guid.NewGuid();
+            this.groupId = Guid.NewGuid();
             this.name = name;
             this.memberCount = 0;
             this.members = new List<Guid>();
@@ -34,16 +34,16 @@ namespace ISSLab.Model
             this.sellingUsers = new List<Guid>();
             this.description = description;
             this.type = type;
-            this.banner = banner;
+            this.bannerPath = bannerPath;
             this.creationDate = DateTime.Now;
-            this.bigSellers = new List<Guid>();
-            this.requestToSellUsers = new List<Guid>();
+            this.topSellers = new List<Guid>();
+            this.usersRequestingToSell = new List<Guid>();
 
             
         }
         public Group()
         {
-            this.id = Guid.NewGuid();
+            this.groupId = Guid.NewGuid();
             this.name = "";
             this.memberCount = 0;
             this.members = new List<Guid>();
@@ -52,15 +52,16 @@ namespace ISSLab.Model
             this.sellingUsers = new List<Guid>();
             this.description = "";
             this.type = "";
-            this.banner = "";
+            this.bannerPath = "";
             this.creationDate = DateTime.Now;
-            this.bigSellers = new List<Guid>();
+            this.topSellers = new List<Guid>();
             this.sellingUsers = new List<Guid>();
+            this.usersRequestingToSell = new List<Guid>();
         }
-        public Group(Guid id, string name, int memberCount, List<Guid> members, List<Guid> posts, List<Guid> admins, List<Guid> sellingUsers, string description, string type, string banner, DateTime creationDate, List<Guid> bigSellers, List<Guid> requestToSellUsers)
+        public Group(Guid id, string name, int memberCount, List<Guid> members, List<Guid> posts, List<Guid> admins, List<Guid> sellingUsers, string description, string type, string banner, DateTime creationDate, List<Guid> topSellers, List<Guid> usersRequestingToSell)
 
         {
-            this.id = id;
+            this.groupId = id;
             this.name = name;
             this.memberCount = memberCount;
             this.members = members;
@@ -69,10 +70,10 @@ namespace ISSLab.Model
             this.sellingUsers = sellingUsers;
             this.description = description;
             this.type = type;
-            this.banner = banner;
+            this.bannerPath = banner;
             this.creationDate = creationDate;
-            this.bigSellers = bigSellers;
-            this.requestToSellUsers = requestToSellUsers;
+            this.topSellers = topSellers;
+            this.usersRequestingToSell = usersRequestingToSell;
 
         }
         
@@ -87,19 +88,19 @@ namespace ISSLab.Model
             this.sellingUsers.Remove(userID);
         }
 
-        public List<Guid> BigSellers { get => this.bigSellers; set => this.bigSellers = value; }
-        public void AddBigSeller(Guid userID)
+        public List<Guid> TopSellers { get => this.topSellers; set => this.topSellers = value; }
+        public void AddTopSeller(Guid userID)
         {
-            this.bigSellers.Add(userID);
+            this.topSellers.Add(userID);
         }
-        public void RemoveBigSeller(Guid userID)
+        public void RemoveTopSeller(Guid userID)
         {
-            this.bigSellers.Remove(userID);
+            this.topSellers.Remove(userID);
         }
 
     
 
-        public Guid Id { get => id; }
+        public Guid GroupId { get => groupId; }
         public string Name { get => name; set => name = value; }
         public int MemberCount { get => memberCount; }
         public List<Guid> Members { get => members; }
@@ -107,10 +108,10 @@ namespace ISSLab.Model
         public List<Guid> Admins { get => admins; }
         public List<Guid> SellingUsers { get => sellingUsers; }
 
-        public List<Guid> RequestedUsers { get => requestToSellUsers; }
+        public List<Guid> UsersRequestingToSell { get => usersRequestingToSell; }
         public string Description { get => description; set => description = value; }
         public string Type { get => type; set => type = value; }
-        public string Banner { get => banner; set => banner = value; }
+        public string BannerPath { get => bannerPath; set => bannerPath = value; }
         public DateTime CreationDate { get => creationDate; }
 
         public void AddMember(Guid user)
@@ -174,7 +175,7 @@ namespace ISSLab.Model
             sellingUsers.Remove(user);
         }
 
-        public void AddRequestedUser(Guid user)
+        public void AddRequestingToSellUser(Guid user)
         {
             if (!members.Contains(user))
                 throw new Exception("User is not a member of this group");
@@ -182,13 +183,13 @@ namespace ISSLab.Model
                 throw new Exception("User is already a selling user of this group");
             sellingUsers.Add(user);
         }
-        public void RemoveRequestedUser(Guid user)
+        public void RemoveRequestingToSellUser(Guid user)
         {
-            if (!requestToSellUsers.Contains(user))
+            if (!usersRequestingToSell.Contains(user))
                 throw new Exception("User is not a member of this group");
-            if (!requestToSellUsers.Contains(user))
+            if (!usersRequestingToSell.Contains(user))
                 throw new Exception("User is not a selling user of this group");
-            requestToSellUsers.Remove(user);
+            usersRequestingToSell.Remove(user);
         }
 
     }

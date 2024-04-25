@@ -144,7 +144,7 @@ namespace ISSLab.Model.Repositories
         {
             for (int i = 0; i < groups.Count; i++)
             {
-                if (groups[i].Id == id)
+                if (groups[i].GroupId == id)
                 {
                     return groups[i];
                 }
@@ -161,7 +161,7 @@ namespace ISSLab.Model.Repositories
 
             for (int i = 0; i < groups.Count; i++)
             {
-                if (groups[i].Id == id)
+                if (groups[i].GroupId == id)
                 {
                     groups.RemoveAt(i);
                     break;
@@ -309,12 +309,12 @@ namespace ISSLab.Model.Repositories
         public void AddGroup(Group newGroup)
         {
             DataRow row = dataSet.Tables["Groups"].NewRow();
-            row["id"] = newGroup.Id.ToString();
+            row["id"] = newGroup.GroupId.ToString();
             row["name"] = newGroup.Name;
             row["member_count"] = newGroup.MemberCount;
             row["description"] = newGroup.Description;
             row["type"] = newGroup.Type;
-            row["banner"] = newGroup.Banner;
+            row["banner"] = newGroup.BannerPath;
             row["creation_date"] = newGroup.CreationDate;
             groups.Add(newGroup);
         }
@@ -328,9 +328,9 @@ namespace ISSLab.Model.Repositories
 
             for (int i = 0; i < groups.Count; i++)
             {
-                if (groups[i].Id == id)
+                if (groups[i].GroupId == id)
                 {
-                    groups[i].AddBigSeller(user);
+                    groups[i].AddTopSeller(user);
                     break;
                 }
             }
@@ -346,9 +346,9 @@ namespace ISSLab.Model.Repositories
 
             for (int i = 0; i < groups.Count; i++)
             {
-                if (groups[i].Id == id)
+                if (groups[i].GroupId == id)
                 {
-                    groups[i].RemoveBigSeller(user);
+                    groups[i].RemoveTopSeller(user);
                     break;
                 }
             }
@@ -362,7 +362,7 @@ namespace ISSLab.Model.Repositories
 
             for (int i = 0; i < groups.Count; i++)
             {
-                if (groups[i].Id == id)
+                if (groups[i].GroupId == id)
                 {
                     groups[i].AddSellingUser(user);
                     break;
@@ -380,7 +380,7 @@ namespace ISSLab.Model.Repositories
 
             for (int i = 0; i < groups.Count; i++)
             {
-                if (groups[i].Id == id)
+                if (groups[i].GroupId == id)
                 {
                     groups[i].RemoveSellingUser(user);
                     break;
@@ -396,9 +396,9 @@ namespace ISSLab.Model.Repositories
 
             for (int i = 0; i < groups.Count; i++)
             {
-                if (groups[i].Id == id)
+                if (groups[i].GroupId == id)
                 {
-                    groups[i].AddRequestedUser(user);
+                    groups[i].AddRequestingToSellUser(user);
                     break;
                 }
             }
@@ -414,9 +414,9 @@ namespace ISSLab.Model.Repositories
 
             for (int i = 0; i < groups.Count; i++)
             {
-                if (groups[i].Id == id)
+                if (groups[i].GroupId == id)
                 {
-                    groups[i].RemoveRequestedUser(user);
+                    groups[i].RemoveRequestingToSellUser(user);
                     break;
                 }
             }
@@ -442,7 +442,7 @@ namespace ISSLab.Model.Repositories
 
             for (int i = 0; i < groups.Count; i++)
             {
-                if (groups[i].Id == id)
+                if (groups[i].GroupId == id)
                 {
                     groups[i].AddPost(post.Id);
                     break;
@@ -460,7 +460,7 @@ namespace ISSLab.Model.Repositories
 
             for (int i = 0; i < groups.Count; i++)
             {
-                if (groups[i].Id == id)
+                if (groups[i].GroupId == id)
                 {
                     groups[i].RemovePost(post.Id);
                     break;

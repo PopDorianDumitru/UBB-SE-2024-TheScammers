@@ -112,9 +112,9 @@ namespace Tests.Model
         }
 
         [Test]
-        public void InterestedGet_GetInterestedFromEmptyConstructorInterestStatus_ShouldBeFalse()
+        public void InterestedGet_GetInterestedFromEmptyConstructorInterestStatus_ShouldBeTrue()
         {
-            Assert.That(otherConstructorInterestStatus.Interested, Is.False);
+            Assert.That(otherConstructorInterestStatus.Interested, Is.True);
         }
     }
 }

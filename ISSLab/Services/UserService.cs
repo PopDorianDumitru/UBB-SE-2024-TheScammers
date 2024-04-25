@@ -53,7 +53,7 @@ namespace ISSLab.Services
 
         public bool IsUserInGroup(User user, Group group)
         {
-            return user.Groups.Contains(group.Id);
+            return user.Groups.Contains(group.GroupId);
         }
 
         public bool IsUserInGroup(Guid userId, Guid groupId)
@@ -64,7 +64,7 @@ namespace ISSLab.Services
 
         public void AddUserToGroup(User user, Group group)
         {
-            user.Groups.Add(group.Id);
+            user.Groups.Add(group.GroupId);
         }
 
         public bool UserIsAdminInGroup(Guid userId, Guid groupId)

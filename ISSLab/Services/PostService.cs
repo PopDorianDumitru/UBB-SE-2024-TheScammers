@@ -322,10 +322,10 @@ namespace ISSLab.Services
             {
                 throw new Exception("That group does not exist");
             }
-            if (group.BigSellers.Contains(userID))
+            if (group.TopSellers.Contains(userID))
             {
                 post.Promoted = true;
-                group.RemoveBigSeller(userID);
+                group.RemoveTopSeller(userID);
             }
             else
                 throw new Exception("User is not a big seller in the group");
