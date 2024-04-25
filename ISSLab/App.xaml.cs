@@ -22,7 +22,7 @@ namespace ISSLab
             Guid groupId = Guid.NewGuid();
 
             DataSet dataSet = new DataSet();
-            IPostRepository postRepo = new PostRepository(dataSet, groupId);
+            IPostRepository postRepo = new PostRepository();
             IUserRepository userRepo = new UserRepository(dataSet);
 
             User connectedUser = new User(userId, "Soundboard1", "Dorian", DateOnly.Parse("11.12.2003"), "../Resources/Images/Dorian.jpeg", "fsdgfd", DateTime.Parse("10.04.2024"), new List<Guid>(), new List<Guid>(), new List<SellingUserScore>(), new List<Cart>(), new List<Favorites>(), new List<Guid>(), new List<Review>(), 0);
@@ -32,7 +32,7 @@ namespace ISSLab
             AddHardcodedUsers(userRepo, connectedUser, tempUser1, tempUser2);
             AddHardcodedPosts(postRepo, tempUser1, tempUser2, groupId);
 
-            IGroupRepository groupRepository = new GroupRepository(dataSet);
+            IGroupRepository groupRepository = new GroupRepository();
             IPostService postService = new PostService(postRepo, userRepo, groupRepository);
             IUserService userService = new UserService(userRepo, postRepo, groupRepository);
 
@@ -51,7 +51,7 @@ namespace ISSLab
         private void AddHardcodedPosts(IPostRepository postRepo, User tempUser1, User tempUser2, Guid groupId)
         {
             DonationPost donationPost = new DonationPost("../Resources/Images/catei.jpeg", tempUser1.Id, groupId, "Oradea", "A bunch of great dogssdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "Dogs", "077333999", "https://www.unicef.org/romania/ro", "Donation", true);
-            AuctionPost auctionPost = new AuctionPost("../Resources/Images/catei.jpeg", tempUser1.Id, groupId, "Oradea", "A bunch of great dogssdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "Dogs", "077333999", 300, DateTime.Now.AddSeconds(80), "InPerson", new List<Review>(), 4, Guid.Empty, Guid.Empty, 100, 105, "Auction", true);
+            AuctionPost auctionPost = new AuctionPost("../Resources/Images/catei.jpeg", tempUser1.Id, groupId, "Oradea", "A bunch of great dogssdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "Dogs", "077333999", 300, DateTime.Now.AddSeconds(80), "InPerson", new List<Review>(), 4, Guid.Empty, Guid.Empty, 100, 105, true);
             postRepo.AddPost(new FixedPricePost("../Resources/Images/catei.jpeg", tempUser1.Id, groupId, "Oradea", "A bunch of great dogssdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "Dogs", "077333999", 300, DateTime.Now.AddMonths(2), "InPerson", new List<Review>(), 4, Guid.Empty, "FixedPrice", true));
 
             FixedPricePost post1 = new FixedPricePost("../Resources/Images/catei.jpeg", tempUser1.Id, groupId, "Oradea", "A bunch of great dogssdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "Dogs", "077333999", 300, DateTime.Now.AddMonths(2), "InPerson", new List<Review>(), 4, Guid.Empty, "FixedPrice", true);

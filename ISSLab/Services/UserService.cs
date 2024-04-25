@@ -230,7 +230,7 @@ namespace ISSLab.Services
             }
             foreach (Guid postId in favorites.Posts)
             {
-                favoritePosts.Add(posts.GetById(postId));
+                favoritePosts.Add(posts.GetPostById(postId));
             }
             return favoritePosts;
         }
@@ -255,9 +255,9 @@ namespace ISSLab.Services
                 users.FindById(userId).Carts.Add(new Cart(groupId, userId));
                 return new List<Post>();
             }
-            foreach (Guid postId in cart.Posts)
+            foreach (Guid postId in cart.PostsSavedInCart)
             {
-                cartedPosts.Add(posts.GetById(postId));
+                cartedPosts.Add(posts.GetPostById(postId));
             }
             return cartedPosts;
         }
