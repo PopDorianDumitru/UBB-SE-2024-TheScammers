@@ -87,7 +87,7 @@ namespace Tests.ViewModel
         {
             DateTime expirationDate = DateTime.Now.AddDays(10);
             Post auctionPost = new AuctionPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty,
-                string.Empty, 0, expirationDate, string.Empty, [], 0, Guid.NewGuid(), Guid.NewGuid(), 0, 0, "Auction", true);
+                string.Empty, 0, expirationDate, string.Empty, [], 0, Guid.NewGuid(), Guid.NewGuid(), 0, 0, true);
             _postViewModel.Post = auctionPost;
 
             TimeSpan timeLeft = expirationDate - DateTime.Now;
@@ -123,7 +123,7 @@ namespace Tests.ViewModel
         {
             float expectedReviewScore = 30;
             Post auctionPost = new AuctionPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty,
-               string.Empty, 0, DateTime.Now, string.Empty, [], expectedReviewScore, Guid.NewGuid(), Guid.NewGuid(), 0, 0, "Auction", true);
+               string.Empty, 0, DateTime.Now, string.Empty, [], expectedReviewScore, Guid.NewGuid(), Guid.NewGuid(), 0, 0, true);
             _postViewModel.Post = auctionPost;
 
             Assert.That(_postViewModel.Rating, Is.EqualTo(expectedReviewScore));
@@ -160,7 +160,7 @@ namespace Tests.ViewModel
         {
             string expectedDescription = "expected description";
             Post auctionPost = new AuctionPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, expectedDescription, string.Empty,
-                string.Empty, 0, DateTime.Now, string.Empty, [], 0, Guid.NewGuid(), Guid.NewGuid(), 0, 0, string.Empty, true);
+                string.Empty, 0, DateTime.Now, string.Empty, [], 0, Guid.NewGuid(), Guid.NewGuid(), 0, 0, true);
             _postViewModel.Post = auctionPost;
 
             Assert.That(_postViewModel.Description, Is.EqualTo(expectedDescription));
@@ -190,7 +190,7 @@ namespace Tests.ViewModel
         public void Description_ForAuctionPost_SetsCorrectValue()
         {
             Post auctionPost = new AuctionPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, "", string.Empty,
-                string.Empty, 0, DateTime.Now, string.Empty, [], 0, Guid.NewGuid(), Guid.NewGuid(), 0, 0, string.Empty, true);
+                string.Empty, 0, DateTime.Now, string.Empty, [], 0, Guid.NewGuid(), Guid.NewGuid(), 0, 0, true);
             _postViewModel.Post = auctionPost;
 
             string expectedDescription = "expected description";
@@ -224,7 +224,7 @@ namespace Tests.ViewModel
         {
             string expectedContacts = "expected contacts";
             Post auctionPost = new AuctionPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty,
-                expectedContacts, 0, DateTime.Now, string.Empty, [], 0, Guid.NewGuid(), Guid.NewGuid(), 0, 0, string.Empty, true);
+                expectedContacts, 0, DateTime.Now, string.Empty, [], 0, Guid.NewGuid(), Guid.NewGuid(), 0, 0, true);
             _postViewModel.Post = auctionPost;
 
             Assert.That(_postViewModel.Contact, Is.EqualTo(expectedContacts));
@@ -254,7 +254,7 @@ namespace Tests.ViewModel
         public void Contact_ForAuctionPost_SetsCorrectValue()
         {
             Post auctionPost = new AuctionPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty,
-                string.Empty, "", 0, DateTime.Now, string.Empty, [], 0, Guid.NewGuid(), Guid.NewGuid(), 0, 0, string.Empty, true);
+                string.Empty, "", 0, DateTime.Now, string.Empty, [], 0, Guid.NewGuid(), Guid.NewGuid(), 0, 0, true);
             _postViewModel.Post = auctionPost;
 
             string expectedContacts = "expected contacts";
@@ -289,7 +289,7 @@ namespace Tests.ViewModel
         {
             string expectedDelivery = "expected delivery";
             Post auctionPost = new AuctionPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty,
-                string.Empty, 0, DateTime.Now, expectedDelivery, [], 0, Guid.NewGuid(), Guid.NewGuid(), 0, 0, "Auction", true);
+                string.Empty, 0, DateTime.Now, expectedDelivery, [], 0, Guid.NewGuid(), Guid.NewGuid(), 0, 0, true);
             _postViewModel.Post = auctionPost;
 
             Assert.That(_postViewModel.Delivery, Is.EqualTo(expectedDelivery));
@@ -325,7 +325,7 @@ namespace Tests.ViewModel
         public void Delivery_ForAuctionPost_SetsCorrectValue()
         {
             Post auctionPost = new AuctionPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty,
-                string.Empty, 0, DateTime.Now, "", [], 0, Guid.NewGuid(), Guid.NewGuid(), 0, 0, "Auction", true);
+                string.Empty, 0, DateTime.Now, "", [], 0, Guid.NewGuid(), Guid.NewGuid(), 0, 0, true);
             _postViewModel.Post = auctionPost;
 
             string expectedDelivery = "expected delivery";
@@ -491,7 +491,7 @@ namespace Tests.ViewModel
         {
             double expectedPrice = 1234;
             Post auctionPost = new AuctionPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty,
-                string.Empty, expectedPrice, DateTime.Now, string.Empty, [], 0, Guid.NewGuid(), Guid.NewGuid(), 0, 0, "Auction", true);
+                string.Empty, expectedPrice, DateTime.Now, string.Empty, [], 0, Guid.NewGuid(), Guid.NewGuid(), 0, 0, true);
             _postViewModel.Post = auctionPost;
 
             string expectedResult = "$" + expectedPrice;
@@ -521,7 +521,7 @@ namespace Tests.ViewModel
             double currentMinimumBidPrice = 1000;
             DateTime expirationDate = DateTime.Now.AddSeconds(10);
             Post auctionPost = new AuctionPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty,
-                string.Empty, 0, expirationDate, string.Empty, [], 0, Guid.NewGuid(), Guid.NewGuid(), currentBidPrice, currentMinimumBidPrice, "Auction", true);
+                string.Empty, 0, expirationDate, string.Empty, [], 0, Guid.NewGuid(), Guid.NewGuid(), currentBidPrice, currentMinimumBidPrice, true);
             _postViewModel.Post = auctionPost;
 
             _postViewModel.UpdateBidPrice();
@@ -538,7 +538,7 @@ namespace Tests.ViewModel
             double currentMinimumBidPrice = 1000;
             DateTime expirationDate = DateTime.Now.AddSeconds(100);
             Post auctionPost = new AuctionPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty,
-                string.Empty, 0, expirationDate, string.Empty, [], 0, Guid.NewGuid(), Guid.NewGuid(), currentBidPrice, currentMinimumBidPrice, "Auction", true);
+                string.Empty, 0, expirationDate, string.Empty, [], 0, Guid.NewGuid(), Guid.NewGuid(), currentBidPrice, currentMinimumBidPrice, true);
             _postViewModel.Post = auctionPost;
 
             _postViewModel.UpdateBidPrice();
@@ -591,7 +591,7 @@ namespace Tests.ViewModel
         {
             double currentBidPrice = 1234;
             Post auctionPost = new AuctionPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty,
-                string.Empty, 0, DateTime.Now, string.Empty, [], 0, Guid.NewGuid(), Guid.NewGuid(), currentBidPrice, 0, "Auction", true);
+                string.Empty, 0, DateTime.Now, string.Empty, [], 0, Guid.NewGuid(), Guid.NewGuid(), currentBidPrice, 0, true);
             _postViewModel.Post = auctionPost;
 
 
