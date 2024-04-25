@@ -331,7 +331,7 @@ namespace ISSLab.Model.Repositories
         public void updatePostComment(Guid id, Comment comment)
         {
             DataRow row = dataSet.Tables["Comments"].NewRow();
-            row["id"] = comment.Id.ToString();
+            row["id"] = comment.CommentId.ToString();
             row["content"] = comment.Content;
             row["user_id"] = comment.UserId;
 
