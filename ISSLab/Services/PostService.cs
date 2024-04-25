@@ -55,12 +55,12 @@ namespace ISSLab.Services
             {
                 throw new Exception("Price can't be negative");
             }
-            User? user = users.findById(authorId);
+            User? user = users.FindById(authorId);
             if (user == null)
             {
                 throw new Exception("User not found");
             }
-            if (!user.hasAccessToSell(groupId))
+            if (!user.HasAccessToSell(groupId))
             {
                 throw new Exception("User can't sell in this group!");
             }
@@ -78,12 +78,12 @@ namespace ISSLab.Services
             {
                 throw new Exception("Price can't be negative");
             }
-            User? user = users.findById(authorId);
+            User? user = users.FindById(authorId);
             if (user == null)
             {
                 throw new Exception("User not found");
             }
-            if (!user.hasAccessToSell(groupId))
+            if (!user.HasAccessToSell(groupId))
             {
                 throw new Exception("User can't sell in this group!");
             }
@@ -97,12 +97,12 @@ namespace ISSLab.Services
 
         public Post CreateDonationPost(string media, Guid authorId, Guid groupId, string location, string description, string title, string contacts, string donationPageLink)
         {
-            User? user = users.findById(authorId);
+            User? user = users.FindById(authorId);
             if (user == null)
             {
                 throw new Exception("User not found");
             }
-            if (!user.hasAccessToSell(groupId))
+            if (!user.HasAccessToSell(groupId))
             {
                 throw new Exception("User can't sell in this group!");
             }
@@ -300,9 +300,9 @@ namespace ISSLab.Services
             else
             {
                 if (status.Interested == interested)
-                    post.removeInterestStatus(userID);
+                    post.RemoveInterestStatus(userID);
                 else
-                    post.toggleInterestStatus(userID);
+                    post.ToggleInterestStatus(userID);
             }
         }
 
