@@ -25,7 +25,7 @@ namespace ISSLab.Model
         {
             this.interestedUserId = Guid.NewGuid();
             this.postId = Guid.NewGuid();
-            this.interestStatusId = new Guid(interestedUserId.ToString() + postId.ToString());
+            this.interestStatusId = Guid.NewGuid();
             this.interested = false;
         }
 
