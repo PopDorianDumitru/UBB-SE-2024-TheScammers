@@ -492,9 +492,9 @@ namespace ISSLab.Model.Repositories
         public void updatePostInterestStatuses(Guid id, InterestStatus status)
         {
             DataRow row = dataSet.Tables["InterestStatuses"].NewRow();
-            row["user_id"] = status.UserId.ToString();
+            row["user_id"] = status.InterestedUserId.ToString();
             row["post_id"] = status.PostId;
-            row["id"] = status.InterestId;
+            row["id"] = status.InterestStatusId;
             row["interested"] = status.Interested;
 
             for (int i = 0; i < posts.Count; i++)

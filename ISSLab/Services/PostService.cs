@@ -292,7 +292,7 @@ namespace ISSLab.Services
             {
                 throw new Exception("Post not found");
             }
-            InterestStatus? status = post.InterestStatuses.Find(status => status.UserId == userID);
+            InterestStatus? status = post.InterestStatuses.Find(status => status.InterestedUserId == userID);
             if (status == null)
             {
                 post.InterestStatuses.Add(new InterestStatus(userID, postID, interested));
