@@ -45,7 +45,7 @@ namespace Tests.Model.Repositories
         }
 
         [Test]
-        public void RemovePost_PostDoesNotExist_PostsDontChange()
+        public void RemovePost_PostDoesNotExist_NoPostsAreRemoved()
         {
             Guid postGuid = Guid.NewGuid();
             Post post = new Post(postGuid, new List<Guid>(), new List<Guid>(), new List<Comment>(), "", new DateTime(), Guid.NewGuid(),

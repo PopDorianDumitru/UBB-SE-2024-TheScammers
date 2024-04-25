@@ -12,25 +12,25 @@ namespace ISSLab.Model.Repositories
 {
     public class PostRepository : IPostRepository
     {
-        private List<Post> allPosts;
+        private List<Post> _allPosts;
 
         public PostRepository()
         {
-            this.allPosts = new List<Post>();
+            this._allPosts = new List<Post>();
         }
 
         public void AddPost(Post newPost)
         {
-            allPosts.Add(newPost);
+            _allPosts.Add(newPost);
         }
 
         public void RemovePost(Guid id)
         {
-            for (int i = 0; i < allPosts.Count; i++)
+            for (int i = 0; i < _allPosts.Count; i++)
             {
-                if (allPosts[i].Id == id)
+                if (_allPosts[i].Id == id)
                 {
-                    allPosts.RemoveAt(i);
+                    _allPosts.RemoveAt(i);
                     break;
                 }
             }
@@ -38,16 +38,16 @@ namespace ISSLab.Model.Repositories
 
         public List<Post> GetAllPosts()
         {
-            return allPosts;
+            return _allPosts;
         }
 
         public Post GetPostById(Guid postId)
         {
-            for (int i = 0; i < allPosts.Count; i++)
+            for (int i = 0; i < _allPosts.Count; i++)
             {
-                if (allPosts[i].Id == postId)
+                if (_allPosts[i].Id == postId)
                 {
-                    return allPosts[i];
+                    return _allPosts[i];
                 }
             }
             throw new Exception("Post does not exist!");
