@@ -732,5 +732,15 @@ namespace Tests.ViewModel
         //{
         //    Visible = "Collapsed";
         //}
+        [Test]
+        public void HidePost_ForAnyPost_ReturnsCorrectValue()
+        {
+            Post noTypePost = new Post(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
+            noTypePost.addInterestStatus(new InterestStatus(Guid.NewGuid(), Guid.NewGuid(), true));
+            _postViewModel.Post = noTypePost;
+
+            _postViewModel.HidePost();
+            Assert.That(_postViewModel.Visible, Is.EqualTo("Collapsed"));
+        }
     }
 }
