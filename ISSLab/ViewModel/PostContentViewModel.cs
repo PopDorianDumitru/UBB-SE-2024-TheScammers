@@ -224,7 +224,7 @@ namespace ISSLab.ViewModel
 
             if (timeLeft.TotalSeconds < 30)
             {
-                auctionPost.add30SecondsToExpirationDate();
+                auctionPost.Add30SecondsToExpirationDate();
                 OnPropertyChanged(nameof(AvailableFor));
             }
 

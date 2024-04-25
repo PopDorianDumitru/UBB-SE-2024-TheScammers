@@ -90,9 +90,9 @@ namespace ISSLab.Services
             SellingUserScore? score = user.sellingUserScores.Find(score => score.GroupId == groupId);
             if (score == null || score.Score < 3.75)
             {
-                return new AuctionPost(media, authorId, groupId, location, description, title, contacts, price, expirationDate, delivery, reviews, reviewScore, buyerId, currentPriceLeader, currentBidPrice, minimumBidPrice, "AuctionPost", false);
+                return new AuctionPost(media, authorId, groupId, location, description, title, contacts, price, expirationDate, delivery, reviews, reviewScore, buyerId, currentPriceLeader, currentBidPrice, minimumBidPrice, false);
             }
-            return new AuctionPost(media, authorId, groupId, location, description, title, contacts, price, expirationDate, delivery, reviews, reviewScore, buyerId, currentPriceLeader, currentBidPrice, minimumBidPrice, "AuctionPost", false);
+            return new AuctionPost(media, authorId, groupId, location, description, title, contacts, price, expirationDate, delivery, reviews, reviewScore, buyerId, currentPriceLeader, currentBidPrice, minimumBidPrice, false);
         }
 
         public Post CreateDonationPost(string media, Guid authorId, Guid groupId, string location, string description, string title, string contacts, string donationPageLink)
@@ -213,7 +213,7 @@ namespace ISSLab.Services
             auctionPost.CurrentBidPrice = bidAmount;
             auctionPost.CurrentPriceLeader = userID;
             if ((auctionPost.ExpirationDate - DateTime.Now).TotalSeconds < 30)
-                auctionPost.add30SecondsToExpirationDate();
+                auctionPost.Add30SecondsToExpirationDate();
         }
 
         public void Donate(Guid postID)
