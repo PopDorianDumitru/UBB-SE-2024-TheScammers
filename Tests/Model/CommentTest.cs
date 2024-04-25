@@ -52,7 +52,6 @@ namespace Tests.Model
             Assert.That(commentAll.CommentId, Is.EqualTo(commentId));
         }
 
-
         [Test]
         public void UserIdGet_GetUserIdFromEmptyComment_ShouldNotBeEmpty()
         {
@@ -71,7 +70,6 @@ namespace Tests.Model
             Assert.That(commentAll.UserId, Is.EqualTo(userId));
         }
 
-
         [Test]
         public void ContentGet_GetContentFromEmptyComment_ShouldBeEmptyString()
         {
@@ -89,7 +87,6 @@ namespace Tests.Model
         {
             Assert.That(commentAll.Content, Is.EqualTo(content));
         }
-
 
         [Test]
         public void RepliesGet_GetRepliesFromEmptyComment_ShouldBeEmptyList()
@@ -139,6 +136,7 @@ namespace Tests.Model
             commentEmpty.AddReply(commentToAdd);
             Assert.That(commentEmpty.Replies, Has.Count.EqualTo(1));
         }
+
         [Test]
         public void AddReply_AddReplyToEmptyComment_ReplyShouldContainAddedComment()
         {
@@ -152,6 +150,7 @@ namespace Tests.Model
             commentUserContent.AddReply(commentToAdd);
             Assert.That(commentUserContent.Replies, Has.Count.EqualTo(1));
         }
+
         [Test]
         public void AddReply_AddReplyToCommentUserContent_ReplyShouldContainAddedComment()
         {
@@ -165,6 +164,7 @@ namespace Tests.Model
             commentAll.AddReply(commentToAdd);
             Assert.That(commentAll.Replies, Has.Count.EqualTo(1));
         }
+
         [Test]
         public void AddReply_AddReplyToCommentAll_ReplyShouldContainAddedComment()
         {

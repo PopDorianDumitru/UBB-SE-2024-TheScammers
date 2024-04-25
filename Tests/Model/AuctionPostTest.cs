@@ -27,64 +27,56 @@ namespace Tests.Model
             onGoing = true;
 
             postEmpty = new AuctionPost();
-            postWithId = new AuctionPost(Guid.NewGuid(), new List<Guid>(), new List<Guid>(), new List<Comment>(), "", DateTime.Now, Guid.NewGuid(), Guid.NewGuid(), true, new List<Guid>(), "", "", "", new List<InterestStatus>(), "", new List<Report>() , 0, DateTime.Now, "", new List<Review>(), 0, Guid.NewGuid(), currentPriceLeader, currentBidPrice, minimumBidPrice, false, 100, onGoing);
-            postWithoutId = new AuctionPost("", Guid.NewGuid(), Guid.NewGuid(), "", "", "", "", 100, DateTime.Now, "", new List<Review>(), 0, Guid.NewGuid(),currentPriceLeader, currentBidPrice, minimumBidPrice, true);
-
+            postWithId = new AuctionPost(Guid.NewGuid(), new List<Guid>(), new List<Guid>(), new List<Comment>(), "", DateTime.Now, Guid.NewGuid(), Guid.NewGuid(), true, new List<Guid>(), "", "", "", new List<InterestStatus>(), "", new List<Report>(), 0, DateTime.Now, "", new List<Review>(), 0, Guid.NewGuid(), currentPriceLeader, currentBidPrice, minimumBidPrice, false, 100, onGoing);
+            postWithoutId = new AuctionPost("", Guid.NewGuid(), Guid.NewGuid(), "", "", "", "", 100, DateTime.Now, "", new List<Review>(), 0, Guid.NewGuid(), currentPriceLeader, currentBidPrice, minimumBidPrice, true);
         }
 
         [Test]
-        public void OnGoingGet_FromPostEmpty_ShouldBeTrue()
+        public void OnGoingGet_FromPostInstantiatedWithoutId_ShouldBeTrue()
         {
-            Assert.IsTrue(onGoing);
+            Assert.That(postWithoutId.OnGoing, Is.True);
         }
+
         [Test]
-        public void OnGoingGet_FromPostWithId_ShouldBeTrue()
-        {
-            Assert.IsTrue(onGoing);
-        }
-        [Test]
-        public void OnGoingGet_FromPostWithoutId_ShouldBeEqualToOngoing()
-        {
-            Assert.That(postWithoutId.OnGoing, Is.EqualTo(onGoing));
-        }
-        [Test]
-        public void OnGoingSet_ForPostEmpty_ShouldBeEqualToNewValue()
+        public void OnGoingSet_ForPostEmpty_OnGoingBecomesNewValue()
         {
             bool newOnGoing = true;
             postEmpty.OnGoing = newOnGoing;
             Assert.That(postEmpty.OnGoing, Is.EqualTo(newOnGoing));
         }
+
         [Test]
-        public void OnGoingSet_ForPostWithoutId_ShouldBeEqualToNewValue()
+        public void OnGoingSet_ForPostWithoutId_OnGoingBecomesNewValue()
         {
             bool newOnGoing = false;
             postWithoutId.OnGoing = newOnGoing;
             Assert.That(postWithoutId.OnGoing, Is.EqualTo(newOnGoing));
         }
+
         [Test]
-        public void OnGoingSet_ForPostWithId_ShouldBeEqualToNewValue()
+        public void OnGoingSet_ForPostWithId_OnGoingBecomesNewValue()
         {
             bool newOnGoing = false;
             postWithId.OnGoing = newOnGoing;
             Assert.That(postWithId.OnGoing, Is.EqualTo(newOnGoing));
         }
 
-
         [Test]
         public void CurrentBidPrice_ForPostEmpty_ShouldBeZero()
         {
             Assert.That(postEmpty.CurrentBidPrice, Is.EqualTo(0));
         }
+
         [Test]
         public void CurrentBidPrice_ForPostWithId_ShouldBeEqualToCurrentBidPrice()
         {
-            Assert.That(currentBidPrice, Is.EqualTo(postWithId.CurrentBidPrice));
+            Assert.That(postWithId.CurrentBidPrice, Is.EqualTo(currentBidPrice));
         }
 
         [Test]
         public void CurrentBidPrice_ForPostWithoutId_ShouldBeEqualToCurrentBidPrice()
         {
-            Assert.That(currentBidPrice, Is.EqualTo(postWithoutId.CurrentBidPrice));
+            Assert.That(postWithId.CurrentBidPrice, Is.EqualTo(currentBidPrice));
         }
 
         [Test]
@@ -110,8 +102,6 @@ namespace Tests.Model
             postWithoutId.CurrentBidPrice = newValue;
             Assert.That(postWithoutId.CurrentBidPrice, Is.EqualTo(newValue));
         }
-
-
 
         [Test]
         public void MinimumBidPrice_ChangeForPostEmpty_ShouldBeEqualToNewValue()
@@ -154,8 +144,6 @@ namespace Tests.Model
             Assert.That(minimumBidPrice, Is.EqualTo(postWithoutId.MinimumBidPrice));
         }
 
-
-
         [Test]
         public void CurrentPriceLeader_ForPostEmpty_ShouldBeEmpty()
         {
@@ -179,6 +167,7 @@ namespace Tests.Model
             postEmpty.CurrentPriceLeader = newValue;
             Assert.That(postEmpty.CurrentPriceLeader, Is.EqualTo(newValue));
         }
+
         [Test]
         public void CurrentPriceLeader_ChangePriceLeaderForPostWithoutId_ShouldBeEqualToNewValue()
         {
@@ -186,6 +175,7 @@ namespace Tests.Model
             postWithoutId.CurrentPriceLeader = newValue;
             Assert.That(postWithoutId.CurrentPriceLeader, Is.EqualTo(newValue));
         }
+
         [Test]
         public void CurrentPriceLeader_ChangePriceLeaderForPostWithId_ShouldBeEqualToNewValue()
         {
@@ -193,27 +183,30 @@ namespace Tests.Model
             postWithId.CurrentPriceLeader = newValue;
             Assert.That(postWithId.CurrentPriceLeader, Is.EqualTo(newValue));
         }
+
         [Test]
         public void Type_ForPostEmpty_ShouldBeAuction()
         {
-            Assert.That(postEmpty.Type, Is.EqualTo("Auction"));
+            Assert.That(postEmpty.Type, Is.EqualTo(Constants.AUCTION_POST_TYPE));
         }
+
         [Test]
         public void Type_ForPostWithoutId_ShouldBeAuction()
         {
-            Assert.That(postWithoutId.Type, Is.EqualTo("Auction"));
+            Assert.That(postWithoutId.Type, Is.EqualTo(Constants.AUCTION_POST_TYPE));
         }
+
         [Test]
         public void Type_ForPostWithId_ShouldBeAuction()
         {
-            Assert.That(postWithId.Type, Is.EqualTo("Auction"));
+            Assert.That(postWithId.Type, Is.EqualTo(Constants.AUCTION_POST_TYPE));
         }
 
         [Test]
         public void Add30SecondsToExpirationDate_ForAnyPost_ShouldAdd30Seconds()
         {
             DateTime expectedExpirationDate = DateTime.Now.AddSeconds(30);
-            
+
             postEmpty.Add30SecondsToExpirationDate();
             DateTime actualExpirationDate = postEmpty.ExpirationDate;
             TimeSpan difference = actualExpirationDate - expectedExpirationDate;
@@ -248,6 +241,7 @@ namespace Tests.Model
             postWithoutId.PlaceBid(newPriceLeader, 900);
             Assert.That(postWithoutId.CurrentPriceLeader, Is.EqualTo(newPriceLeader));
         }
+
         [Test]
         public void PlaceBid_ForAnyPostBidIsHigherThanCurrentPrice_ExpirationDateIsExtended()
         {
@@ -259,8 +253,6 @@ namespace Tests.Model
             DateTime actualExpirationDate = postEmpty.ExpirationDate;
             TimeSpan difference = actualExpirationDate - expectedExpirationDate;
             Assert.Less(difference.TotalSeconds, 1);
-            
         }
-
     }
 }
