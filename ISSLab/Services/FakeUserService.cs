@@ -9,20 +9,32 @@ namespace ISSLab.Services
 {
     public class FakeUserService : IUserService
     {
+        public bool AddItemToFavoritesCalled { get; set; }
+        public Guid GroupId { get; set; }
+        public Guid PostId { get; set; }
+        public Guid AccountId { get; set; }
+
+        public bool AddItemToCartCalled { get; set; }
+
+        public void AddItemToFavorites(Guid groupId, Guid postId, Guid accountId)
+        {
+            AddItemToFavoritesCalled = true;
+            GroupId = groupId;
+            PostId = postId;
+            AccountId = accountId;
+        }
+        public void AddItemToCart(Guid groupId, Guid postId, Guid accountId)
+        {
+            AddItemToCartCalled = true;
+            GroupId = groupId;
+            PostId = postId;
+            AccountId = accountId;
+        }
         public void AcceptAccessToSell(Guid userId, Guid groupId)
         {
             throw new NotImplementedException();
         }
 
-        public void AddItemToCart(Guid groupId, Guid postId, Guid userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddItemToFavorites(Guid groupId, Guid postId, Guid userId)
-        {
-            throw new NotImplementedException();
-        }
 
         public void AddReview(Guid reviewerId, Guid sellerId, Guid groupId, string content, DateTime date, int rating)
         {

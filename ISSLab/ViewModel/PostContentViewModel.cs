@@ -15,9 +15,9 @@ namespace ISSLab.ViewModel
     public class PostContentViewModel : ViewModelBase, IPostContentViewModel
     {
         private IUserService _userService;
-        private Guid _groupId;
+        public Guid _groupId { get; set; }
         private Post _post { get; set; }
-        private Guid _accountId;
+        public Guid _accountId { get; set; }
         public User user;
         private string _visible;
         private string _donationButtonVisible;

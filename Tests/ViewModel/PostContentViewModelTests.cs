@@ -1,5 +1,6 @@
 ﻿using ISSLab.Model;
 using ISSLab.Services;
+using ISSLab.View;
 using ISSLab.ViewModel;
 using Microsoft.VisualStudio.TestPlatform.Common.Utilities;
 using System;
@@ -13,13 +14,14 @@ namespace Tests.ViewModel
 {
     public class PostContentViewModelTests
     {
+        private FakeUserService _fakeUserService;
         private PostContentViewModel _postViewModel;
 
         [SetUp]
         public void SetUp()
         {
-
-            _postViewModel = new PostContentViewModel(new Post(), new User(), Guid.NewGuid(), Guid.NewGuid(), new FakeUserService());
+            _fakeUserService = new FakeUserService();
+            _postViewModel = new PostContentViewModel(new Post(), new User(), Guid.NewGuid(), Guid.NewGuid(), _fakeUserService);
         }
 
         [Test]
@@ -503,13 +505,232 @@ namespace Tests.ViewModel
             Post donationPost = new DonationPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, "Donation", true);
             _postViewModel.Post = donationPost;
 
-            Assert.That(_postViewModel.Delivery, Is.EqualTo(expectedPrice));
+            Assert.That(_postViewModel.Price, Is.EqualTo(expectedPrice));
 
             expectedPrice = "";
             Post noTypePost = new Post(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, "", true);
             _postViewModel.Post = noTypePost;
 
-            Assert.That(_postViewModel.Delivery, Is.EqualTo(expectedPrice));
+            Assert.That(_postViewModel.Price, Is.EqualTo(expectedPrice));
         }
+
+        [Test]
+        public void UpdateBidPrice_ForAuctionPostLessThanThirtySeconds_UpdatesCorrectly()
+        {
+            double currentBidPrice = 1234;
+            double currentMinimumBidPrice = 1000;
+            DateTime expirationDate = DateTime.Now.AddSeconds(10);
+            Post auctionPost = new AuctionPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty,
+                string.Empty, 0, expirationDate, string.Empty, [], 0, Guid.NewGuid(), Guid.NewGuid(), currentBidPrice, currentMinimumBidPrice, "Auction", true);
+            _postViewModel.Post = auctionPost;
+
+            _postViewModel.UpdateBidPrice();
+            double expectedBidPrice = currentBidPrice + 5;
+            double expectedMinimumBidPrice = currentMinimumBidPrice + 5;
+            Assert.That(((FixedPricePost)_postViewModel.Post).ExpirationDate, Is.EqualTo(expirationDate.AddSeconds(30)));
+            Assert.That(((AuctionPost)_postViewModel.Post).CurrentBidPrice, Is.EqualTo(expectedBidPrice));
+            Assert.That(((AuctionPost)_postViewModel.Post).MinimumBidPrice, Is.EqualTo(expectedMinimumBidPrice));
+        }
+        [Test]
+        public void UpdateBidPrice_ForAuctionPostMoreThanThirtySeconds_UpdatesCorrectly()
+        {
+            double currentBidPrice = 1234;
+            double currentMinimumBidPrice = 1000;
+            DateTime expirationDate = DateTime.Now.AddSeconds(100);
+            Post auctionPost = new AuctionPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty,
+                string.Empty, 0, expirationDate, string.Empty, [], 0, Guid.NewGuid(), Guid.NewGuid(), currentBidPrice, currentMinimumBidPrice, "Auction", true);
+            _postViewModel.Post = auctionPost;
+
+            _postViewModel.UpdateBidPrice();
+            double expectedBidPrice = currentBidPrice + 5;
+            double expectedMinimumBidPrice = currentMinimumBidPrice + 5;
+            Assert.That(((FixedPricePost)_postViewModel.Post).ExpirationDate, Is.EqualTo(expirationDate));
+            Assert.That(((AuctionPost)_postViewModel.Post).CurrentBidPrice, Is.EqualTo(expectedBidPrice));
+            Assert.That(((AuctionPost)_postViewModel.Post).MinimumBidPrice, Is.EqualTo(expectedMinimumBidPrice));
+        }
+        [Test]
+        public void UpdateBidPrice_ForNotAuctionPost_ThrowsException()
+        {
+            Post donationPost = new DonationPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, "Donation", true);
+            _postViewModel.Post = donationPost;
+
+            var exceptionMessage = Assert.Throws<Exception>(() => { _postViewModel.UpdateBidPrice(); });
+            Assert.That(exceptionMessage.Message, Is.EqualTo("Post is not of type AuctionPost!"));
+
+            Post noTypePost = new Post(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, "", true);
+            _postViewModel.Post = noTypePost;
+
+            exceptionMessage = Assert.Throws<Exception>(() => { _postViewModel.UpdateBidPrice(); });
+            Assert.That(exceptionMessage.Message, Is.EqualTo("Post is not of type AuctionPost!"));
+        }
+        
+        [Test]
+        public void AddPostToFavorites_AnyValues_ShouldCallAddItemToFavorites()
+        {
+            _postViewModel.AddPostToFavorites();
+
+            Assert.That(_fakeUserService.AddItemToFavoritesCalled, Is.EqualTo(true));
+            Assert.That(_fakeUserService.GroupId, Is.EqualTo(_postViewModel._groupId));
+            Assert.That(_fakeUserService.PostId, Is.EqualTo(_postViewModel.Post.Id));
+            Assert.That(_fakeUserService.AccountId, Is.EqualTo(_postViewModel._accountId));
+        }
+        
+        [Test]
+        public void AddPostToCart_AnyValues_ShouldCallAddItemToCart()
+        {
+            _postViewModel.AddPostToCart();
+
+            Assert.That(_fakeUserService.AddItemToCartCalled, Is.EqualTo(true));
+            Assert.That(_fakeUserService.GroupId, Is.EqualTo(_postViewModel._groupId));
+            Assert.That(_fakeUserService.PostId, Is.EqualTo(_postViewModel.Post.Id));
+            Assert.That(_fakeUserService.AccountId, Is.EqualTo(_postViewModel._accountId));
+        }
+
+        [Test]
+        public void BidPrice_ForAuctionPost_ReturnsCorrectValue()
+        {
+            double currentBidPrice = 1234;
+            Post auctionPost = new AuctionPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty,
+                string.Empty, 0, DateTime.Now, string.Empty, [], 0, Guid.NewGuid(), Guid.NewGuid(), currentBidPrice, 0, "Auction", true);
+            _postViewModel.Post = auctionPost;
+
+
+            string expectedResult = "$" + currentBidPrice;
+            Assert.That(_postViewModel.BidPrice, Is.EqualTo(expectedResult));
+        }
+        [Test]
+        public void BidPrice_ForNotAuctionPost_ReturnsEmptyString()
+        {
+            Post donationPost = new DonationPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, "Donation", true);
+            _postViewModel.Post = donationPost;
+
+            string expectedResult = "";
+            Assert.That(_postViewModel.BidPrice, Is.EqualTo(expectedResult));
+
+            Post noTypePost = new Post(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, "", true);
+            _postViewModel.Post = noTypePost;
+
+            Assert.That(_postViewModel.BidPrice, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void Interests_ForAnyPost_ReturnsCorrectValue()
+        {
+            Post noTypePost = new Post(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
+            noTypePost.addInterestStatus(new InterestStatus(Guid.NewGuid(), Guid.NewGuid(), true));
+            _postViewModel.Post = noTypePost;
+
+            int expectedCount = 1;
+            string expectedResult = expectedCount.ToString() + " interested";
+            Assert.That(_postViewModel.Interests, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void AddInterests_NoPreviousInterest_AddsInterest()
+        {
+            Post noTypePost = new Post(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
+            User newUser = new User(string.Empty, string.Empty, DateOnly.MaxValue, string.Empty, string.Empty);
+            _postViewModel.Post = noTypePost;
+            _postViewModel.user = newUser;
+
+            _postViewModel.AddInterests();
+
+            Assert.That(_postViewModel.Post.InterestStatuses.Count, Is.EqualTo(1));
+            Assert.That(_postViewModel.Post.InterestStatuses[0].PostId, Is.EqualTo(noTypePost.Id));
+            Assert.That(_postViewModel.Post.InterestStatuses[0].UserId, Is.EqualTo(newUser.Id));
+        }
+
+        [Test]
+        public void AddInterests_InterestAlreadyExists_RemovesInterest()
+        {
+            Post noTypePost = new Post(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
+            User newUser = new User(string.Empty, string.Empty, DateOnly.MaxValue, string.Empty, string.Empty);
+            _postViewModel.Post = noTypePost;
+            _postViewModel.user = newUser;
+
+            _postViewModel.AddInterests();
+            _postViewModel.AddInterests();
+
+            Assert.That(_postViewModel.Post.InterestStatuses.Count, Is.EqualTo(0));
+
+        }
+
+        [Test]
+        public void Uninterests_AnyPost_ReturnsUninterestedNumber()
+        {
+            Post noTypePost = new Post(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
+            User newUser = new User(string.Empty, string.Empty, DateOnly.MaxValue, string.Empty, string.Empty);
+            _postViewModel.Post = noTypePost;
+            _postViewModel.user = newUser;
+
+            int expectedCount = 0;
+            string expectedResult = expectedCount.ToString() + " uninterested";
+            Assert.That(_postViewModel.Uninterests, Is.EqualTo(expectedResult));
+
+            _postViewModel.AddUniterests();
+            expectedCount = 1;
+            expectedResult = expectedCount.ToString() + " uninterested";
+            Assert.That(_postViewModel.Uninterests, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void AddUninterests_NoPreviousUninterest_AddsUninterest()
+        {
+            Post noTypePost = new Post(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
+            User newUser = new User(string.Empty, string.Empty, DateOnly.MaxValue, string.Empty, string.Empty);
+            _postViewModel.Post = noTypePost;
+            _postViewModel.user = newUser;
+
+            _postViewModel.AddUniterests();
+
+            Assert.That(_postViewModel.Post.InterestStatuses.Count, Is.EqualTo(1));
+            Assert.That(_postViewModel.Post.InterestStatuses[0].PostId, Is.EqualTo(noTypePost.Id));
+            Assert.That(_postViewModel.Post.InterestStatuses[0].UserId, Is.EqualTo(newUser.Id));
+        }
+
+        [Test]
+        public void AddUninterests_UninterestAlreadyExists_RemovesUninterest()
+        {
+            Post noTypePost = new Post(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
+            User newUser = new User(string.Empty, string.Empty, DateOnly.MaxValue, string.Empty, string.Empty);
+            _postViewModel.Post = noTypePost;
+            _postViewModel.user = newUser;
+
+            _postViewModel.AddUniterests();
+            _postViewModel.AddUniterests();
+
+            Assert.That(_postViewModel.Post.InterestStatuses.Count, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void Comments_ForAnyPost_ReturnsCorrectValue()
+        {
+            Post noTypePost = new Post(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
+            noTypePost.addInterestStatus(new InterestStatus(Guid.NewGuid(), Guid.NewGuid(), true));
+            _postViewModel.Post = noTypePost;
+
+            string expectedResult = noTypePost.NrComments.Count + " comments";
+            Assert.That(_postViewModel.Comments, Is.EqualTo(expectedResult));
+        }
+        //public void SendBuyingMessage()
+        //{
+        //    Chat chat = new Chat(new ChatViewModel(user, _post));
+        //    chat.SendBuyingMessage(Media);
+        //    chat.Show();
+        //}
+
+        //public void Donate()
+        //{
+        //    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+        //    {
+        //        FileName = ((DonationPost)_post).DonationPageLink,
+        //        UseShellExecute = true
+        //    });
+        //}
+
+        //public void HidePost()
+        //{
+        //    Visible = "Collapsed";
+        //}
     }
 }
