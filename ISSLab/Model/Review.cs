@@ -13,28 +13,28 @@ namespace ISSLab.Model
         private Guid sellerId;
         private Guid groupId;
         private string content;
-        private DateTime date;
+        private DateTime dateOfReview;
         private int rating;
 
-        public Review(Guid reviewerId, Guid sellerId, Guid groupId, string content, DateTime date, int rating)
+        public Review(Guid reviewerId, Guid sellerId, Guid groupId, string content, DateTime dateOfReview, int rating)
         {
             this.id = new Guid(reviewerId.ToString() + sellerId.ToString() + groupId.ToString());
             this.reviewerId = reviewerId;
             this.groupId = groupId;
             this.sellerId = sellerId;
             this.content = content;
-            this.date = date;
+            this.dateOfReview = dateOfReview;
             this.rating = rating;
         }
 
-        public Review(Guid id, Guid reviewerId, Guid sellerId, Guid groupId, string content, DateTime date, int rating)
+        public Review(Guid id, Guid reviewerId, Guid sellerId, Guid groupId, string content, DateTime dateOfReview, int rating)
         {
             this.id = id;
             this.reviewerId = reviewerId;
             this.sellerId = sellerId;
             this.groupId = groupId;
             this.content = content;
-            this.date = date;
+            this.dateOfReview = dateOfReview;
             this.rating = rating;
 
         }
@@ -46,7 +46,7 @@ namespace ISSLab.Model
             this.reviewerId = Guid.NewGuid();
             this.sellerId = Guid.NewGuid();
             this.content = "";
-            this.date = DateTime.Now;
+            this.dateOfReview = DateTime.Now;
             this.rating = 0;
         }
 
@@ -55,7 +55,7 @@ namespace ISSLab.Model
         public Guid SellerId { get => sellerId; set => sellerId = value; }
         public Guid ReviewerId { get => reviewerId; set => reviewerId = value; }
         public string Content { get => content; set => content = value; }
-        public DateTime Date { get => date; set => date = value; }
+        public DateTime DateOfReview { get => dateOfReview; set => dateOfReview = value; }
         public int Rating { get => rating; set => rating = value; }
     }
 }
