@@ -19,6 +19,7 @@ namespace ISSLab.ViewModel
         string Media { get; }
         string Price { get; }
         string ProfilePicture { get; }
+        Post Post { get; set; }
         float Rating { get; }
         string TimePosted { get; }
         string Uninterests { get; }
