@@ -29,7 +29,7 @@ namespace ISSLab.ViewModel
             AllMessages.Add(message);
         }
 
-        public void SendMessage(string message, bool isMine, bool isSellingPost)
+        public void SendMessage(string message, bool isMine, bool isForSellingPost)
         {
             var newMessage = new Message
             {
@@ -40,7 +40,7 @@ namespace ISSLab.ViewModel
                 HorizontalAlignment = isMine ? HorizontalAlignment.Right : HorizontalAlignment.Left
             };
 
-            if (isSellingPost)
+            if (isForSellingPost)
             {
                 newMessage.Content = "SELLING POST: " + "";
                 newMessage.BubbleColor = Brushes.YellowGreen;
@@ -49,7 +49,7 @@ namespace ISSLab.ViewModel
             AllMessages.Add(newMessage);
         }
 
-        public void SendBuyingMessage(string media)
+        public void SendBuyingMessage(string imagePath)
         {
             var newMessage = new Message
             {
@@ -58,7 +58,7 @@ namespace ISSLab.ViewModel
                 IsMine = false,
                 BubbleColor = Brushes.YellowGreen,
                 HorizontalAlignment = HorizontalAlignment.Left,
-                ImagePath = media,
+                ImagePath = imagePath,
                 ShowAcceptButton = true,
                 ShowRejectButton = true
             };
