@@ -222,10 +222,10 @@ namespace ISSLab.Services
         public List<Post> GetFavoritePosts(Guid groupId, Guid userId)
         {
             List<Post> favoritePosts = new List<Post>();
-            Favorites favorites = users.FindById(userId).Favorites.Find(f => f.GroupId == groupId);
+            UsersFavoritePosts favorites = users.FindById(userId).Favorites.Find(f => f.GroupId == groupId);
             if (favorites == null)
             {
-                users.FindById(userId).Favorites.Add(new Favorites(userId, groupId));
+                users.FindById(userId).Favorites.Add(new UsersFavoritePosts(userId, groupId));
                 return new List<Post>();
             }
             foreach (Guid postId in favorites.Posts)

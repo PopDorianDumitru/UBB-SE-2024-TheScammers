@@ -504,10 +504,10 @@ namespace ISSLab.Model.Repositories
             //row["user_id"] = userId;
             //row["group_id"] = groupId;
             //row["post_id"] = postId;
-            Favorites favoriteFromGroup = users.Find(user => user.Id == userId).Favorites.Find(c => c.GroupId == groupId);
+            UsersFavoritePosts favoriteFromGroup = users.Find(user => user.Id == userId).Favorites.Find(c => c.GroupId == groupId);
             if (favoriteFromGroup == null)
             {
-                favoriteFromGroup = new Favorites(userId, groupId);
+                favoriteFromGroup = new UsersFavoritePosts(userId, groupId);
                 users.Find(user => user.Id == userId).Favorites.Add(favoriteFromGroup);
             }
             if (favoriteFromGroup.Posts.Contains(postId))
