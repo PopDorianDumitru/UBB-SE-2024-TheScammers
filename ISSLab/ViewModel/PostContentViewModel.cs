@@ -28,8 +28,8 @@ namespace ISSLab.ViewModel
         private string _bidButtonVisible;
         private string _bidPriceVisible;
         private DispatcherTimer _timer;
-
-        public PostContentViewModel(Post post, User user, Guid accountId, Guid groupId, IUserService userService) : base()
+        private IChatFactory _chatFactory;
+        public PostContentViewModel(Post post, User user, Guid accountId, Guid groupId, IUserService userService, IChatFactory chatFactory) : base()
         {
             this._userService = userService;
             this._groupId = groupId;
@@ -58,6 +58,7 @@ namespace ISSLab.ViewModel
             _timer.Interval = TimeSpan.FromSeconds(1);
             _timer.Tick += Timer_Tick;
             _timer.Start();
+            _chatFactory = chatFactory;
         }
 
         private void Timer_Tick(object? sender, EventArgs e)
@@ -326,7 +327,8 @@ namespace ISSLab.ViewModel
 
         public void SendBuyingMessage()
         {
-            Chat chat = new Chat(new ChatViewModel(user, _post));
+            var chatViewModel = new ChatViewModel(user, _post);
+            IChat chat = _chatFactory.CreateChat(chatViewModel);
             chat.SendBuyingMessage(Media);
             chat.Show();
         }

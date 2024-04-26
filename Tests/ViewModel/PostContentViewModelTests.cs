@@ -21,7 +21,7 @@ namespace Tests.ViewModel
         public void SetUp()
         {
             _fakeUserService = new FakeUserService();
-            _postViewModel = new PostContentViewModel(new Post(), new User(), Guid.NewGuid(), Guid.NewGuid(), _fakeUserService);
+            _postViewModel = new PostContentViewModel(new Post(), new User(), Guid.NewGuid(), Guid.NewGuid(), _fakeUserService, new FakeChatFactory());
         }
 
         [Test]
