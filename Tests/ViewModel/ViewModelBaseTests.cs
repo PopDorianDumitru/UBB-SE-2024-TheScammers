@@ -11,7 +11,6 @@ namespace ISSLab.ViewModel.Tests
         [Test]
         public void OnPropertyChanged_Raises_PropertyChanged_Event()
         {
-          
             var mock = new Mock<TestViewModel>();
             bool eventRaised = false;
             mock.Object.PropertyChanged += (sender, args) => eventRaised = true;
@@ -29,6 +28,6 @@ namespace ISSLab.ViewModel.Tests
             OnPropertyChanged(nameof(TestProperty));
         }
 
-        public string TestProperty { get; set; }
+        public string? TestProperty { get; set; }
     }
 }
