@@ -128,8 +128,8 @@ namespace Tests.Model
             Assert.That(messageToTest.AcceptButtonIsVisible, Is.False);
         }
 
-        
-        
+
+
 
         [Test]
         public void RejectButtonIsVisibleGet_RejectButtonIsVisibleOfNewMessage_RejectButtonIsVisibleShouldBeFalse()

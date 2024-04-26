@@ -8,38 +8,36 @@ namespace ISSLab.Model
 {
     public class InterestStatus
     {
-        private Guid interestedUserId;
-        private Guid postId;
-        private Guid interestStatusId;
-        private bool interested;
+        private Guid _interestedUserId;
+        private Guid _postId;
+        private Guid _interestStatusId;
+        private bool _interested;
 
         public InterestStatus(Guid interestedUserId, Guid postId, bool interested)
         {
-            this.interestedUserId = interestedUserId;
-            this.postId = postId;
-            this.interestStatusId = new Guid();
-            this.interested = interested;
+            this._interestedUserId = interestedUserId;
+            this._postId = postId;
+            this._interestStatusId = new Guid();
+            this._interested = interested;
         }
 
         public InterestStatus()
         {
-            this.interestedUserId = Guid.NewGuid();
-            this.postId = Guid.NewGuid();
-            this.interestStatusId = Guid.NewGuid();
-            this.interested = false;
+            this._interestedUserId = Guid.NewGuid();
+            this._postId = Guid.NewGuid();
+            this._interestStatusId = Guid.NewGuid();
+            this._interested = false;
         }
 
-        public Guid InterestedUserId { get => interestedUserId; }
-        public Guid PostId { get => postId; }
-        public Guid InterestStatusId { get => interestStatusId; }
-        public bool Interested { get => interested; }
+        public Guid InterestedUserId { get => _interestedUserId; }
+        public Guid PostId { get => _postId; }
+        public Guid InterestStatusId { get => _interestStatusId; }
+        public bool Interested { get => _interested; }
         public bool ToggleInterested()
         {
-            interested = !interested;
-            return interested;
+            _interested = !_interested;
+            return _interested;
         }
-
-
 
     }
 }

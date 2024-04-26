@@ -20,7 +20,7 @@ namespace Tests.Model
         public List<Guid> posts;
         public List<Guid> topSellers;
         public List<Guid> admins;
-        public List<Guid> sellingUsers;
+        public List<Guid>? sellingUsers;
         public List<Guid> usersRequestingToSell;
 
         public string description;
@@ -139,7 +139,7 @@ namespace Tests.Model
         [Test]
         public void Posts_GetFromGroupEmpty_ShouldBeEmpty()
         {
-            Assert.That(groupEmpty.Posts, Is.Empty);    
+            Assert.That(groupEmpty.Posts, Is.Empty);
         }
         [Test]
         public void Posts_GetFromGroupWithoutId_ShouldBeEmpty()
@@ -322,7 +322,7 @@ namespace Tests.Model
         [Test]
         public void CreationDate_GetFromGroupEmpty_IsInstanceOfDateTime()
         {
-            Assert.That(groupEmpty.CreationDate, Is.InstanceOf<DateTime>());   
+            Assert.That(groupEmpty.CreationDate, Is.InstanceOf<DateTime>());
         }
 
         [Test]
@@ -427,10 +427,8 @@ namespace Tests.Model
         public void RemoveUserWithSellRequest_RemoveNonExisting_ShouldThrowException()
         {
             Guid userId = Guid.NewGuid();
-            
+
             Assert.Throws<Exception>(() => { groupEmpty.RemoveUserWithSellRequest(userId); });
-            
-            
         }
 
         [Test]
@@ -440,6 +438,7 @@ namespace Tests.Model
             groupEmpty.AddMember(user);
             Assert.Contains(user, groupEmpty.Members);
         }
+
         [Test]
         public void AddMember_UserNotMember_MemberCountShouldBe1()
         {
@@ -500,7 +499,7 @@ namespace Tests.Model
         {
             Guid post = Guid.NewGuid();
             Assert.Throws<Exception>(() => { groupEmpty.RemovePost(post); });
-            
+
         }
 
         [Test]
@@ -682,6 +681,6 @@ namespace Tests.Model
 
 
         }
-    }   
+    }
 
 }

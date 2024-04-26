@@ -8,188 +8,186 @@ namespace ISSLab.Model
 {
     public class Group
     {
-        private Guid groupId;
-        private string name;
-        private int memberCount;
-        private List<Guid> members;
-        private List<Guid> posts;
-        private List<Guid> topSellers;
-        private List<Guid> admins;
-        private List<Guid> sellingUsers;
-        private List<Guid> usersRequestingToSell;
+        private Guid _groupId;
+        private string _name;
+        private int _memberCount;
+        private List<Guid> _members;
+        private List<Guid> _posts;
+        private List<Guid> _topSellers;
+        private List<Guid> _admins;
+        private List<Guid> _sellingUsers;
+        private List<Guid> _usersRequestingToSell;
 
-        private string description;
-        private string type;
-        private string bannerPath;
-        private DateTime creationDate;
+        private string _description;
+        private string _type;
+        private string _bannerPath;
+        private DateTime _creationDate;
 
         public Group(string name, string description, string type, string bannerPath)
         {
-            this.groupId = Guid.NewGuid();
-            this.name = name;
-            this.memberCount = 0;
-            this.members = new List<Guid>();
-            this.posts = new List<Guid>();
-            this.admins = new List<Guid>();
-            this.sellingUsers = new List<Guid>();
-            this.description = description;
-            this.type = type;
-            this.bannerPath = bannerPath;
-            this.creationDate = DateTime.Now;
-            this.topSellers = new List<Guid>();
-            this.usersRequestingToSell = new List<Guid>();
+            this._groupId = Guid.NewGuid();
+            this._name = name;
+            this._memberCount = 0;
+            this._members = new List<Guid>();
+            this._posts = new List<Guid>();
+            this._admins = new List<Guid>();
+            this._sellingUsers = new List<Guid>();
+            this._description = description;
+            this._type = type;
+            this._bannerPath = bannerPath;
+            this._creationDate = DateTime.Now;
+            this._topSellers = new List<Guid>();
+            this._usersRequestingToSell = new List<Guid>();
 
-            
+
         }
         public Group()
         {
-            this.groupId = Guid.NewGuid();
-            this.name = "";
-            this.memberCount = 0;
-            this.members = new List<Guid>();
-            this.posts = new List<Guid>();
-            this.admins = new List<Guid>();
-            this.sellingUsers = new List<Guid>();
-            this.description = "";
-            this.type = "";
-            this.bannerPath = "";
-            this.creationDate = DateTime.Now;
-            this.topSellers = new List<Guid>();
-            this.sellingUsers = new List<Guid>();
-            this.usersRequestingToSell = new List<Guid>();
+            this._groupId = Guid.NewGuid();
+            this._name = "";
+            this._memberCount = 0;
+            this._members = new List<Guid>();
+            this._posts = new List<Guid>();
+            this._admins = new List<Guid>();
+            this._sellingUsers = new List<Guid>();
+            this._description = "";
+            this._type = "";
+            this._bannerPath = "";
+            this._creationDate = DateTime.Now;
+            this._topSellers = new List<Guid>();
+            this._sellingUsers = new List<Guid>();
+            this._usersRequestingToSell = new List<Guid>();
         }
         public Group(Guid id, string name, int memberCount, List<Guid> members, List<Guid> posts, List<Guid> admins, List<Guid> sellingUsers, string description, string type, string banner, DateTime creationDate, List<Guid> topSellers, List<Guid> usersRequestingToSell)
 
         {
-            this.groupId = id;
-            this.name = name;
-            this.memberCount = memberCount;
-            this.members = members;
-            this.posts = posts;
-            this.admins = admins;
-            this.sellingUsers = sellingUsers;
-            this.description = description;
-            this.type = type;
-            this.bannerPath = banner;
-            this.creationDate = creationDate;
-            this.topSellers = topSellers;
-            this.usersRequestingToSell = usersRequestingToSell;
+            this._groupId = id;
+            this._name = name;
+            this._memberCount = memberCount;
+            this._members = members;
+            this._posts = posts;
+            this._admins = admins;
+            this._sellingUsers = sellingUsers;
+            this._description = description;
+            this._type = type;
+            this._bannerPath = banner;
+            this._creationDate = creationDate;
+            this._topSellers = topSellers;
+            this._usersRequestingToSell = usersRequestingToSell;
 
         }
-        
 
-        public List<Guid> UsersWithSellRequests { get => this.sellingUsers; set => this.sellingUsers = value; }
+        public List<Guid> UsersWithSellRequests { get => this._sellingUsers; set => this._sellingUsers = value; }
         public void AddUserWithSellRequest(Guid userID)
         {
-            this.sellingUsers.Add(userID);
+            this._sellingUsers.Add(userID);
         }
         public void RemoveUserWithSellRequest(Guid userID)
         {
-            this.sellingUsers.Remove(userID);
+            this._sellingUsers.Remove(userID);
         }
 
-        public List<Guid> TopSellers { get => this.topSellers; set => this.topSellers = value; }
+        public List<Guid> TopSellers { get => this._topSellers; set => this._topSellers = value; }
         public void AddTopSeller(Guid userID)
         {
-            this.topSellers.Add(userID);
+            this._topSellers.Add(userID);
         }
         public void RemoveTopSeller(Guid userID)
         {
-            this.topSellers.Remove(userID);
+            this._topSellers.Remove(userID);
         }
 
-    
 
-        public Guid GroupId { get => groupId; }
-        public string Name { get => name; set => name = value; }
-        public int MemberCount { get => memberCount; }
-        public List<Guid> Members { get => members; }
-        public List<Guid> Posts { get => posts; }
-        public List<Guid> Admins { get => admins; }
-        public List<Guid> SellingUsers { get => sellingUsers; }
+        public Guid GroupId { get => _groupId; }
+        public string Name { get => _name; set => _name = value; }
+        public int MemberCount { get => _memberCount; }
+        public List<Guid> Members { get => _members; }
+        public List<Guid> Posts { get => _posts; }
+        public List<Guid> Admins { get => _admins; }
+        public List<Guid> SellingUsers { get => _sellingUsers; }
 
-        public List<Guid> UsersRequestingToSell { get => usersRequestingToSell; }
-        public string Description { get => description; set => description = value; }
-        public string Type { get => type; set => type = value; }
-        public string BannerPath { get => bannerPath; set => bannerPath = value; }
-        public DateTime CreationDate { get => creationDate; }
+        public List<Guid> UsersRequestingToSell { get => _usersRequestingToSell; }
+        public string Description { get => _description; set => _description = value; }
+        public string Type { get => _type; set => _type = value; }
+        public string BannerPath { get => _bannerPath; set => _bannerPath = value; }
+        public DateTime CreationDate { get => _creationDate; }
 
         public void AddMember(Guid user)
         {
-            if(!members.Contains(user))
+            if (!_members.Contains(user))
             {
-                members.Add(user);
-                memberCount++;
+                _members.Add(user);
+                _memberCount++;
             }
             else
                 throw new Exception("User is already a member of this group");
         }
         public void RemoveMember(Guid user)
         {
-            if(members.Contains(user))
+            if (_members.Contains(user))
             {
-                members.Remove(user);
-                memberCount--;
+                _members.Remove(user);
+                _memberCount--;
             }
             else
                 throw new Exception("User is not a member of this group");
         }
         public void AddPost(Guid post)
         {
-            posts.Add(post);
+            _posts.Add(post);
         }
         public void RemovePost(Guid post)
         {
-            posts.Remove(post);
+            _posts.Remove(post);
         }
         public void AddAdmin(Guid user)
         {
-            if(!members.Contains(user))
+            if (!_members.Contains(user))
                 throw new Exception("User is not a member of this group");
-            if(admins.Contains(user))
+            if (_admins.Contains(user))
                 throw new Exception("User is already an admin of this group");
-            admins.Add(user);
+            _admins.Add(user);
         }
         public void RemoveAdmin(Guid user)
         {
-            if(!members.Contains(user))
+            if (!_members.Contains(user))
                 throw new Exception("User is not a member of this group");
-            if(!admins.Contains(user))
+            if (!_admins.Contains(user))
                 throw new Exception("User is not an admin of this group");
-            admins.Remove(user);
+            _admins.Remove(user);
         }
         public void AddSellingUser(Guid user)
         {
-            if(!members.Contains(user))
+            if (!_members.Contains(user))
                 throw new Exception("User is not a member of this group");
-            if(sellingUsers.Contains(user))
+            if (_sellingUsers.Contains(user))
                 throw new Exception("User is already a selling user of this group");
-            sellingUsers.Add(user);
+            _sellingUsers.Add(user);
         }
         public void RemoveSellingUser(Guid user)
         {
-            if(!members.Contains(user))
+            if (!_members.Contains(user))
                 throw new Exception("User is not a member of this group");
-            if(!sellingUsers.Contains(user))
+            if (!_sellingUsers.Contains(user))
                 throw new Exception("User is not a selling user of this group");
-            sellingUsers.Remove(user);
+            _sellingUsers.Remove(user);
         }
 
         public void AddRequestingToSellUser(Guid user)
         {
-            if (!members.Contains(user))
+            if (!_members.Contains(user))
                 throw new Exception("User is not a member of this group");
-            if (sellingUsers.Contains(user))
+            if (_sellingUsers.Contains(user))
                 throw new Exception("User is already a selling user of this group");
-            sellingUsers.Add(user);
+            _sellingUsers.Add(user);
         }
         public void RemoveRequestingToSellUser(Guid user)
         {
-            if (!usersRequestingToSell.Contains(user))
+            if (!_usersRequestingToSell.Contains(user))
                 throw new Exception("User is not a member of this group");
-            if (!usersRequestingToSell.Contains(user))
+            if (!_usersRequestingToSell.Contains(user))
                 throw new Exception("User is not a selling user of this group");
-            usersRequestingToSell.Remove(user);
+            _usersRequestingToSell.Remove(user);
         }
 
     }
