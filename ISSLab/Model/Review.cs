@@ -8,54 +8,52 @@ namespace ISSLab.Model
 {
     public class Review
     {
-        private Guid id;
-        private Guid reviewerId;
-        private Guid sellerId;
-        private Guid groupId;
-        private string content;
-        private DateTime date;
-        private int rating;
+        private Guid _reviewId;
+        private Guid _reviewerId;
+        private Guid _sellerId;
+        private Guid _groupId;
+        private string _content;
+        private DateTime _dateOfReview;
+        private int _rating;
 
-        public Review(Guid reviewerId, Guid sellerId, Guid groupId, string content, DateTime date, int rating)
+        public Review(Guid reviewerId, Guid sellerId, Guid groupId, string content, DateTime dateOfReview, int rating)
         {
-            this.id = new Guid(reviewerId.ToString() + sellerId.ToString() + groupId.ToString());
-            this.reviewerId = reviewerId;
-            this.groupId = groupId;
-            this.sellerId = sellerId;
-            this.content = content;
-            this.date = date;
-            this.rating = rating;
+            this._reviewId = Guid.NewGuid();
+            this._reviewerId = reviewerId;
+            this._groupId = groupId;
+            this._sellerId = sellerId;
+            this._content = content;
+            this._dateOfReview = dateOfReview;
+            this._rating = rating;
         }
 
-        public Review(Guid id, Guid reviewerId, Guid sellerId, Guid groupId, string content, DateTime date, int rating)
+        public Review(Guid id, Guid reviewerId, Guid sellerId, Guid groupId, string content, DateTime dateOfReview, int rating)
         {
-            this.id = id;
-            this.reviewerId = reviewerId;
-            this.sellerId = sellerId;
-            this.groupId = groupId;
-            this.content = content;
-            this.date = date;
-            this.rating = rating;
-
+            this._reviewId = id;
+            this._reviewerId = reviewerId;
+            this._sellerId = sellerId;
+            this._groupId = groupId;
+            this._content = content;
+            this._dateOfReview = dateOfReview;
+            this._rating = rating;
         }
-
         public Review()
         {
-            this.id = Guid.NewGuid();
-            this.groupId = Guid.NewGuid();
-            this.reviewerId = Guid.NewGuid();
-            this.sellerId = Guid.NewGuid();
-            this.content = "";
-            this.date = DateTime.Now;
-            this.rating = 0;
+            this._reviewId = Guid.NewGuid();
+            this._groupId = Guid.NewGuid();
+            this._reviewerId = Guid.NewGuid();
+            this._sellerId = Guid.NewGuid();
+            this._content = Constants.EMPTY_STRING;
+            this._dateOfReview = DateTime.Now;
+            this._rating = 0;
         }
 
-        public Guid Id { get => id; }
-        public Guid GroupId { get => groupId; set => groupId = value; }
-        public Guid SellerId { get => sellerId; set => sellerId = value; }
-        public Guid ReviewerId { get => reviewerId; set => reviewerId = value; }
-        public string Content { get => content; set => content = value; }
-        public DateTime Date { get => date; set => date = value; }
-        public int Rating { get => rating; set => rating = value; }
+        public Guid Id { get => _reviewId; }
+        public Guid GroupId { get => _groupId; set => _groupId = value; }
+        public Guid SellerId { get => _sellerId; set => _sellerId = value; }
+        public Guid ReviewerId { get => _reviewerId; set => _reviewerId = value; }
+        public string Content { get => _content; set => _content = value; }
+        public DateTime DateOfReview { get => _dateOfReview; set => _dateOfReview = value; }
+        public int Rating { get => _rating; set => _rating = value; }
     }
 }

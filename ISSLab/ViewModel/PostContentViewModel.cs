@@ -127,9 +127,9 @@ namespace ISSLab.ViewModel
         }
 
         public string Username { get { return user.Username; } }
-        public string Media { get { return post.Media; } }
+        public string Media { get { return post.MediaContent; } }
 
-        public string Location { get { return post.Location; } }
+        public string Location { get { return post.ItemLocation; } }
         public string ProfilePicture { get { return user.ProfilePicture; } }
         public string TimePosted
         {
@@ -300,7 +300,7 @@ namespace ISSLab.ViewModel
         {
             get
             {
-                return post.NrComments.Count + " comments";
+                return post.Comments.Count + " comments";
             }
         }
 

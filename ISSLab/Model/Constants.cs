@@ -11,5 +11,6 @@ namespace ISSLab.Model
         public const string EMPTY_STRING = "";
 
         public const string AUCTION_POST_TYPE = "Auction";
+        public const string DEFAULT_POST_TYPE = "post";
     }
 }
