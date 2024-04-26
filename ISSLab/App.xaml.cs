@@ -34,7 +34,7 @@ namespace ISSLab
 
             IGroupRepository groupRepository = new GroupRepository();
             IPostService postService = new PostService(postRepo, userRepo, groupRepository);
-            IUserService userService = new UserService(userRepo, postRepo, groupRepository);
+            IUserService userService = new UserService(userRepo, postRepo);
 
             IMainWindowViewModel mainWindowViewModel = new MainWindowViewModel(postService, userService, userId, groupId);
             MainWindow mainWindow = new MainWindow(mainWindowViewModel);

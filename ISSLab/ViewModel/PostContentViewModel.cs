@@ -155,11 +155,11 @@ namespace ISSLab.ViewModel
 
         public void AddPostToFavorites()
         {
-            this.userService.AddItemToFavorites(groupId, post.Id, accountId);
+            this.userService.AddPostToFavorites(groupId, post.Id, accountId);
         }
         public void AddPostToCart()
         {
-            this.userService.AddItemToCart(groupId, post.Id, accountId);
+            this.userService.AddPostToCart(groupId, post.Id, accountId);
         }
         public string AvailableFor
         {

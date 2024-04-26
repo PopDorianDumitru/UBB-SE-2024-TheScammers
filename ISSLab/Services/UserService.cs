@@ -10,37 +10,38 @@ namespace ISSLab.Services
 {
     public class UserService : IUserService
     {
-        private IUserRepository users;
-        private IPostRepository posts;
-        private IGroupRepository groups;
+        private IUserRepository _users;
+        private IPostRepository _posts;
 
-        public UserService(IUserRepository users, IPostRepository posts, IGroupRepository groups)
+        public UserService(IUserRepository users, IPostRepository posts)
         {
-            this.users = users;
-            this.posts = posts;
-            this.groups = groups;
+            this._users = users;
+            this._posts = posts;
         }
 
         public void AddUser(User user)
         {
-            users.AddUser(user);
+            _users.AddUser(user);
         }
+
         public void RemoveUser(User user)
         {
-            users.DeleteUser(user.Id);
+            _users.DeleteUser(user.Id);
         }
+
         public User GetUserById(Guid id)
         {
-            User? user = users.GetById(id);
+            User? user = _users.GetById(id);
             if (user == null)
             {
                 throw new Exception("User not found");
             }
             return user;
         }
+
         public List<User> GetUsers()
         {
-            return users.GetAll();
+            return _users.GetAll();
         }
 
         public bool IsUserInGroup(Guid userId, Guid groupId)
@@ -49,90 +50,65 @@ namespace ISSLab.Services
             return user.Groups.Contains(groupId);
         }
 
-        public void AddUserToGroup(User user, Group group)
-        {
-            user.Groups.Add(group.Id);
-        }
-
-        public bool UserIsSellerInGroup(Guid userId, Guid groupId)
-        {
-            Group group = groups.FindById(groupId);
-            if (group == null)
-            {
-                throw new Exception("Group not found");
-            }
-            return group.SellingUsers.Contains(userId);
-        }
-
-        public bool UserIsMemberInGroup(User userId, Guid groupId)
-        {
-            Group group = groups.FindById(groupId);
-            if (group == null)
-            {
-                throw new Exception("Group not found");
-            }
-            return group.Members.Contains(userId.Id);
-        }
-
         public void UpdateUserUsername(Guid user, string username)
         {
-            users.UpdateUserUsername(user, username);
-
+            _users.UpdateUserUsername(user, username);
         }
 
         public void AddReview(Guid reviewerId, Guid sellerId, Guid groupId, string content, DateTime date, int rating)
         {
             Review review = new Review(reviewerId, sellerId, groupId, content, date, rating);
-            users.AddReview(review);
+            _users.AddReview(review);
         }
 
-        public void AddItemToCart(Guid groupId, Guid postId, Guid userId)
+        public void AddPostToCart(Guid groupId, Guid postId, Guid userId)
         {
-            users.AddPostToCart(groupId, userId, postId);
-
-        }
-        public void RemoveFromCart(Guid groupId, Guid postId, Guid userId)
-        {
-            users.RemoveFromCart(groupId, userId, postId);
+            _users.AddPostToCart(groupId, userId, postId);
         }
 
-        public void AddItemToFavorites(Guid groupId, Guid postId, Guid userId)
+        public void RemovePostFromCart(Guid groupId, Guid postId, Guid userId)
         {
-            users.AddToFavorites(groupId, userId, postId);
+            _users.RemoveFromCart(groupId, userId, postId);
         }
-        public void RemoveFromFavorites(Guid groupId, Guid postId, Guid userId)
+
+        public void AddPostToFavorites(Guid groupId, Guid postId, Guid userId)
         {
-            users.RemoveFromFavorites(groupId, userId, postId);
+            _users.AddToFavorites(groupId, userId, postId);
+        }
+
+        public void RemovePostFromFavorites(Guid groupId, Guid postId, Guid userId)
+        {
+            _users.RemoveFromFavorites(groupId, userId, postId);
         }
 
         public List<Post> GetFavoritePosts(Guid groupId, Guid userId)
         {
             List<Post> favoritePosts = new List<Post>();
-            UsersFavoritePosts favorites = users.GetById(userId).Favorites.Find(f => f.GroupId == groupId);
+            UsersFavoritePosts favorites = _users.GetById(userId).Favorites.Find(f => f.GroupId == groupId);
             if (favorites == null)
             {
-                users.GetById(userId).Favorites.Add(new UsersFavoritePosts(userId, groupId));
+                _users.GetById(userId).Favorites.Add(new UsersFavoritePosts(userId, groupId));
                 return new List<Post>();
             }
             foreach (Guid postId in favorites.Posts)
             {
-                favoritePosts.Add(posts.GetPostById(postId));
+                favoritePosts.Add(_posts.GetPostById(postId));
             }
             return favoritePosts;
         }
 
         public List<Post> GetItemsFromCart(Guid userId, Guid groupId)
         {
-            Cart cart = users.GetById(userId).Carts.Find(c => c.GroupId == groupId);
+            Cart cart = _users.GetById(userId).Carts.Find(c => c.GroupId == groupId);
             List<Post> cartedPosts = new List<Post>();
             if (cart == null)
             {
-                users.GetById(userId).Carts.Add(new Cart(groupId, userId));
+                _users.GetById(userId).Carts.Add(new Cart(groupId, userId));
                 return new List<Post>();
             }
             foreach (Guid postId in cart.PostsSavedInCart)
             {
-                cartedPosts.Add(posts.GetPostById(postId));
+                cartedPosts.Add(_posts.GetPostById(postId));
             }
             return cartedPosts;
         }
