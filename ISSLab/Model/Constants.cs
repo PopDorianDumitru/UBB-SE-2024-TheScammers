@@ -12,5 +12,8 @@ namespace ISSLab.Model
 
         public const string AUCTION_POST_TYPE = "Auction";
         public const string DEFAULT_POST_TYPE = "post";
+
+        public const string SELLING_MESSAGE_DEFAULT_CONTENT = "SELLING POST: " + "";
+        public const string BUYING_MESSAGE_DEFAULT_CONTENT = "I'm interested in buying your product!";
     }
 }

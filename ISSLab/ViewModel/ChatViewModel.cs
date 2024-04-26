@@ -29,7 +29,7 @@ namespace ISSLab.ViewModel
             AllMessages.Add(message);
         }
 
-        public void SendMessage(string message, bool isMine, bool isSellingPost)
+        public void SendMessage(string message, bool isMine, bool isForSellingPost)
         {
             var newMessage = new Message
             {
@@ -40,25 +40,25 @@ namespace ISSLab.ViewModel
                 HorizontalAlignment = isMine ? HorizontalAlignment.Right : HorizontalAlignment.Left
             };
 
-            if (isSellingPost)
+            if (isForSellingPost)
             {
-                newMessage.Content = "SELLING POST: " + "";
+                newMessage.Content = Constants.SELLING_MESSAGE_DEFAULT_CONTENT;
                 newMessage.BubbleColor = Brushes.YellowGreen;
             }
 
             AllMessages.Add(newMessage);
         }
 
-        public void SendBuyingMessage(string media)
+        public void SendBuyingMessage(string imagePath)
         {
             var newMessage = new Message
             {
-                Content = "I'm interested in buying your product!",
-                Width = CalculateMessageWidth("I'm interested in buying your product!"),
+                Content = Constants.BUYING_MESSAGE_DEFAULT_CONTENT,
+                Width = CalculateMessageWidth(Constants.BUYING_MESSAGE_DEFAULT_CONTENT),
                 IsMine = false,
                 BubbleColor = Brushes.YellowGreen,
                 HorizontalAlignment = HorizontalAlignment.Left,
-                ImagePath = media,
+                ImagePath = imagePath,
                 AcceptButtonIsVisible = true,
                 RejectButtonIsVisible = true
             };

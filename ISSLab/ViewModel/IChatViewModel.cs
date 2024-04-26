@@ -10,7 +10,7 @@ namespace ISSLab.ViewModel
         User User { get; set; }
 
         void AddMessage(Message message);
-        void SendBuyingMessage(string media);
+        void SendBuyingMessage(string imagePath);
         void SendMessage(string message, bool isMine, bool isSellingPost);
     }
 }
