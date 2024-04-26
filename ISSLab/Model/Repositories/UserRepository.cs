@@ -175,12 +175,12 @@ namespace ISSLab.Model.Repositories
         //private List<Guid> groupsWithSellingPrivelage;
         //private List<Guid> groupsWithActiveRequestToSell;
 
-        public List<User> findAllUsers()
+        public List<User> FindAllUsers()
         {
             return users;
         }
 
-        public User findById(Guid id)
+        public User FindById(Guid id)
         {
             for (int i = 0; i < users.Count; i++)
             {
@@ -218,7 +218,7 @@ namespace ISSLab.Model.Repositories
             users.Add(newUser);
         }
 
-        public void updateUserUsername(Guid id, string newUsername)
+        public void UpdateUserUsername(Guid id, string newUsername)
         {
             DataRow row = dataSet.Tables["Users"].Rows.Find(id);
             if (row != null)
@@ -236,7 +236,7 @@ namespace ISSLab.Model.Repositories
             }
         }
 
-        public void updateGroupsWithSellingPrivelage(Guid id, Guid group)
+        public void UpdateGroupsWithSellingPrivelage(Guid id, Guid group)
         {
             DataRow row = dataSet.Tables["UsersAndGroupsWithSellingPrivelage"].NewRow();
             row["user_id"] = id.ToString();
@@ -246,13 +246,13 @@ namespace ISSLab.Model.Repositories
             {
                 if (users[i].Id == id)
                 {
-                    users[i].receivedPrivelageToSell(group);
+                    users[i].ReceivedPrivelageToSell(group);
                     break;
                 }
             }
         }
 
-        public void updateGroupsWithSellingRequest(Guid id, Guid group)
+        public void UpdateGroupsWithSellingRequest(Guid id, Guid group)
         {
             DataRow row = dataSet.Tables["UsersAndGroupsWithRequestToSell"].NewRow();
             row["user_id"] = id.ToString();
@@ -268,7 +268,7 @@ namespace ISSLab.Model.Repositories
             }
         }
 
-        public void updateGroupsWithRemovingSellingRequest(Guid userId, Guid groupId)
+        public void UpdateGroupsWithRemovingSellingRequest(Guid userId, Guid groupId)
         {
             DataRow row = dataSet.Tables["UsersAndGroupsWithRequestToSell"].Rows.Find((DataRow r) => (string)(r["user_id"]) == userId.ToString() && (string)(r["group_id"]) == groupId.ToString());
             if (row != null)
@@ -285,7 +285,7 @@ namespace ISSLab.Model.Repositories
                 }
             }
         }
-        public void updateGroupsWithRemovingSellingPrivelage(Guid userId, Guid groupId)
+        public void UpdateGroupsWithRemovingSellingPrivelage(Guid userId, Guid groupId)
         {
             DataRow row = dataSet.Tables["UsersAndGroupsWithSellingPrivelage"].Rows.Find((DataRow r) => (string)(r["user_id"]) == userId.ToString() && (string)(r["group_id"]) == groupId.ToString());
             if (row != null)
@@ -304,7 +304,7 @@ namespace ISSLab.Model.Repositories
         }
 
 
-        public void updateUserRealName(Guid id, string newRealName)
+        public void UpdateUserRealName(Guid id, string newRealName)
         {
             DataRow row = dataSet.Tables["Users"].Rows.Find(id);
             if (row != null)
@@ -322,7 +322,7 @@ namespace ISSLab.Model.Repositories
             }
         }
 
-        public void updateUserDateOfBirth(Guid id, DateOnly newDateOfBirth)
+        public void UpdateUserDateOfBirth(Guid id, DateOnly newDateOfBirth)
         {
             DataRow row = dataSet.Tables["Users"].Rows.Find(id);
             if (row != null)
@@ -348,14 +348,14 @@ namespace ISSLab.Model.Repositories
             row["seller_id"] = review.SellerId;
             row["group_id"] = review.GroupId;
             row["content"] = review.Content;
-            row["date"] = review.Date;
+            row["date"] = review.DateOfReview;
             row["rating"] = review.Rating;
             users.Find(u => u.Id == review.SellerId).AddReview(review);
         }
 
 
 
-        public void updateUserProfilePicture(Guid id, string newProfilePicture)
+        public void UpdateUserProfilePicture(Guid id, string newProfilePicture)
         {
             DataRow row = dataSet.Tables["Users"].Rows.Find(id);
             if (row != null)
@@ -373,7 +373,7 @@ namespace ISSLab.Model.Repositories
             }
         }
 
-        public void updateUserPassword(Guid id, string newPassword)
+        public void UpdateUserPassword(Guid id, string newPassword)
         {
             DataRow row = dataSet.Tables["Users"].Rows.Find(id);
 
@@ -392,7 +392,7 @@ namespace ISSLab.Model.Repositories
             }
         }
 
-        public void updateUserNrOfSells(Guid id, int nrOfSells)
+        public void UpdateUserNrOfSells(Guid id, int nrOfSells)
         {
             DataRow row = dataSet.Tables["Users"].Rows.Find(id);
 
@@ -473,7 +473,7 @@ namespace ISSLab.Model.Repositories
             }
         }
 
-        public void addToCart(Guid groupId, Guid userId, Guid postId)
+        public void AddToCart(Guid groupId, Guid userId, Guid postId)
         {
             //DataRow row = dataSet.Tables["Carts"].NewRow();
             //row["user_id"] = userId;
@@ -485,29 +485,29 @@ namespace ISSLab.Model.Repositories
                 cart = new Cart(groupId, userId);
                 users.Find(user => user.Id == userId).Carts.Add(cart);
             }
-            if (cart.Posts.Contains(postId))
+            if (cart.PostsSavedInCart.Contains(postId))
                 return;
-            cart.Posts.Add(postId);
+            cart.PostsSavedInCart.Add(postId);
         }
 
-        public void removeFromCart(Guid groupId, Guid userId, Guid postId)
+        public void RemoveFromCart(Guid groupId, Guid userId, Guid postId)
         {
             DataRow row = dataSet.Tables["Carts"].Rows.Find((DataRow r) => Guid.Parse((string)r["group_id"]) == groupId && Guid.Parse((string)r["user_id"]) == userId && Guid.Parse((string)r["post_id"]) == postId);
             if (row != null)
                 dataSet.Tables["Carts"].Rows.Remove(row);
-            users.Find(u => u.Id == userId).Carts.Find(c => c.GroupId == groupId).Posts.Remove(postId);
+            users.Find(u => u.Id == userId).Carts.Find(c => c.GroupId == groupId).PostsSavedInCart.Remove(postId);
         }
 
-        public void addToFavorites(Guid groupId, Guid userId, Guid postId)
+        public void AddToFavorites(Guid groupId, Guid userId, Guid postId)
         {
             //DataRow row = dataSet.Tables["Favorites"].NewRow();
             //row["user_id"] = userId;
             //row["group_id"] = groupId;
             //row["post_id"] = postId;
-            Favorites favoriteFromGroup = users.Find(user => user.Id == userId).Favorites.Find(c => c.GroupId == groupId);
+            UsersFavoritePosts favoriteFromGroup = users.Find(user => user.Id == userId).Favorites.Find(c => c.GroupId == groupId);
             if (favoriteFromGroup == null)
             {
-                favoriteFromGroup = new Favorites(userId, groupId);
+                favoriteFromGroup = new UsersFavoritePosts(userId, groupId);
                 users.Find(user => user.Id == userId).Favorites.Add(favoriteFromGroup);
             }
             if (favoriteFromGroup.Posts.Contains(postId))
@@ -515,12 +515,12 @@ namespace ISSLab.Model.Repositories
             favoriteFromGroup.Posts.Add(postId);
         }
 
-        public void removeFromFavorites(Guid groupId, Guid userId, Guid postId)
+        public void RemoveFromFavorites(Guid groupId, Guid userId, Guid postId)
         {
             DataRow row = dataSet.Tables["Favorites"].Rows.Find((DataRow r) => Guid.Parse((string)r["group_id"]) == groupId && Guid.Parse((string)r["user_id"]) == userId && Guid.Parse((string)r["post_id"]) == postId);
             if (row != null)
                 dataSet.Tables["Favorites"].Rows.Remove(row);
-            users.Find(u => u.Id == userId).Carts.Find(c => c.GroupId == groupId).Posts.Remove(postId);
+            users.Find(u => u.Id == userId).Carts.Find(c => c.GroupId == groupId).PostsSavedInCart.Remove(postId);
         }
 
     }

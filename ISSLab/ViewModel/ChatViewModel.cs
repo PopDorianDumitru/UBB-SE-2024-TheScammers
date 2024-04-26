@@ -59,8 +59,8 @@ namespace ISSLab.ViewModel
                 BubbleColor = Brushes.YellowGreen,
                 HorizontalAlignment = HorizontalAlignment.Left,
                 ImagePath = imagePath,
-                ShowAcceptButton = true,
-                ShowRejectButton = true
+                AcceptButtonIsVisible = true,
+                RejectButtonIsVisible = true
             };
             AllMessages.Add(newMessage);
         }

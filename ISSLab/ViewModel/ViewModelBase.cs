@@ -9,7 +9,7 @@ namespace ISSLab.ViewModel
 {
     public abstract class ViewModelBase : INotifyPropertyChanged, IViewModelBase
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public void OnPropertyChanged(string propertyName)
         {
