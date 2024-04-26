@@ -258,7 +258,7 @@ namespace ISSLab.ViewModel
 
         public void AddInterests()
         {
-            var existingInterest = post.InterestStatuses.FirstOrDefault(interest => interest.UserId == user.Id && interest.PostId == post.Id);
+            var existingInterest = post.InterestStatuses.FirstOrDefault(interest => interest.InterestedUserId == user.Id && interest.PostId == post.Id);
 
             if (existingInterest != null)
             {
@@ -283,7 +283,7 @@ namespace ISSLab.ViewModel
 
         public void AddUniterests()
         {
-            var existingUninterest = post.InterestStatuses.FirstOrDefault(interest => interest.UserId == user.Id && interest.PostId == post.Id && !interest.Interested);
+            var existingUninterest = post.InterestStatuses.FirstOrDefault(interest => interest.InterestedUserId == user.Id && interest.PostId == post.Id && !interest.Interested);
 
             if (existingUninterest != null)
             {

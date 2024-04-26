@@ -187,16 +187,16 @@ namespace ISSLab.Model
 
         public void RemoveInterestStatus(Guid userId)
         {
-            interestStatuses.RemoveAll(x => x.UserId == userId);
+            interestStatuses.RemoveAll(x => x.InterestedUserId == userId);
         }
         public void ToggleInterestStatus(Guid userId)
         {
-            int index = interestStatuses.FindIndex(x => x.UserId == userId);
+            int index = interestStatuses.FindIndex(x => x.InterestedUserId == userId);
             if(index == -1)
                 throw new Exception("Interest status not found");
             else
             {
-                interestStatuses[index].toggleInterested();
+                interestStatuses[index].ToggleInterested();
             }
 
         }
