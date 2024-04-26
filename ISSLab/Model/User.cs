@@ -111,9 +111,9 @@ namespace ISSLab.Model
         public List<Review> Reviews { get => receivedReviews; }
 
 
-        public List<Guid> GroupsWithSellingPrivelage { get => groupsWithSellingPrivilege; }
+        public List<Guid> GroupsWithSellingPrivilege { get => groupsWithSellingPrivilege; }
 
-        public List<Guid> GroupsWithActiveRequestToSell { get => groupsWithSellingPrivilege;}
+        public List<Guid> GroupsWithActiveRequestToSell { get => groupsWithActiveRequestToSell;}
 
 
         public ImageSource ProfilePictureImageSource
@@ -131,7 +131,7 @@ namespace ISSLab.Model
             }
         }
 
-        public void AddCarts(Cart newCart)
+        public void AddCart(Cart newCart)
         {
             carts.Add(newCart);
         }
@@ -151,13 +151,13 @@ namespace ISSLab.Model
         {
             receivedReviews.Add(newReview);
         }
-        public void AddNewUserScore( SellingUserScore userScor)
+        public void AddNewUserScore( SellingUserScore userScore)
         {
-            this.userScores.Add(userScor);
+            this.userScores.Add(userScore);
         }
 
 
-        public int NrOfSells { get => numberOfSales; set => numberOfSales = value; }
+        public int NumberOfSales { get => numberOfSales; set => numberOfSales = value; }
 
         public void RemoveUserScore(SellingUserScore userScore)
         {
@@ -170,22 +170,18 @@ namespace ISSLab.Model
                 throw new Exception("Already requested access to sell in this group");
             if(groupsWithSellingPrivilege.Contains(groupId))
                 throw new Exception("Already have access to sell in this group");
-            groupsWithActiveRequestToSell.Append(groupId);
+            groupsWithActiveRequestToSell.Add(groupId);
         }
         public void DenyAccessToSellInGroup(Guid groupId)
         {
             if(!groupsWithActiveRequestToSell.Contains(groupId))
                 throw new Exception("No active request to sell in this group");
-            if(groupsWithSellingPrivilege.Contains(groupId))
-                throw new Exception("Already have access to sell in this group");
             groupsWithActiveRequestToSell = groupsWithActiveRequestToSell.FindAll(val => val != groupId);
         }
         public void TakeAwayAccessToSellInGroup(Guid groupId)
         {
             if(!groupsWithSellingPrivilege.Contains(groupId))
                 throw new Exception("No access to sell in this group");
-            if(groupsWithActiveRequestToSell.Contains(groupId))
-                throw new Exception("No access to sell in this group yet, but request is active");
             groupsWithSellingPrivilege = groupsWithSellingPrivilege.FindAll(val => val != groupId);
         }
 
