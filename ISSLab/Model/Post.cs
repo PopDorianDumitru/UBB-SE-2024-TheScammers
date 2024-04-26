@@ -185,11 +185,11 @@ namespace ISSLab.Model
             interestStatuses.Add(interestStatus);
         }
 
-        public void removeInterestStatus(Guid userId)
+        public void RemoveInterestStatus(Guid userId)
         {
             interestStatuses.RemoveAll(x => x.InterestedUserId == userId);
         }
-        public void toggleInterestStatus(Guid userId)
+        public void ToggleInterestStatus(Guid userId)
         {
             int index = interestStatuses.FindIndex(x => x.InterestedUserId == userId);
             if(index == -1)
