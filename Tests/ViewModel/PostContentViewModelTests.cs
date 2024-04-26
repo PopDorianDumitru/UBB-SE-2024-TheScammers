@@ -73,7 +73,7 @@ namespace Tests.ViewModel
         {
             DateTime expirationDate = DateTime.Now.AddDays(10);
             Post fixedPricePost = new FixedPricePost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty,
-                string.Empty, string.Empty, string.Empty, 0, expirationDate, string.Empty, [], 0, Guid.NewGuid(), "FixedPrice", true);
+                string.Empty, string.Empty, string.Empty, 0, expirationDate, string.Empty, [], 0, Guid.NewGuid(), Constants.FIXED_PRICE_POST_TYPE, true);
             _postViewModel.Post = fixedPricePost;
 
             TimeSpan timeLeft = expirationDate - DateTime.Now;
@@ -102,7 +102,7 @@ namespace Tests.ViewModel
             Post noTypePost = new Post(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
             _postViewModel.Post = noTypePost;
 
-            string expectedResult = "";
+            string expectedResult = Constants.EMPTY_STRING;
 
             Assert.That(_postViewModel.AvailableFor, Is.EqualTo(expectedResult));
         }
@@ -132,7 +132,7 @@ namespace Tests.ViewModel
         [Test]
         public void Visible_GetDefaultValue_ReturnsCorrectValue()
         {
-            string expectedResult = "Visible";
+            string expectedResult = Constants.VISIBLE_VISIBILITY;
             Assert.That(_postViewModel.Visible, Is.EqualTo(expectedResult));
         }
 
@@ -279,7 +279,7 @@ namespace Tests.ViewModel
         {
             string expectedDelivery = "expected delivery";
             Post fixedPricePost = new FixedPricePost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty,
-                string.Empty, string.Empty, string.Empty, 0, DateTime.Now, expectedDelivery, [], 0, Guid.NewGuid(), "FixedPrice", true);
+                string.Empty, string.Empty, string.Empty, 0, DateTime.Now, expectedDelivery, [], 0, Guid.NewGuid(), Constants.FIXED_PRICE_POST_TYPE, true);
             _postViewModel.Post = fixedPricePost;
 
             Assert.That(_postViewModel.Delivery, Is.EqualTo(expectedDelivery));
@@ -297,13 +297,13 @@ namespace Tests.ViewModel
         [Test]
         public void Delivery_ForDonationOrUnknownPostType_ReturnsEmptyString()
         {
-            string expectedDelivery = "";
-            Post donationPost = new DonationPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, "Donation", true);
+            string expectedDelivery = Constants.EMPTY_STRING;
+            Post donationPost = new DonationPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, Constants.DONATION_POST_TYPE, true);
             _postViewModel.Post = donationPost;
 
             Assert.That(_postViewModel.Delivery, Is.EqualTo(expectedDelivery));
 
-            expectedDelivery = "";
+            expectedDelivery = Constants.EMPTY_STRING;
             Post noTypePost = new Post(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, "", true);
             _postViewModel.Post = noTypePost;
 
@@ -314,7 +314,7 @@ namespace Tests.ViewModel
         public void Delivery_ForFixedPricePost_SetsCorrectValue()
         {
             Post fixedPricePost = new FixedPricePost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty,
-                string.Empty, string.Empty, string.Empty, 0, DateTime.Now, "", [], 0, Guid.NewGuid(), "FixedPrice", true);
+                string.Empty, string.Empty, string.Empty, 0, DateTime.Now, "", [], 0, Guid.NewGuid(), Constants.FIXED_PRICE_POST_TYPE, true);
             _postViewModel.Post = fixedPricePost;
 
             string expectedDelivery = "expected delivery";
@@ -335,10 +335,10 @@ namespace Tests.ViewModel
         [Test]
         public void Delivery_ForDonationOrUnknownPost_ReturnsEmptyString()
         {
-            Post donationPost = new DonationPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, "Donation", true);
+            Post donationPost = new DonationPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, Constants.DONATION_POST_TYPE, true);
             _postViewModel.Post = donationPost;
 
-            string expectedDelivery = "";
+            string expectedDelivery = Constants.EMPTY_STRING;
             Assert.That(_postViewModel.Delivery, Is.EqualTo(expectedDelivery));
 
             Post noTypePost = new Post(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, "", true);
@@ -351,14 +351,14 @@ namespace Tests.ViewModel
         [Test]
         public void DonationButtonVisible_GetDefaultValue_ReturnsCorrectValue()
         {
-            string expectedResult = "Collapsed";
+            string expectedResult = Constants.COLLAPSED_VISIBILITY;
             Assert.That(_postViewModel.DonationButtonVisible, Is.EqualTo(expectedResult));
         }
 
         [Test]
         public void DonationButtonVisible_SetValue_SetsCorrectValue()
         {
-            string expectedResult = "Visible";
+            string expectedResult = Constants.VISIBLE_VISIBILITY;
             _postViewModel.DonationButtonVisible = expectedResult;
             Assert.That(_postViewModel.DonationButtonVisible, Is.EqualTo(expectedResult));
         }
@@ -367,14 +367,14 @@ namespace Tests.ViewModel
         [Test]
         public void BuyButtonVisible_GetDefaultValue_ReturnsCorrectValue()
         {
-            string expectedResult = "Collapsed";
+            string expectedResult = Constants.COLLAPSED_VISIBILITY;
             Assert.That(_postViewModel.BuyButtonVisible, Is.EqualTo(expectedResult));
         }
 
         [Test]
         public void BuyButtonVisible_SetValue_SetsCorrectValue()
         {
-            string expectedResult = "Visible";
+            string expectedResult = Constants.VISIBLE_VISIBILITY;
             _postViewModel.BuyButtonVisible = expectedResult;
             Assert.That(_postViewModel.BuyButtonVisible, Is.EqualTo(expectedResult));
         }
@@ -383,14 +383,14 @@ namespace Tests.ViewModel
         [Test]
         public void BidButtonVisible_GetDefaultValue_ReturnsCorrectValue()
         {
-            string expectedResult = "Collapsed";
+            string expectedResult = Constants.COLLAPSED_VISIBILITY;
             Assert.That(_postViewModel.BidButtonVisible, Is.EqualTo(expectedResult));
         }
 
         [Test]
         public void BidButtonVisible_SetValue_SetsCorrectValue()
         {
-            string expectedResult = "Visible";
+            string expectedResult = Constants.VISIBLE_VISIBILITY;
             _postViewModel.BidButtonVisible = expectedResult;
             Assert.That(_postViewModel.BidButtonVisible, Is.EqualTo(expectedResult));
         }
@@ -399,14 +399,14 @@ namespace Tests.ViewModel
         [Test]
         public void BidPriceVisible_GetDefaultValue_ReturnsCorrectValue()
         {
-            string expectedResult = "Collapsed";
+            string expectedResult = Constants.COLLAPSED_VISIBILITY;
             Assert.That(_postViewModel.BidPriceVisible, Is.EqualTo(expectedResult));
         }
 
         [Test]
         public void BidPriceVisible_SetValue_SetsCorrectValue()
         {
-            string expectedResult = "Visible";
+            string expectedResult = Constants.VISIBLE_VISIBILITY;
             _postViewModel.BidPriceVisible = expectedResult;
             Assert.That(_postViewModel.BidPriceVisible, Is.EqualTo(expectedResult));
         }
@@ -458,7 +458,7 @@ namespace Tests.ViewModel
             _postViewModel.Post = noTypePost;
 
             TimeSpan timePassed = DateTime.Now - noTypePost.CreationDate;
-            string expectedResult = Math.Ceiling(timePassed.TotalSeconds).ToString() + " seconds ago";
+            string expectedResult = Math.Ceiling(timePassed.TotalSeconds).ToString() + PostContentViewModel.SECONDS_AGO;
             string actualResult = _postViewModel.TimePosted;
 
             Assert.That(actualResult, Is.EqualTo(expectedResult));
@@ -479,10 +479,10 @@ namespace Tests.ViewModel
         {
             double expectedPrice = 1234;
             Post fixedPricePost = new FixedPricePost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty,
-                string.Empty, string.Empty, string.Empty, expectedPrice, DateTime.Now, string.Empty, [], 0, Guid.NewGuid(), "FixedPrice", true);
+                string.Empty, string.Empty, string.Empty, expectedPrice, DateTime.Now, string.Empty, [], 0, Guid.NewGuid(), Constants.FIXED_PRICE_POST_TYPE, true);
             _postViewModel.Post = fixedPricePost;
 
-            string expectedResult = "$" + expectedPrice;
+            string expectedResult = Constants.DOLLAR_SIGN + expectedPrice;
 
             Assert.That(_postViewModel.Price, Is.EqualTo(expectedResult));
         }
@@ -494,20 +494,20 @@ namespace Tests.ViewModel
                 string.Empty, expectedPrice, DateTime.Now, string.Empty, [], 0, Guid.NewGuid(), Guid.NewGuid(), 0, 0, true);
             _postViewModel.Post = auctionPost;
 
-            string expectedResult = "$" + expectedPrice;
+            string expectedResult = Constants.DOLLAR_SIGN + expectedPrice;
 
             Assert.That(_postViewModel.Price, Is.EqualTo(expectedResult));
         }
         [Test]
         public void Price_ForDonationOrUnknownPostType_ReturnsEmptyString()
         {
-            string expectedPrice = "";
-            Post donationPost = new DonationPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, "Donation", true);
+            string expectedPrice = Constants.EMPTY_STRING;
+            Post donationPost = new DonationPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, Constants.DONATION_POST_TYPE, true);
             _postViewModel.Post = donationPost;
 
             Assert.That(_postViewModel.Price, Is.EqualTo(expectedPrice));
 
-            expectedPrice = "";
+            expectedPrice = Constants.EMPTY_STRING;
             Post noTypePost = new Post(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, "", true);
             _postViewModel.Post = noTypePost;
 
@@ -551,7 +551,7 @@ namespace Tests.ViewModel
         [Test]
         public void UpdateBidPrice_ForNotAuctionPost_ThrowsException()
         {
-            Post donationPost = new DonationPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, "Donation", true);
+            Post donationPost = new DonationPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, Constants.DONATION_POST_TYPE, true);
             _postViewModel.Post = donationPost;
 
             var exceptionMessage = Assert.Throws<Exception>(() => { _postViewModel.UpdateBidPrice(); });
@@ -563,7 +563,7 @@ namespace Tests.ViewModel
             exceptionMessage = Assert.Throws<Exception>(() => { _postViewModel.UpdateBidPrice(); });
             Assert.That(exceptionMessage.Message, Is.EqualTo("Post is not of type AuctionPost!"));
         }
-        
+
         [Test]
         public void AddPostToFavorites_AnyValues_ShouldCallAddItemToFavorites()
         {
@@ -574,7 +574,7 @@ namespace Tests.ViewModel
             Assert.That(_fakeUserService.PostId, Is.EqualTo(_postViewModel.Post.Id));
             Assert.That(_fakeUserService.AccountId, Is.EqualTo(_postViewModel._accountId));
         }
-        
+
         [Test]
         public void AddPostToCart_AnyValues_ShouldCallAddItemToCart()
         {
@@ -595,16 +595,16 @@ namespace Tests.ViewModel
             _postViewModel.Post = auctionPost;
 
 
-            string expectedResult = "$" + currentBidPrice;
+            string expectedResult = Constants.DOLLAR_SIGN + currentBidPrice;
             Assert.That(_postViewModel.BidPrice, Is.EqualTo(expectedResult));
         }
         [Test]
         public void BidPrice_ForNotAuctionPost_ReturnsEmptyString()
         {
-            Post donationPost = new DonationPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, "Donation", true);
+            Post donationPost = new DonationPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, Constants.DONATION_POST_TYPE, true);
             _postViewModel.Post = donationPost;
 
-            string expectedResult = "";
+            string expectedResult = Constants.EMPTY_STRING;
             Assert.That(_postViewModel.BidPrice, Is.EqualTo(expectedResult));
 
             Post noTypePost = new Post(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, "", true);
@@ -617,7 +617,7 @@ namespace Tests.ViewModel
         public void Interests_ForAnyPost_ReturnsCorrectValue()
         {
             Post noTypePost = new Post(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
-            noTypePost.addInterestStatus(new InterestStatus(Guid.NewGuid(), Guid.NewGuid(), true));
+            noTypePost.AddInterestStatus(new InterestStatus(Guid.NewGuid(), Guid.NewGuid(), true));
             _postViewModel.Post = noTypePost;
 
             int expectedCount = 1;
@@ -637,7 +637,7 @@ namespace Tests.ViewModel
 
             Assert.That(_postViewModel.Post.InterestStatuses.Count, Is.EqualTo(1));
             Assert.That(_postViewModel.Post.InterestStatuses[0].PostId, Is.EqualTo(noTypePost.Id));
-            Assert.That(_postViewModel.Post.InterestStatuses[0].UserId, Is.EqualTo(newUser.Id));
+            Assert.That(_postViewModel.Post.InterestStatuses[0].InterestedUserId, Is.EqualTo(newUser.Id));
         }
 
         [Test]
@@ -685,7 +685,7 @@ namespace Tests.ViewModel
 
             Assert.That(_postViewModel.Post.InterestStatuses.Count, Is.EqualTo(1));
             Assert.That(_postViewModel.Post.InterestStatuses[0].PostId, Is.EqualTo(noTypePost.Id));
-            Assert.That(_postViewModel.Post.InterestStatuses[0].UserId, Is.EqualTo(newUser.Id));
+            Assert.That(_postViewModel.Post.InterestStatuses[0].InterestedUserId, Is.EqualTo(newUser.Id));
         }
 
         [Test]
@@ -706,10 +706,10 @@ namespace Tests.ViewModel
         public void Comments_ForAnyPost_ReturnsCorrectValue()
         {
             Post noTypePost = new Post(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
-            noTypePost.addInterestStatus(new InterestStatus(Guid.NewGuid(), Guid.NewGuid(), true));
+            noTypePost.AddInterestStatus(new InterestStatus(Guid.NewGuid(), Guid.NewGuid(), true));
             _postViewModel.Post = noTypePost;
 
-            string expectedResult = noTypePost.NrComments.Count + " comments";
+            string expectedResult = noTypePost.Comments.Count + " comments";
             Assert.That(_postViewModel.Comments, Is.EqualTo(expectedResult));
         }
         //public void SendBuyingMessage()
@@ -736,11 +736,11 @@ namespace Tests.ViewModel
         public void HidePost_ForAnyPost_ReturnsCorrectValue()
         {
             Post noTypePost = new Post(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
-            noTypePost.addInterestStatus(new InterestStatus(Guid.NewGuid(), Guid.NewGuid(), true));
+            noTypePost.AddInterestStatus(new InterestStatus(Guid.NewGuid(), Guid.NewGuid(), true));
             _postViewModel.Post = noTypePost;
 
             _postViewModel.HidePost();
-            Assert.That(_postViewModel.Visible, Is.EqualTo("Collapsed"));
+            Assert.That(_postViewModel.Visible, Is.EqualTo(Constants.COLLAPSED_VISIBILITY));
         }
     }
 }
