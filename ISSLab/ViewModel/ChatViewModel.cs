@@ -42,7 +42,7 @@ namespace ISSLab.ViewModel
 
             if (isForSellingPost)
             {
-                newMessage.Content = "SELLING POST: " + "";
+                newMessage.Content = Constants.SELLING_MESSAGE_DEFAULT_CONTENT;
                 newMessage.BubbleColor = Brushes.YellowGreen;
             }
 
@@ -53,8 +53,8 @@ namespace ISSLab.ViewModel
         {
             var newMessage = new Message
             {
-                Content = "I'm interested in buying your product!",
-                Width = CalculateMessageWidth("I'm interested in buying your product!"),
+                Content = Constants.BUYING_MESSAGE_DEFAULT_CONTENT,
+                Width = CalculateMessageWidth(Constants.BUYING_MESSAGE_DEFAULT_CONTENT),
                 IsMine = false,
                 BubbleColor = Brushes.YellowGreen,
                 HorizontalAlignment = HorizontalAlignment.Left,

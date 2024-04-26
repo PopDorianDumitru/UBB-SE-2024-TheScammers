@@ -14,7 +14,7 @@ namespace Tests.ViewModel
     internal class ChatViewModelTest
     {
         private ChatViewModel _chatViewModel;
-        private ObservableCollection<Message> _otherMessages;
+        private ObservableCollection<Message>? _otherMessages;
         private User _user;
         private Post _post;
 
@@ -24,42 +24,48 @@ namespace Tests.ViewModel
             _user = new User();
             _post = new Post();
             _chatViewModel = new ChatViewModel(_user, _post);
-
         }
+
         [Test]
-        public void User_GetUser_UserIsEqualToLocalUser()
+        public void GetUser_Any_UserIsEqualToLocalUser()
         {
             Assert.AreEqual(_chatViewModel.User, _user);
         }
+
         [Test]
-        public void User_SetUser_UserIsEqualToNewUser()
+        public void SetUser_Any_UserIsEqualToNewUser()
         {
             User newUser = new User();
             _chatViewModel.User = newUser;
             Assert.AreEqual(_chatViewModel.User, newUser);
         }
+
         [Test]
-        public void Post_GetPost_PostIsEqualToLocalPost()
+        public void GetPost_Any_PostIsEqualToLocalPost()
         {
             Assert.AreEqual(_chatViewModel.Post, _post);
         }
+
         [Test]
-        public void Post_SetPost_PostIsEqualToNewPost()
+        public void SetPost_Any_PostIsEqualToNewPost()
         {
             Post newPost = new Post();
             _chatViewModel.Post = newPost;
             Assert.AreEqual(_chatViewModel.Post, newPost);
         }
+
         public void AllMessages_GetAllMessages_CollectionIsEmpty()
         {
             Assert.IsEmpty(_chatViewModel.AllMessages);
         }
+
         [Test]
         public void AllMessages_SetAllMessages_CollectionIsEqualToOtherMessages()
         {
             _chatViewModel.AllMessages = _otherMessages;
             Assert.AreEqual(_chatViewModel.AllMessages, _otherMessages);
         }
+
         [Test]
         public void AddMessage_AnyMessage_MessageIsAdded()
         {
@@ -67,6 +73,7 @@ namespace Tests.ViewModel
             _chatViewModel.AddMessage(message);
             Assert.Contains(message, _chatViewModel.AllMessages);
         }
+
         [Test]
         [Apartment(ApartmentState.STA)]
         public void SendBuyingMessage_AddingHardcodedSellingMessage_MessageIsAdded()
@@ -74,8 +81,8 @@ namespace Tests.ViewModel
             string imagePath = "";
             _chatViewModel.SendBuyingMessage(imagePath);
             Assert.That(_chatViewModel.AllMessages.Count, Is.EqualTo(1));
-
         }
+
         [Test]
         [Apartment(ApartmentState.STA)]
         public void SendBuyingMessage_AddingHardcodedSellingMessage_MessageHasTheHardcodedText()
@@ -84,8 +91,9 @@ namespace Tests.ViewModel
             _chatViewModel.SendBuyingMessage(imagePath);
             Assert.That(_chatViewModel.AllMessages.Count, Is.EqualTo(1));
             Message addedMessage = _chatViewModel.AllMessages[0];
-            Assert.AreEqual("I'm interested in buying your product!", addedMessage.Content);
+            Assert.AreEqual(Constants.BUYING_MESSAGE_DEFAULT_CONTENT, addedMessage.Content);
         }
+
         [Test]
         [Apartment(ApartmentState.STA)]
         public void SendBuyingMessage_AddingHardcodedSellingMessage_MessageHasTheImagePath()
@@ -96,6 +104,7 @@ namespace Tests.ViewModel
             Message addedMessage = _chatViewModel.AllMessages[0];
             Assert.AreEqual(imagePath, addedMessage.ImagePath);
         }
+
         [Test]
         [Apartment(ApartmentState.STA)]
         public void SendMessage_SendMessageForSelling_MessageIsAdded()
@@ -103,14 +112,16 @@ namespace Tests.ViewModel
             _chatViewModel.SendMessage("message", false, true);
             Assert.That(_chatViewModel.AllMessages.Count, Is.EqualTo(1));
         }
+
         [Test]
         [Apartment(ApartmentState.STA)]
         public void SendMessage_SendMessageForSelling_MessageHasCorrectContent()
         {
             _chatViewModel.SendMessage("message", false, true);
-            string expectedContent = "SELLING POST: " + "message";
+            string expectedContent = Constants.SELLING_MESSAGE_DEFAULT_CONTENT;
             Assert.That(_chatViewModel.AllMessages[0].Content, Is.EqualTo(expectedContent));
         }
+
         [Test]
         [Apartment(ApartmentState.STA)]
         public void SendMessage_SendOtherMessage_MessageHasCorrectContent()
@@ -118,6 +129,7 @@ namespace Tests.ViewModel
             _chatViewModel.SendMessage("message", false, false);
             Assert.That(_chatViewModel.AllMessages[0].Content, Is.EqualTo("message"));
         }
+
         [Test]
         [Apartment(ApartmentState.STA)]
         public void SendMessage_SendOtherMessageIsMineTrue_MessageIsBlue()
@@ -125,6 +137,7 @@ namespace Tests.ViewModel
             _chatViewModel.SendMessage("message", true, false);
             Assert.That(_chatViewModel.AllMessages[0].BubbleColor, Is.EqualTo(Brushes.LightBlue));
         }
+
         [Test]
         [Apartment(ApartmentState.STA)]
         public void SendMessage_SendOtherMessageIsMineFalse_MessageIsGray()
@@ -140,6 +153,7 @@ namespace Tests.ViewModel
             _chatViewModel.SendMessage("message", true, false);
             Assert.That(_chatViewModel.AllMessages[0].HorizontalAlignment, Is.EqualTo(HorizontalAlignment.Right));
         }
+
         [Test]
         [Apartment(ApartmentState.STA)]
         public void SendMessage_SendOtherMessageIsMineFalse_MessageIsAlignedLeft()
