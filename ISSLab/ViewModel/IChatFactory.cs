@@ -10,6 +10,7 @@ namespace ISSLab.ViewModel
 {
     public interface IChatFactory
     {
+        IChat chat { get; }
         IChat CreateChat(ChatViewModel chatViewModel);
     }
 }

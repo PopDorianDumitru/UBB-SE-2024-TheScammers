@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ISSLab.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,13 @@ namespace ISSLab.View
     public class FakeChat : IChat
     {
         public bool SendBuyingMessageCalled { get; set; }
+        private readonly ChatViewModel _chatViewModel;
+
+        public FakeChat(ChatViewModel chatViewModel)
+        {
+            this._chatViewModel = chatViewModel;
+        }
+
         public void InitializeComponent()
         {
             throw new NotImplementedException();
@@ -27,7 +35,7 @@ namespace ISSLab.View
 
         public void Show()
         {
-            throw new NotImplementedException();
+            return;
         }
     }
 }

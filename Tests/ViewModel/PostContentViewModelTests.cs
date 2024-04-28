@@ -718,7 +718,14 @@ namespace Tests.ViewModel
         //    chat.SendBuyingMessage(Media);
         //    chat.Show();
         //}
+        [Test]
+        public void SendBuyingMessage_FakeChatFactory_ShouldCallChatSendBuyingMessage ()
+        {
+            _postViewModel.SendBuyingMessage();
+            FakeChat fakeChat = (FakeChat)_postViewModel._chatFactory.chat;
+            Assert.That(fakeChat.SendBuyingMessageCalled, Is.EqualTo(true));
 
+        }
         //public void Donate()
         //{
         //    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
@@ -728,10 +735,7 @@ namespace Tests.ViewModel
         //    });
         //}
 
-        //public void HidePost()
-        //{
-        //    Visible = "Collapsed";
-        //}
+
         [Test]
         public void HidePost_ForAnyPost_ReturnsCorrectValue()
         {

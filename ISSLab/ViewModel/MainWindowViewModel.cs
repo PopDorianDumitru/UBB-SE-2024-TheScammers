@@ -21,14 +21,16 @@ namespace ISSLab.ViewModel
         private Guid userId;
         private Guid groupId;
         private ICreatePostViewModel postCreationViewModel;
+        private IChatFactory chatFactory;
 
         public IViewModelBase CurrentViewModel { get; }
-        public MainWindowViewModel(IPostService givenPostService, IUserService givenUserService, Guid userId, Guid groupId)
+        public MainWindowViewModel(IPostService givenPostService, IUserService givenUserService, Guid userId, Guid groupId,IChatFactory chatFactory)
         {
             this.postService = givenPostService;
             this.userService = givenUserService;
             this.userId = userId;
             this.groupId = groupId;
+            this.chatFactory = chatFactory;
 
             shownPosts = new ObservableCollection<IPostContentViewModel>();
 
@@ -76,7 +78,6 @@ namespace ISSLab.ViewModel
         }
         public void ChangeToMarketplacePost()
         {
-
         }
 
         public void LoadPostsCommand(List<Post> postsToLoad)
@@ -86,7 +87,7 @@ namespace ISSLab.ViewModel
             {
                 User originalPoster = userService.GetUserById(onePostToLoad.AuthorId);
                 //shownPosts.Add(p);
-                shownPosts.Add(new PostContentViewModel(onePostToLoad, originalPoster, this.userId, this.groupId, this.userService));
+                shownPosts.Add(new PostContentViewModel(onePostToLoad, originalPoster, this.userId, this.groupId, this.userService, this.chatFactory));
             }
 
             OnPropertyChanged(nameof(ShownPosts));

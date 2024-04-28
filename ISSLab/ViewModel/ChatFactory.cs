@@ -8,12 +8,20 @@ using System.Threading.Tasks;
 
 namespace ISSLab.ViewModel
 {
-    internal class ChatFactory : IChatFactory
+    public class ChatFactory : IChatFactory
     {
+        public IChat _realChat;
+        public IChat chat => _realChat;
+
+        public IChat Get_realChat()
+        {
+            return _realChat;
+        }
+
         public IChat CreateChat(ChatViewModel chatViewModel)
         {
-            IChat realChat = new Chat(chatViewModel);
-            return realChat;
+            _realChat = new Chat(chatViewModel);
+            return _realChat;
         }
     }
 }

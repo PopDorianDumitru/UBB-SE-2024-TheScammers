@@ -9,10 +9,18 @@ namespace ISSLab.ViewModel
 {
     public class FakeChatFactory : IChatFactory
     {
+        public IChat _fakeChat;
+        public IChat chat => _fakeChat;
+
+        public IChat Get_fakeChat()
+        {
+            return _fakeChat;
+        }
+
         public IChat CreateChat(ChatViewModel chatViewModel)
         {
-            IChat fakeChat = new FakeChat();
-            return fakeChat;
+            _fakeChat = new FakeChat(chatViewModel);
+            return _fakeChat;
         }
     }
 }

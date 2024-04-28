@@ -28,7 +28,7 @@ namespace ISSLab.ViewModel
         private string _bidButtonVisible;
         private string _bidPriceVisible;
         private DispatcherTimer _timer;
-        private IChatFactory _chatFactory;
+        public IChatFactory _chatFactory { get; }
         public PostContentViewModel(Post post, User user, Guid accountId, Guid groupId, IUserService userService, IChatFactory chatFactory) : base()
         {
             this._userService = userService;
