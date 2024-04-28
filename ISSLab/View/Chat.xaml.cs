@@ -1,6 +1,4 @@
-﻿using ISSLab.Model;
-using ISSLab.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -15,6 +13,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ISSLab.Model;
+using ISSLab.ViewModel;
 
 namespace ISSLab.View
 {
@@ -23,26 +23,25 @@ namespace ISSLab.View
     /// </summary>
     public partial class Chat : Window, IChat
     {
-        private IChatViewModel _viewModel;
+        private IChatViewModel viewModel;
 
         internal Chat(IChatViewModel viewModel)
         {
             InitializeComponent();
             DataContext = viewModel;
-            Username.Content = viewModel.User.Username.ToString();
-            this._viewModel = viewModel;
+            Username.Content = viewModel.ChatUser.Username.ToString();
+            this.viewModel = viewModel;
         }
-
 
         public void SendMessage(string message, bool isMine, bool isSellingPost)
         {
-            _viewModel.SendMessage(message, isMine, isSellingPost);
-            MessageTextBox.Text = "";
+            viewModel.SendMessage(message, isMine, isSellingPost);
+            MessageTextBox.Text = Constants.EMPTY_STRING;
         }
 
         public void SendBuyingMessage(string media)
         {
-            _viewModel.SendBuyingMessage(media);
+            viewModel.SendBuyingMessage(media);
         }
 
         private void SendButton_Click(object sender, RoutedEventArgs e)
@@ -50,7 +49,8 @@ namespace ISSLab.View
             SendMessage(MessageTextBox.Text, true, false);
         }
 
-        private Button FindVisualChild<Button>(DependencyObject parent, string name) where Button : DependencyObject
+        private Button FindVisualChild<Button>(DependencyObject parent, string name)
+            where Button : DependencyObject
         {
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
             {
@@ -63,7 +63,9 @@ namespace ISSLab.View
                 {
                     Button result = FindVisualChild<Button>(child, name);
                     if (result != null)
+                    {
                         return result;
+                    }
                 }
             }
             return null;
@@ -83,7 +85,6 @@ namespace ISSLab.View
             Button acceptButton = FindVisualChild<Button>((sender as Button).Parent as Grid, "AcceptButton");
             Button rejectButton = FindVisualChild<Button>((sender as Button).Parent as Grid, "RejectButton");
             Button sendButton = FindVisualChild<Button>((sender as Button).Parent as Grid, "SendButton");
-
 
             if (acceptButton != null && rejectButton != null)
             {
@@ -107,7 +108,6 @@ namespace ISSLab.View
                 rejectButton.Visibility = Visibility.Collapsed;
                 MessageTextBox.Visibility = Visibility.Collapsed;
                 SendButton.Visibility = Visibility.Collapsed;
-
             }
         }
     }

@@ -12,14 +12,14 @@ namespace Tests.Services
 {
     internal class PostServiceTests
     {
-        private PostService _postService;
-        private Mock<IPostRepository> _postRepositoryMock;
+        private PostService postService;
+        private Mock<IPostRepository> postRepositoryMock;
 
         [SetUp]
         public void SetUp()
         {
-            _postRepositoryMock = new Mock<IPostRepository>();
-            _postService = new PostService(_postRepositoryMock.Object);
+            postRepositoryMock = new Mock<IPostRepository>();
+            postService = new PostService(postRepositoryMock.Object);
         }
 
         [Test]
@@ -27,9 +27,9 @@ namespace Tests.Services
         {
             var post = new Post();
             var expectedPosts = new List<Post> { post };
-            _postRepositoryMock.Setup(repository => repository.GetAllPosts()).Returns(expectedPosts);
+            postRepositoryMock.Setup(repository => repository.GetAllPosts()).Returns(expectedPosts);
 
-            var result = _postService.GetPosts();
+            var result = postService.GetPosts();
 
             Assert.That(result, Is.EqualTo(expectedPosts));
         }
@@ -39,11 +39,11 @@ namespace Tests.Services
         {
             Guid authorId = Guid.NewGuid();
             Guid groupId = Guid.NewGuid();
-            Post addedPost = new Post("", authorId, groupId, "", "", "", "", "", true);
+            Post addedPost = new Post(string.Empty, authorId, groupId, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
 
-            _postService.AddPost(addedPost);
+            postService.AddPost(addedPost);
 
-            _postRepositoryMock.Verify(repository => repository.AddPost(addedPost), Times.Once);
+            postRepositoryMock.Verify(repository => repository.AddPost(addedPost), Times.Once);
         }
 
         [Test]
@@ -51,17 +51,17 @@ namespace Tests.Services
         {
             Guid authorId = Guid.NewGuid();
             Guid groupId = Guid.NewGuid();
-            Post removedPost = new Post("", authorId, groupId, "", "", "", "", "", true);
+            Post removedPost = new Post(string.Empty, authorId, groupId, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
 
-            _postService.RemovePost(removedPost);
+            postService.RemovePost(removedPost);
 
-            _postRepositoryMock.Verify(repository => repository.RemovePost(removedPost.Id), Times.Once);
+            postRepositoryMock.Verify(repository => repository.RemovePost(removedPost.Id), Times.Once);
         }
 
         [Test]
         public void GetPostById_PostDoesNotExist_ThrowsException()
         {
-            var exceptionMessage = Assert.Throws<Exception>(() => { _postService.GetPostById(Guid.NewGuid()); });
+            var exceptionMessage = Assert.Throws<Exception>(() => { postService.GetPostById(Guid.NewGuid()); });
             Assert.That(exceptionMessage.Message, Is.EqualTo("Post not found"));
         }
 
@@ -70,38 +70,38 @@ namespace Tests.Services
         {
             Post postToBeReturned = new Post();
 
-            _postRepositoryMock.Setup(repository => repository.GetPostById(It.IsAny<Guid>())).Returns(postToBeReturned);
+            postRepositoryMock.Setup(repository => repository.GetPostById(It.IsAny<Guid>())).Returns(postToBeReturned);
 
-            Assert.That(_postService.GetPostById(Guid.NewGuid()), Is.EqualTo(postToBeReturned));
+            Assert.That(postService.GetPostById(Guid.NewGuid()), Is.EqualTo(postToBeReturned));
         }
 
         [Test]
         public void GetPosts_Any_PostRepositoryGetAllIsCalled()
         {
-            _postService.GetPosts();
+            postService.GetPosts();
 
-            _postRepositoryMock.Verify(repository => repository.GetAllPosts(), Times.Once);
+            postRepositoryMock.Verify(repository => repository.GetAllPosts(), Times.Once);
         }
 
         [Test]
         public void CheckIfNeedConfirmationTest_ExceptionThrown()
         {
             Guid guid = Guid.NewGuid();
-            var exceptionMessage = Assert.Throws<Exception>(() => { _postService.GetPostById(guid); });
+            var exceptionMessage = Assert.Throws<Exception>(() => { postService.GetPostById(guid); });
             Assert.That(exceptionMessage.Message, Is.EqualTo("Post not found"));
         }
 
         [Test]
         public void AddReport_AnyReport_ExceptionThrown()
         {
-            var exceptionMessage = Assert.Throws<Exception>(() => { _postService.AddReport(Guid.NewGuid(), Guid.NewGuid(), ""); });
+            var exceptionMessage = Assert.Throws<Exception>(() => { postService.AddReport(Guid.NewGuid(), Guid.NewGuid(), string.Empty); });
             Assert.That(exceptionMessage.Message, Is.EqualTo("Post not found"));
         }
 
         [Test]
         public void RemoveConfirmation_PostDoesNotExist_ExceptionThrown()
         {
-            var exceptionMessage = Assert.Throws<Exception>(() => { _postService.RemoveConfirmation(Guid.NewGuid()); });
+            var exceptionMessage = Assert.Throws<Exception>(() => { postService.RemoveConfirmation(Guid.NewGuid()); });
             Assert.That(exceptionMessage.Message, Is.EqualTo("Post not found"));
         }
 
@@ -110,9 +110,9 @@ namespace Tests.Services
         {
             Post theOnlyPost = new Post();
             theOnlyPost.Confirmed = true;
-            _postRepositoryMock.Setup(repository => repository.GetPostById(It.IsAny<Guid>())).Returns(theOnlyPost);
+            postRepositoryMock.Setup(repository => repository.GetPostById(It.IsAny<Guid>())).Returns(theOnlyPost);
 
-            _postService.RemoveConfirmation(theOnlyPost.Id);
+            postService.RemoveConfirmation(theOnlyPost.Id);
 
             Assert.That(theOnlyPost.Confirmed, Is.False);
         }
@@ -120,7 +120,7 @@ namespace Tests.Services
         [Test]
         public void ConfirmPost_PostDoesNotExist_ExceptionThrown()
         {
-            var exceptionMessage = Assert.Throws<Exception>(() => { _postService.ConfirmPost(Guid.NewGuid()); });
+            var exceptionMessage = Assert.Throws<Exception>(() => { postService.ConfirmPost(Guid.NewGuid()); });
             Assert.That(exceptionMessage.Message, Is.EqualTo("Post not found"));
         }
 
@@ -129,9 +129,9 @@ namespace Tests.Services
         {
             Post theOnlyPost = new Post();
             theOnlyPost.Confirmed = false;
-            _postRepositoryMock.Setup(repository => repository.GetPostById(It.IsAny<Guid>())).Returns(theOnlyPost);
+            postRepositoryMock.Setup(repository => repository.GetPostById(It.IsAny<Guid>())).Returns(theOnlyPost);
 
-            _postService.ConfirmPost(theOnlyPost.Id);
+            postService.ConfirmPost(theOnlyPost.Id);
 
             Assert.That(theOnlyPost.Confirmed, Is.True);
         }
@@ -139,7 +139,7 @@ namespace Tests.Services
         [Test]
         public void AddReport_PostDoesNotExist_ExceptionThrown()
         {
-            var exceptionMessage = Assert.Throws<Exception>(() => { _postService.AddReport(Guid.NewGuid(), Guid.NewGuid(), "reason"); });
+            var exceptionMessage = Assert.Throws<Exception>(() => { postService.AddReport(Guid.NewGuid(), Guid.NewGuid(), "reason"); });
             Assert.That(exceptionMessage.Message, Is.EqualTo("Post not found"));
         }
 
@@ -148,11 +148,11 @@ namespace Tests.Services
         {
             Post theOnlyPost = new Post();
             Guid idOfTheOnlyPost = theOnlyPost.Id;
-            _postRepositoryMock.Setup(repository => repository.GetPostById(It.IsAny<Guid>())).Returns(theOnlyPost);
+            postRepositoryMock.Setup(repository => repository.GetPostById(It.IsAny<Guid>())).Returns(theOnlyPost);
             Guid userId = Guid.NewGuid();
             string reason = "reason";
 
-            _postService.AddReport(idOfTheOnlyPost, userId, reason);
+            postService.AddReport(idOfTheOnlyPost, userId, reason);
 
             Assert.That(theOnlyPost.Reports.Count, Is.EqualTo(1));
             Assert.That(theOnlyPost.Reports[0].PostId, Is.EqualTo(idOfTheOnlyPost));
@@ -163,7 +163,7 @@ namespace Tests.Services
         [Test]
         public void RemoveReport_PostDoesNotExist_ExceptionThrown()
         {
-            var exceptionMessage = Assert.Throws<Exception>(() => { _postService.RemoveReport(Guid.NewGuid(), Guid.NewGuid()); });
+            var exceptionMessage = Assert.Throws<Exception>(() => { postService.RemoveReport(Guid.NewGuid(), Guid.NewGuid()); });
             Assert.That(exceptionMessage.Message, Is.EqualTo("Post not found"));
         }
 
@@ -172,11 +172,11 @@ namespace Tests.Services
         {
             Post theOnlyPost = new Post();
             Guid idOfTheOnlyPost = theOnlyPost.Id;
-            _postRepositoryMock.Setup(repository => repository.GetPostById(It.IsAny<Guid>())).Returns(theOnlyPost);
+            postRepositoryMock.Setup(repository => repository.GetPostById(It.IsAny<Guid>())).Returns(theOnlyPost);
             Guid userId = Guid.NewGuid();
             theOnlyPost.AddReport(new Report(userId, idOfTheOnlyPost, "reason"));
 
-            _postService.RemoveReport(idOfTheOnlyPost, userId);
+            postService.RemoveReport(idOfTheOnlyPost, userId);
 
             Assert.That(theOnlyPost.Reports, Is.Empty);
         }
@@ -184,7 +184,7 @@ namespace Tests.Services
         [Test]
         public void FavoritePost_PostDoesNotExist_ExceptionThrown()
         {
-            var exceptionMessage = Assert.Throws<Exception>(() => { _postService.RemoveReport(Guid.NewGuid(), Guid.NewGuid()); });
+            var exceptionMessage = Assert.Throws<Exception>(() => { postService.RemoveReport(Guid.NewGuid(), Guid.NewGuid()); });
             Assert.That(exceptionMessage.Message, Is.EqualTo("Post not found"));
         }
 
@@ -193,10 +193,10 @@ namespace Tests.Services
         {
             Post theOnlyPost = new Post();
             Guid idOfTheOnlyPost = theOnlyPost.Id;
-            _postRepositoryMock.Setup(repository => repository.GetPostById(It.IsAny<Guid>())).Returns(theOnlyPost);
+            postRepositoryMock.Setup(repository => repository.GetPostById(It.IsAny<Guid>())).Returns(theOnlyPost);
             Guid userId = Guid.NewGuid();
 
-            _postService.FavoritePost(idOfTheOnlyPost, userId);
+            postService.FavoritePost(idOfTheOnlyPost, userId);
 
             Assert.That(theOnlyPost.UsersThatFavorited.Count, Is.EqualTo(1));
         }
@@ -204,7 +204,7 @@ namespace Tests.Services
         [Test]
         public void UnfavoritePost_PostDoesNotExist_ExceptionThrown()
         {
-            var exceptionMessage = Assert.Throws<Exception>(() => { _postService.RemoveReport(Guid.NewGuid(), Guid.NewGuid()); });
+            var exceptionMessage = Assert.Throws<Exception>(() => { postService.RemoveReport(Guid.NewGuid(), Guid.NewGuid()); });
             Assert.That(exceptionMessage.Message, Is.EqualTo("Post not found"));
         }
 
@@ -213,11 +213,11 @@ namespace Tests.Services
         {
             Post theOnlyPost = new Post();
             Guid idOfTheOnlyPost = theOnlyPost.Id;
-            _postRepositoryMock.Setup(repository => repository.GetPostById(It.IsAny<Guid>())).Returns(theOnlyPost);
+            postRepositoryMock.Setup(repository => repository.GetPostById(It.IsAny<Guid>())).Returns(theOnlyPost);
             Guid userId = Guid.NewGuid();
             theOnlyPost.UsersThatFavorited.Add(userId);
 
-            _postService.UnfavoritePost(idOfTheOnlyPost, userId);
+            postService.UnfavoritePost(idOfTheOnlyPost, userId);
 
             Assert.That(theOnlyPost.UsersThatFavorited, Is.Empty);
         }

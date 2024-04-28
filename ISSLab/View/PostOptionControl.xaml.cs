@@ -1,5 +1,4 @@
-﻿using ISSLab.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ISSLab.ViewModel;
 
 namespace ISSLab.View
 {
@@ -32,32 +32,30 @@ namespace ISSLab.View
             }
         }
 
-        private void addToFavouritesButton_Click(object sender, RoutedEventArgs e)
+        private void AddToFavouritesButton_Click(object sender, RoutedEventArgs e)
         {
             // We can have for each user a list of favourites and add the post to that list
             var viewModel = this.DataContext as IPostContentViewModel;
             viewModel.AddPostToFavorites();
         }
 
-        private void hidePostButton_Click(object sender, RoutedEventArgs e)
+        private void HidePostButton_Click(object sender, RoutedEventArgs e)
         {
-            //Here, we would access the post element and basically rmeove it using code
             var viewModel = this.DataContext as IPostContentViewModel;
             viewModel.HidePost();
         }
 
-        private void addToCartButton_Click(object sender, RoutedEventArgs e)
+        private void AddToCartButton_Click(object sender, RoutedEventArgs e)
         {
-            // We can have for each user a cart(list) and add the post to that list
             var viewModel = this.DataContext as IPostContentViewModel;
             viewModel.AddPostToCart();
         }
 
-        private void reportPostButton_Click(object sender, RoutedEventArgs e)
+        private void ReportPostButton_Click(object sender, RoutedEventArgs e)
         {
         }
 
-        private void deletePostButton_Click(object sender, RoutedEventArgs e)
+        private void DeletePostButton_Click(object sender, RoutedEventArgs e)
         {
         }
     }

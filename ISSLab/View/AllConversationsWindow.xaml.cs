@@ -8,15 +8,14 @@ namespace ISSLab.View
 {
     public partial class AllConversationsWindow : UserControl
     {
-        private IAllConversationsViewModel _viewModel;
-
+        private IAllConversationsViewModel viewModel;
 
         public AllConversationsWindow(IAllConversationsViewModel viewModel)
         {
             InitializeComponent();
 
             DataContext = viewModel;
-            this._viewModel = viewModel;
+            this.viewModel = viewModel;
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -33,6 +32,5 @@ namespace ISSLab.View
                 parentWindow.Content = chat;
             }
         }
-
     }
 }

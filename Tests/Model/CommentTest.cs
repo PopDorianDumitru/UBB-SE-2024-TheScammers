@@ -1,24 +1,24 @@
-﻿using ISSLab.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ISSLab.Model;
 
 namespace Tests.Model
 {
     internal class CommentTest
     {
-        public Guid commentId;
-        public Guid userId;
-        public string content;
-        public List<Comment> replies;
+        private Guid commentId;
+        private Guid userId;
+        private string content;
+        private List<Comment> replies;
 
-        public Comment commentEmpty;
-        public Comment commentUserContent;
-        public Comment commentAll;
+        private Comment commentEmpty;
+        private Comment commentUserContent;
+        private Comment commentAll;
 
-        public Comment commentToAdd;
+        private Comment commentToAdd;
 
         [SetUp]
         public void SetUp()
@@ -171,6 +171,5 @@ namespace Tests.Model
             commentAll.AddReply(commentToAdd);
             Assert.Contains(commentToAdd, commentAll.Replies);
         }
-
     }
 }

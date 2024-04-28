@@ -1,17 +1,17 @@
-﻿using ISSLab.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ISSLab.Model;
 
 namespace Tests.Model
 {
     internal class ReviewTests
     {
-        public Review reviewToTest1;
-        public Review reviewToTest2;
-        public Review reviewToTest3;
+        private Review reviewToTest1;
+        private Review reviewToTest2;
+        private Review reviewToTest3;
 
         [SetUp]
         public void SettingUp()
@@ -94,21 +94,18 @@ namespace Tests.Model
         public void ReviewerIdGet_GetTheReviewerIdReviewFirstConstructor_ShouldBeNotEmpty()
         {
             Assert.That(reviewToTest1.ReviewerId, Is.Not.EqualTo(Guid.Empty));
-
         }
 
         [Test]
         public void ReviewerGet_GetTheReviewerIdOfReviewSecondConstructor_ShouldBeNotEmpty()
         {
             Assert.That(reviewToTest2.ReviewerId, Is.Not.EqualTo(Guid.Empty));
-
         }
 
         [Test]
         public void ReviewerIdGet_GetThReviewerIdOfReviewThirdConstructor_ShouldBeNotEmpty()
         {
             Assert.That(reviewToTest3.ReviewerId, Is.Not.EqualTo(Guid.Empty));
-
         }
 
         [Test]
@@ -117,28 +114,24 @@ namespace Tests.Model
             Guid newReviewerId = Guid.NewGuid();
             reviewToTest3.ReviewerId = newReviewerId;
             Assert.That(reviewToTest3.ReviewerId == newReviewerId);
-
         }
 
         [Test]
         public void DateOfReviewGet_GetDateOfReviewForReportSecondConstructor_ShouldBeJan112024()
         {
             Assert.True(reviewToTest2.DateOfReview == DateTime.Parse("Jan 11,2024"));
-
         }
 
         [Test]
         public void DateOfReviewGet_GetDateOfReviewForReportFirstConstructor_ShouldBeInstanceOdDateTime()
         {
             Assert.IsInstanceOf<DateTime>(reviewToTest2.DateOfReview);
-
         }
 
         [Test]
         public void DateOfReviewGet_GetDateOfReviewForReportThirdConstructor_ShouldBeInstanceOdDateTime()
         {
             Assert.IsInstanceOf<DateTime>(reviewToTest3.DateOfReview);
-
         }
 
         [Test]
@@ -146,28 +139,24 @@ namespace Tests.Model
         {
             reviewToTest1.DateOfReview = DateTime.Parse("Jan 11,2024");
             Assert.True(reviewToTest1.DateOfReview == DateTime.Parse("Jan 11,2024"));
-
         }
 
         [Test]
         public void ContentGet_GetContentForReportFirstConstructor_ShouldBeEqualWithcontent1()
         {
-
             Assert.True(reviewToTest1.Content == "content1");
         }
 
         [Test]
         public void ContentGet_GetContentForReportSecondConstructor_ShouldBeEqualWithcontent2()
         {
-
             Assert.True(reviewToTest2.Content == "content2");
         }
 
         [Test]
         public void ContentGet_GetContentForReportThirdConstructor_ShouldBeEmpty()
         {
-
-            Assert.True(reviewToTest3.Content == "");
+            Assert.True(reviewToTest3.Content == string.Empty);
         }
 
         [Test]

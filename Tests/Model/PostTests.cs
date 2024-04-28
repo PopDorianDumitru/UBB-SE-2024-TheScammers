@@ -1,31 +1,31 @@
-﻿using ISSLab.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ISSLab.Model;
 
 namespace Tests.Model
 {
     internal class PostTests
     {
-        public ISSLab.Model.Post firstConstructorPost;
-        public ISSLab.Model.Post secondConstructorPost;
-        public ISSLab.Model.Post thirdConstructorPost;
-        public Report reportToAdd;
-        public Guid idUserToLike;
-        public Guid idUserToFavorite;
-        public Guid idUserToShare;
-        public Guid idUserInterested1;
-        public Guid idUserInterested2;
-        public Comment? commentToAdd1;
-        public Comment? commentToAdd2;
-        public Comment? commentToAdd3;
-        public InterestStatus interestStatusToAdd1;
-        public InterestStatus interestStatusToAdd2;
-        public InterestStatus interestStatusToAdd3;
-        public InterestStatus interestStatusToAdd4;
+        private ISSLab.Model.Post firstConstructorPost;
+        private ISSLab.Model.Post secondConstructorPost;
+        private ISSLab.Model.Post thirdConstructorPost;
+        private Report reportToAdd;
+        private Guid idUserToLike;
+        private Guid idUserToFavorite;
+        private Guid idUserToShare;
+        private Guid idUserInterested1;
+        private Guid idUserInterested2;
+        private Comment? commentToAdd1;
+        private Comment? commentToAdd2;
+        private Comment? commentToAdd3;
+        private InterestStatus interestStatusToAdd1;
+        private InterestStatus interestStatusToAdd2;
+        private InterestStatus interestStatusToAdd3;
+        private InterestStatus interestStatusToAdd4;
 
         [SetUp]
         public void SetUp()
@@ -37,7 +37,7 @@ namespace Tests.Model
             idUserInterested2 = Guid.NewGuid();
             idUserToShare = Guid.NewGuid();
             commentToAdd1 = new Comment();
-            firstConstructorPost = new Post("./cat.jpg", Guid.NewGuid(), Guid.NewGuid(), "Cluj", "description1", "title1", "contacts1", "", true);
+            firstConstructorPost = new Post("./cat.jpg", Guid.NewGuid(), Guid.NewGuid(), "Cluj", "description1", "title1", "contacts1", string.Empty, true);
             secondConstructorPost = new Post(Guid.NewGuid(), new List<Guid>(), new List<Guid>(),
                 new List<Comment>(), "./cat.jpg", DateTime.Parse("Jan 1, 2024"), Guid.NewGuid(), Guid.NewGuid(), false, new List<Guid>(), "Cluj", "description2", "title2",
                 new List<InterestStatus>(), "0744444444", new List<Report>(), "type2", false, 100);
@@ -47,7 +47,6 @@ namespace Tests.Model
             interestStatusToAdd3 = new InterestStatus(idUserInterested1, thirdConstructorPost.Id, false);
             interestStatusToAdd4 = new InterestStatus(idUserInterested2, firstConstructorPost.Id, false);
         }
-
 
         [Test]
         public void IdGet_PostFirstConstructor_ShouldBeNotEmpty()
@@ -174,22 +173,22 @@ namespace Tests.Model
         [Test]
         public void MediaContentGet_getMediaContentOfPostFirstConstructor_ShouldBeString()
         {
-            Assert.IsInstanceOf<String>(firstConstructorPost.MediaContent);
+            Assert.IsInstanceOf<string>(firstConstructorPost.MediaContent);
             Assert.That(firstConstructorPost.MediaContent == "./cat.jpg");
         }
 
         [Test]
         public void MediaContentGet_getMediaContentOfPostSecondConstructor_ShouldBeString()
         {
-            Assert.IsInstanceOf<String>(secondConstructorPost.MediaContent);
+            Assert.IsInstanceOf<string>(secondConstructorPost.MediaContent);
             Assert.That(secondConstructorPost.MediaContent == "./cat.jpg");
         }
 
         [Test]
         public void MediaContentGet_getMediaContentOfPostThirdConstructor_ShouldBeString()
         {
-            Assert.IsInstanceOf<String>(thirdConstructorPost.MediaContent);
-            Assert.That(thirdConstructorPost.MediaContent == "");
+            Assert.IsInstanceOf<string>(thirdConstructorPost.MediaContent);
+            Assert.That(thirdConstructorPost.MediaContent == string.Empty);
         }
 
         [Test]
@@ -236,14 +235,11 @@ namespace Tests.Model
             Assert.False(firstConstructorPost.Promoted);
             firstConstructorPost.Promoted = true;
             Assert.True(firstConstructorPost.Promoted);
-
-
         }
 
         [Test]
         public void TitleSet_SetTheTitleOfPostFirstConstructor_ShouldBeEqualWithtitle1()
         {
-
             Assert.True(firstConstructorPost.Title == "title1");
         }
 
@@ -286,7 +282,6 @@ namespace Tests.Model
             Guid userId = reportToAdd.UserId;
             firstConstructorPost.RemoveReport(userId);
             Assert.That(firstConstructorPost.Reports, Has.Count.EqualTo(0));
-
         }
         [Test]
         public void RemoveReport_RemoveSingularReportFromPostSecondConstructor_PostSecondConstructorShouldHaveNoReports()
@@ -310,21 +305,18 @@ namespace Tests.Model
         {
             firstConstructorPost.ToggleLike(idUserToShare);
             Assert.That(firstConstructorPost.UsersThatLiked, Has.Count.EqualTo(1));
-
         }
         [Test]
         public void ToggleLike_OneUserLikesThePostSecondConstructor_NumberOfUsersThatLikedPostSecondConstructorShouldBe1()
         {
             secondConstructorPost.ToggleLike(idUserToShare);
             Assert.That(secondConstructorPost.UsersThatLiked, Has.Count.EqualTo(1));
-
         }
         [Test]
         public void ToggleLike_OneUserLikesThePostThirdConstructor_NumberOfUsersThatLikedPostThirdConstructorShouldBe1()
         {
             thirdConstructorPost.ToggleLike(idUserToShare);
             Assert.That(thirdConstructorPost.UsersThatLiked, Has.Count.EqualTo(1));
-
         }
         [Test]
         public void ToggleLike_OneUserDoesNotSharesAnymoreThePostFirstConstructor_NumberOfUsersThatSharedPostFirstConstructorShouldBe0()
@@ -332,7 +324,6 @@ namespace Tests.Model
             firstConstructorPost.ToggleLike(idUserToShare);
             firstConstructorPost.ToggleLike(idUserToShare);
             Assert.That(firstConstructorPost.UsersThatLiked, Has.Count.EqualTo(0));
-
         }
         [Test]
         public void ToggleLike_OneUserDoesNotLikeAnymoreThePostSecondConstructor_NumberOfUsersThatLikedPostSecondConstructorShouldBe0()
@@ -340,7 +331,6 @@ namespace Tests.Model
             secondConstructorPost.ToggleLike(idUserToLike);
             secondConstructorPost.ToggleLike(idUserToLike);
             Assert.That(secondConstructorPost.UsersThatLiked, Has.Count.EqualTo(0));
-
         }
         [Test]
         public void ToggleLike_OneUserDoesNotLikeAnymoreThePostThirdConstructor_NumberOfUsersThatLikedPostThirdConstructorShouldBe0()
@@ -348,28 +338,24 @@ namespace Tests.Model
             thirdConstructorPost.ToggleLike(idUserToLike);
             thirdConstructorPost.ToggleLike(idUserToLike);
             Assert.That(thirdConstructorPost.UsersThatLiked, Has.Count.EqualTo(0));
-
         }
         [Test]
         public void ToggleFavorite_OneUserFavoritesThePostFirstConstructor_NumberOfUsersThatFavoritedPostFirstConstructorShouldBe1()
         {
             firstConstructorPost.ToggleFavorite(idUserToFavorite);
             Assert.That(firstConstructorPost.UsersThatFavorited, Has.Count.EqualTo(1));
-
         }
         [Test]
         public void ToggleFavorites_OneUserFavoritesThePostSecondConstructor_NumberOfUsersThatFavoritedPostSecondConstructorShouldBe1()
         {
             secondConstructorPost.ToggleFavorite(idUserToFavorite);
             Assert.That(secondConstructorPost.UsersThatFavorited, Has.Count.EqualTo(1));
-
         }
         [Test]
         public void ToggleFavorites_OneUserFavoritesThePostThirdConstructor_NumberOfUsersThatFavoritesPostThirdConstructorShouldBe1()
         {
             thirdConstructorPost.ToggleFavorite(idUserToFavorite);
             Assert.That(thirdConstructorPost.UsersThatFavorited, Has.Count.EqualTo(1));
-
         }
         [Test]
         public void ToggleFavorites_OneUserDoesNotFavoriteAnymoreThePostFirstConstructor_NumberOfUsersThatFavoritedPostFirstConstructorShouldBe0()
@@ -377,7 +363,6 @@ namespace Tests.Model
             firstConstructorPost.ToggleFavorite(idUserToFavorite);
             firstConstructorPost.ToggleFavorite(idUserToFavorite);
             Assert.That(firstConstructorPost.UsersThatFavorited, Has.Count.EqualTo(0));
-
         }
         [Test]
         public void ToggleFavorite_OneUserDoesNotFavoriteAnymoreThePostSecondConstructor_NumberOfUsersThatLikedPostSecondConstructorShouldBe0()
@@ -385,7 +370,6 @@ namespace Tests.Model
             secondConstructorPost.ToggleFavorite(idUserToFavorite);
             secondConstructorPost.ToggleFavorite(idUserToFavorite);
             Assert.That(secondConstructorPost.UsersThatFavorited, Has.Count.EqualTo(0));
-
         }
         [Test]
         public void ToggleFavorite_OneUserDoesNotFavoriteAnymoreThePostThirdConstructor_NumberOfUsersThatFavoritedPostThirdConstructorShouldBe0()
@@ -393,28 +377,24 @@ namespace Tests.Model
             thirdConstructorPost.ToggleFavorite(idUserToFavorite);
             thirdConstructorPost.ToggleFavorite(idUserToFavorite);
             Assert.That(thirdConstructorPost.UsersThatFavorited, Has.Count.EqualTo(0));
-
         }
         [Test]
         public void ToggleShare_OneUserSharesThePostFirstConstructor_NumberOfUsersThatSharedPostFirstConstructorShouldBe1()
         {
             firstConstructorPost.ToggleShare(idUserToShare);
             Assert.That(firstConstructorPost.UsersThatShared, Has.Count.EqualTo(1));
-
         }
         [Test]
         public void ToggleShare_OneUserSharesThePostSecondConstructor_NumberOfUsersThatSharedPostSecondConstructorShouldBe1()
         {
             secondConstructorPost.ToggleShare(idUserToShare);
             Assert.That(secondConstructorPost.UsersThatShared, Has.Count.EqualTo(1));
-
         }
         [Test]
         public void ToggleShare_OneUserSharesThePostThirdConstructor_NumberOfUsersThatSharedPostThirdConstructorShouldBe1()
         {
             thirdConstructorPost.ToggleShare(idUserToShare);
             Assert.That(thirdConstructorPost.UsersThatShared, Has.Count.EqualTo(1));
-
         }
         [Test]
         public void ToggleShare_OneUserDoesNotSharesAnymoreThePostFirstConstructor_NumberOfUsersThatSharedPostFirstConstructorShouldBe0()
@@ -422,7 +402,6 @@ namespace Tests.Model
             firstConstructorPost.ToggleShare(idUserToShare);
             firstConstructorPost.ToggleShare(idUserToShare);
             Assert.That(firstConstructorPost.UsersThatShared, Has.Count.EqualTo(0));
-
         }
         [Test]
         public void ToggleShare_OneUserDoesNotSharesAnymoreThePostSecondConstructor_NumberOfUsersThatSharedPostSecondConstructorShouldBe0()
@@ -430,7 +409,6 @@ namespace Tests.Model
             secondConstructorPost.ToggleShare(idUserToShare);
             secondConstructorPost.ToggleShare(idUserToShare);
             Assert.That(secondConstructorPost.UsersThatShared, Has.Count.EqualTo(0));
-
         }
         [Test]
         public void ToggleShare_OneUserDoesNotSharesAnymoreThePostThirdConstructor_NumberOfUsersThatSharedPostThirdConstructorShouldBe0()
@@ -438,24 +416,19 @@ namespace Tests.Model
             thirdConstructorPost.ToggleShare(idUserToShare);
             thirdConstructorPost.ToggleShare(idUserToShare);
             Assert.That(thirdConstructorPost.UsersThatShared, Has.Count.EqualTo(0));
-
         }
 
         [Test]
         public void AddComment_CommentIsAddedToPostFirstConstructor_ThereShouldBeOneCommentInPostFirstConstructor()
         {
-
             firstConstructorPost.AddComment(commentToAdd1);
             Assert.That(firstConstructorPost.Comments, Has.Count.EqualTo(1));
-
         }
         [Test]
         public void AddComment_CommentIsAddedToPostSecondConstructor_ThereShouldBeOneCommentInPostSecondConstructor()
         {
-
             secondConstructorPost.AddComment(commentToAdd2);
             Assert.That(secondConstructorPost.Comments, Has.Count.EqualTo(1));
-
         }
         [Test]
         public void AddComment_CommentIsAddedToPostThirdConstructor_ThereShouldBeOneCommentInPostThirdConstructor()
@@ -505,10 +478,8 @@ namespace Tests.Model
         [Test]
         public void AddInterestUser_InterestStatus3AddedToPostThirdConstructor_ThereShouldBeOneInterestStatusInPostThirdConstructor()
         {
-
             thirdConstructorPost.AddInterestStatus(interestStatusToAdd3);
             Assert.That(thirdConstructorPost.InterestStatuses, Has.Count.EqualTo(1));
-
         }
 
         [Test]
@@ -524,11 +495,9 @@ namespace Tests.Model
         [Test]
         public void ToggleInterestStatus_AddInterestStatusToPostSecondConstructor_SwitchedTheInterestStatusesOfPostSecondConstructorToTheOppositeValue()
         {
-
             secondConstructorPost.AddInterestStatus(interestStatusToAdd2);
             secondConstructorPost.ToggleInterestStatus(interestStatusToAdd2.InterestedUserId);
             Assert.False(secondConstructorPost.InterestStatuses[0].Interested);
-
         }
         [Test]
         public void ToggleInterestStatus_AddInterestStatusToPostThirdConstructor_SwitchedTheInterestStatusesOfPostThirdConstructorToTheOppositeValue()
@@ -571,6 +540,5 @@ namespace Tests.Model
             thirdConstructorPost.AddInterestStatus(interestStatusToAdd3);
             Assert.True(thirdConstructorPost.InterestLevel() == -1);
         }
-
     }
 }

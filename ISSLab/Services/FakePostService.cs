@@ -1,15 +1,15 @@
-﻿using ISSLab.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ISSLab.Model;
 
 namespace ISSLab.Services
 {
     public class FakePostService : IPostService
     {
-        public bool getPostsCalled;
+        public bool GetPostsCalled;
         public void AddPost(Post post)
         {
             throw new NotImplementedException();
@@ -87,10 +87,10 @@ namespace ISSLab.Services
 
         public List<Post> GetPosts()
         {
-            getPostsCalled = true;
+            GetPostsCalled = true;
             string expectedMediaContent = "expected Media Content";
             Post dummyPost = new Post(expectedMediaContent, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
-            return [dummyPost];
+            return new List<Post> { dummyPost };
         }
 
         public IEnumerable<Post> GetPostsByFavorites(List<Post> postsForGroup)

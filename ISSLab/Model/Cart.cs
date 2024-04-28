@@ -8,47 +8,51 @@ namespace ISSLab.Model
 {
     public class Cart
     {
-        private Guid _groupId;
-        private Guid _userId;
-        private List<Guid> _postsSavedInCart;
+        private Guid groupId;
+        private Guid userId;
+        private List<Guid> postsSavedInCart;
 
         public Cart(Guid groupId, Guid userId, List<Guid> postsSavedInCart)
         {
-            this._groupId = groupId;
-            this._userId = userId;
-            this._postsSavedInCart = postsSavedInCart;
+            this.groupId = groupId;
+            this.userId = userId;
+            this.postsSavedInCart = postsSavedInCart;
         }
 
         public Cart()
         {
-            this._groupId = Guid.NewGuid();
-            this._userId = Guid.NewGuid();
-            this._postsSavedInCart = new List<Guid>();
+            this.groupId = Guid.NewGuid();
+            this.userId = Guid.NewGuid();
+            this.postsSavedInCart = new List<Guid>();
         }
 
         public Cart(Guid groupId, Guid userId)
         {
-            this._groupId = groupId;
-            this._userId = userId;
-            this._postsSavedInCart = new List<Guid>();
+            this.groupId = groupId;
+            this.userId = userId;
+            this.postsSavedInCart = new List<Guid>();
         }
 
-        public Guid GroupId { get => _groupId; }
-        public Guid UserId { get => _userId; }
-        public List<Guid> PostsSavedInCart { get => _postsSavedInCart; }
+        public Guid GroupId { get => groupId; }
+        public Guid UserId { get => userId; }
+        public List<Guid> PostsSavedInCart { get => postsSavedInCart; }
 
         public void AddPostToCart(Guid postToSave)
         {
-            if (this._postsSavedInCart.Contains(postToSave))
+            if (this.postsSavedInCart.Contains(postToSave))
+            {
                 throw new Exception("Post already in cart");
-            _postsSavedInCart.Add(postToSave);
+            }
+            postsSavedInCart.Add(postToSave);
         }
 
         public void RemovePostFromCart(Guid postToSave)
         {
-            if (!this._postsSavedInCart.Contains(postToSave))
+            if (!this.postsSavedInCart.Contains(postToSave))
+            {
                 throw new Exception("Post not in cart");
-            _postsSavedInCart.Remove(postToSave);
+            }
+            postsSavedInCart.Remove(postToSave);
         }
     }
 }

@@ -1,25 +1,25 @@
 ﻿using System;
-using ISSLab.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ISSLab.Model;
 
 namespace Tests.Model
 {
     internal class SellingUserScoreTests
     {
-        SellingUserScore userScoreEmptyConstructor;
-        SellingUserScore userScoreSimpleConstructor;
+        private SellingUserScore userScoreEmptyConstructor;
+        private SellingUserScore userScoreSimpleConstructor;
 
-        Guid userIdSimpleConstructor;
-        Guid groupIdSimpleConstructor;
+        private Guid userIdSimpleConstructor;
+        private Guid groupIdSimpleConstructor;
 
-        SellingUserScore userScoreFullConstructor;
+        private SellingUserScore userScoreFullConstructor;
 
-        Guid userIdFullConstructor;
-        Guid groupIdFullConstructor;
-        int scoreFullConstructor;
+        private Guid userIdFullConstructor;
+        private Guid groupIdFullConstructor;
+        private int scoreFullConstructor;
 
         [SetUp]
         public void Setup()
@@ -37,7 +37,6 @@ namespace Tests.Model
 
             userScoreFullConstructor = new SellingUserScore(userIdFullConstructor, groupIdFullConstructor, scoreFullConstructor);
         }
-
 
         [Test]
         public void UserScoreGetUserId_GetUserIdFromFullConstructor_UserIdMatches()
@@ -57,6 +56,5 @@ namespace Tests.Model
             userScoreFullConstructor.Score = 1;
             Assert.That(userScoreFullConstructor.Score, Is.EqualTo(1));
         }
-
     }
 }

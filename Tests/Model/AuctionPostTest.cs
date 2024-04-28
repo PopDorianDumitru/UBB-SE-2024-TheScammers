@@ -1,21 +1,21 @@
-﻿using ISSLab.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ISSLab.Model;
 
 namespace Tests.Model
 {
     internal class AuctionPostTest
     {
-        public AuctionPost postEmpty;
-        public AuctionPost postWithId;
-        public AuctionPost postWithoutId;
+        private AuctionPost postEmpty;
+        private AuctionPost postWithId;
+        private AuctionPost postWithoutId;
 
-        public Guid currentPriceLeader;
-        public double currentBidPrice;
-        public double minimumBidPrice;
+        private Guid currentPriceLeader;
+        private double currentBidPrice;
+        private double minimumBidPrice;
         private bool onGoing;
 
         [SetUp]
@@ -27,8 +27,8 @@ namespace Tests.Model
             onGoing = true;
 
             postEmpty = new AuctionPost();
-            postWithId = new AuctionPost(Guid.NewGuid(), new List<Guid>(), new List<Guid>(), new List<Comment>(), "", DateTime.Now, Guid.NewGuid(), Guid.NewGuid(), true, new List<Guid>(), "", "", "", new List<InterestStatus>(), "", new List<Report>(), 0, DateTime.Now, "", new List<Review>(), 0, Guid.NewGuid(), currentPriceLeader, currentBidPrice, minimumBidPrice, false, 100, onGoing);
-            postWithoutId = new AuctionPost("", Guid.NewGuid(), Guid.NewGuid(), "", "", "", "", 100, DateTime.Now, "", new List<Review>(), 0, Guid.NewGuid(), currentPriceLeader, currentBidPrice, minimumBidPrice, true);
+            postWithId = new AuctionPost(Guid.NewGuid(), new List<Guid>(), new List<Guid>(), new List<Comment>(), string.Empty, DateTime.Now, Guid.NewGuid(), Guid.NewGuid(), true, new List<Guid>(), string.Empty, string.Empty, string.Empty, new List<InterestStatus>(), string.Empty, new List<Report>(), 0, DateTime.Now, string.Empty, new List<Review>(), 0, Guid.NewGuid(), currentPriceLeader, currentBidPrice, minimumBidPrice, false, 100, onGoing);
+            postWithoutId = new AuctionPost(string.Empty, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, 100, DateTime.Now, string.Empty, new List<Review>(), 0, Guid.NewGuid(), currentPriceLeader, currentBidPrice, minimumBidPrice, true);
         }
 
         [Test]

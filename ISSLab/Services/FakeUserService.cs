@@ -1,9 +1,9 @@
-﻿using ISSLab.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ISSLab.Model;
 
 namespace ISSLab.Services
 {
@@ -13,8 +13,8 @@ namespace ISSLab.Services
         public Guid GroupId { get; set; }
         public Guid PostId { get; set; }
         public Guid AccountId { get; set; }
-        public bool getFavoritePostsCalled;
-        public bool getItemsFromCartCalled;
+        public bool GetFavoritePostsCalled;
+        public bool GetItemsFromCartCalled;
 
         public bool AddItemToCartCalled { get; set; }
 
@@ -36,7 +36,6 @@ namespace ISSLab.Services
         {
             throw new NotImplementedException();
         }
-
 
         public void AddReview(Guid reviewerId, Guid sellerId, Guid groupId, string content, DateTime date, int rating)
         {
@@ -65,13 +64,13 @@ namespace ISSLab.Services
 
         public List<Post> GetFavoritePosts(Guid groupId, Guid userId)
         {
-            getFavoritePostsCalled = true;
+            GetFavoritePostsCalled = true;
             return new List<Post>();
         }
 
         public List<Post> GetPostsFromCart(Guid userId, Guid groupId)
         {
-            getItemsFromCartCalled = true;
+            GetItemsFromCartCalled = true;
             return new List<Post>();
         }
 
@@ -122,7 +121,7 @@ namespace ISSLab.Services
             throw new NotImplementedException();
         }
 
-        public void RequestAccessToSell(Guid userId, Guid GroupId)
+        public void RequestAccessToSell(Guid userId, Guid groupId)
         {
             throw new NotImplementedException();
         }

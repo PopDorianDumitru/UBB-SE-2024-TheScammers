@@ -1,7 +1,4 @@
-﻿using ISSLab.Model;
-using ISSLab.Services;
-using ISSLab.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -9,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Markup;
 using System.Windows.Threading;
+using ISSLab.Model;
+using ISSLab.Services;
+using ISSLab.View;
 
 namespace ISSLab.ViewModel
 {
@@ -17,48 +17,49 @@ namespace ISSLab.ViewModel
         public static string MINUTES_AGO = " minutes ago";
         public static string SECONDS_AGO = " seconds ago";
 
-        private IUserService _userService;
-        public Guid _groupId { get; set; }
-        private Post _post { get; set; }
-        public Guid _accountId { get; set; }
-        public User user;
-        private string _visible;
-        private string _donationButtonVisible;
-        private string _buyButtonVisible;
-        private string _bidButtonVisible;
-        private string _bidPriceVisible;
-        private DispatcherTimer _timer;
-        public IChatFactory _chatFactory { get; }
+        private IUserService userService;
+        public Guid GroupId { get; set; }
+        private Post OurPost { get; set; }
+        public Guid AccountId { get; set; }
+        public User OurUser;
+        private string visible;
+        private string donationButtonVisible;
+        private string buyButtonVisible;
+        private string bidButtonVisible;
+        private string bidPriceVisible;
+        private DispatcherTimer timer;
+        public IChatFactory OurChatFactory { get; }
         public PostContentViewModel(Post post, User user, Guid accountId, Guid groupId, IUserService userService, IChatFactory chatFactory) : base()
         {
-            this._userService = userService;
-            this._groupId = groupId;
-            this._accountId = accountId;
-            this._post = post;
-            this.user = user;
-            this._visible = Constants.VISIBLE_VISIBILITY;
-            this._donationButtonVisible = Constants.COLLAPSED_VISIBILITY;
-            this._buyButtonVisible = Constants.COLLAPSED_VISIBILITY;
-            this._bidButtonVisible = Constants.COLLAPSED_VISIBILITY;
-            this._bidPriceVisible = Constants.COLLAPSED_VISIBILITY;
-            if (_post.Type == Constants.DONATION_POST_TYPE)
+            this.userService = userService;
+            this.GroupId = groupId;
+            this.AccountId = accountId;
+            this.OurPost = post;
+            this.OurUser = user;
+            this.visible = Constants.VISIBLE_VISIBILITY;
+            this.donationButtonVisible = Constants.COLLAPSED_VISIBILITY;
+            this.buyButtonVisible = Constants.COLLAPSED_VISIBILITY;
+            this.bidButtonVisible = Constants.COLLAPSED_VISIBILITY;
+            this.bidPriceVisible = Constants.COLLAPSED_VISIBILITY;
+            if (this.OurPost.Type == Constants.DONATION_POST_TYPE)
             {
-                this._donationButtonVisible = Constants.VISIBLE_VISIBILITY;
+                this.donationButtonVisible = Constants.VISIBLE_VISIBILITY;
             }
-            else if (_post.Type == Constants.FIXED_PRICE_POST_TYPE)
-                this._buyButtonVisible = Constants.VISIBLE_VISIBILITY;
-            else if (_post.Type == Constants.AUCTION_POST_TYPE)
-
+            else if (this.OurPost.Type == Constants.FIXED_PRICE_POST_TYPE)
             {
-                this._buyButtonVisible = Constants.VISIBLE_VISIBILITY;
-                this._bidButtonVisible = Constants.VISIBLE_VISIBILITY;
-                this._bidPriceVisible = Constants.VISIBLE_VISIBILITY;
+                this.buyButtonVisible = Constants.VISIBLE_VISIBILITY;
             }
-            _timer = new DispatcherTimer();
-            _timer.Interval = TimeSpan.FromSeconds(1);
-            _timer.Tick += Timer_Tick;
-            _timer.Start();
-            _chatFactory = chatFactory;
+            else if (this.OurPost.Type == Constants.AUCTION_POST_TYPE)
+            {
+                this.buyButtonVisible = Constants.VISIBLE_VISIBILITY;
+                this.bidButtonVisible = Constants.VISIBLE_VISIBILITY;
+                this.bidPriceVisible = Constants.VISIBLE_VISIBILITY;
+            }
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += Timer_Tick;
+            timer.Start();
+            this.OurChatFactory = chatFactory;
         }
 
         private void Timer_Tick(object? sender, EventArgs e)
@@ -67,36 +68,56 @@ namespace ISSLab.ViewModel
         }
         public Post Post
         {
-            get { return _post; }
-            set { _post = value; }
+            get { return OurPost; }
+            set { OurPost = value; }
         }
 
         public float Rating
         {
             get
             {
-                return ((FixedPricePost)_post).ReviewScore;
+                return ((FixedPricePost)OurPost).ReviewScore;
             }
         }
 
-        public string Visible { get { return _visible; } set { _visible = value; OnPropertyChanged(nameof(Visible)); } }
+        public string Visible
+        {
+            get
+            {
+                return visible;
+            }
 
-        public string Description { get { return _post.Description; } set { _post.Description = value; } }
+            set
+            {
+                visible = value;
+                OnPropertyChanged(nameof(Visible));
+            }
+        }
 
-        public string Contact { get { return _post.Contacts; } set { _post.Contacts = value; } }
+        public string Description
+        {
+            get { return OurPost.Description; }
+            set { OurPost.Description = value; }
+        }
+
+        public string Contact
+        {
+            get { return OurPost.Contacts; }
+            set { OurPost.Contacts = value; }
+        }
 
         public string Delivery
         {
             get
             {
-                if (_post.Type == Constants.FIXED_PRICE_POST_TYPE)
+                if (OurPost.Type == Constants.FIXED_PRICE_POST_TYPE)
                 {
-                    FixedPricePost fixedPricePost = (FixedPricePost)_post;
+                    FixedPricePost fixedPricePost = (FixedPricePost)OurPost;
                     return fixedPricePost.Delivery;
                 }
-                else if (_post.Type == Constants.AUCTION_POST_TYPE)
+                else if (OurPost.Type == Constants.AUCTION_POST_TYPE)
                 {
-                    AuctionPost auctionPost = (AuctionPost)_post;
+                    AuctionPost auctionPost = (AuctionPost)OurPost;
                     return auctionPost.Delivery;
                 }
                 else
@@ -106,14 +127,14 @@ namespace ISSLab.ViewModel
             }
             set
             {
-                if (_post.Type == Constants.FIXED_PRICE_POST_TYPE)
+                if (OurPost.Type == Constants.FIXED_PRICE_POST_TYPE)
                 {
-                    FixedPricePost fixedPricePost = (FixedPricePost)_post;
+                    FixedPricePost fixedPricePost = (FixedPricePost)OurPost;
                     fixedPricePost.Delivery = value;
                 }
-                else if (_post.Type == Constants.AUCTION_POST_TYPE)
+                else if (OurPost.Type == Constants.AUCTION_POST_TYPE)
                 {
-                    AuctionPost auctionPost = (AuctionPost)_post;
+                    AuctionPost auctionPost = (AuctionPost)OurPost;
                     auctionPost.Delivery = value;
                 }
             }
@@ -121,47 +142,104 @@ namespace ISSLab.ViewModel
 
         public string DonationButtonVisible
         {
-            get { return _donationButtonVisible; }
-            set { _donationButtonVisible = value; OnPropertyChanged(nameof(DonationButtonVisible)); }
+            get
+            {
+                return donationButtonVisible;
+            }
+            set
+            {
+                donationButtonVisible = value;
+                OnPropertyChanged(nameof(DonationButtonVisible));
+            }
         }
 
         public string BuyButtonVisible
         {
-            get { return _buyButtonVisible; }
-            set { _buyButtonVisible = value; OnPropertyChanged(nameof(BuyButtonVisible)); }
+            get
+            {
+                return buyButtonVisible;
+            }
+            set
+            {
+                buyButtonVisible = value;
+                OnPropertyChanged(nameof(BuyButtonVisible));
+            }
         }
 
         public string BidButtonVisible
         {
-            get { return _bidButtonVisible; }
-            set { _bidButtonVisible = value; OnPropertyChanged(nameof(BidButtonVisible)); }
+            get
+            {
+                return bidButtonVisible;
+            }
+            set
+            {
+                bidButtonVisible = value;
+                OnPropertyChanged(nameof(BidButtonVisible));
+            }
         }
 
         public string BidPriceVisible
         {
-            get { return _bidPriceVisible; }
-            set { _bidPriceVisible = value; OnPropertyChanged(nameof(BidPriceVisible)); }
+            get
+            {
+                return bidPriceVisible;
+            }
+            set
+            {
+                bidPriceVisible = value;
+                OnPropertyChanged(nameof(BidPriceVisible));
+            }
         }
 
-        public string Username { get { return user.Username; } }
+        public string Username
+        {
+            get
+            {
+                return OurUser.Username;
+            }
+        }
 
-        public string Media { get { return _post.MediaContent; } }
+        public string Media
+        {
+            get
+            {
+                return OurPost.MediaContent;
+            }
+        }
 
-        public string Location { get { return _post.ItemLocation; } }
+        public string Location
+        {
+            get
+            {
+                return OurPost.ItemLocation;
+            }
+        }
 
-        public string ProfilePicture { get { return user.ProfilePicture; } }
+        public string ProfilePicture
+        {
+            get
+            {
+                return OurUser.ProfilePicture;
+            }
+        }
         public string TimePosted
         {
             get
             {
-                TimeSpan passed = DateTime.Now - _post.CreationDate;
+                TimeSpan passed = DateTime.Now - OurPost.CreationDate;
                 if (passed.TotalSeconds < 60)
+                {
                     return Math.Ceiling(passed.TotalSeconds).ToString() + SECONDS_AGO;
+                }
                 if (passed.TotalMinutes < 60)
+                {
                     return Math.Ceiling(passed.TotalMinutes).ToString() + MINUTES_AGO;
+                }
                 if (passed.TotalHours < 24)
+                {
                     return Math.Ceiling(passed.TotalHours).ToString() + " hours ago";
-
+                }
 
                 return Math.Ceiling(passed.TotalDays).ToString() + " days ago";
             }
@@ -169,32 +247,32 @@ namespace ISSLab.ViewModel
 
         public Post GetPost()
         {
-            return _post;
+            return OurPost;
         }
 
         public void AddPostToFavorites()
         {
-            this._userService.AddPostToFavorites(_groupId, _post.Id, _accountId);
+            this.userService.AddPostToFavorites(GroupId, OurPost.Id, AccountId);
         }
 
         public void AddPostToCart()
         {
-            this._userService.AddPostToCart(_groupId, _post.Id, _accountId);
+            this.userService.AddPostToCart(GroupId, OurPost.Id, AccountId);
         }
 
         public string AvailableFor
         {
             get
             {
-                if (_post.Type == Constants.FIXED_PRICE_POST_TYPE)
+                if (OurPost.Type == Constants.FIXED_PRICE_POST_TYPE)
                 {
-                    FixedPricePost fixedPricePost = (FixedPricePost)_post;
+                    FixedPricePost fixedPricePost = (FixedPricePost)OurPost;
                     TimeSpan timeLeft = fixedPricePost.ExpirationDate - DateTime.Now;
                     return DisplayRemainingTime(timeLeft);
                 }
-                else if (_post.Type == Constants.AUCTION_POST_TYPE)
+                else if (OurPost.Type == Constants.AUCTION_POST_TYPE)
                 {
-                    AuctionPost fixedPricePost = (AuctionPost)_post;
+                    AuctionPost fixedPricePost = (AuctionPost)OurPost;
                     TimeSpan timeLeft = fixedPricePost.ExpirationDate - DateTime.Now;
                     return DisplayRemainingTime(timeLeft);
                 }
@@ -202,18 +280,23 @@ namespace ISSLab.ViewModel
                 {
                     return Constants.EMPTY_STRING;
                 }
-
             }
         }
 
         public string DisplayRemainingTime(TimeSpan timeLeft)
         {
             if (timeLeft.TotalSeconds < 60)
+            {
                 return "Available for: " + Math.Ceiling(timeLeft.TotalSeconds).ToString() + " seconds";
+            }
             if (timeLeft.TotalMinutes < 60)
+            {
                 return "Available for: " + Math.Ceiling(timeLeft.TotalMinutes).ToString() + " minutes";
+            }
             if (timeLeft.TotalHours < 24)
+            {
                 return "Available for: " + Math.Ceiling(timeLeft.TotalHours).ToString() + " hours";
+            }
             return "Available for: " + Math.Ceiling(timeLeft.TotalDays).ToString() + " days";
         }
 
@@ -221,13 +304,13 @@ namespace ISSLab.ViewModel
         {
             get
             {
-                if (_post.Type == Constants.FIXED_PRICE_POST_TYPE)
+                if (OurPost.Type == Constants.FIXED_PRICE_POST_TYPE)
                 {
-                    return Constants.DOLLAR_SIGN + ((FixedPricePost)(_post)).Price;
+                    return Constants.DOLLAR_SIGN + ((FixedPricePost)(OurPost)).Price;
                 }
-                else if (_post.Type == Constants.AUCTION_POST_TYPE)
+                else if (OurPost.Type == Constants.AUCTION_POST_TYPE)
                 {
-                    return Constants.DOLLAR_SIGN + ((AuctionPost)(_post)).Price;
+                    return Constants.DOLLAR_SIGN + ((AuctionPost)(OurPost)).Price;
                 }
                 else
                 {
@@ -238,9 +321,9 @@ namespace ISSLab.ViewModel
 
         public void UpdateBidPrice()
         {
-            if (_post.GetType() == typeof(AuctionPost))
+            if (OurPost.GetType() == typeof(AuctionPost))
             {
-                AuctionPost auctionPost = (AuctionPost)_post;
+                AuctionPost auctionPost = (AuctionPost)OurPost;
                 TimeSpan timeLeft = auctionPost.ExpirationDate - DateTime.Now;
                 TimeSpan timeSpan = TimeSpan.FromSeconds(Constants.EXPIRATION_DATE_SLIGHT_PROLONGMENT_THRESHOLD_IN_SECONDS);
                 if (timeLeft.TotalSeconds < Constants.EXPIRATION_DATE_SLIGHT_PROLONGMENT_THRESHOLD_IN_SECONDS)
@@ -248,19 +331,24 @@ namespace ISSLab.ViewModel
                     auctionPost.SlightlyPostponeExpirationDate();
                     OnPropertyChanged(nameof(AvailableFor));
                 }
-            ((AuctionPost)(_post)).CurrentBidPrice += 5;
-                ((AuctionPost)(_post)).MinimumBidPrice += 5;
+            ((AuctionPost)(OurPost)).CurrentBidPrice += 5;
+                ((AuctionPost)(OurPost)).MinimumBidPrice += 5;
                 OnPropertyChanged(nameof(BidPrice));
             }
-            else throw new Exception("Post is not of type AuctionPost!");
+            else
+            {
+                throw new Exception("Post is not of type AuctionPost!");
+            }
         }
 
         public string BidPrice
         {
             get
             {
-                if (_post.Type == Constants.AUCTION_POST_TYPE)
-                    return Constants.DOLLAR_SIGN + ((AuctionPost)(_post)).CurrentBidPrice;
+                if (OurPost.Type == Constants.AUCTION_POST_TYPE)
+                {
+                    return Constants.DOLLAR_SIGN + ((AuctionPost)(OurPost)).CurrentBidPrice;
+                }
                 else
                 {
                     return Constants.EMPTY_STRING;
@@ -272,22 +360,22 @@ namespace ISSLab.ViewModel
         {
             get
             {
-                int interested = _post.InterestStatuses.FindAll(interest => interest.Interested).Count;
+                int interested = OurPost.InterestStatuses.FindAll(interest => interest.Interested).Count;
                 return interested.ToString() + " interested";
             }
         }
 
         public void AddInterests()
         {
-            var existingInterest = _post.InterestStatuses.FirstOrDefault(interest => interest.InterestedUserId == user.Id && interest.PostId == _post.Id);
+            var existingInterest = OurPost.InterestStatuses.FirstOrDefault(interest => interest.InterestedUserId == OurUser.Id && interest.PostId == OurPost.Id);
 
             if (existingInterest != null)
             {
-                _post.InterestStatuses.Remove(existingInterest);
+                OurPost.InterestStatuses.Remove(existingInterest);
             }
             else
             {
-                _post.InterestStatuses.Add(new InterestStatus(user.Id, _post.Id, true));
+                OurPost.InterestStatuses.Add(new InterestStatus(OurUser.Id, OurPost.Id, true));
             }
 
             OnPropertyChanged(nameof(Interests));
@@ -297,22 +385,22 @@ namespace ISSLab.ViewModel
         {
             get
             {
-                int uninterested = _post.InterestStatuses.FindAll(interest => !interest.Interested).Count;
+                int uninterested = OurPost.InterestStatuses.FindAll(interest => !interest.Interested).Count;
                 return uninterested.ToString() + " uninterested";
             }
         }
 
         public void AddUninterests()
         {
-            var existingUninterest = _post.InterestStatuses.FirstOrDefault(interest => interest.InterestedUserId == user.Id && interest.PostId == _post.Id && !interest.Interested);
+            var existingUninterest = OurPost.InterestStatuses.FirstOrDefault(interest => interest.InterestedUserId == OurUser.Id && interest.PostId == OurPost.Id && !interest.Interested);
 
             if (existingUninterest != null)
             {
-                _post.InterestStatuses.Remove(existingUninterest);
+                OurPost.InterestStatuses.Remove(existingUninterest);
             }
             else
             {
-                _post.InterestStatuses.Add(new InterestStatus(user.Id, _post.Id, false));
+                OurPost.InterestStatuses.Add(new InterestStatus(OurUser.Id, OurPost.Id, false));
             }
             OnPropertyChanged(nameof(Uninterests));
         }
@@ -321,14 +409,14 @@ namespace ISSLab.ViewModel
         {
             get
             {
-                return _post.Comments.Count + " comments";
+                return OurPost.Comments.Count + " comments";
             }
         }
 
         public void SendBuyingMessage()
         {
-            var chatViewModel = new ChatViewModel(user, _post);
-            IChat chat = _chatFactory.CreateChat(chatViewModel);
+            var chatViewModel = new ChatViewModel(OurUser, OurPost);
+            IChat chat = OurChatFactory.CreateChat(chatViewModel);
             chat.SendBuyingMessage(Media);
             chat.Show();
         }
@@ -337,7 +425,7 @@ namespace ISSLab.ViewModel
         {
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
             {
-                FileName = ((DonationPost)_post).DonationPageLink,
+                FileName = ((DonationPost)OurPost).DonationPageLink,
                 UseShellExecute = true
             });
         }
@@ -347,5 +435,4 @@ namespace ISSLab.ViewModel
             Visible = Constants.COLLAPSED_VISIBILITY;
         }
     }
-
 }

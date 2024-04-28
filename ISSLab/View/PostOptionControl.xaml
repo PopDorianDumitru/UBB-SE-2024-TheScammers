@@ -15,7 +15,7 @@
             <RowDefinition x:Name="deletePostRow" Height="0.2*"/>
         </Grid.RowDefinitions>
 
-        <Button Width="150" MaxWidth="150" MaxHeight="30" x:Name="addToFavouritesButton" Grid.Row="0" Tag="AddToFavourites" Click="addToFavouritesButton_Click" Margin="15,5,15,5">
+        <Button Width="150" MaxWidth="150" MaxHeight="30" x:Name="addToFavouritesButton" Grid.Row="0" Tag="AddToFavourites" Click="AddToFavouritesButton_Click" Margin="15,5,15,5">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
@@ -23,7 +23,7 @@
             </Button.Resources>
             Add to favorites
         </Button>
-        <Button MaxWidth="150" MaxHeight="30" x:Name="hidePostButton" Grid.Row="1" Tag="HidePost" Click="hidePostButton_Click" Margin="15,5,15,5">
+        <Button MaxWidth="150" MaxHeight="30" x:Name="hidePostButton" Grid.Row="1" Tag="HidePost" Click="HidePostButton_Click" Margin="15,5,15,5">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
@@ -31,7 +31,7 @@
             </Button.Resources>
             Hide post
         </Button>
-        <Button MaxWidth="150" MaxHeight="30" x:Name="deletePostButton" Grid.Row="2" Tag="DeletePost" Click="deletePostButton_Click" Margin="15,5,15,5">
+        <Button MaxWidth="150" MaxHeight="30" x:Name="deletePostButton" Grid.Row="2" Tag="DeletePost" Click="DeletePostButton_Click" Margin="15,5,15,5">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
@@ -39,7 +39,7 @@
             </Button.Resources>
             Delete post
         </Button>
-        <Button MaxWidth="150" MaxHeight="30" x:Name="reportPostButton" Grid.Row="3" Tag="ReportPost" Click="reportPostButton_Click" Margin="15,5,15,5">
+        <Button MaxWidth="150" MaxHeight="30" x:Name="reportPostButton" Grid.Row="3" Tag="ReportPost" Click="ReportPostButton_Click" Margin="15,5,15,5">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
@@ -47,7 +47,7 @@
             </Button.Resources>
             Report post
         </Button>
-        <Button MaxWidth="150" MaxHeight="30" x:Name="addToCartButton" Grid.Row="4" Tag="AddToCart" Click="addToCartButton_Click" Margin="15,5,15,5">
+        <Button MaxWidth="150" MaxHeight="30" x:Name="addToCartButton" Grid.Row="4" Tag="AddToCart" Click="AddToCartButton_Click" Margin="15,5,15,5">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>

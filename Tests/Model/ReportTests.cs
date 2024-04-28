@@ -1,19 +1,18 @@
-﻿using ISSLab.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
+using ISSLab.Model;
 
 namespace Tests.Model
 {
     internal class ReportTests
     {
-        public Report reportToTest1;
-        public Report reportToTest2;
-        public Report reportToTest3;
-
+        private Report reportToTest1;
+        private Report reportToTest2;
+        private Report reportToTest3;
 
         [SetUp]
         public void SettingUp()
@@ -102,7 +101,6 @@ namespace Tests.Model
             reportToTest1.DateOfReport = DateTime.Parse("Jan 11,2023");
             Assert.True(reportToTest1.DateOfReport == DateTime.Parse("Jan 11,2023"));
         }
-
     }
 }
 

@@ -1,6 +1,4 @@
-﻿using ISSLab.Model;
-using ISSLab.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ISSLab.Model;
+using ISSLab.ViewModel;
 
 namespace ISSLab.View
 {
@@ -22,15 +22,13 @@ namespace ISSLab.View
     /// </summary>
     public partial class PostContent : UserControl
     {
-
-
         public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(PostContent));
-        public static readonly DependencyProperty UsernameProperty =  DependencyProperty.Register("Username", typeof(string), typeof(PostContent));
+        public static readonly DependencyProperty UsernameProperty = DependencyProperty.Register("Username", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty MediaProperty = DependencyProperty.Register("Media", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty LocationProperty = DependencyProperty.Register("Location", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty ProfilePictureProperty = DependencyProperty.Register("ProfilePicture", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty TimePostedProperty = DependencyProperty.Register("TimePosted", typeof(string), typeof(PostContent));
-        public static readonly DependencyProperty AvailableForProperty  = DependencyProperty.Register("AvailableFor", typeof(string), typeof(PostContent));
+        public static readonly DependencyProperty AvailableForProperty = DependencyProperty.Register("AvailableFor", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty PriceProperty = DependencyProperty.Register("Price", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty InterestsProperty = DependencyProperty.Register("Interests", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty UninterestsProperty = DependencyProperty.Register("Uninterests", typeof(string), typeof(PostContent));
@@ -38,51 +36,47 @@ namespace ISSLab.View
         public static readonly DependencyProperty DescriptionProperty = DependencyProperty.Register("Description", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty ContactProperty = DependencyProperty.Register("Contact", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty DeliveryProperty = DependencyProperty.Register("Delivery", typeof(string), typeof(PostContent));
-        //public static readonly DependencyProperty VisibleProperty = DependencyProperty.Register("Visible", typeof(string), typeof(PostContent));
-
+        // public static readonly DependencyProperty VisibleProperty = DependencyProperty.Register("Visible", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty DonationButtonVisibleProperty = DependencyProperty.Register("DonationButtonVisible", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty BuyButtonVisibleProperty = DependencyProperty.Register("BuyButtonVisible", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty BidButtonVisibleProperty = DependencyProperty.Register("BidButtonVisible", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty BidPriceVisibleProperty = DependencyProperty.Register("BidPriceVisible", typeof(string), typeof(PostContent));
         public static readonly DependencyProperty BidPriceProperty = DependencyProperty.Register("BidPrice", typeof(string), typeof(PostContent));
-        public String DonationButtonVisible
+        public string DonationButtonVisible
         {
-            get { return (String)GetValue(DonationButtonVisibleProperty); }
-            set {SetValue(DonationButtonVisibleProperty, value);  }
-
+            get { return (string)GetValue(DonationButtonVisibleProperty); }
+            set { SetValue(DonationButtonVisibleProperty, value); }
         }
 
-        public String BuyButtonVisible
+        public string BuyButtonVisible
         {
-            get { return (String)GetValue(BuyButtonVisibleProperty); }
+            get { return (string)GetValue(BuyButtonVisibleProperty); }
             set { SetValue(BuyButtonVisibleProperty, value); }
-
         }
 
         public string BidButtonVisible
         {
-            get { return (String)GetValue(BidButtonVisibleProperty); }
+            get { return (string)GetValue(BidButtonVisibleProperty); }
             set { SetValue(BidButtonVisibleProperty, value); }
         }
 
         public string BidPriceVisible
         {
-            get { return (String)GetValue(BidPriceVisibleProperty); }
+            get { return (string)GetValue(BidPriceVisibleProperty); }
             set { SetValue(BidPriceVisibleProperty, value); }
         }
 
-        public String BidPrice
+        public string BidPrice
         {
-            get { return (String)GetValue(BidPriceProperty); }
+            get { return (string)GetValue(BidPriceProperty); }
             set { SetValue(BidPriceProperty, value); }
         }
         public static readonly DependencyProperty RatingProperty = DependencyProperty.Register("Rating", typeof(float), typeof(PostContent));
 
-
-        public String Title
+        public string Title
         {
-            get { return (String)GetValue(TitleProperty); } 
-            set { SetValue(TitleProperty, value);}
+            get { return (string)GetValue(TitleProperty); }
+            set { SetValue(TitleProperty, value); }
         }
         public float Rating
         {
@@ -90,151 +84,161 @@ namespace ISSLab.View
             set { SetValue(RatingProperty, value); }
         }
 
-        public String Username
+        public string Username
         {
-            get { return (String)GetValue(UsernameProperty); }
+            get { return (string)GetValue(UsernameProperty); }
             set { SetValue(UsernameProperty, value); }
         }
-        public String Media
+        public string Media
         {
-            get { return (String)GetValue(MediaProperty); }
+            get { return (string)GetValue(MediaProperty); }
             set { SetValue(MediaProperty, value); }
         }
-        public String Location
+        public string Location
         {
-            get { return (String)GetValue(LocationProperty); }
+            get { return (string)GetValue(LocationProperty); }
             set { SetValue(LocationProperty, value); }
         }
-        public String ProfilePicture
+        public string ProfilePicture
         {
-            get { return (String)GetValue(ProfilePictureProperty); }
+            get { return (string)GetValue(ProfilePictureProperty); }
             set { SetValue(ProfilePictureProperty, value); }
         }
-        public String TimePosted
+        public string TimePosted
         {
-            get { return (String)GetValue(TimePostedProperty); }
+            get { return (string)GetValue(TimePostedProperty); }
             set { SetValue(TimePostedProperty, value); }
         }
-        public String AvailableFor
+        public string AvailableFor
         {
-            get { return (String)GetValue(AvailableForProperty); }
+            get { return (string)GetValue(AvailableForProperty); }
             set { SetValue(AvailableForProperty, value); }
         }
-        public String Price
+        public string Price
         {
-            get { return (String)GetValue(PriceProperty); }
+            get { return (string)GetValue(PriceProperty); }
             set { SetValue(PriceProperty, value); }
         }
-        public String Interests
+        public string Interests
         {
-            get { return (String)GetValue(InterestsProperty); }
+            get { return (string)GetValue(InterestsProperty); }
             set { SetValue(InterestsProperty, value); }
         }
-        public String Uninterests
+        public string Uninterests
         {
-            get { return (String)GetValue(UninterestsProperty); }
+            get { return (string)GetValue(UninterestsProperty); }
             set { SetValue(UninterestsProperty, value); }
         }
-        public String Comments
+        public string Comments
         {
-            get { return (String)GetValue(CommentsProperty); }
+            get { return (string)GetValue(CommentsProperty); }
             set { SetValue(CommentsProperty, value); }
         }
 
-        public String Description
+        public string Description
         {
-            get { return (String)GetValue(DescriptionProperty); }
+            get { return (string)GetValue(DescriptionProperty); }
             set { SetValue(DescriptionProperty, value); }
         }
 
-        public String Contact
+        public string Contact
         {
-            get { return (String)GetValue(ContactProperty); }
+            get { return (string)GetValue(ContactProperty); }
             set { SetValue(ContactProperty, value); }
         }
 
-        public String Delivery
+        public string Delivery
         {
-            get { return (String)GetValue(DeliveryProperty); }
+            get { return (string)GetValue(DeliveryProperty); }
             set { SetValue(DeliveryProperty, value); }
         }
-
-        //public String Visible
-        //{
-        //    get { return (String)GetValue(VisibleProperty); }
-        //    set { SetValue(VisibleProperty, value); }
-        //}
-
 
         public event EventHandler MoreButtonClicked;
         public event EventHandler OptionsButtonClicked;
         public PostContent()
         {
-
             InitializeComponent();
 
             if (this.Rating < 5)
+            {
                 this.star5.Visibility = Visibility.Collapsed;
+            }
             if (this.Rating < 4)
+            {
                 this.star4.Visibility = Visibility.Collapsed;
+            }
             if (this.Rating < 3)
+            {
                 this.star3.Visibility = Visibility.Collapsed;
+            }
             if (this.Rating < 2)
+            {
                 this.star2.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void OnMoreButtonClick(object sender, RoutedEventArgs e)
         {
             if (GridOptions.IsVisible)
+            {
                 GridOptions.Visibility = Visibility.Collapsed;
+            }
 
             if (GridDetails.IsVisible)
+            {
                 GridDetails.Visibility = Visibility.Collapsed;
+            }
             else
+            {
                 GridDetails.Visibility = Visibility.Visible;
+            }
         }
 
         private void DisplayOptions(object sender, RoutedEventArgs e)
         {
             if (GridDetails.IsVisible)
+            {
                 GridDetails.Visibility = Visibility.Collapsed;
+            }
 
             if (GridOptions.IsVisible)
+            {
                 GridOptions.Visibility = Visibility.Collapsed;
+            }
             else
+            {
                 GridOptions.Visibility = Visibility.Visible;
+            }
         }
 
-        private void onInterestedClicked(object sender, RoutedEventArgs e)
+        private void OnInterestedClicked(object sender, RoutedEventArgs e)
         {
             var viewModel = DataContext as IPostContentViewModel;
             viewModel.AddInterests();
         }
 
-        private void onUninterestedClicked(object sender, RoutedEventArgs e)
+        private void OnUninterestedClickedOn(object sender, RoutedEventArgs e)
         {
             var viewModel = DataContext as IPostContentViewModel;
             viewModel.AddUninterests();
         }
 
-        private void onBuyButtonClicked(object sender, RoutedEventArgs e)
+        private void OnBuyButtonClicked(object sender, RoutedEventArgs e)
         {
             var viewModel = DataContext as IPostContentViewModel;
             viewModel.SendBuyingMessage();
         }
 
-
-        private void onBidButtonClicked(object sender, RoutedEventArgs e)
+        private void OnBidButtonClicked(object sender, RoutedEventArgs e)
         {
             var viewModel = DataContext as IPostContentViewModel;
             viewModel.UpdateBidPrice();
         }
 
-        private void onDonationButtonClicked(object sender, RoutedEventArgs e)
+        private void OnDonationButtonClicked(object sender, RoutedEventArgs e)
         {
             var viewModel = DataContext as IPostContentViewModel;
             viewModel.Donate();
         }
-
     }
 }
