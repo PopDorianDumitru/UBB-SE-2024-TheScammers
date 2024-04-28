@@ -51,7 +51,7 @@ namespace Tests.ViewModel
         }
 
         [Test]
-        public void ChangeToMarketPlace_AnyPost_CallsGetFavoritePosts()
+        public void ChangeToMarketPlace_AnyPost_CallsGetPosts()
         {
             _mainWindowViewModel.ChangeToMarketPlace();
             Assert.That(_fakePostService.getPostsCalled, Is.EqualTo(true));
