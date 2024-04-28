@@ -73,7 +73,9 @@ namespace ISSLab.Services
 
         public User GetUserById(Guid id)
         {
-            throw new NotImplementedException();
+            string expectedUsername = "expected Username";
+            User dummyUser = new User(expectedUsername, string.Empty, DateOnly.MaxValue, string.Empty, string.Empty);
+            return dummyUser;
         }
 
         public List<User> GetUsers()

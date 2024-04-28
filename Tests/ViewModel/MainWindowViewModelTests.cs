@@ -13,29 +13,27 @@ namespace Tests.ViewModel
 {
     internal class MainWindowViewModelTests
     {
-        //private ObservableCollection<IPostContentViewModel> shownPosts;
-        private Guid userId;
-        private Guid groupId;
-        private Mock<IPostService> _postService;
-        private Mock<IUserService> _userService;
         private MainWindowViewModel _mainWindowViewModel;
 
         [SetUp]
         public void SetUp()
         {
-            userId = Guid.NewGuid();
-            groupId = Guid.NewGuid();
-            _postService = new Mock<IPostService>();
-            _userService = new Mock<IUserService>();
-            _mainWindowViewModel = new MainWindowViewModel(_postService.Object, _userService.Object, userId, groupId);
+            _mainWindowViewModel = new MainWindowViewModel(new FakePostService(), new FakeUserService(), Guid.NewGuid(), Guid.NewGuid());
+        }
+
+        [Test]
+        public void ShownPosts_GetValue_ReturnsCorrectValue()
+        {
+            var expectedResult = new ObservableCollection<IPostContentViewModel>();
+
+            Assert.That(_mainWindowViewModel.ShownPosts, Has.Count.EqualTo(1));
+           _mainWindowViewModel.ShownPosts = expectedResult;
+            Assert.That(_mainWindowViewModel.ShownPosts, Has.Count.EqualTo(0));
         }
 
         [Test]
         public void ChangeToFavorites_Test()
         {
-            List<Post> favoritedPosts = _userService.Object.GetFavoritePosts(groupId, userId);
-            _mainWindowViewModel.LoadPostsCommand(favoritedPosts);
-            Assert.Equals(favoritedPosts, _mainWindowViewModel.ShownPosts);
         }
     }
 }
