@@ -7,22 +7,18 @@ using System.Threading.Tasks;
 
 namespace Tests
 {
-    internal class UserScoreTests
+    internal class SellingUserScoreTests
     {
-
         SellingUserScore userScoreEmptyConstructor;
-
-
         SellingUserScore userScoreSimpleConstructor;
 
-        Guid userSimpleConstructor;
-        Guid groupSimpleConstructor;
-
+        Guid userIdSimpleConstructor;
+        Guid groupIdSimpleConstructor;
 
         SellingUserScore userScoreFullConstructor;
 
-        Guid userFullConstructor;
-        Guid groupFullConstructor;
+        Guid userIdFullConstructor;
+        Guid groupIdFullConstructor;
         int scoreFullConstructor;
 
         [SetUp]
@@ -30,29 +26,29 @@ namespace Tests
         {
             userScoreEmptyConstructor = new SellingUserScore();
 
-            userSimpleConstructor = new Guid();
-            groupSimpleConstructor = new Guid();
+            userIdSimpleConstructor = new Guid();
+            groupIdSimpleConstructor = new Guid();
 
-            userScoreSimpleConstructor = new SellingUserScore(userSimpleConstructor, groupSimpleConstructor);
+            userScoreSimpleConstructor = new SellingUserScore(userIdSimpleConstructor, groupIdSimpleConstructor);
 
-            userFullConstructor = new Guid();
-            groupFullConstructor = new Guid();
+            userIdFullConstructor = new Guid();
+            groupIdFullConstructor = new Guid();
             scoreFullConstructor = 0;
 
-            userScoreFullConstructor = new SellingUserScore(userFullConstructor, groupFullConstructor, scoreFullConstructor);
+            userScoreFullConstructor = new SellingUserScore(userIdFullConstructor, groupIdFullConstructor, scoreFullConstructor);
         }
 
 
         [Test]
         public void UserScoreGetUserId_GetUserIdFromFullConstructor_UserIdMatches()
         {
-            Assert.That(userScoreFullConstructor.UserId, Is.EqualTo(userFullConstructor));
+            Assert.That(userScoreFullConstructor.UserId, Is.EqualTo(userIdFullConstructor));
         }
 
         [Test]
         public void UserScoreGetGroupId_GetGroupIdFromFullConstructor_GroupIdMatches()
         {
-            Assert.That(userScoreFullConstructor.GroupId, Is.EqualTo(groupFullConstructor));
+            Assert.That(userScoreFullConstructor.GroupId, Is.EqualTo(groupIdFullConstructor));
         }
 
         [Test]

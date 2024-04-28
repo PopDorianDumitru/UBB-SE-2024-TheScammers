@@ -9,7 +9,8 @@ namespace Tests
 {
     internal class UserTests
     {
-
+        private const string TEST_STRING = "Test";
+        private const string OTHER_TEST_STRING = "Test2";
         User userEmptyConstructor;
 
         User userSimpleConstructor;
@@ -31,11 +32,10 @@ namespace Tests
         List<Guid> groupsWithActiveRequestToSellFullConstructor;
         List<SellingUserScore> userScoresFullConstructor;
         List<Cart> cartsFullConstructor;
-        List<Favorites> favoritesFullConstructor;
+        List<UsersFavoritePosts> favoritesFullConstructor;
         List<Guid> groupsFullConstructor;
         List<Review> receivedReviewsFullConstructor;
         int numberOfSalesFullConstructor;
-
 
         SellingUserScore scoreToAddAndRemove;
         Guid groupToUseForAccessTests;
@@ -45,26 +45,26 @@ namespace Tests
         {
             userEmptyConstructor = new User();
 
-            usernameSimpleConstructor = "Test";
-            realNameSimpleConstructor = "Test";
+            usernameSimpleConstructor = TEST_STRING;
+            realNameSimpleConstructor = TEST_STRING;
             dateOfBirthSimpleConstructor = DateOnly.FromDateTime(DateTime.Now);
-            profilePictureSimpleConstructor = "Test";
-            passwordSimpleConstructor = "Test";
+            profilePictureSimpleConstructor = TEST_STRING;
+            passwordSimpleConstructor = TEST_STRING;
 
             userSimpleConstructor = new User(usernameSimpleConstructor, realNameSimpleConstructor, dateOfBirthSimpleConstructor, profilePictureSimpleConstructor, passwordSimpleConstructor);
 
             idFullConstructor = new Guid();
-            usernameFullConstructor = "Test";
-            realNameFullConstructor = "Test";
+            usernameFullConstructor = TEST_STRING;
+            realNameFullConstructor = TEST_STRING;
             dateOfBirthFullConstructor = DateOnly.FromDateTime(DateTime.Now);
-            profilePictureFullConstructor = "Test";
-            passwordFullConstructor = "Test";
+            profilePictureFullConstructor = TEST_STRING;
+            passwordFullConstructor = TEST_STRING;
             creationDateFullConstructor = DateTime.Now;
             groupsWithSellingPrivilegeFullConstructor = new List<Guid>();
             groupsWithActiveRequestToSellFullConstructor = new List<Guid>();
             userScoresFullConstructor = new List<SellingUserScore>();
             cartsFullConstructor = new List<Cart>();
-            favoritesFullConstructor = new List<Favorites>();
+            favoritesFullConstructor = new List<UsersFavoritePosts>();
             groupsFullConstructor = new List<Guid>();
             receivedReviewsFullConstructor = new List<Review>();
             numberOfSalesFullConstructor = 0;
@@ -73,7 +73,6 @@ namespace Tests
 
             scoreToAddAndRemove = new SellingUserScore();
             groupToUseForAccessTests = new Guid();
-           
         }
 
         [Test]
@@ -88,12 +87,11 @@ namespace Tests
             Assert.That(userFullConstructor.Username, Is.EqualTo(usernameFullConstructor));
         }
 
-
         [Test]
         public void UserUsernameSet_SetUsernameOfFullConstructorUser_NewUsernameMatches()
         {
-            userFullConstructor.Username = "Test2";
-            usernameFullConstructor = "Test2";
+            userFullConstructor.Username = OTHER_TEST_STRING;
+            usernameFullConstructor = OTHER_TEST_STRING;
             Assert.That(userFullConstructor.Username, Is.EqualTo(usernameFullConstructor));
         }
 
@@ -103,12 +101,11 @@ namespace Tests
             Assert.That(userFullConstructor.RealName, Is.EqualTo(realNameFullConstructor));
         }
 
-
         [Test]
         public void UserRealNameSet_SetRealNameOfFullConstructorUser_NewRealNameMatches()
         {
-            userFullConstructor.RealName = "Test2";
-            realNameFullConstructor = "Test2";
+            userFullConstructor.RealName = OTHER_TEST_STRING;
+            realNameFullConstructor = OTHER_TEST_STRING;
             Assert.That(userFullConstructor.RealName, Is.EqualTo(realNameFullConstructor));
         }
 
@@ -125,7 +122,6 @@ namespace Tests
             dateOfBirthFullConstructor = newDate;
             userFullConstructor.DateOfBirth = newDate;
             Assert.That(userFullConstructor.DateOfBirth, Is.EqualTo(dateOfBirthFullConstructor));
-
         }
 
         [Test]
@@ -137,8 +133,8 @@ namespace Tests
         [Test]
         public void UserProfilePictureSet_SetProfilePictureOfFullConstructorUser_NewProfilePictureMatches()
         {
-            userFullConstructor.ProfilePicture = "Test2";
-            profilePictureFullConstructor = "Test2";
+            userFullConstructor.ProfilePicture = OTHER_TEST_STRING;
+            profilePictureFullConstructor = OTHER_TEST_STRING;
             Assert.That(userFullConstructor.ProfilePicture, Is.EqualTo(profilePictureFullConstructor));
         }
 
@@ -151,8 +147,8 @@ namespace Tests
         [Test]
         public void UserPasswordSet_SetPasswordOfFullConstructorUser_NewPasswordMatches()
         {
-            userFullConstructor.Password = "Test2";
-            passwordFullConstructor = "Test2";
+            userFullConstructor.Password = OTHER_TEST_STRING;
+            passwordFullConstructor = OTHER_TEST_STRING;
             Assert.That(userFullConstructor.Password, Is.EqualTo(passwordFullConstructor));
         }
 
@@ -214,15 +210,12 @@ namespace Tests
         [Test]
         public void UserProfilePictureImageSourceGet_GetProfilePictureImageSourceWithFaultyLink_ReturnsNull()
         {
-            userFullConstructor.ProfilePicture = "Test";
+            userFullConstructor.ProfilePicture = TEST_STRING;
             Assert.That(userFullConstructor.ProfilePictureImageSource, Is.Null);
-
         }
 
-
-
         [Test]
-        public void UserAddCart_AddEmptyCartToFullConstructorUser_CartAdded()
+        public void AddCart_AddEmptyCartToFullConstructorUser_CartAdded()
         {
             Cart newCart = new Cart();
             userFullConstructor.AddCart(newCart);
@@ -230,25 +223,23 @@ namespace Tests
         }
 
         [Test]
-        public void UserAddFavourites_AddEmptyFavouritesToFullConstructorUser_FavoritesAdded()
+        public void AddFavorites_AddEmptyFavouritesToFullConstructorUser_FavoritesAdded()
         {
-            Favorites favorites = new Favorites();
+            UsersFavoritePosts favorites = new UsersFavoritePosts();
             userFullConstructor.AddFavorites(favorites);
             Assert.That(userFullConstructor.Favorites[0], Is.EqualTo(favorites));
-
         }
 
         [Test]
-        public void UserAddGroup_AddGroupToFullConstructorUser_GroupAdded()
+        public void AddGroup_AddGroupToFullConstructorUser_GroupAdded()
         {
             Guid group = new Guid();
             userFullConstructor.AddGroup(group);
             Assert.That(userFullConstructor.Groups[0], Is.EqualTo(group));
-
         }
 
         [Test]
-        public void UserAddReview_AddReviewToFullConstructorUser_ReviewAdded()
+        public void AddReview_AddReviewToFullConstructorUser_ReviewAdded()
         {
             Review review = new Review();
             userFullConstructor.AddReview(review);
@@ -256,7 +247,7 @@ namespace Tests
         }
 
         [Test]
-        public void UserAddUserScore_AddUserScoreToFullConstructorUser_UserScoreAdded()
+        public void AddNewUserScore_AddUserScoreToFullConstructorUser_UserScoreAdded()
         {
             userFullConstructor.AddNewUserScore(scoreToAddAndRemove);
             Assert.That(userFullConstructor.sellingUserScores[0], Is.EqualTo(scoreToAddAndRemove));
@@ -270,21 +261,21 @@ namespace Tests
         }
 
         [Test]
-        public void UserRemoveUserScore_RemoveUserScoreFromFullConstructorUser_ScoreRemoved()
+        public void RemoveUserScore_RemoveUserScoreFromFullConstructorUser_ScoreRemoved()
         {
             userFullConstructor.RemoveUserScore(scoreToAddAndRemove);
             Assert.That(userFullConstructor.sellingUserScores.Count, Is.EqualTo(0));
         }
 
         [Test]
-        public void UserRequestSellingAccess_RequestSellingAccessToPresetGroup_RequestSucceeds()
+        public void RequestSellingAccess_RequestSellingAccessToPresetGroup_RequestSucceeds()
         {
             userFullConstructor.RequestSellingAccess(groupToUseForAccessTests);
             Assert.That(userFullConstructor.GroupsWithActiveRequestToSell[0], Is.EqualTo(groupToUseForAccessTests));
         }
 
         [Test]
-        public void UserRequestSellingAccess_RequestSellingAccessToAlreadyRequestedGroup_RaisesException()
+        public void RequestSellingAccess_RequestSellingAccessToAlreadyRequestedGroup_RaisesException()
         {
             try
             {
@@ -300,14 +291,14 @@ namespace Tests
         }
 
         [Test]
-        public void UserGiveAccessToSell_GiveAccessToRequest_AccessGranted()
+        public void GiveAccessToSellInGroup_GiveAccessToRequest_AccessGranted()
         {
             userFullConstructor.GiveAccessToSellInGroup(groupToUseForAccessTests);
             userFullConstructor.GroupsWithSellingPrivilege.Contains(groupToUseForAccessTests);
         }
 
         [Test]
-        public void UserGiveAccessToSell_GiveAccessToAlreadyExistingGroup_RaisesException()
+        public void GiveAccessToSellInGroup_GiveAccessToAlreadyExistingGroup_RaisesException()
         {
             try
             {
@@ -322,9 +313,10 @@ namespace Tests
         }
 
         [Test]
-        public void UserRequestSellingAccess_RequestSellingAccessToAlreadyPermittedGroup_RaisesException()
+        public void RequestSellingAccess_RequestSellingAccessToAlreadyPermittedGroup_RaisesException()
         {
-            try {
+            try
+            {
                 userFullConstructor.RequestSellingAccess(groupToUseForAccessTests);
                 userFullConstructor.GiveAccessToSellInGroup(groupToUseForAccessTests);
                 userFullConstructor.RequestSellingAccess(groupToUseForAccessTests);
@@ -338,7 +330,7 @@ namespace Tests
         }
 
         [Test]
-        public void UserHasAccessToSell_CheckIfUserHasAccessToPreset_ReturnsTrue()
+        public void HasAccessToSellInGroup_CheckIfUserHasAccessToPreset_ReturnsTrue()
         {
             userFullConstructor.RequestSellingAccess(groupToUseForAccessTests);
             userFullConstructor.GiveAccessToSellInGroup(groupToUseForAccessTests);
@@ -346,13 +338,13 @@ namespace Tests
         }
 
         [Test]
-        public void UserHasAccessToSell_CheckIfUserHasAccessToRandom_ReturnsFalse()
+        public void HasAccessToSellInGroup_CheckIfUserHasAccessToRandom_ReturnsFalse()
         {
             Assert.IsFalse(userFullConstructor.HasAccessToSellInGroup(new Guid()));
         }
 
         [Test]
-        public void UserTakeAwayAccessToSell_TakeAwayAccessFromPreset_TakingAwayWorks()
+        public void TakeAwayAccessToSellInGroup_TakeAwayAccessFromPreset_TakingAwayWorks()
         {
             userFullConstructor.RequestSellingAccess(groupToUseForAccessTests);
             userFullConstructor.GiveAccessToSellInGroup(groupToUseForAccessTests);
@@ -361,7 +353,7 @@ namespace Tests
         }
 
         [Test]
-        public void UserTakeAwayAccessToSell_TakeAwayAccessFromRandomGroup_RaisesException()
+        public void TakeAwayAccessToSellInGroup_TakeAwayAccessFromRandomGroup_RaisesException()
         {
             try
             {
@@ -375,7 +367,7 @@ namespace Tests
         }
 
         [Test]
-        public void UserDenyAccessToRequest_DenyAccessToNonExistingRequest_RaisesException()
+        public void DenyAccessToSellInGroup_DenyAccessToNonExistingRequest_RaisesException()
         {
             try
             {
@@ -388,10 +380,8 @@ namespace Tests
             }
         }
 
-       
-
         [Test]
-        public void UserDenyAccessToRequest_DenyAccessToPresetRequest_AccessDenied()
+        public void DenyAccessToSellInGroup_DenyAccessToPresetRequest_AccessDenied()
         {
             userFullConstructor.RequestSellingAccess(groupToUseForAccessTests);
             userFullConstructor.DenyAccessToSellInGroup(groupToUseForAccessTests);

@@ -28,10 +28,6 @@ namespace ISSLab.Model
         private List<Review> receivedReviews;
 
 
-
-
-
-
         public User(string username, string realName, DateOnly dateOfBirth, string profilePicture, string password)
         {
             this.id = Guid.NewGuid();
@@ -50,7 +46,7 @@ namespace ISSLab.Model
             this.receivedReviews = new List<Review>();
             this.numberOfSales = 0;
         }
-        public User(Guid id, string username, string realName, DateOnly dateOfBirth, string profilePicture, string password, DateTime creationDate, List<Guid> groupsWithSellingPrivelage, List<Guid> groupsWithActiveRequestToSell,List<SellingUserScore> userScores, List<Cart> carts, List<UsersFavoritePosts> favorites, List<Guid> groups, List<Review> receivedReviews, int nrOfSells)
+        public User(Guid id, string username, string realName, DateOnly dateOfBirth, string profilePicture, string password, DateTime creationDate, List<Guid> groupsWithSellingPrivelage, List<Guid> groupsWithActiveRequestToSell, List<SellingUserScore> userScores, List<Cart> carts, List<UsersFavoritePosts> favorites, List<Guid> groups, List<Review> receivedReviews, int nrOfSells)
         {
             this.id = id;
             this.username = username;
@@ -76,11 +72,11 @@ namespace ISSLab.Model
         public User()
         {
             this.id = Guid.NewGuid();
-            this.username = "";
-            this.realName = "";
+            this.username = Constants.EMPTY_STRING;
+            this.realName = Constants.EMPTY_STRING;
             this.dateOfBirth = new DateOnly();
-            this.profilePicture = "";
-            this.password = "";
+            this.profilePicture = Constants.EMPTY_STRING;
+            this.password = Constants.EMPTY_STRING;
             this.creationDate = DateTime.Now;
             this.groupsWithSellingPrivilege = new List<Guid>();
             this.groupsWithActiveRequestToSell = new List<Guid>();
@@ -90,7 +86,6 @@ namespace ISSLab.Model
             this.favorites = new List<UsersFavoritePosts>();
             this.groups = new List<Guid>();
             this.receivedReviews = new List<Review>();
-
         }
 
         public List<SellingUserScore> sellingUserScores { get => userScores; set => userScores = value; }
@@ -110,13 +105,10 @@ namespace ISSLab.Model
 
         public List<Review> Reviews { get => receivedReviews; }
 
-
         public List<Guid> GroupsWithSellingPrivilege { get => groupsWithSellingPrivilege; }
+        public List<Guid> GroupsWithActiveRequestToSell { get => groupsWithActiveRequestToSell; }
 
-        public List<Guid> GroupsWithActiveRequestToSell { get => groupsWithActiveRequestToSell;}
-
-
-        public ImageSource ProfilePictureImageSource
+        public ImageSource? ProfilePictureImageSource
         {
             get
             {
@@ -144,62 +136,57 @@ namespace ISSLab.Model
         {
             groups.Add(newGroup);
         }
-     
 
-        
         public void AddReview(Review newReview)
         {
             receivedReviews.Add(newReview);
         }
-        public void AddNewUserScore( SellingUserScore userScore)
+        public void AddNewUserScore(SellingUserScore userScore)
         {
             this.userScores.Add(userScore);
         }
-
 
         public int NumberOfSales { get => numberOfSales; set => numberOfSales = value; }
 
         public void RemoveUserScore(SellingUserScore userScore)
         {
-            this.userScores = this.userScores.FindAll(val => val.GroupId != userScore.GroupId);
-        }  
+            this.userScores = this.userScores.FindAll(score => score.GroupId != userScore.GroupId);
+        }
 
         public void RequestSellingAccess(Guid groupId)
         {
-            if(groupsWithActiveRequestToSell.Contains(groupId))
+            if (groupsWithActiveRequestToSell.Contains(groupId))
                 throw new Exception("Already requested access to sell in this group");
-            if(groupsWithSellingPrivilege.Contains(groupId))
+            if (groupsWithSellingPrivilege.Contains(groupId))
                 throw new Exception("Already have access to sell in this group");
             groupsWithActiveRequestToSell.Add(groupId);
         }
         public void DenyAccessToSellInGroup(Guid groupId)
         {
-            if(!groupsWithActiveRequestToSell.Contains(groupId))
+            if (!groupsWithActiveRequestToSell.Contains(groupId))
                 throw new Exception("No active request to sell in this group");
-            groupsWithActiveRequestToSell = groupsWithActiveRequestToSell.FindAll(val => val != groupId);
+            groupsWithActiveRequestToSell = groupsWithActiveRequestToSell.FindAll(testedGroupId => testedGroupId != groupId);
         }
         public void TakeAwayAccessToSellInGroup(Guid groupId)
         {
-            if(!groupsWithSellingPrivilege.Contains(groupId))
+            if (!groupsWithSellingPrivilege.Contains(groupId))
                 throw new Exception("No access to sell in this group");
-            groupsWithSellingPrivilege = groupsWithSellingPrivilege.FindAll(val => val != groupId);
+            groupsWithSellingPrivilege = groupsWithSellingPrivilege.FindAll(testedGroupId => testedGroupId != groupId);
         }
-
 
         public void GiveAccessToSellInGroup(Guid groupId)
         {
             if (groupsWithSellingPrivilege.Contains(groupId))
                 throw new Exception("You can already sell in this group");
-            groupsWithActiveRequestToSell = groupsWithActiveRequestToSell.FindAll(val => val != groupId);
+            groupsWithActiveRequestToSell = groupsWithActiveRequestToSell.FindAll(testedGroupId => testedGroupId != groupId);
             groupsWithSellingPrivilege.Add(groupId);
         }
 
         public bool HasAccessToSellInGroup(Guid groupId)
         {
-            if(!groupsWithSellingPrivilege.Contains(groupId))
+            if (!groupsWithSellingPrivilege.Contains(groupId))
                 return false;
             return true;
         }
-
     }
 }
