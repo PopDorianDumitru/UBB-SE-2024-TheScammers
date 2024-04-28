@@ -58,8 +58,8 @@ namespace ISSLab.ViewModel
         }
         public void ChangeToFavorites()
         {
-            List<Post> favoritedPosts = _userService.GetFavoritePosts(_groupId, _userId);
-            LoadPostsCommand(favoritedPosts);
+            List<Post> favoritePosts = _userService.GetFavoritePosts(_groupId, _userId);
+            LoadPostsCommand(favoritePosts);
         }
 
         public void ChangeToMarketPlace()
@@ -74,19 +74,13 @@ namespace ISSLab.ViewModel
             LoadPostsCommand(cart);
 
         }
-        public void ChangeToMarketplacePost()
-        {
-            return;
-        }
-
         public void LoadPostsCommand(List<Post> postsToLoad)
         {
             _shownPosts.Clear();
-            foreach (Post onePostToLoad in postsToLoad)
+            foreach (Post currentPostToLoad in postsToLoad)
             {
-                User originalPoster = _userService.GetUserById(onePostToLoad.AuthorId);
-                //shownPosts.Add(p);
-                _shownPosts.Add(new PostContentViewModel(onePostToLoad, originalPoster, this._userId, this._groupId, this._userService));
+                User originalPoster = _userService.GetUserById(currentPostToLoad.AuthorId);
+                _shownPosts.Add(new PostContentViewModel(currentPostToLoad, originalPoster, this._userId, this._groupId, this._userService));
             }
 
             OnPropertyChanged(nameof(ShownPosts));

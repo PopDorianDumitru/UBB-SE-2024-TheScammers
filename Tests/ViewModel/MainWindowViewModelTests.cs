@@ -30,10 +30,6 @@ namespace Tests.ViewModel
            _mainWindowViewModel.ShownPosts = expectedResult;
             Assert.That(_mainWindowViewModel.ShownPosts, Has.Count.EqualTo(0));
         }
-
-        [Test]
-        public void ChangeToFavorites_Test()
-        {
-        }
+        
     }
 }
