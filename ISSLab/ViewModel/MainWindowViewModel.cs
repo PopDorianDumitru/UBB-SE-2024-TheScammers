@@ -15,72 +15,78 @@ namespace ISSLab.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase, IMainWindowViewModel
     {
-        private IPostService _postService;
-        private IUserService _userService;
-        private ObservableCollection<IPostContentViewModel> _shownPosts;
-        private Guid _userId;
-        private Guid _groupId;
-        private ICreatePostViewModel _postCreationViewModel;
+        private IPostService postService;
+        private IUserService userService;
+        private ObservableCollection<IPostContentViewModel> shownPosts;
+        private Guid userId;
+        private Guid groupId;
+        private ICreatePostViewModel postCreationViewModel;
 
         public IViewModelBase CurrentViewModel { get; }
         public MainWindowViewModel(IPostService givenPostService, IUserService givenUserService, Guid userId, Guid groupId)
         {
-            this._postService = givenPostService;
-            this._userService = givenUserService;
-            this._userId = userId;
-            this._groupId = groupId;
+            this.postService = givenPostService;
+            this.userService = givenUserService;
+            this.userId = userId;
+            this.groupId = groupId;
 
-            _shownPosts = new ObservableCollection<IPostContentViewModel>();
+            shownPosts = new ObservableCollection<IPostContentViewModel>();
 
-            _postCreationViewModel = new CreatePostViewModel(userId, groupId, _postService);
+            postCreationViewModel = new CreatePostViewModel(userId, groupId, postService);
 
-            LoadPostsCommand(_postService.GetPosts());
+            LoadPostsCommand(postService.GetPosts());
         }
 
         public ICreatePostViewModel PostCreationViewModel
         {
-            get { return _postCreationViewModel; }
+            get { return postCreationViewModel; }
             set
             {
-                _postCreationViewModel = value;
+                postCreationViewModel = value;
                 OnPropertyChanged(nameof(PostCreationViewModel));
             }
         }
 
         public ObservableCollection<IPostContentViewModel> ShownPosts
         {
-            get { return _shownPosts; }
+            get { return shownPosts; }
             set
             {
-                _shownPosts = value;
+                ShownPosts = value;
                 OnPropertyChanged(nameof(ShownPosts));
             }
         }
         public void ChangeToFavorites()
         {
-            List<Post> favoritePosts = _userService.GetFavoritePosts(_groupId, _userId);
-            LoadPostsCommand(favoritePosts);
+            List<Post> favoritedPosts = userService.GetFavoritePosts(groupId, userId);
+            LoadPostsCommand(favoritedPosts);
         }
 
         public void ChangeToMarketPlace()
         {
-            List<Post> posts = _postService.GetPosts();
+            List<Post> posts = postService.GetPosts();
             LoadPostsCommand(posts);
         }
 
         public void ChangeToCart()
         {
-            List<Post> cart = _userService.GetItemsFromCart(_userId, _groupId);
+            List<Post> cart = userService.GetPostsFromCart(userId, groupId);
             LoadPostsCommand(cart);
 
         }
+        public void ChangeToMarketplacePost()
+        {
+
+        }
+
         public void LoadPostsCommand(List<Post> postsToLoad)
         {
-            _shownPosts.Clear();
-            foreach (Post currentPostToLoad in postsToLoad)
+            shownPosts.Clear();
+            foreach (Post onePostToLoad in postsToLoad)
             {
-                User originalPoster = _userService.GetUserById(currentPostToLoad.AuthorId);
-                _shownPosts.Add(new PostContentViewModel(currentPostToLoad, originalPoster, this._userId, this._groupId, this._userService));
+                User originalPoster = userService.GetUserById(onePostToLoad.AuthorId);
+                //shownPosts.Add(p);
+                shownPosts.Add(new PostContentViewModel(onePostToLoad, originalPoster, this.userId, this.groupId, this.userService));
             }
 
             OnPropertyChanged(nameof(ShownPosts));
