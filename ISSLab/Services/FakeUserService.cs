@@ -16,14 +16,14 @@ namespace ISSLab.Services
 
         public bool AddItemToCartCalled { get; set; }
 
-        public void AddItemToFavorites(Guid groupId, Guid postId, Guid accountId)
+        public void AddPostToFavorites(Guid groupId, Guid postId, Guid accountId)
         {
             AddItemToFavoritesCalled = true;
             GroupId = groupId;
             PostId = postId;
             AccountId = accountId;
         }
-        public void AddItemToCart(Guid groupId, Guid postId, Guid accountId)
+        public void AddPostToCart(Guid groupId, Guid postId, Guid accountId)
         {
             AddItemToCartCalled = true;
             GroupId = groupId;
@@ -66,7 +66,7 @@ namespace ISSLab.Services
             throw new NotImplementedException();
         }
 
-        public List<Post> GetItemsFromCart(Guid userId, Guid groupId)
+        public List<Post> GetPostsFromCart(Guid userId, Guid groupId)
         {
             throw new NotImplementedException();
         }
@@ -101,12 +101,12 @@ namespace ISSLab.Services
             throw new NotImplementedException();
         }
 
-        public void RemoveFromCart(Guid groupId, Guid postId, Guid userId)
+        public void RemovePostFromCart(Guid groupId, Guid postId, Guid userId)
         {
             throw new NotImplementedException();
         }
 
-        public void RemoveFromFavorites(Guid groupId, Guid postId, Guid userId)
+        public void RemovePostFromFavorites(Guid groupId, Guid postId, Guid userId)
         {
             throw new NotImplementedException();
         }
