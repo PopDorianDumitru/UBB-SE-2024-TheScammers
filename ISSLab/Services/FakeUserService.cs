@@ -13,6 +13,8 @@ namespace ISSLab.Services
         public Guid GroupId { get; set; }
         public Guid PostId { get; set; }
         public Guid AccountId { get; set; }
+        public bool getFavoritePostsCalled;
+        public bool getItemsFromCartCalled;
 
         public bool AddItemToCartCalled { get; set; }
 
@@ -63,12 +65,14 @@ namespace ISSLab.Services
 
         public List<Post> GetFavoritePosts(Guid groupId, Guid userId)
         {
-            throw new NotImplementedException();
+            getFavoritePostsCalled = true;
+            return new List<Post>();
         }
 
         public List<Post> GetItemsFromCart(Guid userId, Guid groupId)
         {
-            throw new NotImplementedException();
+            getItemsFromCartCalled = true;
+            return new List<Post>();
         }
 
         public User GetUserById(Guid id)

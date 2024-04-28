@@ -9,6 +9,7 @@ namespace ISSLab.Services
 {
     public class FakePostService : IPostService
     {
+        public bool getPostsCalled;
         public void AddPost(Post post)
         {
             throw new NotImplementedException();
@@ -86,6 +87,7 @@ namespace ISSLab.Services
 
         public List<Post> GetPosts()
         {
+            getPostsCalled = true;
             string expectedMediaContent = "expected Media Content";
             Post dummyPost = new Post(expectedMediaContent, Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, true);
             return [dummyPost];
