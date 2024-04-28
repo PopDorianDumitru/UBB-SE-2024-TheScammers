@@ -15,26 +15,26 @@ namespace ISSLab.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase, IMainWindowViewModel
     {
-        private IPostService postService;
-        private IUserService userService;
-        private ObservableCollection<IPostContentViewModel> shownPosts;
-        private Guid userId;
-        private Guid groupId;
+        private IPostService _postService;
+        private IUserService _userService;
+        private ObservableCollection<IPostContentViewModel> _shownPosts;
+        private Guid _userId;
+        private Guid _groupId;
         private ICreatePostViewModel postCreationViewModel;
 
         public IViewModelBase CurrentViewModel { get; }
         public MainWindowViewModel(IPostService givenPostService, IUserService givenUserService, Guid userId, Guid groupId)
         {
-            this.postService = givenPostService;
-            this.userService = givenUserService;
-            this.userId = userId;
-            this.groupId = groupId;
+            this._postService = givenPostService;
+            this._userService = givenUserService;
+            this._userId = userId;
+            this._groupId = groupId;
 
-            shownPosts = new ObservableCollection<IPostContentViewModel>();
+            _shownPosts = new ObservableCollection<IPostContentViewModel>();
 
-            postCreationViewModel = new CreatePostViewModel(userId, groupId, postService);
+            postCreationViewModel = new CreatePostViewModel(userId, groupId, _postService);
 
-            LoadPostsCommand(postService.GetPosts());
+            LoadPostsCommand(_postService.GetPosts());
         }
 
         public ICreatePostViewModel PostCreationViewModel
@@ -49,28 +49,28 @@ namespace ISSLab.ViewModel
 
         public ObservableCollection<IPostContentViewModel> ShownPosts
         {
-            get { return shownPosts; }
+            get { return _shownPosts; }
             set
             {
-                ShownPosts = value;
+                _shownPosts = value;
                 OnPropertyChanged(nameof(ShownPosts));
             }
         }
         public void ChangeToFavorites()
         {
-            List<Post> favoritedPosts = userService.GetFavoritePosts(groupId, userId);
+            List<Post> favoritedPosts = _userService.GetFavoritePosts(_groupId, _userId);
             LoadPostsCommand(favoritedPosts);
         }
 
         public void ChangeToMarketPlace()
         {
-            List<Post> posts = postService.GetPosts();
+            List<Post> posts = _postService.GetPosts();
             LoadPostsCommand(posts);
         }
 
         public void ChangeToCart()
         {
-            List<Post> cart = userService.GetPostsFromCart(userId, groupId);
+            List<Post> cart = _userService.GetPostsFromCart(_userId, _groupId);
             LoadPostsCommand(cart);
 
         }
@@ -81,12 +81,12 @@ namespace ISSLab.ViewModel
 
         public void LoadPostsCommand(List<Post> postsToLoad)
         {
-            shownPosts.Clear();
-            foreach (Post onePostToLoad in postsToLoad)
+            _shownPosts.Clear();
+            foreach (Post currentPostToLoad in postsToLoad)
             {
-                User originalPoster = userService.GetUserById(onePostToLoad.AuthorId);
+                User originalPoster = _userService.GetUserById(currentPostToLoad.AuthorId);
                 //shownPosts.Add(p);
-                shownPosts.Add(new PostContentViewModel(onePostToLoad, originalPoster, this.userId, this.groupId, this.userService));
+                _shownPosts.Add(new PostContentViewModel(currentPostToLoad, originalPoster, this._userId, this._groupId, this._userService));
             }
 
             OnPropertyChanged(nameof(ShownPosts));

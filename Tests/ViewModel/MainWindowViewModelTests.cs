@@ -52,12 +52,6 @@ namespace Tests.ViewModel
             Assert.That(_fakePostService.getPostsCalled, Is.EqualTo(true));
         }
 
-        //public void ChangeToCart()
-        //{
-        //    List<Post> cart = _userService.GetItemsFromCart(_userId, _groupId);
-        //    LoadPostsCommand(cart);
-
-        //}
         [Test]
         public void ChangeToCart_AnyPost_CallsGetFavoritePosts()
         {
