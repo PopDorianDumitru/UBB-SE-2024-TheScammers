@@ -207,7 +207,7 @@ namespace Tests.Model
         {
             DateTime expectedExpirationDate = DateTime.Now.AddSeconds(30);
 
-            postEmpty.Add30SecondsToExpirationDate();
+            postEmpty.SlightlyPostponeExpirationDate();
             DateTime actualExpirationDate = postEmpty.ExpirationDate;
             TimeSpan difference = actualExpirationDate - expectedExpirationDate;
             Assert.Less(difference.TotalSeconds, 1);

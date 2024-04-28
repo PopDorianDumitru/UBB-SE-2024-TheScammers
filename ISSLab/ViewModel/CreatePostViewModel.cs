@@ -25,8 +25,8 @@ namespace ISSLab.ViewModel
             this.postService = postService;
             this.groupId = groupId;
             this.accountId = accountId;
-            IsDonation = "Collapsed";
-            IsAuction = "Collapsed";
+            IsDonation = Constants.COLLAPSED_VISIBILITY;
+            IsAuction = Constants.COLLAPSED_VISIBILITY;
         }
 
         private string type;
@@ -56,31 +56,31 @@ namespace ISSLab.ViewModel
                 type = value;
                 if (type.Contains("Fixed price"))
                 {
-                    IsAuction = "Collapsed";
-                    PhoneVisible = "Visible";
-                    PriceVisible = "Visible";
-                    ConditionVisible = "Visible";
-                    DeliveryVisible = "Visible";
-                    AvailabilityVisible = "Visible";
-                    IsDonation = "Collapsed";
+                    IsAuction = Constants.COLLAPSED_VISIBILITY;
+                    PhoneVisible = Constants.VISIBLE_VISIBILITY;
+                    PriceVisible = Constants.VISIBLE_VISIBILITY;
+                    ConditionVisible = Constants.VISIBLE_VISIBILITY;
+                    DeliveryVisible = Constants.VISIBLE_VISIBILITY;
+                    AvailabilityVisible = Constants.VISIBLE_VISIBILITY;
+                    IsDonation = Constants.COLLAPSED_VISIBILITY;
                 }
-                else if (type.Contains("Donation"))
+                else if (type.Contains(Constants.DONATION_POST_TYPE))
                 {
-                    PriceVisible = "Collapsed";
-                    ConditionVisible = "Collapsed";
-                    DeliveryVisible = "Collapsed";
-                    AvailabilityVisible = "Collapsed";
-                    IsDonation = "Visible";
-                    IsAuction = "Collapsed";
+                    PriceVisible = Constants.COLLAPSED_VISIBILITY;
+                    ConditionVisible = Constants.COLLAPSED_VISIBILITY;
+                    DeliveryVisible = Constants.COLLAPSED_VISIBILITY;
+                    AvailabilityVisible = Constants.COLLAPSED_VISIBILITY;
+                    IsDonation = Constants.VISIBLE_VISIBILITY;
+                    IsAuction = Constants.COLLAPSED_VISIBILITY;
                 }
                 else
                 {
-                    IsAuction = "Visible";
-                    IsDonation = "Collapsed";
-                    PhoneVisible = "Visible";
-                    AvailabilityVisible = "Collapsed";
-                    ConditionVisible = "Collapsed";
-                    PriceVisible = "Visible";
+                    IsAuction = Constants.VISIBLE_VISIBILITY;
+                    IsDonation = Constants.COLLAPSED_VISIBILITY;
+                    PhoneVisible = Constants.VISIBLE_VISIBILITY;
+                    AvailabilityVisible = Constants.COLLAPSED_VISIBILITY;
+                    ConditionVisible = Constants.COLLAPSED_VISIBILITY;
+                    PriceVisible = Constants.VISIBLE_VISIBILITY;
 
                 }
 
@@ -109,7 +109,7 @@ namespace ISSLab.ViewModel
 
         public void CreateDonationPost()
         {
-            DonationPost donationPost = new DonationPost("", accountId, groupId, "", Description, "", phoneNumber, donationLink, "Donation", true);
+            DonationPost donationPost = new DonationPost("", accountId, groupId, "", Description, "", phoneNumber, donationLink, Constants.DONATION_POST_TYPE, true);
             postService.AddPost(donationPost);
 
             ResetFields();
@@ -117,7 +117,7 @@ namespace ISSLab.ViewModel
 
         public void CreateFixedPricePost()
         {
-            FixedPricePost fixedPrice = new FixedPricePost("", accountId, groupId, "Cluj", Description, "", PhoneNumber, float.Parse(Price), DateTime.Now.AddMonths(3), Delivery, new List<Review>(), 0, Guid.Empty, "FixedPrice", false);
+            FixedPricePost fixedPrice = new FixedPricePost("", accountId, groupId, "Cluj", Description, "", PhoneNumber, float.Parse(Price), DateTime.Now.AddMonths(3), Delivery, new List<Review>(), 0, Guid.Empty, Constants.FIXED_PRICE_POST_TYPE, false);
             postService.AddPost(fixedPrice);
 
             ResetFields();
