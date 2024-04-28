@@ -13,6 +13,6 @@ namespace ISSLab.ViewModel
         void ChangeToFavorites();
         void ChangeToMarketPlace();
         void ChangeToMarketplacePost();
-        void LoadPostsCommand(List<Post> posts);
+        void LoadPostsCommand(List<Post> postsToLoad);
     }
 }

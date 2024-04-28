@@ -15,12 +15,12 @@ namespace ISSLab.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase, IMainWindowViewModel
     {
-        IPostService postService;
-        IUserService userService;
-        ObservableCollection<IPostContentViewModel> shownPosts;
-        Guid userId;
-        Guid groupId;
-        ICreatePostViewModel postCreationViewModel;
+        private IPostService postService;
+        private IUserService userService;
+        private ObservableCollection<IPostContentViewModel> shownPosts;
+        private Guid userId;
+        private Guid groupId;
+        private ICreatePostViewModel postCreationViewModel;
 
         public IViewModelBase CurrentViewModel { get; }
         public MainWindowViewModel(IPostService givenPostService, IUserService givenUserService, Guid userId, Guid groupId)
@@ -36,7 +36,6 @@ namespace ISSLab.ViewModel
 
             LoadPostsCommand(postService.GetPosts());
         }
-
 
         public ICreatePostViewModel PostCreationViewModel
         {
@@ -57,7 +56,6 @@ namespace ISSLab.ViewModel
                 OnPropertyChanged(nameof(ShownPosts));
             }
         }
-
         public void ChangeToFavorites()
         {
             List<Post> favoritedPosts = userService.GetFavoritePosts(groupId, userId);
@@ -76,21 +74,19 @@ namespace ISSLab.ViewModel
             LoadPostsCommand(cart);
 
         }
-
         public void ChangeToMarketplacePost()
         {
 
         }
 
-        public void LoadPostsCommand(List<Post> posts)
+        public void LoadPostsCommand(List<Post> postsToLoad)
         {
-
             shownPosts.Clear();
-            foreach (Post p in posts)
+            foreach (Post onePostToLoad in postsToLoad)
             {
-                User originalPoster = userService.GetUserById(p.AuthorId);
+                User originalPoster = userService.GetUserById(onePostToLoad.AuthorId);
                 //shownPosts.Add(p);
-                shownPosts.Add(new PostContentViewModel(p, originalPoster, this.userId, this.groupId, this.userService, new ChatFactory()));
+                shownPosts.Add(new PostContentViewModel(onePostToLoad, originalPoster, this.userId, this.groupId, this.userService));
             }
 
             OnPropertyChanged(nameof(ShownPosts));
