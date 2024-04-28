@@ -98,7 +98,7 @@ namespace ISSLab.ViewModel
             set { description = value; OnPropertyChanged(nameof(Description)); }
         }
         public Guid AccountId { get { return accountId; } }
-
+        public Guid GroupId { get { return groupId; } }
         public void CreatePost()
         {
             if (Type.Contains("Fixed price"))

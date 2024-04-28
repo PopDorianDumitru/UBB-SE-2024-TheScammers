@@ -12,7 +12,6 @@ namespace ISSLab.ViewModel
         void ChangeToCart();
         void ChangeToFavorites();
         void ChangeToMarketPlace();
-        void ChangeToMarketplacePost();
         void LoadPostsCommand(List<Post> postsToLoad);
     }
 }
