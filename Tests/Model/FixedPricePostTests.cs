@@ -30,7 +30,7 @@ namespace Tests.Model
         {
             fixedPricePost.ExpirationDate = new DateTime(2015, 12, 31);
 
-            Assert.That(fixedPricePost.ExpirationDate.ToString(), Is.EqualTo("12/31/2015 12:00:00 AM"));
+            Assert.That(fixedPricePost.ExpirationDate.ToString(), Is.EqualTo("31.12.2015 00:00:00"));
         }
 
         [Test]
