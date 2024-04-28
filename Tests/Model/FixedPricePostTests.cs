@@ -18,43 +18,39 @@ namespace Tests.Model
         }
 
         [Test]
-        public void Price_Test()
+        public void Price_Any_UpdatesPrice()
         {
-            FixedPricePost fixedPricePost = new FixedPricePost();
-            fixedPricePost.Price = 11.5f;
+            _fixedPricePost.Price = 11.5f;
 
-            Assert.That(fixedPricePost.Price, Is.EqualTo(11.5f));
+            Assert.That(_fixedPricePost.Price, Is.EqualTo(11.5f));
         }
 
         [Test]
-        public void ExpirationDate_Test()
+        public void ExpirationDate_Any_UpdatesExpirationDate()
         {
-            FixedPricePost fixedPricePost = new FixedPricePost();
-            fixedPricePost.ExpirationDate = new DateTime(2015, 12, 31);
+            _fixedPricePost.ExpirationDate = new DateTime(2015, 12, 31);
 
-            Assert.That(fixedPricePost.ExpirationDate.ToString(), Is.EqualTo("31.12.2015 00:00:00"));
+            Assert.That(_fixedPricePost.ExpirationDate.ToString(), Is.EqualTo("12/31/2015 12:00:00 AM"));
         }
 
         [Test]
-        public void ReviewScore_Test()
+        public void ReviewScore_Any_UpdatesReviewScore()
         {
-            FixedPricePost fixedPricePost = new FixedPricePost();
-            fixedPricePost.ReviewScore = 53.9f;
+            _fixedPricePost.ReviewScore = 53.9f;
 
-            Assert.That(fixedPricePost.ReviewScore, Is.EqualTo(53.9f));
+            Assert.That(_fixedPricePost.ReviewScore, Is.EqualTo(53.9f));
         }
 
         [Test]
-        public void Delivery()
+        public void Delivery_Any_UpdatesDelivery()
         {
-            FixedPricePost fixedPricePost = new FixedPricePost();
-            fixedPricePost.Delivery = "A";
+            _fixedPricePost.Delivery = "A";
 
-            Assert.That(fixedPricePost.Delivery, Is.EqualTo("A"));
+            Assert.That(_fixedPricePost.Delivery, Is.EqualTo("A"));
         }
 
         [Test]
-        public void AddReview_AnyReview_ReviewAdded()
+        public void AddReview_NotAlreadyExistentReview_ReviewIsAdded()
         {
             Review firstReview = new Review();
             Review secondReview = new Review();
@@ -69,22 +65,21 @@ namespace Tests.Model
             List<Review> actualReviews = _fixedPricePost.Reviews;
 
             Assert.That(actualReviews, Is.EqualTo(expectedReviews));
-            Assert.That(actualReviews.Count, Is.EqualTo(2));
         }
 
         [Test]
-        public void AddReview_AnyReview_ExceptionThrown()
+        public void AddReview_AlreadyExistentReview_ExceptionThrown()
         {
-            Review firstReview = new Review();
-            Review secondReview = firstReview;
-            _fixedPricePost.AddReview(firstReview);
+            Review reviewToAdd = new Review();
+            _fixedPricePost.AddReview(reviewToAdd);
 
-            var exceptionMessage = Assert.Throws<Exception>(() => { _fixedPricePost.AddReview(secondReview); });
+            var exceptionMessage = Assert.Throws<Exception>(() => { _fixedPricePost.AddReview(reviewToAdd); });
+
             Assert.That(exceptionMessage.Message, Is.EqualTo("Review already exists. Edit the existing one if you want"));
         }
 
         [Test]
-        public void RemoveReview_AnyReview_ReviewRemoved()
+        public void RemoveReview_ExistingReview_ReviewRemoved()
         {
             Review firstReview = new Review();
             Review secondReview = new Review();
@@ -100,25 +95,22 @@ namespace Tests.Model
             List<Review> actualReviews = _fixedPricePost.Reviews;
 
             Assert.That(actualReviews, Is.EqualTo(listOfReviewsToVerifyRemoval));
-            Assert.That(actualReviews.Count, Is.EqualTo(1));
         }
 
         [Test]
-        public void RemoveReview_AnyReview_ExceptionThrown()
+        public void RemoveReview_NotAlreadyExistingReview_ExceptionThrown()
         {
-            Review firstReview = new Review();
-            Review secondReview = new Review();
-            _fixedPricePost.AddReview(firstReview);
-            _fixedPricePost.AddReview(secondReview);
+            Review reviewNeverAdded = new Review();
+            Review reviewAdded = new Review();
+            _fixedPricePost.AddReview(reviewAdded);
 
-            _fixedPricePost.RemoveReview(firstReview);
+            var exceptionMessage = Assert.Throws<Exception>(() => { _fixedPricePost.RemoveReview(reviewNeverAdded); });
 
-            var exceptionMessage = Assert.Throws<Exception>(() => { _fixedPricePost.RemoveReview(firstReview); });
             Assert.That(exceptionMessage.Message, Is.EqualTo("Review does not exist"));
         }
 
         [Test]
-        public void BuyProduct_AnyProduct_Successful()
+        public void BuyProduct_ProductAlreadyBought_ExceptionThrown()
         {
             Guid guidOfBuyer = Guid.NewGuid();
             _fixedPricePost.BuyerId = guidOfBuyer;
@@ -128,7 +120,7 @@ namespace Tests.Model
         }
 
         [Test]
-        public void BuyProduct_AnyProduct_ExceptionThrown()
+        public void BuyProduct_ProductNotAlreadyBought_BuyerIdIsUpdated()
         {
             Guid guidOfBuyer = Guid.Empty;
             _fixedPricePost.BuyProduct(guidOfBuyer);

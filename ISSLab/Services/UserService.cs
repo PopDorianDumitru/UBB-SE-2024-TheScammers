@@ -53,7 +53,7 @@ namespace ISSLab.Services
 
         public bool IsUserInGroup(User user, Group group)
         {
-            return user.Groups.Contains(group.Id);
+            return user.Groups.Contains(group.GroupId);
         }
 
         public bool IsUserInGroup(Guid userId, Guid groupId)
@@ -64,7 +64,7 @@ namespace ISSLab.Services
 
         public void AddUserToGroup(User user, Group group)
         {
-            user.Groups.Add(group.Id);
+            user.Groups.Add(group.GroupId);
         }
 
         public bool UserIsAdminInGroup(Guid userId, Guid groupId)
@@ -222,15 +222,15 @@ namespace ISSLab.Services
         public List<Post> GetFavoritePosts(Guid groupId, Guid userId)
         {
             List<Post> favoritePosts = new List<Post>();
-            Favorites favorites = users.FindById(userId).Favorites.Find(f => f.GroupId == groupId);
+            UsersFavoritePosts favorites = users.FindById(userId).Favorites.Find(f => f.GroupId == groupId);
             if (favorites == null)
             {
-                users.FindById(userId).Favorites.Add(new Favorites(userId, groupId));
+                users.FindById(userId).Favorites.Add(new UsersFavoritePosts(userId, groupId));
                 return new List<Post>();
             }
             foreach (Guid postId in favorites.Posts)
             {
-                favoritePosts.Add(posts.GetById(postId));
+                favoritePosts.Add(posts.GetPostById(postId));
             }
             return favoritePosts;
         }
@@ -255,9 +255,9 @@ namespace ISSLab.Services
                 users.FindById(userId).Carts.Add(new Cart(groupId, userId));
                 return new List<Post>();
             }
-            foreach (Guid postId in cart.Posts)
+            foreach (Guid postId in cart.PostsSavedInCart)
             {
-                cartedPosts.Add(posts.GetById(postId));
+                cartedPosts.Add(posts.GetPostById(postId));
             }
             return cartedPosts;
         }

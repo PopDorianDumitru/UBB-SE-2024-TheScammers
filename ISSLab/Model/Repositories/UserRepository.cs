@@ -246,7 +246,7 @@ namespace ISSLab.Model.Repositories
             {
                 if (users[i].Id == id)
                 {
-                    users[i].ReceivedPrivelageToSell(group);
+                    users[i].GiveAccessToSellInGroup(group);
                     break;
                 }
             }
@@ -262,7 +262,7 @@ namespace ISSLab.Model.Repositories
             {
                 if (users[i].Id == id)
                 {
-                    users[i].requestSellingAccess(group);
+                    users[i].RequestSellingAccess(group);
                     break;
                 }
             }
@@ -280,7 +280,7 @@ namespace ISSLab.Model.Repositories
             {
                 if (users[i].Id == userId)
                 {
-                    users[i].accessToSellDenied(groupId);
+                    users[i].DenyAccessToSellInGroup(groupId);
                     break;
                 }
             }
@@ -297,7 +297,7 @@ namespace ISSLab.Model.Repositories
             {
                 if (users[i].Id == userId)
                 {
-                    users[i].accessToSellWasTaken(groupId);
+                    users[i].TakeAwayAccessToSellInGroup(groupId);
                     break;
                 }
             }
@@ -348,7 +348,7 @@ namespace ISSLab.Model.Repositories
             row["seller_id"] = review.SellerId;
             row["group_id"] = review.GroupId;
             row["content"] = review.Content;
-            row["date"] = review.Date;
+            row["date"] = review.DateOfReview;
             row["rating"] = review.Rating;
             users.Find(u => u.Id == review.SellerId).AddReview(review);
         }
@@ -405,7 +405,7 @@ namespace ISSLab.Model.Repositories
             {
                 if (users[i].Id == id)
                 {
-                    users[i].NrOfSells = nrOfSells;
+                    users[i].NumberOfSales = nrOfSells;
                     break;
                 }
             }
@@ -485,9 +485,9 @@ namespace ISSLab.Model.Repositories
                 cart = new Cart(groupId, userId);
                 users.Find(user => user.Id == userId).Carts.Add(cart);
             }
-            if (cart.Posts.Contains(postId))
+            if (cart.PostsSavedInCart.Contains(postId))
                 return;
-            cart.Posts.Add(postId);
+            cart.PostsSavedInCart.Add(postId);
         }
 
         public void RemoveFromCart(Guid groupId, Guid userId, Guid postId)
@@ -495,7 +495,7 @@ namespace ISSLab.Model.Repositories
             DataRow row = dataSet.Tables["Carts"].Rows.Find((DataRow r) => Guid.Parse((string)r["group_id"]) == groupId && Guid.Parse((string)r["user_id"]) == userId && Guid.Parse((string)r["post_id"]) == postId);
             if (row != null)
                 dataSet.Tables["Carts"].Rows.Remove(row);
-            users.Find(u => u.Id == userId).Carts.Find(c => c.GroupId == groupId).Posts.Remove(postId);
+            users.Find(u => u.Id == userId).Carts.Find(c => c.GroupId == groupId).PostsSavedInCart.Remove(postId);
         }
 
         public void AddToFavorites(Guid groupId, Guid userId, Guid postId)
@@ -504,10 +504,10 @@ namespace ISSLab.Model.Repositories
             //row["user_id"] = userId;
             //row["group_id"] = groupId;
             //row["post_id"] = postId;
-            Favorites favoriteFromGroup = users.Find(user => user.Id == userId).Favorites.Find(c => c.GroupId == groupId);
+            UsersFavoritePosts favoriteFromGroup = users.Find(user => user.Id == userId).Favorites.Find(c => c.GroupId == groupId);
             if (favoriteFromGroup == null)
             {
-                favoriteFromGroup = new Favorites(userId, groupId);
+                favoriteFromGroup = new UsersFavoritePosts(userId, groupId);
                 users.Find(user => user.Id == userId).Favorites.Add(favoriteFromGroup);
             }
             if (favoriteFromGroup.Posts.Contains(postId))
@@ -520,7 +520,7 @@ namespace ISSLab.Model.Repositories
             DataRow row = dataSet.Tables["Favorites"].Rows.Find((DataRow r) => Guid.Parse((string)r["group_id"]) == groupId && Guid.Parse((string)r["user_id"]) == userId && Guid.Parse((string)r["post_id"]) == postId);
             if (row != null)
                 dataSet.Tables["Favorites"].Rows.Remove(row);
-            users.Find(u => u.Id == userId).Carts.Find(c => c.GroupId == groupId).Posts.Remove(postId);
+            users.Find(u => u.Id == userId).Carts.Find(c => c.GroupId == groupId).PostsSavedInCart.Remove(postId);
         }
 
     }
