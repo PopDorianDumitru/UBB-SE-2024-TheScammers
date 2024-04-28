@@ -241,10 +241,10 @@ namespace ISSLab.ViewModel
             {
                 AuctionPost auctionPost = (AuctionPost)_post;
                 TimeSpan timeLeft = auctionPost.ExpirationDate - DateTime.Now;
-                TimeSpan timeSpan = TimeSpan.FromSeconds(30);
-                if (timeLeft.TotalSeconds < 30)
+                TimeSpan timeSpan = TimeSpan.FromSeconds(Constants.EXPIRATION_DATE_SLIGHT_PROLONGMENT_THRESHOLD_IN_SECONDS);
+                if (timeLeft.TotalSeconds < Constants.EXPIRATION_DATE_SLIGHT_PROLONGMENT_THRESHOLD_IN_SECONDS)
                 {
-                    auctionPost.Add30SecondsToExpirationDate();
+                    auctionPost.SlightlyPostponeExpirationDate();
                     OnPropertyChanged(nameof(AvailableFor));
                 }
             ((AuctionPost)(_post)).CurrentBidPrice += 5;

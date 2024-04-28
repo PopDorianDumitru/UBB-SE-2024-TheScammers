@@ -13,7 +13,7 @@ namespace Tests.ViewModel
 {
     internal class MainWindowViewModelTests
     {
-        private ObservableCollection<IPostContentViewModel> shownPosts;
+        //private ObservableCollection<IPostContentViewModel> shownPosts;
         private Guid userId;
         private Guid groupId;
         private Mock<IPostService> _postService;

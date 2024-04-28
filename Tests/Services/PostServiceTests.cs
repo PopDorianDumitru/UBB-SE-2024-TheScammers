@@ -27,10 +27,11 @@ namespace Tests.Services
         }
 
         [Test]
-        public void GetPosts_ReturnsAllPostsFromRepository()
+        public void GetPosts_OnePost_ReturnsListWithThatPost()
         {
-            var expectedPosts = new List<Post>();
-            _postRepositoryMock.Setup(repo => repo.GetAll()).Returns(expectedPosts);
+            var post = new Post();
+            var expectedPosts = new List<Post> { post };
+            _postRepositoryMock.Setup(repository => repository.GetAllPosts()).Returns(expectedPosts);
 
             var result = _postService.GetPosts();
 
@@ -73,7 +74,7 @@ namespace Tests.Services
         {
             Post postToBeReturned = new Post();
 
-            _postRepositoryMock.Setup(repository => repository.GetById(It.IsAny<Guid>())).Returns(postToBeReturned);
+            _postRepositoryMock.Setup(repository => repository.GetPostById(It.IsAny<Guid>())).Returns(postToBeReturned);
 
             Assert.That(_postService.GetPostById(Guid.NewGuid()), Is.EqualTo(postToBeReturned));
         }
@@ -83,7 +84,7 @@ namespace Tests.Services
         {
             _postService.GetPosts();
 
-            _postRepositoryMock.Verify(repository => repository.GetAll(), Times.Once);
+            _postRepositoryMock.Verify(repository => repository.GetAllPosts(), Times.Once);
         }
 
         [Test]

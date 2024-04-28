@@ -11,33 +11,36 @@ namespace ISSLab.Services
 {
     public class PostService : IPostService
     {
-        IPostRepository posts;
-        IUserRepository users;
-        IGroupRepository groups;
+        private const double MINIMUM_SCORE_TO_POST_CONFIRMED_POSTS = 3.75;
+        private const int NUMBER_OF_VIEWS_ABOVE_WHICH_CONFIRMATION_NEEDED = 10;
+
+        private IPostRepository postRepository;
+        private IUserRepository userRepository;
+        private IGroupRepository groupRepository;
 
         public PostService(IPostRepository posts, IUserRepository users, IGroupRepository groups)
         {
-            this.posts = posts;
-            this.users = users;
-            this.groups = groups;
+            this.postRepository = posts;
+            this.userRepository = users;
+            this.groupRepository = groups;
         }
 
         public List<Post> GetPosts()
         {
-            return posts.GetAllPosts();
+            return postRepository.GetAllPosts();
         }
 
         public void AddPost(Post post)
         {
-            posts.AddPost(post);
+            postRepository.AddPost(post);
         }
         public void RemovePost(Post post)
         {
-            posts.RemovePost(post.Id);
+            postRepository.RemovePost(post.Id);
         }
         public Post GetPostById(Guid id)
         {
-            Post? p = posts.GetPostById(id);
+            Post? p = postRepository.GetPostById(id);
             if (p == null)
             {
                 throw new Exception("Post not found");
@@ -55,7 +58,7 @@ namespace ISSLab.Services
             {
                 throw new Exception("Price can't be negative");
             }
-            User? user = users.FindById(authorId);
+            User? user = userRepository.FindById(authorId);
             if (user == null)
             {
                 throw new Exception("User not found");
@@ -65,11 +68,11 @@ namespace ISSLab.Services
                 throw new Exception("User can't sell in this group!");
             }
             SellingUserScore? score = user.sellingUserScores.Find(score => score.GroupId == groupId);
-            if (score == null || score.Score < 3.75)
+            if (score == null || score.Score < MINIMUM_SCORE_TO_POST_CONFIRMED_POSTS)
             {
-                return new FixedPricePost(media, authorId, groupId, location, description, title, contacts, price, expirationDate, delivery, reviews, reviewScore, buyerId, "FixedPricePost", false);
+                return new FixedPricePost(media, authorId, groupId, location, description, title, contacts, price, expirationDate, delivery, reviews, reviewScore, buyerId, Constants.EXTENDED_FIXED_PRICE_POST_TYPE, false);
             }
-            return new FixedPricePost(media, authorId, groupId, location, description, title, contacts, price, expirationDate, delivery, reviews, reviewScore, buyerId, "FixedPricePost", true);
+            return new FixedPricePost(media, authorId, groupId, location, description, title, contacts, price, expirationDate, delivery, reviews, reviewScore, buyerId, Constants.EXTENDED_FIXED_PRICE_POST_TYPE, true);
         }
 
         public Post CreateAuctionPost(string media, Guid authorId, Guid groupId, string location, string description, string title, string contacts, double price, DateTime expirationDate, string delivery, List<Review> reviews, float reviewScore, Guid buyerId, Guid currentPriceLeader, double currentBidPrice, double minimumBidPrice)
@@ -78,7 +81,7 @@ namespace ISSLab.Services
             {
                 throw new Exception("Price can't be negative");
             }
-            User? user = users.FindById(authorId);
+            User? user = userRepository.FindById(authorId);
             if (user == null)
             {
                 throw new Exception("User not found");
@@ -88,7 +91,7 @@ namespace ISSLab.Services
                 throw new Exception("User can't sell in this group!");
             }
             SellingUserScore? score = user.sellingUserScores.Find(score => score.GroupId == groupId);
-            if (score == null || score.Score < 3.75)
+            if (score == null || score.Score < MINIMUM_SCORE_TO_POST_CONFIRMED_POSTS)
             {
                 return new AuctionPost(media, authorId, groupId, location, description, title, contacts, price, expirationDate, delivery, reviews, reviewScore, buyerId, currentPriceLeader, currentBidPrice, minimumBidPrice, false);
             }
@@ -97,7 +100,7 @@ namespace ISSLab.Services
 
         public Post CreateDonationPost(string media, Guid authorId, Guid groupId, string location, string description, string title, string contacts, string donationPageLink)
         {
-            User? user = users.FindById(authorId);
+            User? user = userRepository.FindById(authorId);
             if (user == null)
             {
                 throw new Exception("User not found");
@@ -107,7 +110,7 @@ namespace ISSLab.Services
                 throw new Exception("User can't sell in this group!");
             }
             SellingUserScore? score = user.sellingUserScores.Find(score => score.GroupId == groupId);
-            if (score == null || score.Score < 3.75)
+            if (score == null || score.Score < MINIMUM_SCORE_TO_POST_CONFIRMED_POSTS)
             {
                 return new DonationPost(media, authorId, groupId, location, description, title, contacts, donationPageLink, "DonationPost", false);
             }
@@ -121,19 +124,19 @@ namespace ISSLab.Services
 
         public bool CheckIfNeedsConfirmation(Guid postID)
         {
-            Post? post = posts.GetPostById(postID);
+            Post? post = postRepository.GetPostById(postID);
             if (post == null)
             {
                 throw new Exception("Post not found");
             }
-            if (post.Views > 10 && post.Views / 2 <= post.Reports.Count)
+            if (post.Views > NUMBER_OF_VIEWS_ABOVE_WHICH_CONFIRMATION_NEEDED && post.Views / 2 <= post.Reports.Count)
                 return true;
             return false;
         }
 
         public void RemoveConfirmation(Guid postID)
         {
-            Post? post = posts.GetPostById(postID);
+            Post? post = postRepository.GetPostById(postID);
             if (post == null)
             {
                 throw new Exception("Post not found");
@@ -143,7 +146,7 @@ namespace ISSLab.Services
 
         public void ConfirmPost(Guid postID)
         {
-            Post? post = posts.GetPostById(postID);
+            Post? post = postRepository.GetPostById(postID);
             if (post == null)
             {
                 throw new Exception("Post not found");
@@ -151,34 +154,34 @@ namespace ISSLab.Services
             post.Confirmed = true;
         }
 
-        public void AddReport(Guid postID, Guid userID, string reason)
+        public void AddReport(Guid postId, Guid userId, string reason)
         {
-            Post? post = posts.GetPostById(postID);
+            Post? post = postRepository.GetPostById(postId);
             if (post == null)
             {
                 throw new Exception("Post not found");
             }
-            post.Reports.Add(new Report(userID, postID, reason));
+            post.Reports.Add(new Report(userId, postId, reason));
         }
 
-        public void RemoveReport(Guid postID, Guid userID)
+        public void RemoveReport(Guid postID, Guid userId)
         {
-            Post? post = posts.GetPostById(postID);
+            Post? post = postRepository.GetPostById(postID);
             if (post == null)
             {
                 throw new Exception("Post not found");
             }
-            post.Reports.RemoveAll(report => report.UserId == userID);
+            post.Reports.RemoveAll(report => report.UserId == userId);
         }
 
         public bool CheckIfAuctionTimeEnded(Guid postID)
         {
-            Post? post = posts.GetPostById(postID);
+            Post? post = postRepository.GetPostById(postID);
             if (post == null)
             {
                 throw new Exception("Post not found");
             }
-            if (post.Type != "AuctionPost")
+            if (post.Type != Constants.EXTENDED_AUCTION_POST_TYPE)
             {
                 throw new Exception("Post is not an auction post");
             }
@@ -192,12 +195,12 @@ namespace ISSLab.Services
 
         public void BidOnAuction(Guid postID, Guid userID, double bidAmount)
         {
-            Post? post = posts.GetPostById(postID);
+            Post? post = postRepository.GetPostById(postID);
             if (post == null)
             {
                 throw new Exception("Post not found");
             }
-            if (post.Type != "AuctionPost")
+            if (post.Type != Constants.EXTENDED_AUCTION_POST_TYPE)
             {
                 throw new Exception("Post is not an auction post");
             }
@@ -212,18 +215,18 @@ namespace ISSLab.Services
             }
             auctionPost.CurrentBidPrice = bidAmount;
             auctionPost.CurrentPriceLeader = userID;
-            if ((auctionPost.ExpirationDate - DateTime.Now).TotalSeconds < 30)
-                auctionPost.Add30SecondsToExpirationDate();
+            if ((auctionPost.ExpirationDate - DateTime.Now).TotalSeconds < Constants.EXPIRATION_DATE_SLIGHT_PROLONGMENT_THRESHOLD_IN_SECONDS)
+                auctionPost.SlightlyPostponeExpirationDate();
         }
 
         public void Donate(Guid postID)
         {
-            Post? post = posts.GetPostById(postID);
+            Post? post = postRepository.GetPostById(postID);
             if (post == null)
             {
                 throw new Exception("Post not found");
             }
-            if (post.Type != "DonationPost")
+            if (post.Type != Constants.EXTENDED_DONATION_POST_TYPE)
             {
                 throw new Exception("Post is not a donation post");
             }
@@ -233,12 +236,12 @@ namespace ISSLab.Services
 
         public void EndAuctionDueToTime(Guid postID)
         {
-            Post? post = posts.GetPostById(postID);
+            Post? post = postRepository.GetPostById(postID);
             if (post == null)
             {
                 throw new Exception("Post not found");
             }
-            if (post.Type != "AuctionPost")
+            if (post.Type != Constants.EXTENDED_AUCTION_POST_TYPE)
             {
                 throw new Exception("Post is not an auction post");
             }
@@ -249,12 +252,12 @@ namespace ISSLab.Services
         public void EndAuctionExplicitly(Guid postID, Guid userID)
         {
 
-            Post? post = posts.GetPostById(postID);
+            Post? post = postRepository.GetPostById(postID);
             if (post == null)
             {
                 throw new Exception("Post not found");
             }
-            if (post.Type != "AuctionPost")
+            if (post.Type != Constants.EXTENDED_AUCTION_POST_TYPE)
             {
                 throw new Exception("Post is not an auction post");
             }
@@ -265,17 +268,16 @@ namespace ISSLab.Services
             }
 
             auctionPost.OnGoing = false;
-
         }
 
         public void RemoveOldFixedPricePosts()
         {
             DateTime threeMonthsAgo = DateTime.Now.AddMonths(-3);
-            List<Post> fixedPricePosts = posts.GetAllPosts().FindAll(p => p.Type == "FixedPricePost");
-            fixedPricePosts.ForEach(p =>
+            List<Post> fixedPricePosts = postRepository.GetAllPosts().FindAll(checkedPost => checkedPost.Type == Constants.EXTENDED_FIXED_PRICE_POST_TYPE);
+            fixedPricePosts.ForEach(fixedPricePost =>
             {
-                if (p.CreationDate <= threeMonthsAgo)
-                    posts.RemovePost(p.Id);
+                if (fixedPricePost.CreationDate <= threeMonthsAgo)
+                    postRepository.RemovePost(fixedPricePost.Id);
             });
         }
 
@@ -284,71 +286,70 @@ namespace ISSLab.Services
             return postsForGroup.OrderByDescending(post => post.UsersThatFavorited.Count);
         }
 
-
-        public void ToggleInterest(Guid postID, Guid userID, bool interested)
+        public void ToggleInterest(Guid postId, Guid userId, bool interested)
         {
-            Post? post = posts.GetPostById(postID);
+            Post? post = postRepository.GetPostById(postId);
             if (post == null)
             {
                 throw new Exception("Post not found");
             }
-            InterestStatus? status = post.InterestStatuses.Find(status => status.InterestedUserId == userID);
+            InterestStatus? status = post.InterestStatuses.Find(status => status.InterestedUserId == userId);
             if (status == null)
             {
-                post.InterestStatuses.Add(new InterestStatus(userID, postID, interested));
+                post.InterestStatuses.Add(new InterestStatus(userId, postId, interested));
             }
             else
             {
                 if (status.Interested == interested)
-                    post.RemoveInterestStatus(userID);
+                    post.RemoveInterestStatus(userId);
                 else
-                    post.ToggleInterestStatus(userID);
+                    post.ToggleInterestStatus(userId);
             }
         }
 
-        public void PromotePost(Guid postID, Guid userID, Guid groupID)
+        public void PromotePost(Guid postId, Guid userId, Guid groupId)
         {
-            Post? post = posts.GetPostById(postID);
+            Post? post = postRepository.GetPostById(postId);
             if (post == null)
             {
                 throw new Exception("Post not found");
             }
-            if (post.AuthorId != userID)
+            if (post.AuthorId != userId)
             {
                 throw new Exception("User is not the author of the post");
             }
-            Group? group = groups.FindById(groupID);
+            Group? group = groupRepository.FindById(groupId);
             if (group == null)
             {
                 throw new Exception("That group does not exist");
             }
-            if (group.TopSellers.Contains(userID))
+            if (group.TopSellers.Contains(userId))
             {
                 post.Promoted = true;
-                group.RemoveTopSeller(userID);
+                group.RemoveTopSeller(userId);
             }
             else
                 throw new Exception("User is not a big seller in the group");
         }
 
-        public void FavoritePost(Guid postID, Guid userID)
+        public void FavoritePost(Guid postId, Guid userId)
         {
-            Post? post = posts.GetPostById(postID);
+            Post? post = postRepository.GetPostById(postId);
             if (post == null)
             {
                 throw new Exception("Post not found");
             }
-            post.UsersThatFavorited.Add(userID);
+            post.UsersThatFavorited.Add(userId);
         }
 
-        public void UnfavoritePost(Guid postID, Guid userID)
+        public void UnfavoritePost(Guid postId, Guid userId)
         {
-            Post? post = posts.GetPostById(postID);
+            Post? post = postRepository.GetPostById(postId);
             if (post == null)
             {
                 throw new Exception("Post not found");
             }
-            post.UsersThatFavorited.Remove(userID);
+            post.UsersThatFavorited.Remove(userId);
         }
     }
 }
