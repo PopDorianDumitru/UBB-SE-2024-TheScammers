@@ -78,6 +78,7 @@ namespace ISSLab.ViewModel
         }
         public void ChangeToMarketplacePost()
         {
+            return;
         }
 
         public void LoadPostsCommand(List<Post> postsToLoad)

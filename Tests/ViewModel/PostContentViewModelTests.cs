@@ -712,12 +712,7 @@ namespace Tests.ViewModel
             string expectedResult = noTypePost.Comments.Count + " comments";
             Assert.That(_postViewModel.Comments, Is.EqualTo(expectedResult));
         }
-        //public void SendBuyingMessage()
-        //{
-        //    Chat chat = new Chat(new ChatViewModel(user, _post));
-        //    chat.SendBuyingMessage(Media);
-        //    chat.Show();
-        //}
+       
         [Test]
         public void SendBuyingMessage_FakeChatFactory_ShouldCallChatSendBuyingMessage ()
         {
@@ -726,16 +721,7 @@ namespace Tests.ViewModel
             Assert.That(fakeChat.SendBuyingMessageCalled, Is.EqualTo(true));
 
         }
-        //public void Donate()
-        //{
-        //    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
-        //    {
-        //        FileName = ((DonationPost)_post).DonationPageLink,
-        //        UseShellExecute = true
-        //    });
-        //}
-
-
+        
         [Test]
         public void HidePost_ForAnyPost_ReturnsCorrectValue()
         {
