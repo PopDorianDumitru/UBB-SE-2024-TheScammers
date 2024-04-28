@@ -13,11 +13,6 @@ namespace ISSLab.ViewModel
         public IChat _realChat;
         public IChat chat => _realChat;
 
-        public IChat Get_realChat()
-        {
-            return _realChat;
-        }
-
         public IChat CreateChat(ChatViewModel chatViewModel)
         {
             _realChat = new Chat(chatViewModel);

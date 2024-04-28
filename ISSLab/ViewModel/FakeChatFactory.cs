@@ -12,11 +12,6 @@ namespace ISSLab.ViewModel
         public IChat _fakeChat;
         public IChat chat => _fakeChat;
 
-        public IChat Get_fakeChat()
-        {
-            return _fakeChat;
-        }
-
         public IChat CreateChat(ChatViewModel chatViewModel)
         {
             _fakeChat = new FakeChat(chatViewModel);
