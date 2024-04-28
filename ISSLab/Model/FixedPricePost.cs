@@ -8,99 +8,98 @@ namespace ISSLab.Model
 {
     public class FixedPricePost : Post
     {
-        private double price;
-        private DateTime expirationDate;
-        private float reviewScore;
-        private List<Review> reviews;
-        private string delivery;
-        private Guid buyerId;
+        private double _price;
+        private DateTime _expirationDate;
+        private float _reviewScore;
+        private List<Review> _reviews;
+        private string _delivery;
+        private Guid _buyerId;
 
         public FixedPricePost(string media, Guid authorId, Guid groupId, string location, string description, string title, string contacts, double price, DateTime expirationDate, string delivery, List<Review> reviews, float reviewScore, Guid buyerId, string type, bool confirmed) : base(media, authorId, groupId, location, description, title, contacts, type, confirmed)
         {
-            this.price = price;
-            this.expirationDate = expirationDate;
-            this.reviews = reviews;
-            this.delivery = delivery;
-            this.reviewScore = reviewScore;
-            this.buyerId = buyerId;
+            this._price = price;
+            this._expirationDate = expirationDate;
+            this._reviews = reviews;
+            this._delivery = delivery;
+            this._reviewScore = reviewScore;
+            this._buyerId = buyerId;
         }
 
         public FixedPricePost() : base()
         {
-            this.price = 0;
-            this.expirationDate = DateTime.Now;
-            this.reviewScore = 0;
-            this.reviews = new List<Review>();
-            this.delivery = "";
-            this.buyerId = Guid.Empty;
+            this._price = 0;
+            this._expirationDate = DateTime.Now;
+            this._reviewScore = 0;
+            this._reviews = new List<Review>();
+            this._delivery = "";
+            this._buyerId = Guid.Empty;
         }
+
         public FixedPricePost(Guid id, List<Guid> usersThatShared, List<Guid> usersThatLiked, List<Comment> comments, string media, DateTime creationDate, Guid authorId, Guid groupId, bool promoted, List<Guid> usersThatFavorited, string location, string description, string title, List<InterestStatus> interestStatuses, string contacts, List<Report> reports, double price, DateTime expirationDate, string delivery, List<Review> reviews, float reviewScore, Guid buyerId, string type, bool confirmed, int views) : base(id, usersThatShared, usersThatLiked, comments, media, creationDate, authorId, groupId, promoted, usersThatFavorited, location, description, title, interestStatuses, contacts, reports, type, confirmed, views)
         {
-            this.price = price;
-            this.expirationDate = expirationDate;
-            this.reviewScore = reviewScore;
-            this.delivery = delivery;
-            this.reviews = reviews;
-            this.buyerId = buyerId;
+            this._price = price;
+            this._expirationDate = expirationDate;
+            this._reviewScore = reviewScore;
+            this._delivery = delivery;
+            this._reviews = reviews;
+            this._buyerId = buyerId;
         }
 
         public double Price
         {
-            get { return price; }
-            set { price = value; }
+            get { return _price; }
+            set { _price = value; }
         }
         public DateTime ExpirationDate
         {
-            get { return expirationDate; }
-            set { expirationDate = value; }
+            get { return _expirationDate; }
+            set { _expirationDate = value; }
         }
-
         public float ReviewScore
         {
-            get { return reviewScore; }
-            set { reviewScore = value; }
+            get { return _reviewScore; }
+            set { _reviewScore = value; }
         }
-
         public string Delivery
         {
-            get { return delivery; }
-            set { delivery = value; }
+            get { return _delivery; }
+            set { _delivery = value; }
         }
-
         public Guid BuyerId
         {
-            get { return buyerId; }
+            get { return _buyerId; }
+            set { _buyerId = value; }
         }
-
         public List<Review> Reviews
         {
-            get { return reviews; }
+            get { return _reviews; }
         }
-        public void addReview(Review review)
+
+        public void AddReview(Review review)
         {
-            if(reviews.Contains(review))
+            if (_reviews.Contains(review))
             {
                 throw new Exception("Review already exists. Edit the existing one if you want");
             }
-            reviews.Add(review);
-        }
-        public void removeReview(Review review)
-        {
-            if(!reviews.Contains(review))
-            {
-                throw new Exception("Review does not exist");
-            }   
-            reviews.Remove(review);
+            _reviews.Add(review);
         }
 
-        public void buyProduct(Guid buyerId)
+        public void RemoveReview(Review review)
         {
-            if(this.buyerId != Guid.Empty)
+            if (!_reviews.Contains(review))
+            {
+                throw new Exception("Review does not exist");
+            }
+            _reviews.Remove(review);
+        }
+
+        public void BuyProduct(Guid buyerId)
+        {
+            if (this._buyerId != Guid.Empty)
             {
                 throw new Exception("Product already bought");
             }
-            this.buyerId = buyerId;
+            this._buyerId = buyerId;
         }
-
-      }
+    }
 }

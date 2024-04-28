@@ -23,7 +23,7 @@ namespace ISSLab.Model
         private List<SellingUserScore> userScores;
         private List<Guid> groupsWithActiveRequestToSell;
         private List<Cart> carts;
-        private List<Favorites> favorites;
+        private List<UsersFavoritePosts> favorites;
         private List<Guid> groups;
         private List<Review> receivedReviews;
 
@@ -45,12 +45,12 @@ namespace ISSLab.Model
             this.groupsWithActiveRequestToSell = new List<Guid>();
             this.userScores = new List<SellingUserScore>();
             this.carts = new List<Cart>();
-            this.favorites = new List<Favorites>();
+            this.favorites = new List<UsersFavoritePosts>();
             this.groups = new List<Guid>();
             this.receivedReviews = new List<Review>();
             this.numberOfSales = 0;
         }
-        public User(Guid id, string username, string realName, DateOnly dateOfBirth, string profilePicture, string password, DateTime creationDate, List<Guid> groupsWithSellingPrivelage, List<Guid> groupsWithActiveRequestToSell,List<SellingUserScore> userScores, List<Cart> carts, List<Favorites> favorites, List<Guid> groups, List<Review> receivedReviews, int nrOfSells)
+        public User(Guid id, string username, string realName, DateOnly dateOfBirth, string profilePicture, string password, DateTime creationDate, List<Guid> groupsWithSellingPrivelage, List<Guid> groupsWithActiveRequestToSell,List<SellingUserScore> userScores, List<Cart> carts, List<UsersFavoritePosts> favorites, List<Guid> groups, List<Review> receivedReviews, int nrOfSells)
         {
             this.id = id;
             this.username = username;
@@ -87,7 +87,7 @@ namespace ISSLab.Model
             this.userScores = new List<SellingUserScore>();
             this.numberOfSales = 0;
             this.carts = new List<Cart>();
-            this.favorites = new List<Favorites>();
+            this.favorites = new List<UsersFavoritePosts>();
             this.groups = new List<Guid>();
             this.receivedReviews = new List<Review>();
 
@@ -104,7 +104,7 @@ namespace ISSLab.Model
 
         public List<Cart> Carts { get => carts; }
 
-        public List<Favorites> Favorites { get => favorites; }
+        public List<UsersFavoritePosts> Favorites { get => favorites; }
 
         public List<Guid> Groups { get => groups; }
 
@@ -136,7 +136,7 @@ namespace ISSLab.Model
             carts.Add(newCart);
         }
 
-        public void AddFavorites(Favorites newFavorite)
+        public void AddFavorites(UsersFavoritePosts newFavorite)
         {
             favorites.Add(newFavorite);
         }
