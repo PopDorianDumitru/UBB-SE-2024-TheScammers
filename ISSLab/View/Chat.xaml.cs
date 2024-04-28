@@ -21,7 +21,7 @@ namespace ISSLab.View
     /// <summary>
     /// Interaction logic for Chat.xaml
     /// </summary>
-    public partial class Chat : Window
+    public partial class Chat : Window, IChat
     {
         private IChatViewModel _viewModel;
 
@@ -107,7 +107,7 @@ namespace ISSLab.View
                 rejectButton.Visibility = Visibility.Collapsed;
                 MessageTextBox.Visibility = Visibility.Collapsed;
                 SendButton.Visibility = Visibility.Collapsed;
-                
+
             }
         }
     }

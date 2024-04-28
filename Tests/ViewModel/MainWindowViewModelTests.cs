@@ -18,6 +18,7 @@ namespace Tests.ViewModel
         private Guid groupId;
         private Mock<IPostService> _postService;
         private Mock<IUserService> _userService;
+        private IChatFactory _fakeChatFactory;
         private MainWindowViewModel _mainWindowViewModel;
 
         [SetUp]
@@ -27,7 +28,8 @@ namespace Tests.ViewModel
             groupId = Guid.NewGuid();
             _postService = new Mock<IPostService>();
             _userService = new Mock<IUserService>();
-            _mainWindowViewModel = new MainWindowViewModel(_postService.Object, _userService.Object, userId, groupId);
+            _fakeChatFactory = new FakeChatFactory();
+            _mainWindowViewModel = new MainWindowViewModel(_postService.Object, _userService.Object, userId, groupId, _fakeChatFactory);
         }
 
         [Test]
