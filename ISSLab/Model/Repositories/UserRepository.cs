@@ -246,7 +246,7 @@ namespace ISSLab.Model.Repositories
             {
                 if (users[i].Id == id)
                 {
-                    users[i].ReceivedPrivelageToSell(group);
+                    users[i].GiveAccessToSellInGroup(group);
                     break;
                 }
             }
@@ -262,7 +262,7 @@ namespace ISSLab.Model.Repositories
             {
                 if (users[i].Id == id)
                 {
-                    users[i].requestSellingAccess(group);
+                    users[i].RequestSellingAccess(group);
                     break;
                 }
             }
@@ -280,7 +280,7 @@ namespace ISSLab.Model.Repositories
             {
                 if (users[i].Id == userId)
                 {
-                    users[i].accessToSellDenied(groupId);
+                    users[i].DenyAccessToSellInGroup(groupId);
                     break;
                 }
             }
@@ -297,7 +297,7 @@ namespace ISSLab.Model.Repositories
             {
                 if (users[i].Id == userId)
                 {
-                    users[i].accessToSellWasTaken(groupId);
+                    users[i].TakeAwayAccessToSellInGroup(groupId);
                     break;
                 }
             }
@@ -405,7 +405,7 @@ namespace ISSLab.Model.Repositories
             {
                 if (users[i].Id == id)
                 {
-                    users[i].NrOfSells = nrOfSells;
+                    users[i].NumberOfSales = nrOfSells;
                     break;
                 }
             }
