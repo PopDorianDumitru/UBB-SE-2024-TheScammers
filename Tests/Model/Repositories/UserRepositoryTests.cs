@@ -161,7 +161,7 @@ namespace Tests.Model.Repositories
 
             userRepository.UpdateUserNumberOfSells(addedUserId, newNumberOfSells);
 
-            Assert.That(addedUser.NrOfSells, Is.EqualTo(newNumberOfSells));
+            Assert.That(addedUser.NumberOfSales, Is.EqualTo(newNumberOfSells));
         }
 
         [Test]
@@ -254,9 +254,8 @@ namespace Tests.Model.Repositories
             Cart cart = new Cart(groupId, addedUserId);
             Guid postId = Guid.NewGuid();
             cart.AddPostToCart(postId);
-            addedUser.AddCarts(cart);
+            addedUser.AddCart(cart);
             userRepository.AddUser(addedUser);
-
 
             userRepository.RemoveFromCart(groupId, addedUserId, postId);
 

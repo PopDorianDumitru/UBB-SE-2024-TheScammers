@@ -13,16 +13,16 @@ namespace Tests.Services
     internal class UserServiceTests
     {
         UserService userService;
-        Mock<IUserRepository> userRepository;
-        Mock<IPostRepository> postRepository;
+        Mock<IUserRepository> mockedUserRepository;
+        Mock<IPostRepository> mockedPostRepository;
 
         [SetUp]
         public void setUp()
         {
-            userRepository = new Mock<IUserRepository>();
-            postRepository = new Mock<IPostRepository>();
+            mockedUserRepository = new Mock<IUserRepository>();
+            mockedPostRepository = new Mock<IPostRepository>();
 
-            userService = new UserService(userRepository.Object, postRepository.Object);
+            userService = new UserService(mockedUserRepository.Object, mockedPostRepository.Object);
         }
 
         [Test]
@@ -34,7 +34,7 @@ namespace Tests.Services
 
             userService.AddUser(addedUser);
 
-            userRepository.Verify(repository => repository.AddUser(addedUser), Times.Once);
+            mockedUserRepository.Verify(repository => repository.AddUser(addedUser), Times.Once);
         }
 
         [Test]
@@ -44,7 +44,7 @@ namespace Tests.Services
 
             userService.RemoveUser(toBeRemoved);
 
-            userRepository.Verify(repository => repository.DeleteUser(toBeRemoved.Id), Times.Once);
+            mockedUserRepository.Verify(repository => repository.DeleteUser(toBeRemoved.Id), Times.Once);
         }
 
         [Test]
@@ -55,11 +55,11 @@ namespace Tests.Services
         }
 
         [Test]
-        public void GetUserById_UserExists_ThrowsException()
+        public void GetUserById_UserExists_ReturnsUser()
         {
             User userToBeReturned = new User();
 
-            userRepository.Setup(repository => repository.GetById(It.IsAny<Guid>())).Returns(userToBeReturned);
+            mockedUserRepository.Setup(repository => repository.GetById(It.IsAny<Guid>())).Returns(userToBeReturned);
 
             Assert.That(userService.GetUserById(Guid.NewGuid()), Is.EqualTo(userToBeReturned));
         }
@@ -69,7 +69,7 @@ namespace Tests.Services
         {
             userService.GetUsers();
 
-            userRepository.Verify(repository => repository.GetAll(), Times.Once);
+            mockedUserRepository.Verify(repository => repository.GetAll(), Times.Once);
         }
 
         [Test]
@@ -77,7 +77,7 @@ namespace Tests.Services
         {
             userService.UpdateUserUsername(Guid.NewGuid(), "user");
 
-            userRepository.Verify(repository => repository.UpdateUserUsername(It.IsAny<Guid>(), It.IsAny<string>()), Times.Once);
+            mockedUserRepository.Verify(repository => repository.UpdateUserUsername(It.IsAny<Guid>(), It.IsAny<string>()), Times.Once);
         }
 
         [Test]
@@ -85,7 +85,7 @@ namespace Tests.Services
         {
             userService.AddReview(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), "content", DateTime.Now, 3);
 
-            userRepository.Verify(repository => repository.AddReview(It.IsAny<Review>()), Times.Once);
+            mockedUserRepository.Verify(repository => repository.AddReview(It.IsAny<Review>()), Times.Once);
         }
 
         [Test]
@@ -93,7 +93,7 @@ namespace Tests.Services
         {
             userService.AddPostToCart(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
 
-            userRepository.Verify(repository => repository.AddPostToCart(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<Guid>()), Times.Once);
+            mockedUserRepository.Verify(repository => repository.AddPostToCart(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<Guid>()), Times.Once);
         }
 
         [Test]
@@ -101,7 +101,7 @@ namespace Tests.Services
         {
             userService.RemovePostFromCart(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
 
-            userRepository.Verify(repository => repository.RemoveFromCart(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<Guid>()), Times.Once);
+            mockedUserRepository.Verify(repository => repository.RemoveFromCart(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<Guid>()), Times.Once);
         }
 
         [Test]
@@ -109,7 +109,7 @@ namespace Tests.Services
         {
             userService.AddPostToFavorites(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
 
-            userRepository.Verify(repository => repository.AddToFavorites(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<Guid>()), Times.Once);
+            mockedUserRepository.Verify(repository => repository.AddToFavorites(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<Guid>()), Times.Once);
         }
 
         [Test]
@@ -117,7 +117,83 @@ namespace Tests.Services
         {
             userService.RemovePostFromFavorites(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
 
-            userRepository.Verify(repository => repository.RemoveFromFavorites(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<Guid>()), Times.Once);
+            mockedUserRepository.Verify(repository => repository.RemoveFromFavorites(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<Guid>()), Times.Once);
+        }
+
+        [Test]
+        public void IsUserInGroup_UserBelongsToTheGroup_ReturnsTrue()
+        {
+            User userToBeReturnedByRepositoryGetById = new User();
+            Guid groupWhichUserBelongsToId = Guid.NewGuid();
+            userToBeReturnedByRepositoryGetById.AddGroup(groupWhichUserBelongsToId);
+            mockedUserRepository.Setup(repository => repository.GetById(It.IsAny<Guid>())).Returns(userToBeReturnedByRepositoryGetById);
+
+            Assert.That(userService.IsUserInGroup(userToBeReturnedByRepositoryGetById.Id, groupWhichUserBelongsToId), Is.True);
+        }
+
+        [Test]
+        public void IsUserInGroup_UserDoesNotBelongToTheGroup_ReturnsFalse()
+        {
+            User userToBeReturnedByRepositoryGetById = new User();
+            mockedUserRepository.Setup(repository => repository.GetById(It.IsAny<Guid>())).Returns(userToBeReturnedByRepositoryGetById);
+
+            Assert.That(userService.IsUserInGroup(userToBeReturnedByRepositoryGetById.Id, Guid.NewGuid()), Is.False);
+        }
+
+        [Test]
+        public void GetFavoritePosts_NoFavoritePostsForThatUserAndGroup_ReturnsEmptyList()
+        {
+            User theOnlyUser = new User();
+            Guid idOfTheOnlyUser = theOnlyUser.Id;
+            mockedUserRepository.Setup(repository => repository.GetById(It.IsAny<Guid>())).Returns(theOnlyUser);
+
+            Assert.That(userService.GetFavoritePosts(Guid.NewGuid(), idOfTheOnlyUser), Is.Empty);
+        }
+
+        [Test]
+        public void GetFavoritePosts_AtLeastOneFavoritePostForThatUserAndGroup_ReturnsTheFavoritePosts()
+        {
+            User theOnlyUser = new User();
+            Guid idOfTheOnlyUser = theOnlyUser.Id;
+            Guid groupForWhichTheUserHasFavoritePosts = Guid.NewGuid();
+            List<Guid> expectedFavoritePostsIds = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
+            Post postAlwaysReturnedByRepositoryInGetPostById = new Post();
+            theOnlyUser.AddFavorites(new UsersFavoritePosts(idOfTheOnlyUser, groupForWhichTheUserHasFavoritePosts, expectedFavoritePostsIds));
+            mockedUserRepository.Setup(repository => repository.GetById(It.IsAny<Guid>())).Returns(theOnlyUser);
+            mockedPostRepository.Setup(repository => repository.GetPostById(It.IsAny<Guid>())).Returns(postAlwaysReturnedByRepositoryInGetPostById);
+
+            List<Post> actualFavoritePosts = userService.GetFavoritePosts(groupForWhichTheUserHasFavoritePosts, idOfTheOnlyUser);
+
+            Assert.That(actualFavoritePosts,
+                Is.EquivalentTo(new List<Post> { postAlwaysReturnedByRepositoryInGetPostById, postAlwaysReturnedByRepositoryInGetPostById }));
+        }
+
+        [Test]
+        public void GetPostsFromCart_NoCartedPostsForThatUserAndGroup_ReturnsEmptyList()
+        {
+            User theOnlyUser = new User();
+            Guid idOfTheOnlyUser = theOnlyUser.Id;
+            mockedUserRepository.Setup(repository => repository.GetById(It.IsAny<Guid>())).Returns(theOnlyUser);
+
+            Assert.That(userService.GetPostsFromCart(Guid.NewGuid(), idOfTheOnlyUser), Is.Empty);
+        }
+
+        [Test]
+        public void GetPostsFromCart_AtLeastOneCartedPostForThatUserAndGroup_ReturnsTheCartedPosts()
+        {
+            User theOnlyUser = new User();
+            Guid idOfTheOnlyUser = theOnlyUser.Id;
+            Guid groupForWhichTheUserHasCartedPosts = Guid.NewGuid();
+            List<Guid> expectedCartedPostsIds = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
+            Post postAlwaysReturnedByRepositoryInGetPostById = new Post();
+            theOnlyUser.AddCart(new Cart(idOfTheOnlyUser, groupForWhichTheUserHasCartedPosts, expectedCartedPostsIds));
+            mockedUserRepository.Setup(repository => repository.GetById(It.IsAny<Guid>())).Returns(theOnlyUser);
+            mockedPostRepository.Setup(repository => repository.GetPostById(It.IsAny<Guid>())).Returns(postAlwaysReturnedByRepositoryInGetPostById);
+
+            List<Post> actualCartedPosts = userService.GetPostsFromCart(groupForWhichTheUserHasCartedPosts, idOfTheOnlyUser);
+
+            Assert.That(actualCartedPosts,
+                Is.EquivalentTo(new List<Post> { postAlwaysReturnedByRepositoryInGetPostById, postAlwaysReturnedByRepositoryInGetPostById }));
         }
     }
 }

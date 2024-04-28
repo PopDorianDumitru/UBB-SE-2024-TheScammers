@@ -101,7 +101,7 @@ namespace ISSLab.Model.Repositories
             {
                 if (_allUsers[i].Id == userId)
                 {
-                    users[i].NumberOfSales = nrOfSells;
+                    _allUsers[i].NumberOfSales = newNumberOfSells;
                     break;
                 }
             }

@@ -16,6 +16,6 @@ namespace ISSLab.Services
         void RemovePostFromFavorites(Guid groupId, Guid postId, Guid userId);
         void RemoveUser(User user);
         void UpdateUserUsername(Guid user, string username);
-        List<Post> GetItemsFromCart(Guid userId, Guid groupId);
+        List<Post> GetPostsFromCart(Guid userId, Guid groupId);
     }
 }

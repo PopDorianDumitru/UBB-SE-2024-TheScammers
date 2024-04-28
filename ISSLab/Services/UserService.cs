@@ -10,28 +10,28 @@ namespace ISSLab.Services
 {
     public class UserService : IUserService
     {
-        private IUserRepository _users;
-        private IPostRepository _posts;
+        private IUserRepository _userRepository;
+        private IPostRepository _postRepository;
 
         public UserService(IUserRepository users, IPostRepository posts)
         {
-            this._users = users;
-            this._posts = posts;
+            this._userRepository = users;
+            this._postRepository = posts;
         }
 
         public void AddUser(User user)
         {
-            _users.AddUser(user);
+            _userRepository.AddUser(user);
         }
 
         public void RemoveUser(User user)
         {
-            _users.DeleteUser(user.Id);
+            _userRepository.DeleteUser(user.Id);
         }
 
         public User GetUserById(Guid id)
         {
-            User? user = _users.GetById(id);
+            User? user = _userRepository.GetById(id);
             if (user == null)
             {
                 throw new Exception("User not found");
@@ -41,7 +41,7 @@ namespace ISSLab.Services
 
         public List<User> GetUsers()
         {
-            return _users.GetAll();
+            return _userRepository.GetAll();
         }
 
         public bool IsUserInGroup(Guid userId, Guid groupId)
@@ -52,63 +52,63 @@ namespace ISSLab.Services
 
         public void UpdateUserUsername(Guid user, string username)
         {
-            _users.UpdateUserUsername(user, username);
+            _userRepository.UpdateUserUsername(user, username);
         }
 
         public void AddReview(Guid reviewerId, Guid sellerId, Guid groupId, string content, DateTime date, int rating)
         {
             Review review = new Review(reviewerId, sellerId, groupId, content, date, rating);
-            _users.AddReview(review);
+            _userRepository.AddReview(review);
         }
 
         public void AddPostToCart(Guid groupId, Guid postId, Guid userId)
         {
-            _users.AddPostToCart(groupId, userId, postId);
+            _userRepository.AddPostToCart(groupId, userId, postId);
         }
 
         public void RemovePostFromCart(Guid groupId, Guid postId, Guid userId)
         {
-            _users.RemoveFromCart(groupId, userId, postId);
+            _userRepository.RemoveFromCart(groupId, userId, postId);
         }
 
         public void AddPostToFavorites(Guid groupId, Guid postId, Guid userId)
         {
-            _users.AddToFavorites(groupId, userId, postId);
+            _userRepository.AddToFavorites(groupId, userId, postId);
         }
 
         public void RemovePostFromFavorites(Guid groupId, Guid postId, Guid userId)
         {
-            _users.RemoveFromFavorites(groupId, userId, postId);
+            _userRepository.RemoveFromFavorites(groupId, userId, postId);
         }
 
         public List<Post> GetFavoritePosts(Guid groupId, Guid userId)
         {
             List<Post> favoritePosts = new List<Post>();
-            UsersFavoritePosts favorites = _users.GetById(userId).Favorites.Find(f => f.GroupId == groupId);
+            UsersFavoritePosts favorites = _userRepository.GetById(userId).Favorites.Find(checkedFavorite => checkedFavorite.GroupId == groupId);
             if (favorites == null)
             {
-                _users.GetById(userId).Favorites.Add(new UsersFavoritePosts(userId, groupId));
+                _userRepository.GetById(userId).Favorites.Add(new UsersFavoritePosts(userId, groupId));
                 return new List<Post>();
             }
             foreach (Guid postId in favorites.Posts)
             {
-                favoritePosts.Add(_posts.GetPostById(postId));
+                favoritePosts.Add(_postRepository.GetPostById(postId));
             }
             return favoritePosts;
         }
 
-        public List<Post> GetItemsFromCart(Guid userId, Guid groupId)
+        public List<Post> GetPostsFromCart(Guid userId, Guid groupId)
         {
-            Cart cart = _users.GetById(userId).Carts.Find(c => c.GroupId == groupId);
+            Cart cart = _userRepository.GetById(userId).Carts.Find(checkedCart => checkedCart.GroupId == groupId);
             List<Post> cartedPosts = new List<Post>();
             if (cart == null)
             {
-                _users.GetById(userId).Carts.Add(new Cart(groupId, userId));
+                _userRepository.GetById(userId).Carts.Add(new Cart(groupId, userId));
                 return new List<Post>();
             }
             foreach (Guid postId in cart.PostsSavedInCart)
             {
-                cartedPosts.Add(_posts.GetPostById(postId));
+                cartedPosts.Add(_postRepository.GetPostById(postId));
             }
             return cartedPosts;
         }
