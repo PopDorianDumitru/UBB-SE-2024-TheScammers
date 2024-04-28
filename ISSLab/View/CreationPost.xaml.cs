@@ -21,107 +21,106 @@ namespace ISSLab.View
     /// </summary>
     public partial class CreationPost : UserControl
     {
-        private readonly DependencyProperty TypeProperty = DependencyProperty.Register("Type", typeof(string), typeof(CreationPost));
-        private readonly DependencyProperty PhoneNumberProperty = DependencyProperty.Register("PhoneNumber", typeof(string), typeof(CreationPost));
-        private readonly DependencyProperty DescriptionProperty = DependencyProperty.Register("Description", typeof(string), typeof(CreationPost));
-        private readonly DependencyProperty PriceProperty = DependencyProperty.Register("Price", typeof(string), typeof(CreationPost));
-        private readonly DependencyProperty DeliveryProperty = DependencyProperty.Register("Delivery", typeof(string), typeof(CreationPost));
-        private readonly DependencyProperty ConditionPropery = DependencyProperty.Register("Condition", typeof(string), typeof(CreationPost));
-        private readonly DependencyProperty AvailabilityProperty = DependencyProperty.Register("Availability", typeof(string), typeof(CreationPost));
-        private readonly DependencyProperty PhoneVisibleProperty = DependencyProperty.Register("PhoneVisible", typeof(bool), typeof(CreationPost));
-        private readonly DependencyProperty PriceVisibleProperty = DependencyProperty.Register("PriceVisible", typeof(bool), typeof(CreationPost));
-        private readonly DependencyProperty ConditionVisibleProperty = DependencyProperty.Register("ConditionVisible", typeof(bool), typeof(CreationPost));
-        private readonly DependencyProperty AvailabilityVisibleProperty = DependencyProperty.Register("AvailabilityVisible", typeof(bool), typeof(CreationPost));
-        private readonly DependencyProperty DeliveryVisibleProperty = DependencyProperty.Register("DeliveryVisible", typeof(bool), typeof(CreationPost));
-        private readonly DependencyProperty IsDonationProperty = DependencyProperty.Register("IsDonation", typeof(string), typeof(CreationPost));
-        private readonly DependencyProperty DonationLinkProperty = DependencyProperty.Register("DonationLink", typeof(string), typeof(CreationPost));
-        private readonly DependencyProperty IsAuctionProperty = DependencyProperty.Register("IsAuction", typeof(string), typeof(CreationPost));
-        private readonly DependencyProperty MinimumBidProperty = DependencyProperty.Register("MinimumBid", typeof(string), typeof(CreationPost));
-        
+        private readonly DependencyProperty typeProperty = DependencyProperty.Register("Type", typeof(string), typeof(CreationPost));
+        private readonly DependencyProperty phoneNumberProperty = DependencyProperty.Register("PhoneNumber", typeof(string), typeof(CreationPost));
+        private readonly DependencyProperty descriptionProperty = DependencyProperty.Register("Description", typeof(string), typeof(CreationPost));
+        private readonly DependencyProperty priceProperty = DependencyProperty.Register("Price", typeof(string), typeof(CreationPost));
+        private readonly DependencyProperty deliveryProperty = DependencyProperty.Register("Delivery", typeof(string), typeof(CreationPost));
+        private readonly DependencyProperty conditionPropery = DependencyProperty.Register("Condition", typeof(string), typeof(CreationPost));
+        private readonly DependencyProperty availabilityProperty = DependencyProperty.Register("Availability", typeof(string), typeof(CreationPost));
+        private readonly DependencyProperty phoneVisibleProperty = DependencyProperty.Register("PhoneVisible", typeof(bool), typeof(CreationPost));
+        private readonly DependencyProperty priceVisibleProperty = DependencyProperty.Register("PriceVisible", typeof(bool), typeof(CreationPost));
+        private readonly DependencyProperty conditionVisibleProperty = DependencyProperty.Register("ConditionVisible", typeof(bool), typeof(CreationPost));
+        private readonly DependencyProperty availabilityVisibleProperty = DependencyProperty.Register("AvailabilityVisible", typeof(bool), typeof(CreationPost));
+        private readonly DependencyProperty deliveryVisibleProperty = DependencyProperty.Register("DeliveryVisible", typeof(bool), typeof(CreationPost));
+        private readonly DependencyProperty isDonationProperty = DependencyProperty.Register("IsDonation", typeof(string), typeof(CreationPost));
+        private readonly DependencyProperty donationLinkProperty = DependencyProperty.Register("DonationLink", typeof(string), typeof(CreationPost));
+        private readonly DependencyProperty isAuctionProperty = DependencyProperty.Register("IsAuction", typeof(string), typeof(CreationPost));
+        private readonly DependencyProperty minimumBidProperty = DependencyProperty.Register("MinimumBid", typeof(string), typeof(CreationPost));
+
         public string MinimumBid
         {
-            get { return (string)GetValue(MinimumBidProperty); }
-            set { SetValue(MinimumBidProperty, value); }
+            get { return (string)GetValue(minimumBidProperty); }
+            set { SetValue(minimumBidProperty, value); }
         }
         public string IsAuction
         {
-            get { return (string)GetValue(IsAuctionProperty); }
-            set { SetValue(IsDonationProperty, value); }
+            get { return (string)GetValue(isAuctionProperty); }
+            set { SetValue(isDonationProperty, value); }
         }
 
         public string IsDonation
         {
-            get { return (string)GetValue(IsDonationProperty); }
-            set { SetValue(IsDonationProperty, value); }
+            get { return (string)GetValue(isDonationProperty); }
+            set { SetValue(isDonationProperty, value); }
         }
 
         public string DonationLink
         {
-            get { return (string)GetValue(DonationLinkProperty); }
-            set { SetValue(DonationLinkProperty, value);}
+            get { return (string)GetValue(donationLinkProperty); }
+            set { SetValue(donationLinkProperty, value); }
         }
         public string PhoneVisible
         {
-            get { return (string)GetValue(PhoneVisibleProperty); }
-            set { SetValue(PhoneVisibleProperty, value); }
+            get { return (string)GetValue(phoneVisibleProperty); }
+            set { SetValue(phoneVisibleProperty, value); }
         }
         public string PriceVisible
         {
-            get { return (string)GetValue(PriceVisibleProperty); }
-            set { SetValue(PriceVisibleProperty, value); }
+            get { return (string)GetValue(priceVisibleProperty); }
+            set { SetValue(priceVisibleProperty, value); }
         }
         public string ConditionVisible
         {
-            get { return (string)GetValue(ConditionVisibleProperty); }
-            set { SetValue(ConditionVisibleProperty, value); }
+            get { return (string)GetValue(conditionVisibleProperty); }
+            set { SetValue(conditionVisibleProperty, value); }
         }
         public string AvailabilityVisible
         {
-            get { return (string)GetValue(AvailabilityVisibleProperty); }
-            set { SetValue(AvailabilityVisibleProperty, value); }
+            get { return (string)GetValue(availabilityVisibleProperty); }
+            set { SetValue(availabilityVisibleProperty, value); }
         }
         public string DeliveryVisible
         {
-            get { return (string)GetValue(DeliveryVisibleProperty); }
-            set { SetValue(DeliveryVisibleProperty, value); }
+            get { return (string)GetValue(deliveryVisibleProperty); }
+            set { SetValue(deliveryVisibleProperty, value); }
         }
-
 
         public string Type
         {
-            get { return (string)GetValue(TypeProperty); }
-            set { SetValue(TypeProperty, value); }
+            get { return (string)GetValue(typeProperty); }
+            set { SetValue(typeProperty, value); }
         }
         public string PhoneNumber
         {
-            get { return (string)GetValue(PhoneNumberProperty); }
-            set { SetValue(PhoneNumberProperty, value); }
+            get { return (string)GetValue(phoneNumberProperty); }
+            set { SetValue(phoneNumberProperty, value); }
         }
 
         public string Description
         {
-            get { return (string)GetValue(DescriptionProperty); }
-            set { SetValue(DescriptionProperty, value); }
+            get { return (string)GetValue(descriptionProperty); }
+            set { SetValue(descriptionProperty, value); }
         }
         public string Price
         {
-            get { return (string)GetValue(PriceProperty); }
-            set { SetValue(PriceProperty, value); }
+            get { return (string)GetValue(priceProperty); }
+            set { SetValue(priceProperty, value); }
         }
         public string Delivery
         {
-            get { return (string)GetValue(DeliveryProperty); }
-            set { SetValue(DeliveryProperty, value); }
+            get { return (string)GetValue(deliveryProperty); }
+            set { SetValue(deliveryProperty, value); }
         }
         public string Condition
         {
-            get { return (string)GetValue(ConditionPropery); }
-            set { SetValue(ConditionPropery, value); }
+            get { return (string)GetValue(conditionPropery); }
+            set { SetValue(conditionPropery, value); }
         }
         public string Availability
         {
-            get { return (string)GetValue(AvailabilityProperty); }
-            set { SetValue(AvailabilityProperty, value); }
+            get { return (string)GetValue(availabilityProperty); }
+            set { SetValue(availabilityProperty, value); }
         }
 
         public CreationPost()
@@ -129,7 +128,7 @@ namespace ISSLab.View
             InitializeComponent();
         }
 
-        public void CreationButtonClick(Object sender, RoutedEventArgs e)
+        public void CreationButtonClick(object sender, RoutedEventArgs e)
         {
             var viewModel = DataContext as ICreatePostViewModel;
             viewModel.CreatePost();

@@ -1,7 +1,7 @@
-﻿using Moq;
+﻿using System.ComponentModel;
 using NUnit.Framework;
+using Moq;
 using ISSLab.ViewModel;
-using System.ComponentModel;
 
 namespace ISSLab.ViewModel.Tests
 {

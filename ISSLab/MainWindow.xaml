@@ -81,14 +81,14 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button x:Name="marketPlaceButton" Content="Marketplace" Margin="5,0,0,0" Background="White" FontWeight="Bold" Click="onClickedMarketplace">
+                    <Button x:Name="marketPlaceButton" Content="Marketplace" Margin="5,0,0,0" Background="White" FontWeight="Bold" Click="OnClickedMarketplace">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button x:Name="createMarketplacePostButton" Margin="5,0,0,0" Background="White" Click="onClickedCreateMarketplacePost">
+                    <Button x:Name="createMarketplacePostButton" Margin="5,0,0,0" Background="White" Click="OnClickedCreateMarketplacePost">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" Margin="2,0,2,0">
                                 <Image Source="./Resources/Images/plusLogo.png" Width="18" Height="18" VerticalAlignment="Center" Margin="0,0,2,0"/>
@@ -101,7 +101,7 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button x:Name="yourMarketplaceCartButton" Margin="5,0,0,0" Background="White" Click="onClickedYourMarketplaceCart">
+                    <Button x:Name="yourMarketplaceCartButton" Margin="5,0,0,0" Background="White" Click="OnClickedYourMarketplaceCart">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" Margin="2,0,2,0">
                                 <Image Source="./Resources/Images/basket.png" Width="15" Height="20" VerticalAlignment="Center" Margin="0,0,2,0"/>
@@ -114,7 +114,7 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button x:Name="favoritesButton" Margin="5,0,0,0" Background="White" Click="onClickedFavoritesButton">
+                    <Button x:Name="favoritesButton" Margin="5,0,0,0" Background="White" Click="OnClickedFavoritesButton">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" Margin="2,0,2,0">
                                 <Image Source="./Resources/Images/heart.png" Width="14" Height="16" VerticalAlignment="Center" Margin="0,0,2,0"/>

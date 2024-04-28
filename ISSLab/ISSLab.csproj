@@ -8,6 +8,10 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	<CodeAnalysisRuleSet>SE.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="Resources\Images\arrow-button.png" />
     <None Remove="Resources\Images\bannerGroup.png" />
@@ -33,6 +37,11 @@
   <ItemGroup>
 
     <PackageReference Include="Moq" Version="4.18.4" />
+
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
 
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>

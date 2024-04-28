@@ -1,22 +1,22 @@
-﻿using ISSLab.Model;
-using ISSLab.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ISSLab.Model;
+using ISSLab.View;
 
 namespace ISSLab.ViewModel
 {
     public class ChatFactory : IChatFactory
     {
-        public IChat _realChat;
-        public IChat chat => _realChat;
+        public IChat RealChat;
+        public IChat OurChat => RealChat;
 
         public IChat CreateChat(ChatViewModel chatViewModel)
         {
-            _realChat = new Chat(chatViewModel);
-            return _realChat;
+            RealChat = new Chat(chatViewModel);
+            return RealChat;
         }
     }
 }

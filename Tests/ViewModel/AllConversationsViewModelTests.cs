@@ -1,25 +1,26 @@
-﻿using ISSLab.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ISSLab.ViewModel;
 
 namespace Tests.ViewModel
 {
     public class AllConversationsViewModelTests
     {
-        public AllConversationsViewModel _allConversationsViewModel;
+        private AllConversationsViewModel allConversationsViewModel;
+
         [SetUp]
         public void SetUp()
         {
-            _allConversationsViewModel = new AllConversationsViewModel();
+            allConversationsViewModel = new AllConversationsViewModel();
         }
 
         [Test]
         public void AddHardcodedProfiles_OnInstantiation_ProfilesAddedToCollection()
         {
-            Assert.That(_allConversationsViewModel.AllProfiles.Count, Is.EqualTo(2));
+            Assert.That(allConversationsViewModel.AllProfiles.Count, Is.EqualTo(2));
         }
     }
 }

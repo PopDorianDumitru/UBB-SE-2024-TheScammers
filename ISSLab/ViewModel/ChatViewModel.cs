@@ -5,23 +5,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Windows.Controls;
 using System.Windows;
 using ISSLab.Model;
-using System.Windows.Controls;
 
 namespace ISSLab.ViewModel
 {
     public class ChatViewModel : IChatViewModel
     {
         public ObservableCollection<Message> AllMessages { get; set; }
-        public User User { get; set; }
-        public Post Post { get; set; }
+        public User ChatUser { get; set; }
+        public Post RefferedPost { get; set; }
 
         public ChatViewModel(User user, Post post)
         {
             AllMessages = new ObservableCollection<Message>();
-            this.User = user;
-            this.Post = post;
+            this.ChatUser = user;
+            this.RefferedPost = post;
         }
 
         public void AddMessage(Message message)

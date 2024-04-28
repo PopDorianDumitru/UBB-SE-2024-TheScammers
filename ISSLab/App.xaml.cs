@@ -37,7 +37,7 @@ namespace ISSLab
             IPostService postService = new PostService(postRepository);
             IUserService userService = new UserService(userRepository, postRepository);
 
-            IMainWindowViewModel mainWindowViewModel = new MainWindowViewModel(postService, userService, userId, groupId,chatFactory);
+            IMainWindowViewModel mainWindowViewModel = new MainWindowViewModel(postService, userService, userId, groupId, chatFactory);
             MainWindow mainWindow = new MainWindow(mainWindowViewModel);
             mainWindow.Show();
         }

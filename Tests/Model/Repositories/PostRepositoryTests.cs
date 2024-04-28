@@ -12,7 +12,7 @@ namespace Tests.Model.Repositories
 {
     public class PostRepositoryTests
     {
-        public PostRepository postRepository;
+        private PostRepository postRepository;
 
         [SetUp]
         public void SetUp()
@@ -35,8 +35,8 @@ namespace Tests.Model.Repositories
         public void RemovePost_PostExists_ThePostIsRemoved()
         {
             Guid postGuid = Guid.NewGuid();
-            Post post = new Post(postGuid, new List<Guid>(), new List<Guid>(), new List<Comment>(), "", new DateTime(), Guid.NewGuid(),
-                Guid.NewGuid(), false, new List<Guid>(), "", "", "", new List<InterestStatus>(), "", new List<Report>(), "", false, 0);
+            Post post = new Post(postGuid, new List<Guid>(), new List<Guid>(), new List<Comment>(), string.Empty, new DateTime(), Guid.NewGuid(),
+                Guid.NewGuid(), false, new List<Guid>(), string.Empty, string.Empty, string.Empty, new List<InterestStatus>(), string.Empty, new List<Report>(), string.Empty, false, 0);
             postRepository.AddPost(post);
 
             postRepository.RemovePost(postGuid);
@@ -48,8 +48,8 @@ namespace Tests.Model.Repositories
         public void RemovePost_PostDoesNotExist_NoPostsAreRemoved()
         {
             Guid postGuid = Guid.NewGuid();
-            Post post = new Post(postGuid, new List<Guid>(), new List<Guid>(), new List<Comment>(), "", new DateTime(), Guid.NewGuid(),
-                Guid.NewGuid(), false, new List<Guid>(), "", "", "", new List<InterestStatus>(), "", new List<Report>(), "", false, 0);
+            Post post = new Post(postGuid, new List<Guid>(), new List<Guid>(), new List<Comment>(), string.Empty, new DateTime(), Guid.NewGuid(),
+                Guid.NewGuid(), false, new List<Guid>(), string.Empty, string.Empty, string.Empty, new List<InterestStatus>(), string.Empty, new List<Report>(), string.Empty, false, 0);
             postRepository.AddPost(post);
 
             postRepository.RemovePost(Guid.NewGuid());
@@ -62,8 +62,8 @@ namespace Tests.Model.Repositories
         public void GetPostById_ValidId_ThePostIsReturned()
         {
             Guid postGuid = Guid.NewGuid();
-            Post post = new Post(postGuid, new List<Guid>(), new List<Guid>(), new List<Comment>(), "", new DateTime(), Guid.NewGuid(),
-                Guid.NewGuid(), false, new List<Guid>(), "", "", "", new List<InterestStatus>(), "", new List<Report>(), "", false, 0);
+            Post post = new Post(postGuid, new List<Guid>(), new List<Guid>(), new List<Comment>(), string.Empty, new DateTime(), Guid.NewGuid(),
+                Guid.NewGuid(), false, new List<Guid>(), string.Empty, string.Empty, string.Empty, new List<InterestStatus>(), string.Empty, new List<Report>(), string.Empty, false, 0);
             postRepository.AddPost(post);
 
             Post gotByIdPost = postRepository.GetPostById(postGuid);
@@ -89,8 +89,8 @@ namespace Tests.Model.Repositories
         [Test]
         public void GetAllPosts_AtLeastOnePost_ReturnsThePosts()
         {
-            Post firstPost = new Post(Guid.NewGuid(), new List<Guid>(), new List<Guid>(), new List<Comment>(), "", new DateTime(), Guid.NewGuid(),
-                Guid.NewGuid(), false, new List<Guid>(), "", "", "", new List<InterestStatus>(), "", new List<Report>(), "", false, 0);
+            Post firstPost = new Post(Guid.NewGuid(), new List<Guid>(), new List<Guid>(), new List<Comment>(), string.Empty, new DateTime(), Guid.NewGuid(),
+                Guid.NewGuid(), false, new List<Guid>(), string.Empty, string.Empty, string.Empty, new List<InterestStatus>(), string.Empty, new List<Report>(), string.Empty, false, 0);
             Post secondPost = new Post(Guid.NewGuid(), new List<Guid>(), new List<Guid>(), new List<Comment>(), "2", new DateTime(), Guid.NewGuid(),
                 Guid.NewGuid(), false, new List<Guid>(), "2", "2", "2", new List<InterestStatus>(), "2", new List<Report>(), "2", true, 2);
             postRepository.AddPost(firstPost);

@@ -1,17 +1,17 @@
-﻿using ISSLab.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using ISSLab.Model;
 
 namespace Tests.Model
 {
     internal class MessageTests
     {
-        public Message messageToTest;
+        private Message messageToTest;
 
         [SetUp]
         public void SetUp()
@@ -128,9 +128,6 @@ namespace Tests.Model
             Assert.That(messageToTest.AcceptButtonIsVisible, Is.False);
         }
 
-
-
-
         [Test]
         public void RejectButtonIsVisibleGet_RejectButtonIsVisibleOfNewMessage_RejectButtonIsVisibleShouldBeFalse()
         {
@@ -179,5 +176,4 @@ namespace Tests.Model
             Assert.That(messageToTest.RejectButtonClicked, Is.EqualTo(otherRoutedEventHandler));
         }
     }
-
 }

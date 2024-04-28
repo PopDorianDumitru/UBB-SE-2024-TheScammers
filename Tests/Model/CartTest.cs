@@ -1,23 +1,23 @@
-﻿using ISSLab.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ISSLab.Model;
 
 namespace Tests.Model
 {
     internal class CartTest
     {
-        public Cart cartInitializedWithEmptyConstructor;
-        public Cart cartInitializedWithGroupUser;
-        public Cart cartInitializedWithGroupUserPosts;
+        private Cart cartInitializedWithEmptyConstructor;
+        private Cart cartInitializedWithGroupUser;
+        private Cart cartInitializedWithGroupUserPosts;
 
-        public Guid groupId;
-        public Guid userId;
-        public List<Guid> postsSavedInCart;
+        private Guid groupId;
+        private Guid userId;
+        private List<Guid> postsSavedInCart;
 
-        Guid postToSave;
+        private Guid postToSave;
 
         [SetUp]
         public void SetUp()

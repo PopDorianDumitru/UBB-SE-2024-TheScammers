@@ -20,8 +20,8 @@ namespace ISSLab.ViewModel
 
         private void AddHardcodedProfiles()
         {
-            AllProfiles.Add(new Model.User { Username = "John Doe", ProfilePicture = @"" });
-            AllProfiles.Add(new Model.User { Username = "Jane Smith", ProfilePicture = @"" });
+            AllProfiles.Add(new Model.User { Username = "John Doe", ProfilePicture = string.Empty });
+            AllProfiles.Add(new Model.User { Username = "Jane Smith", ProfilePicture = string.Empty });
         }
     }
 }

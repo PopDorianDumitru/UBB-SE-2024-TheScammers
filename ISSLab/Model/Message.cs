@@ -20,6 +20,5 @@ namespace ISSLab.Model
 
         public RoutedEventHandler? AcceptButtonClicked { get; set; }
         public RoutedEventHandler? RejectButtonClicked { get; set; }
-
     }
 }

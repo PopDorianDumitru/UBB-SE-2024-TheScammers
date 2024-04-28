@@ -11,7 +11,7 @@ namespace ISSLab.Model
         private int score;
         private Guid userId;
         private Guid groupId;
-        
+
         public SellingUserScore(Guid userId, Guid groupId)
         {
             this.userId = userId;
@@ -36,6 +36,5 @@ namespace ISSLab.Model
         public Guid UserId { get => userId; }
         public Guid GroupId { get => groupId; }
         public int Score { get => score; set => score = value; }
-
     }
 }

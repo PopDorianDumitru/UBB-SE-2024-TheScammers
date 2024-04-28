@@ -1,9 +1,9 @@
 ﻿using System;
-using ISSLab.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ISSLab.Model;
 
 namespace Tests.Model
 {
@@ -11,34 +11,34 @@ namespace Tests.Model
     {
         private const string TEST_STRING = "Test";
         private const string OTHER_TEST_STRING = "Test2";
-        User userEmptyConstructor;
+        private User userEmptyConstructor;
 
-        User userSimpleConstructor;
-        string usernameSimpleConstructor;
-        string realNameSimpleConstructor;
-        DateOnly dateOfBirthSimpleConstructor;
-        string profilePictureSimpleConstructor;
-        string passwordSimpleConstructor;
+        private User userSimpleConstructor;
+        private string usernameSimpleConstructor;
+        private string realNameSimpleConstructor;
+        private DateOnly dateOfBirthSimpleConstructor;
+        private string profilePictureSimpleConstructor;
+        private string passwordSimpleConstructor;
 
-        User userFullConstructor;
-        Guid idFullConstructor;
-        string usernameFullConstructor;
-        string realNameFullConstructor;
-        DateOnly dateOfBirthFullConstructor;
-        string profilePictureFullConstructor;
-        string passwordFullConstructor;
-        DateTime creationDateFullConstructor;
-        List<Guid> groupsWithSellingPrivilegeFullConstructor;
-        List<Guid> groupsWithActiveRequestToSellFullConstructor;
-        List<SellingUserScore> userScoresFullConstructor;
-        List<Cart> cartsFullConstructor;
-        List<UsersFavoritePosts> favoritesFullConstructor;
-        List<Guid> groupsFullConstructor;
-        List<Review> receivedReviewsFullConstructor;
-        int numberOfSalesFullConstructor;
+        private User userFullConstructor;
+        private Guid idFullConstructor;
+        private string usernameFullConstructor;
+        private string realNameFullConstructor;
+        private DateOnly dateOfBirthFullConstructor;
+        private string profilePictureFullConstructor;
+        private string passwordFullConstructor;
+        private DateTime creationDateFullConstructor;
+        private List<Guid> groupsWithSellingPrivilegeFullConstructor;
+        private List<Guid> groupsWithActiveRequestToSellFullConstructor;
+        private List<SellingUserScore> userScoresFullConstructor;
+        private List<Cart> cartsFullConstructor;
+        private List<UsersFavoritePosts> favoritesFullConstructor;
+        private List<Guid> groupsFullConstructor;
+        private List<Review> receivedReviewsFullConstructor;
+        private int numberOfSalesFullConstructor;
 
-        SellingUserScore scoreToAddAndRemove;
-        Guid groupToUseForAccessTests;
+        private SellingUserScore scoreToAddAndRemove;
+        private Guid groupToUseForAccessTests;
 
         [SetUp]
         public void Setup()
@@ -155,7 +155,7 @@ namespace Tests.Model
         [Test]
         public void UserSellingUserScoresGet_GetSellingUserScoresOfFullConstructorUser_SellingUserScoresMatches()
         {
-            Assert.That(userFullConstructor.sellingUserScores, Is.EqualTo(userScoresFullConstructor));
+            Assert.That(userFullConstructor.SellingUserScores, Is.EqualTo(userScoresFullConstructor));
         }
 
         [Test]
@@ -250,7 +250,7 @@ namespace Tests.Model
         public void AddNewUserScore_AddUserScoreToFullConstructorUser_UserScoreAdded()
         {
             userFullConstructor.AddNewUserScore(scoreToAddAndRemove);
-            Assert.That(userFullConstructor.sellingUserScores[0], Is.EqualTo(scoreToAddAndRemove));
+            Assert.That(userFullConstructor.SellingUserScores[0], Is.EqualTo(scoreToAddAndRemove));
         }
 
         [Test]
@@ -264,7 +264,7 @@ namespace Tests.Model
         public void RemoveUserScore_RemoveUserScoreFromFullConstructorUser_ScoreRemoved()
         {
             userFullConstructor.RemoveUserScore(scoreToAddAndRemove);
-            Assert.That(userFullConstructor.sellingUserScores.Count, Is.EqualTo(0));
+            Assert.That(userFullConstructor.SellingUserScores.Count, Is.EqualTo(0));
         }
 
         [Test]
@@ -326,7 +326,6 @@ namespace Tests.Model
             {
                 Assert.That(exception.Message, Is.EqualTo("Already have access to sell in this group"));
             }
-
         }
 
         [Test]
@@ -388,6 +387,5 @@ namespace Tests.Model
             Assert.IsFalse(userFullConstructor.GroupsWithActiveRequestToSell.Contains(groupToUseForAccessTests));
             Assert.IsFalse(userFullConstructor.GroupsWithSellingPrivilege.Contains(groupToUseForAccessTests));
         }
-
     }
 }

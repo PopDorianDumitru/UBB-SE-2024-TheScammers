@@ -1,6 +1,4 @@
-﻿using ISSLab.View;
-using ISSLab.ViewModel;
-using System.Text;
+﻿using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -10,7 +8,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using ISSLab.View;
+using ISSLab.ViewModel;
 
 namespace ISSLab
 {
@@ -19,14 +18,14 @@ namespace ISSLab
     /// </summary>
     public partial class MainWindow : Window
     {
-        private IMainWindowViewModel _viewModel;
+        private IMainWindowViewModel viewModel;
 
         public MainWindow(IMainWindowViewModel viewModel)
         {
             InitializeComponent();
 
-            _viewModel = viewModel;
-            this.DataContext = _viewModel;
+            this.viewModel = viewModel;
+            this.DataContext = this.viewModel;
 
             LoadMarketplace();
         }
@@ -36,7 +35,7 @@ namespace ISSLab
             marketPlaceButton.Background = Brushes.LightBlue;
         }
 
-        private void onClickedMarketplace(object sender, RoutedEventArgs e)
+        private void OnClickedMarketplace(object sender, RoutedEventArgs e)
         {
             createMarketplacePostButton.Background = Brushes.Transparent;
             marketPlaceButton.Background = Brushes.LightBlue;
@@ -45,10 +44,10 @@ namespace ISSLab
             this.CreatePostControl.Visibility = Visibility.Collapsed;
             this.ShowPostsControl.Visibility = Visibility.Visible;
 
-            _viewModel.ChangeToMarketPlace();
+            viewModel.ChangeToMarketPlace();
         }
 
-        private void onClickedCreateMarketplacePost(object sender, RoutedEventArgs e)
+        private void OnClickedCreateMarketplacePost(object sender, RoutedEventArgs e)
         {
             createMarketplacePostButton.Background = Brushes.LightBlue;
             marketPlaceButton.Background = Brushes.Transparent;
@@ -58,7 +57,7 @@ namespace ISSLab
             this.ShowPostsControl.Visibility = Visibility.Collapsed;
         }
 
-        private void onClickedYourMarketplaceCart(object sender, RoutedEventArgs e)
+        private void OnClickedYourMarketplaceCart(object sender, RoutedEventArgs e)
         {
             yourMarketplaceCartButton.Background = Brushes.LightBlue;
             createMarketplacePostButton.Background = Brushes.Transparent;
@@ -67,10 +66,10 @@ namespace ISSLab
             this.CreatePostControl.Visibility = Visibility.Collapsed;
             this.ShowPostsControl.Visibility = Visibility.Visible;
 
-            _viewModel.ChangeToCart();
+            viewModel.ChangeToCart();
         }
 
-        private void onClickedFavoritesButton(object sender, RoutedEventArgs e)
+        private void OnClickedFavoritesButton(object sender, RoutedEventArgs e)
         {
             favoritesButton.Background = Brushes.LightBlue;
             yourMarketplaceCartButton.Background = Brushes.Transparent;
@@ -79,7 +78,7 @@ namespace ISSLab
             this.CreatePostControl.Visibility = Visibility.Collapsed;
             this.ShowPostsControl.Visibility = Visibility.Visible;
 
-            _viewModel.ChangeToFavorites();
+            viewModel.ChangeToFavorites();
         }
     }
 }

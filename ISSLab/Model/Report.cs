@@ -8,43 +8,43 @@ namespace ISSLab.Model
 {
     public class Report
     {
-        private Guid _reportId;
-        private Guid _userId;
-        private Guid _postId;
-        private string _reasonForReporting;
-        private DateTime _dateOfReport;
+        private Guid reportId;
+        private Guid userId;
+        private Guid postId;
+        private string reasonForReporting;
+        private DateTime dateOfReport;
 
         public Report(Guid userId, Guid postId, string reasonForReporting)
         {
-            this._reportId = Guid.NewGuid(); ;
-            this._userId = userId;
-            this._postId = postId;
-            this._reasonForReporting = reasonForReporting;
-            this._dateOfReport = DateTime.Now;
+            this.reportId = Guid.NewGuid();
+            this.userId = userId;
+            this.postId = postId;
+            this.reasonForReporting = reasonForReporting;
+            this.dateOfReport = DateTime.Now;
         }
 
         public Report(Guid id, Guid userId, Guid postId, string reasonForReporting, DateTime dateOfReport)
         {
-            this._reportId = id;
-            this._userId = userId;
-            this._postId = postId;
-            this._reasonForReporting = reasonForReporting;
-            this._dateOfReport = dateOfReport;
+            this.reportId = id;
+            this.userId = userId;
+            this.postId = postId;
+            this.reasonForReporting = reasonForReporting;
+            this.dateOfReport = dateOfReport;
         }
 
         public Report()
         {
-            this._reportId = Guid.NewGuid();
-            this._userId = Guid.NewGuid();
-            this._postId = Guid.NewGuid();
-            this._reasonForReporting = Constants.EMPTY_STRING;
-            this._dateOfReport = DateTime.Now;
+            this.reportId = Guid.NewGuid();
+            this.userId = Guid.NewGuid();
+            this.postId = Guid.NewGuid();
+            this.reasonForReporting = Constants.EMPTY_STRING;
+            this.dateOfReport = DateTime.Now;
         }
 
-        public Guid ReportId { get => _reportId; }
-        public Guid UserId { get => _userId; }
-        public Guid PostId { get => _postId; }
-        public string ReasonForReporting { get => _reasonForReporting; set => _reasonForReporting = value; }
-        public DateTime DateOfReport { get => _dateOfReport; set => _dateOfReport = value; }
+        public Guid ReportId { get => reportId; }
+        public Guid UserId { get => userId; }
+        public Guid PostId { get => postId; }
+        public string ReasonForReporting { get => reasonForReporting; set => reasonForReporting = value; }
+        public DateTime DateOfReport { get => dateOfReport; set => dateOfReport = value; }
     }
 }

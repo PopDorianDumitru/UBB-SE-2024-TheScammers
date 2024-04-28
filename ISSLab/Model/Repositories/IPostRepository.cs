@@ -1,5 +1,4 @@
-﻿
-namespace ISSLab.Model.Repositories
+﻿namespace ISSLab.Model.Repositories
 {
     public interface IPostRepository
     {

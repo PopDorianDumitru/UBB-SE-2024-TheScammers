@@ -12,12 +12,12 @@ namespace Tests.Services
 {
     internal class UserServiceTests
     {
-        UserService userService;
-        Mock<IUserRepository> mockedUserRepository;
-        Mock<IPostRepository> mockedPostRepository;
+        private UserService userService;
+        private Mock<IUserRepository> mockedUserRepository;
+        private Mock<IPostRepository> mockedPostRepository;
 
         [SetUp]
-        public void setUp()
+        public void SetUp()
         {
             mockedUserRepository = new Mock<IUserRepository>();
             mockedPostRepository = new Mock<IPostRepository>();
@@ -29,8 +29,8 @@ namespace Tests.Services
         public void AddUser_AnyUser_UserRepositoryAddUserIsCalled()
         {
             Guid userId = Guid.NewGuid();
-            User addedUser = new User(userId, "", "", DateOnly.Parse("10.10.2020"), "", "", DateTime.Now, new List<Guid>(),
-                new List<Guid>(), new List<SellingUserScore>(), [], [], [], [], 0);
+            User addedUser = new User(userId, string.Empty, string.Empty, DateOnly.Parse("10.10.2020"), string.Empty, string.Empty, DateTime.Now, new List<Guid>(),
+                new List<Guid>(), new List<SellingUserScore>(), new List<Cart>(), new List<UsersFavoritePosts>(), new List<Guid>(), new List<Review>(), 0);
 
             userService.AddUser(addedUser);
 

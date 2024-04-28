@@ -11,37 +11,36 @@ namespace ISSLab.Model.Repositories
 {
     public class GroupRepository : IGroupRepository
     {
-        private List<Group> _allGroups;
+        private List<Group> allGroups;
 
         public GroupRepository()
         {
-            _allGroups = new List<Group>();
+            allGroups = new List<Group>();
         }
 
         public List<Group> FindAll()
         {
-            return _allGroups;
+            return allGroups;
         }
 
         public Group FindById(Guid id)
         {
-            for (int i = 0; i < _allGroups.Count; i++)
+            for (int i = 0; i < allGroups.Count; i++)
             {
-                if (_allGroups[i].GroupId == id)
+                if (allGroups[i].GroupId == id)
                 {
-                    return _allGroups[i];
+                    return allGroups[i];
                 }
             }
             throw new Exception("Group does not exist");
         }
-        
         public void RemoveGroup(Guid id)
         {
-            for (int i = 0; i < _allGroups.Count; i++)
+            for (int i = 0; i < allGroups.Count; i++)
             {
-                if (_allGroups[i].GroupId == id)
+                if (allGroups[i].GroupId == id)
                 {
-                    _allGroups.RemoveAt(i);
+                    allGroups.RemoveAt(i);
                     break;
                 }
             }
@@ -49,7 +48,7 @@ namespace ISSLab.Model.Repositories
 
         public void AddGroup(Group newGroup)
         {
-            _allGroups.Add(newGroup);
+            allGroups.Add(newGroup);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿
-namespace ISSLab.ViewModel
+﻿namespace ISSLab.ViewModel
 {
     public interface ICreatePostViewModel
     {

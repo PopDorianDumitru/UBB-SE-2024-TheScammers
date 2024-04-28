@@ -1,20 +1,20 @@
-﻿using ISSLab.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ISSLab.ViewModel;
 
 namespace ISSLab.View
 {
     public class FakeChat : IChat
     {
         public bool SendBuyingMessageCalled { get; set; }
-        private readonly ChatViewModel _chatViewModel;
+        private readonly ChatViewModel chatViewModel;
 
         public FakeChat(ChatViewModel chatViewModel)
         {
-            this._chatViewModel = chatViewModel;
+            this.chatViewModel = chatViewModel;
         }
 
         public void InitializeComponent()

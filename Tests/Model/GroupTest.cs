@@ -1,32 +1,32 @@
-﻿using ISSLab.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ISSLab.Model;
 
 namespace Tests.Model
 {
     internal class GroupTest
     {
-        public Group groupEmpty;
-        public Group groupWithId;
-        public Group groupWithoutId;
+        private Group groupEmpty;
+        private Group groupWithId;
+        private Group groupWithoutId;
 
-        public Guid groupId;
-        public string name;
-        public int memberCount;
-        public List<Guid> members;
-        public List<Guid> posts;
-        public List<Guid> topSellers;
-        public List<Guid> admins;
-        public List<Guid>? sellingUsers;
-        public List<Guid> usersRequestingToSell;
+        private Guid groupId;
+        private string name;
+        private int memberCount;
+        private List<Guid> members;
+        private List<Guid> posts;
+        private List<Guid> topSellers;
+        private List<Guid> admins;
+        private List<Guid>? sellingUsers;
+        private List<Guid> usersRequestingToSell;
 
-        public string description;
-        public string type;
-        public string bannerPath;
-        public DateTime creationDate;
+        private string description;
+        private string type;
+        private string bannerPath;
+        private DateTime creationDate;
 
         [SetUp]
         public void SetUp()
@@ -118,7 +118,6 @@ namespace Tests.Model
         {
             Assert.That(memberCount, Is.EqualTo(groupWithId.MemberCount));
         }
-
 
         [Test]
         public void Members_GetFromGroupEmpty_ShouldBeEmpty()
@@ -238,7 +237,6 @@ namespace Tests.Model
             Assert.That(groupWithId.Description, Is.EqualTo(newGroupDescription));
         }
 
-
         [Test]
         public void Type_GetFromGroupEmpty_ShouldBeEmpty()
         {
@@ -276,9 +274,6 @@ namespace Tests.Model
             groupWithId.Type = newGroupType;
             Assert.That(groupWithId.Type, Is.EqualTo(newGroupType));
         }
-
-
-
 
         [Test]
         public void BannerPath_GetFromGroupEmpty_ShouldBeEmpty()
@@ -318,7 +313,6 @@ namespace Tests.Model
             Assert.That(groupWithId.BannerPath, Is.EqualTo(newGroupBannerPath));
         }
 
-
         [Test]
         public void CreationDate_GetFromGroupEmpty_IsInstanceOfDateTime()
         {
@@ -336,7 +330,6 @@ namespace Tests.Model
         {
             Assert.That(groupWithId.CreationDate, Is.EqualTo(creationDate));
         }
-
 
         [Test]
         public void UsersWithSellRequests_GetFromGroupEmpty_ShouldBeEmpty()
@@ -362,7 +355,6 @@ namespace Tests.Model
             groupEmpty.UsersWithSellRequests = guids;
             Assert.That(groupEmpty.UsersWithSellRequests, Is.EqualTo(guids));
         }
-
 
         [Test]
         public void TopSellers_GetFromGroupEmpty_ShouldBeEmpty()
@@ -453,7 +445,6 @@ namespace Tests.Model
             groupEmpty.AddMember(user);
             var exceptionMessage = Assert.Throws<Exception>(() => { groupEmpty.AddMember(user); });
             Assert.That(exceptionMessage.Message, Is.EqualTo("User is already a member of this group"));
-
         }
         [Test]
         public void RemoveMember_UserIsMember_MembersDontContainUserAnymore()
@@ -477,7 +468,6 @@ namespace Tests.Model
             Guid user = Guid.NewGuid();
             var exceptionMessage = Assert.Throws<Exception>(() => { groupEmpty.RemoveMember(user); });
             Assert.That(exceptionMessage.Message, Is.EqualTo("User is not a member of this group"));
-
         }
         [Test]
         public void AddPost_AnyPost_PostIsAdded()
@@ -499,7 +489,6 @@ namespace Tests.Model
         {
             Guid post = Guid.NewGuid();
             Assert.Throws<Exception>(() => { groupEmpty.RemovePost(post); });
-
         }
 
         [Test]
@@ -508,7 +497,6 @@ namespace Tests.Model
             Guid user = Guid.NewGuid();
             var exceptionMessage = Assert.Throws<Exception>(() => { groupEmpty.AddAdmin(user); });
             Assert.That(exceptionMessage.Message, Is.EqualTo("User is not a member of this group"));
-
         }
         [Test]
         public void AddAdmin_UserMemberAndAdmin_ThrowException()
@@ -518,7 +506,6 @@ namespace Tests.Model
             groupEmpty.AddAdmin(user);
             var exceptionMessage = Assert.Throws<Exception>(() => { groupEmpty.AddAdmin(user); });
             Assert.That(exceptionMessage.Message, Is.EqualTo("User is already an admin of this group"));
-
         }
         [Test]
         public void AddAdmin_UserMemberNotAdmin_UserIsAddedAsAdmin()
@@ -560,7 +547,6 @@ namespace Tests.Model
             Guid user = Guid.NewGuid();
             var exceptionMessage = Assert.Throws<Exception>(() => { groupEmpty.AddSellingUser(user); });
             Assert.That(exceptionMessage.Message, Is.EqualTo("User is not a member of this group"));
-
         }
         [Test]
         public void AddSellingUser_UserMemberAndSellingUser_ThrowException()
@@ -570,7 +556,6 @@ namespace Tests.Model
             groupEmpty.AddSellingUser(user);
             var exceptionMessage = Assert.Throws<Exception>(() => { groupEmpty.AddSellingUser(user); });
             Assert.That(exceptionMessage.Message, Is.EqualTo("User is already a selling user of this group"));
-
         }
         [Test]
         public void AddSellingUser_UserMemberNotSellingUser_UserIsAddedAsSellingUser()
@@ -605,15 +590,12 @@ namespace Tests.Model
             Assert.That(groupEmpty.SellingUsers, Has.Count.EqualTo(0));
         }
 
-
-
         [Test]
         public void AddRequestingToSellUser_UserIsNotMember_ThrowException()
         {
             Guid user = Guid.NewGuid();
             var exceptionMessage = Assert.Throws<Exception>(() => { groupEmpty.AddRequestingToSellUser(user); });
             Assert.That(exceptionMessage.Message, Is.EqualTo("User is not a member of this group"));
-
         }
         [Test]
         public void AddRequestingToSellUser_UserMemberAndRequestingUser_ThrowException()
@@ -623,7 +605,6 @@ namespace Tests.Model
             groupEmpty.AddRequestingToSellUser(user);
             var exceptionMessage = Assert.Throws<Exception>(() => { groupEmpty.AddRequestingToSellUser(user); });
             Assert.That(exceptionMessage.Message, Is.EqualTo("User is already a requesting user of this group"));
-
         }
         [Test]
         public void AddRequestingToSellUser_UserMemberNotRequestingUser_UserIsAddedAsRequestingUser()
@@ -678,9 +659,6 @@ namespace Tests.Model
         {
             Guid seller = Guid.NewGuid();
             Assert.Throws<Exception>(() => { groupEmpty.RemoveTopSeller(seller); });
-
-
         }
     }
-
 }

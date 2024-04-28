@@ -8,192 +8,197 @@ namespace ISSLab.Model
 {
     public class Post
     {
-        private Guid _id;
-        private int _views;
-        private List<Guid> _usersThatShared;
-        private List<Guid> _usersThatLiked;
-        private List<Comment> _comments;
-        private string _mediaContent;
-        private DateTime _creationDate;
-        private Guid _authorId;
-        private Guid _groupId;
-        private bool _promoted;
-        private List<Guid> _usersThatFavorited;
-        private List<Report> _reports;
-        private string _itemLocation;
-        private bool _confirmed;
-        private string _description;
-        private string _title;
-        private List<InterestStatus> _interestStatuses;
-        private string _contacts;
-        private string _type;
-
+        private Guid id;
+        private int views;
+        private List<Guid> usersThatShared;
+        private List<Guid> usersThatLiked;
+        private List<Comment> comments;
+        private string mediaContent;
+        private DateTime creationDate;
+        private Guid authorId;
+        private Guid groupId;
+        private bool promoted;
+        private List<Guid> usersThatFavorited;
+        private List<Report> reports;
+        private string itemLocation;
+        private bool confirmed;
+        private string description;
+        private string title;
+        private List<InterestStatus> interestStatuses;
+        private string contacts;
+        private string type;
 
         public Post(string mediaContent, Guid authorId, Guid groupId, string itemLocation, string description, string title, string contacts, string type, bool confirmed)
         {
-            this._confirmed = confirmed;
-            this._id = Guid.NewGuid();
-            this._usersThatShared = new List<Guid>();
-            this._usersThatLiked = new List<Guid>();
-            this._comments = new List<Comment>();
-            this._mediaContent = mediaContent;
-            this._creationDate = DateTime.Now;
-            this._authorId = authorId;
-            this._groupId = groupId;
-            this._promoted = false;
-            this._usersThatFavorited = new List<Guid>();
-            this._itemLocation = itemLocation;
-            this._description = description;
-            this._title = title;
-            this._views = 0;
-            this._interestStatuses = new List<InterestStatus>();
-            this._contacts = contacts;
-            this._reports = new List<Report>();
-            this._type = type;
+            this.confirmed = confirmed;
+            this.id = Guid.NewGuid();
+            this.usersThatShared = new List<Guid>();
+            this.usersThatLiked = new List<Guid>();
+            this.comments = new List<Comment>();
+            this.mediaContent = mediaContent;
+            this.creationDate = DateTime.Now;
+            this.authorId = authorId;
+            this.groupId = groupId;
+            this.promoted = false;
+            this.usersThatFavorited = new List<Guid>();
+            this.itemLocation = itemLocation;
+            this.description = description;
+            this.title = title;
+            this.views = 0;
+            this.interestStatuses = new List<InterestStatus>();
+            this.contacts = contacts;
+            this.reports = new List<Report>();
+            this.type = type;
         }
 
         public Post(Guid id, List<Guid> usersThatShared, List<Guid> usersThatLiked, List<Comment> comments, string mediaContent, DateTime creationDate, Guid authorId, Guid groupId, bool promoted, List<Guid> usersThatFavorited, string itemLocation, string description, string title, List<InterestStatus> interestStatuses, string contacts, List<Report> reports, string type, bool confirmed, int views)
         {
-            this._id = id;
-            this._usersThatShared = usersThatShared;
-            this._usersThatLiked = usersThatLiked;
-            this._comments = comments;
-            this._mediaContent = mediaContent;
-            this._creationDate = creationDate;
-            this._authorId = authorId;
-            this._groupId = groupId;
-            this._promoted = promoted;
-            this._usersThatFavorited = usersThatFavorited;
-            this._itemLocation = itemLocation;
-            this._description = description;
-            this._title = title;
-            this._interestStatuses = interestStatuses;
-            this._contacts = contacts;
-            this._reports = reports;
-            this._type = type;
-            this._views = views;
-            this._confirmed = confirmed;
+            this.id = id;
+            this.usersThatShared = usersThatShared;
+            this.usersThatLiked = usersThatLiked;
+            this.comments = comments;
+            this.mediaContent = mediaContent;
+            this.creationDate = creationDate;
+            this.authorId = authorId;
+            this.groupId = groupId;
+            this.promoted = promoted;
+            this.usersThatFavorited = usersThatFavorited;
+            this.itemLocation = itemLocation;
+            this.description = description;
+            this.title = title;
+            this.interestStatuses = interestStatuses;
+            this.contacts = contacts;
+            this.reports = reports;
+            this.type = type;
+            this.views = views;
+            this.confirmed = confirmed;
         }
 
         public Post()
         {
-            this._id = Guid.NewGuid();
-            this._usersThatShared = new List<Guid>();
-            this._usersThatLiked = new List<Guid>();
-            this._comments = new List<Comment>();
-            this._reports = new List<Report>();
-            this._mediaContent = "";
-            this._creationDate = DateTime.Now;
-            this._authorId = Guid.NewGuid();
-            this._groupId = Guid.NewGuid();
-            this._promoted = false;
-            this._usersThatFavorited = new List<Guid>();
-            this._itemLocation = "";
-            this._description = "";
-            this._title = "";
-            this._interestStatuses = new List<InterestStatus>();
-            this._contacts = "";
-            this._type = Constants.DEFAULT_POST_TYPE;
-            this._confirmed = false;
+            this.id = Guid.NewGuid();
+            this.usersThatShared = new List<Guid>();
+            this.usersThatLiked = new List<Guid>();
+            this.comments = new List<Comment>();
+            this.reports = new List<Report>();
+            this.mediaContent = Constants.EMPTY_STRING;
+            this.creationDate = DateTime.Now;
+            this.authorId = Guid.NewGuid();
+            this.groupId = Guid.NewGuid();
+            this.promoted = false;
+            this.usersThatFavorited = new List<Guid>();
+            this.itemLocation = Constants.EMPTY_STRING;
+            this.description = Constants.EMPTY_STRING;
+            this.title = Constants.EMPTY_STRING;
+            this.interestStatuses = new List<InterestStatus>();
+            this.contacts = Constants.EMPTY_STRING;
+            this.type = Constants.DEFAULT_POST_TYPE;
+            this.confirmed = false;
         }
 
-        public int Views { get => _views; set => _views = value; }
-        public string Type { get => _type; set => _type = value; }
+        public int Views { get => views; set => views = value; }
+        public string Type { get => type; set => type = value; }
 
-        public Guid Id { get => _id; }
-        public List<Guid> UsersThatShared { get => _usersThatShared; }
-        public List<Guid> UsersThatLiked { get => _usersThatLiked; }
-        public List<Comment> Comments { get => _comments; }
-        public string MediaContent { get => _mediaContent; set => _mediaContent = value; }
-        public DateTime CreationDate { get => _creationDate; set => _creationDate = value; }
-        public Guid AuthorId { get => _authorId; }
-        public Guid GroupId { get => _groupId; }
-        public bool Promoted { get => _promoted; set => _promoted = value; }
-        public List<Guid> UsersThatFavorited { get => _usersThatFavorited; }
-        public List<Report> Reports { get => _reports; }
-        public string ItemLocation { get => _itemLocation; set => _itemLocation = value; }
-        public string Description { get => _description; set => _description = value; }
-        public string Title { get => _title; set => _title = value; }
-        public List<InterestStatus> InterestStatuses { get => _interestStatuses; }
-        public string Contacts { get => _contacts; set => _contacts = value; }
+        public Guid Id { get => id; }
+        public List<Guid> UsersThatShared { get => usersThatShared; }
+        public List<Guid> UsersThatLiked { get => usersThatLiked; }
+        public List<Comment> Comments { get => comments; }
+        public string MediaContent { get => mediaContent; set => mediaContent = value; }
+        public DateTime CreationDate { get => creationDate; set => creationDate = value; }
+        public Guid AuthorId { get => authorId; }
+        public Guid GroupId { get => groupId; }
+        public bool Promoted { get => promoted; set => promoted = value; }
+        public List<Guid> UsersThatFavorited { get => usersThatFavorited; }
+        public List<Report> Reports { get => reports; }
+        public string ItemLocation { get => itemLocation; set => itemLocation = value; }
+        public string Description { get => description; set => description = value; }
+        public string Title { get => title; set => title = value; }
+        public List<InterestStatus> InterestStatuses { get => interestStatuses; }
+        public string Contacts { get => contacts; set => contacts = value; }
 
-        public bool Confirmed { get => _confirmed; set => _confirmed = value; }
+        public bool Confirmed { get => confirmed; set => confirmed = value; }
 
         public void AddReport(Report report)
         {
-            _reports.Add(report);
+            reports.Add(report);
         }
         public void RemoveReport(Guid userId)
         {
-            _reports.RemoveAll(userOnTrial => userOnTrial.UserId == userId);
+            reports.RemoveAll(userOnTrial => userOnTrial.UserId == userId);
         }
 
         public void ToggleFavorite(Guid userId)
         {
-            if (_usersThatFavorited.Contains(userId))
+            if (usersThatFavorited.Contains(userId))
             {
-                _usersThatFavorited.Remove(userId);
+                usersThatFavorited.Remove(userId);
             }
             else
             {
-                _usersThatFavorited.Add(userId);
+                usersThatFavorited.Add(userId);
             }
         }
 
         public void ToggleLike(Guid userId)
         {
-            if (_usersThatLiked.Contains(userId))
-                _usersThatLiked.Remove(userId);
+            if (usersThatLiked.Contains(userId))
+            {
+                usersThatLiked.Remove(userId);
+            }
             else
-                _usersThatLiked.Add(userId);
+            {
+                usersThatLiked.Add(userId);
+            }
         }
 
         public void ToggleShare(Guid userId)
         {
-            if (_usersThatShared.Contains(userId))
+            if (usersThatShared.Contains(userId))
             {
-                _usersThatShared.Remove(userId);
+                usersThatShared.Remove(userId);
             }
             else
             {
-                _usersThatShared.Add(userId);
+                usersThatShared.Add(userId);
             }
         }
 
         public void AddComment(Comment comment)
         {
-            _comments.Add(comment);
+            comments.Add(comment);
         }
 
         public void RemoveComment(Comment comment)
         {
-            _comments.Remove(comment);
+            comments.Remove(comment);
         }
 
         public int InterestLevel()
         {
-            return _interestStatuses.FindAll(checkedInterestStatus => checkedInterestStatus.Interested).Count
-                - _interestStatuses.FindAll(checkedInterestStatus => !checkedInterestStatus.Interested).Count;
+            return interestStatuses.FindAll(checkedInterestStatus => checkedInterestStatus.Interested).Count
+                - interestStatuses.FindAll(checkedInterestStatus => !checkedInterestStatus.Interested).Count;
         }
 
         public void AddInterestStatus(InterestStatus interestStatus)
         {
-            _interestStatuses.Add(interestStatus);
+            interestStatuses.Add(interestStatus);
         }
 
         public void RemoveInterestStatus(Guid userId)
         {
-            _interestStatuses.RemoveAll(checkedInterestStatus => checkedInterestStatus.InterestedUserId == userId);
+            interestStatuses.RemoveAll(checkedInterestStatus => checkedInterestStatus.InterestedUserId == userId);
         }
         public void ToggleInterestStatus(Guid userId)
         {
-            int indexOfUsersInterestStatus = _interestStatuses.FindIndex(checkedInterestStatus => checkedInterestStatus.InterestedUserId == userId);
+            int indexOfUsersInterestStatus = interestStatuses.FindIndex(checkedInterestStatus => checkedInterestStatus.InterestedUserId == userId);
             if (indexOfUsersInterestStatus == -1)
+            {
                 throw new Exception("Interest status not found");
+            }
             else
-                _interestStatuses[indexOfUsersInterestStatus].ToggleInterested();
+            {
+                interestStatuses[indexOfUsersInterestStatus].ToggleInterested();
+            }
         }
-
     }
-
 }
