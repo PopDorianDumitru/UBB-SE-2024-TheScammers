@@ -21,14 +21,16 @@ namespace ISSLab.ViewModel
         private Guid _userId;
         private Guid _groupId;
         private ICreatePostViewModel postCreationViewModel;
+        private IChatFactory chatFactory;
 
         public IViewModelBase CurrentViewModel { get; }
-        public MainWindowViewModel(IPostService givenPostService, IUserService givenUserService, Guid userId, Guid groupId)
+        public MainWindowViewModel(IPostService givenPostService, IUserService givenUserService, Guid userId, Guid groupId, IChatFactory chatFactory)
         {
             this._postService = givenPostService;
             this._userService = givenUserService;
             this._userId = userId;
             this._groupId = groupId;
+            this.chatFactory = chatFactory;
 
             _shownPosts = new ObservableCollection<IPostContentViewModel>();
 

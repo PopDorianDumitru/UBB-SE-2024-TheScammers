@@ -22,8 +22,10 @@ namespace ISSLab
             Guid groupId = Guid.NewGuid();
 
             DataSet dataSet = new DataSet();
+
             IPostRepository postRepository = new PostRepository();
             IUserRepository userRepository = new UserRepository();
+            IChatFactory chatFactory = new ChatFactory();
 
             User connectedUser = new User(userId, "Soundboard1", "Dorian", DateOnly.Parse("11.12.2003"), "../Resources/Images/Dorian.jpeg", "fsdgfd", DateTime.Parse("10.04.2024"), new List<Guid>(), new List<Guid>(), new List<SellingUserScore>(), new List<Cart>(), new List<UsersFavoritePosts>(), new List<Guid>(), new List<Review>(), 0);
             User userOne = new User("Vini", "Vinicius Junior", DateOnly.Parse("11.12.2003"), "../Resources/Images/Vini.png", "fdsfsdfds");
@@ -35,7 +37,7 @@ namespace ISSLab
             IPostService postService = new PostService(postRepository);
             IUserService userService = new UserService(userRepository, postRepository);
 
-            IMainWindowViewModel mainWindowViewModel = new MainWindowViewModel(postService, userService, userId, groupId);
+            IMainWindowViewModel mainWindowViewModel = new MainWindowViewModel(postService, userService, userId, groupId,chatFactory);
             MainWindow mainWindow = new MainWindow(mainWindowViewModel);
             mainWindow.Show();
         }
