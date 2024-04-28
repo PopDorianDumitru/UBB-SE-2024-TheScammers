@@ -19,6 +19,7 @@ namespace Tests.ViewModel
         private FakeUserService _fakeUserService;
         Guid expectedUserId;
         Guid expectedGroupId;
+
         [SetUp]
         public void SetUp()
         {
@@ -26,7 +27,7 @@ namespace Tests.ViewModel
             _fakeUserService = new FakeUserService();
             expectedUserId = Guid.NewGuid();
             expectedGroupId = Guid.NewGuid();
-            _mainWindowViewModel = new MainWindowViewModel(_fakePostService, _fakeUserService, expectedUserId, expectedGroupId);
+            _mainWindowViewModel = new MainWindowViewModel(_fakePostService, _fakeUserService, expectedUserId, expectedGroupId, new ChatFactory());
         }
 
         [Test]

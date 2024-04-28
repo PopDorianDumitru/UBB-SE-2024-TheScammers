@@ -84,7 +84,7 @@ namespace ISSLab.ViewModel
             {
                 User originalPoster = _userService.GetUserById(currentPostToLoad.AuthorId);
                 //shownPosts.Add(p);
-                _shownPosts.Add(new PostContentViewModel(currentPostToLoad, originalPoster, this._userId, this._groupId, this._userService));
+                _shownPosts.Add(new PostContentViewModel(currentPostToLoad, originalPoster, this._userId, this._groupId, this._userService, this.chatFactory));
             }
 
             OnPropertyChanged(nameof(ShownPosts));
