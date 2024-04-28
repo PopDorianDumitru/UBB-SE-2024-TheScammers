@@ -70,7 +70,7 @@ namespace ISSLab.ViewModel
 
         public void ChangeToCart()
         {
-            List<Post> cart = userService.GetItemsFromCart(userId, groupId);
+            List<Post> cart = userService.GetPostsFromCart(userId, groupId);
             LoadPostsCommand(cart);
 
         }
