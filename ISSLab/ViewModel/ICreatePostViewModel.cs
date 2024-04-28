@@ -4,6 +4,7 @@ namespace ISSLab.ViewModel
     public interface ICreatePostViewModel
     {
         Guid AccountId { get; }
+        Guid GroupId { get; }
         string Availability { get; set; }
         string AvailabilityVisible { get; set; }
         string Condition { get; set; }

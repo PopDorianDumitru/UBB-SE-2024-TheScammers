@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Moq;
+using System.Text.RegularExpressions;
 
 namespace Tests.ViewModel
 {
@@ -16,12 +17,16 @@ namespace Tests.ViewModel
         private MainWindowViewModel _mainWindowViewModel;
         private FakePostService _fakePostService;
         private FakeUserService _fakeUserService;
+        Guid expectedUserId;
+        Guid expectedGroupId;
         [SetUp]
         public void SetUp()
         {
             _fakePostService = new FakePostService();
             _fakeUserService = new FakeUserService();
-            _mainWindowViewModel = new MainWindowViewModel(_fakePostService, _fakeUserService, Guid.NewGuid(), Guid.NewGuid());
+            expectedUserId = Guid.NewGuid();
+            expectedGroupId = Guid.NewGuid();
+            _mainWindowViewModel = new MainWindowViewModel(_fakePostService, _fakeUserService, expectedUserId, expectedGroupId);
         }
 
         [Test]
@@ -59,6 +64,15 @@ namespace Tests.ViewModel
             Assert.That(_fakeUserService.getItemsFromCartCalled, Is.EqualTo(true));
         }
 
+        [Test]
+        public void PostCreationViewModel_SetGetValue_ReturnsCorrectValue()
+        {
+            var expectedPostCreationViewModel = new CreatePostViewModel(expectedUserId, expectedGroupId, _fakePostService);
+            var actualPostCreationViewModel = _mainWindowViewModel.PostCreationViewModel;
+            _mainWindowViewModel.PostCreationViewModel = expectedPostCreationViewModel;
 
+            Assert.That(actualPostCreationViewModel.AccountId, Is.EqualTo(expectedUserId));
+            Assert.That(actualPostCreationViewModel.GroupId, Is.EqualTo(expectedGroupId));
+        }
     }
 }
