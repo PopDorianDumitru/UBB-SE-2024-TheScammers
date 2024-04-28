@@ -214,7 +214,7 @@ namespace ISSLab.View
         private void onUninterestedClicked(object sender, RoutedEventArgs e)
         {
             var viewModel = DataContext as IPostContentViewModel;
-            viewModel.AddUniterests();
+            viewModel.AddUninterests();
         }
 
         private void onBuyButtonClicked(object sender, RoutedEventArgs e)

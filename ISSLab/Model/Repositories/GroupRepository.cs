@@ -27,7 +27,7 @@ namespace ISSLab.Model.Repositories
         {
             for (int i = 0; i < _allGroups.Count; i++)
             {
-                if (_allGroups[i].Id == id)
+                if (_allGroups[i].GroupId == id)
                 {
                     return _allGroups[i];
                 }
@@ -39,7 +39,7 @@ namespace ISSLab.Model.Repositories
         {
             for (int i = 0; i < _allGroups.Count; i++)
             {
-                if (_allGroups[i].Id == id)
+                if (_allGroups[i].GroupId == id)
                 {
                     _allGroups.RemoveAt(i);
                     break;
