@@ -203,15 +203,15 @@ namespace ISSLab.Model
         }
         public void RemoveRequestingToSellUser(Guid user)
         {
-            if (!usersRequestingToSell.Contains(user))
+            if (!members.Contains(user))
             {
                 throw new Exception("User is not a member of this group");
             }
-            if (!usersRequestingToSell.Contains(user))
+            if (!sellingUsers.Contains(user))
             {
                 throw new Exception("User is not a selling user of this group");
             }
-            usersRequestingToSell.Remove(user);
+            sellingUsers.Remove(user);
         }
     }
 }
