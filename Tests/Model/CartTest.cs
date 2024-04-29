@@ -50,50 +50,50 @@ namespace Tests.Model
         }
 
         [Test]
-        public void UserIdGet_UserIdFromEmptyCart_ShouldNotBeEmpty()
+        public void UserIdGet_EmptyConstructorCart_ShouldNotBeEmpty()
         {
             Assert.That(cartInitializedWithEmptyConstructor.UserId, Is.Not.EqualTo(Guid.Empty));
         }
 
         [Test]
-        public void UserIdGet_UserIdFromCartGroupUser_ShouldBeEqualToUserId()
+        public void UserIdGet_GroupUserConstructorCart_ShouldBeEqualToUserId()
         {
             Assert.That(cartInitializedWithGroupUser.UserId, Is.EqualTo(userId));
         }
 
         [Test]
-        public void UserIdGet_UserIdFromCartAll_ShouldBeEqualToUserId()
+        public void UserIdGet_GroupUserPostsConstructorCart_ShouldBeEqualToUserId()
         {
             Assert.That(cartInitializedWithGroupUserPosts.UserId, Is.EqualTo(userId));
         }
 
         [Test]
-        public void PostsSavedInCartGet_FromCartEmpty_ShouldBeEmptyList()
+        public void PostsSavedInCartGet_EmptyConstructorCart_ShouldBeEmptyList()
         {
             Assert.That(cartInitializedWithEmptyConstructor.PostsSavedInCart, Is.Empty);
         }
 
         [Test]
-        public void PostsSavedInCartGet_FromCartGroupUser_ShouldBeEmptyList()
+        public void PostsSavedInCartGet_GroupUserConstructorCart_ShouldBeEmptyList()
         {
             Assert.That(cartInitializedWithGroupUser.PostsSavedInCart, Is.Empty);
         }
 
         [Test]
-        public void PostsSavedInCartGet_FromCartAll_ShouldBeEqualToPostsSavedInCart()
+        public void PostsSavedInCartGet_GroupUserPostsConstructorCart_ShouldBeEqualToPostsSavedInCart()
         {
             Assert.That(cartInitializedWithGroupUserPosts.PostsSavedInCart, Is.EqualTo(postsSavedInCart));
         }
 
         [Test]
-        public void AddPostToCart_AddingPostThatDoesntAlreadyExistInTheCart_PostsListShouldContainPost()
+        public void AddPostToCart_PostThatDoesntAlreadyExistInTheCart_PostsListShouldContainPost()
         {
             cartInitializedWithGroupUserPosts.AddPostToCart(postToSave);
             Assert.Contains(postToSave, cartInitializedWithGroupUserPosts.PostsSavedInCart);
         }
 
         [Test]
-        public void AddPostToCart_AddingPostThatAlreadyExists_ShouldThrowException()
+        public void AddPostToCart_PostThatAlreadyExists_ShouldThrowException()
         {
             cartInitializedWithGroupUserPosts.AddPostToCart(postToSave);
             var exceptionMessage = Assert.Throws<Exception>(() => { cartInitializedWithGroupUserPosts.AddPostToCart(postToSave); });
@@ -101,7 +101,7 @@ namespace Tests.Model
         }
 
         [Test]
-        public void RemovePostFromCart_RemovePostThatExists_PostsListShouldNotContainPostAnymore()
+        public void RemovePostFromCart_PostThatExists_PostsListShouldNotContainPostAnymore()
         {
             cartInitializedWithGroupUserPosts.AddPostToCart(postToSave);
             cartInitializedWithGroupUserPosts.RemovePostFromCart(postToSave);
@@ -109,7 +109,7 @@ namespace Tests.Model
         }
 
         [Test]
-        public void RemovePostFromCart_RemovePostThatDoesntExist_ShouldThrowException()
+        public void RemovePostFromCart_PostThatDoesntExist_ShouldThrowException()
         {
             var exceptionMessage = Assert.Throws<Exception>(() => { cartInitializedWithGroupUserPosts.RemovePostFromCart(postToSave); });
             Assert.That(exceptionMessage.Message, Is.EqualTo("Post not in cart"));

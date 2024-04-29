@@ -514,7 +514,7 @@ namespace Tests.Model
         }
 
         [Test]
-        public void RemoveInterestUser_InterestStatusRemovedFromPost()
+        public void RemoveInterestStatus_InterestStatusRemovedFromPost()
         {
             thirdConstructorPost.AddInterestStatus(interestStatusToAdd3);
             thirdConstructorPost.RemoveInterestStatus(interestStatusToAdd3.InterestedUserId);

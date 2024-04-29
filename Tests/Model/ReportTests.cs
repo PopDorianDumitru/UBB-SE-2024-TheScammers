@@ -77,26 +77,26 @@ namespace Tests.Model
         }
 
         [Test]
-        public void ReasonForReportingGet_ReportFirstConstructor_ShouldBeEqualWithViolence()
+        public void ReasonForReportingGet_ReportFirstConstructor_ShouldBeEqualWithTheSetReason()
         {
             Assert.True(reportToTest1.ReasonForReporting == "violence");
         }
 
         [Test]
-        public void ReasonForReportingSet_ReportSecondConstructor_ReasonForReportingShouldBeEqualWithHate()
+        public void ReasonForReportingSet_ReportSecondConstructor_ReasonForReportingShouldBeEqualWithTheSetReason()
         {
             reportToTest2.ReasonForReporting = "hate";
             Assert.True(reportToTest2.ReasonForReporting == "hate");
         }
 
         [Test]
-        public void DateOfReportGet_GetDateOfReportForReportSecondConstructor_ShouldBeJan112024()
+        public void DateOfReportGet_GetDateOfReportForReportSecondConstructor_ShouldBeTheDateOfReport()
         {
             Assert.True(reportToTest2.DateOfReport == DateTime.Parse("Jan 11,2024"));
         }
 
         [Test]
-        public void DateOfReportSet_GetReasonForReportingForReportFirstConstructor_ShouldBeJan112023()
+        public void DateOfReportSet_GetReasonForReportingForReportFirstConstructor_ShouldBeTheDateOfReport()
         {
             reportToTest1.DateOfReport = DateTime.Parse("Jan 11,2023");
             Assert.True(reportToTest1.DateOfReport == DateTime.Parse("Jan 11,2023"));
