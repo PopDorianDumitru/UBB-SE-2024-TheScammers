@@ -415,13 +415,13 @@ namespace Tests.Model
             Assert.IsFalse(groupEmpty.UsersWithSellRequests.Contains(userId));
         }
 
-        // [Test]
-        // public void RemoveUserWithSellRequest_RemoveNonExisting_ShouldThrowException()
-        // {
-        //    Guid userId = Guid.NewGuid();
+        [Test]
+        public void RemoveUserWithSellRequest_RemoveNonExisting_ShouldNotThrowException()
+        {
+            Guid userId = Guid.NewGuid();
 
-        // Assert.Throws<Exception>(() => { groupEmpty.RemoveUserWithSellRequest(userId); });
-        // }
+            Assert.DoesNotThrow(() => { groupEmpty.RemoveUserWithSellRequest(userId); });
+        }
         [Test]
         public void AddMember_UserNotMember_MembersShouldContainUser()
         {
@@ -483,12 +483,12 @@ namespace Tests.Model
             groupEmpty.RemovePost(post);
             Assert.That(groupEmpty.Posts, Is.Empty);
         }
-        // [Test]
-        // public void RemovePost_PostDoesntExist_ThrowException()
-        // {
-        //    Guid post = Guid.NewGuid();
-        //    Assert.Throws<Exception>(() => { groupEmpty.RemovePost(post); });
-        // }
+        [Test]
+        public void RemovePost_PostDoesntExist_DoesNotThrowException()
+        {
+            Guid post = Guid.NewGuid();
+            Assert.DoesNotThrow(() => { groupEmpty.RemovePost(post); });
+        }
         [Test]
         public void AddAdmin_UserIsNotMember_ThrowException()
         {
@@ -652,11 +652,11 @@ namespace Tests.Model
             groupEmpty.RemoveTopSeller(seller);
             Assert.That(groupEmpty.TopSellers, Is.Empty);
         }
-        // [Test]
-        // public void RemoveTopSeller_TopSellerDoesntExist_ThrowException()
-        // {
-        //    Guid seller = Guid.NewGuid();
-        //    Assert.Throws<Exception>(() => { groupEmpty.RemoveTopSeller(seller); });
-        // }
+        [Test]
+        public void RemoveTopSeller_TopSellerDoesntExist_DoesNotThrowException()
+        {
+            Guid seller = Guid.NewGuid();
+            Assert.DoesNotThrow(() => { groupEmpty.RemoveTopSeller(seller); });
+        }
     }
 }
